@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} bg-background`}>
-      <body className="min-h-screen font-sans antialiased">{children}</body>
+      <body className="min-h-screen bg-background text-foreground font-sans antialiased">{children}</body>
     </html>
   );
 }
