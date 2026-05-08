@@ -5,18 +5,29 @@ import { useEffect, useState } from "react";
 // vol = monthly transaction count for a typical business in the niche.
 // defaultValue = avg customer value per transaction/visit/service (slider seed).
 // velocityTarget = healthy reviews/month for top performers (research-tuned 2026).
+// valueMin/Max/Step = slider scaling per industry (small-ticket niches get tight ranges
+// + small steps; high-ticket niches get wider ranges + bigger steps so mobile drag is sane).
 const industries: Record<
   string,
-  { defaultValue: number; vol: number; velocityTarget: number; valueLabel: string; label: string }
+  {
+    defaultValue: number;
+    vol: number;
+    velocityTarget: number;
+    valueLabel: string;
+    label: string;
+    valueMin: number;
+    valueMax: number;
+    valueStep: number;
+  }
 > = {
-  petgroomer:    { defaultValue: 70,    vol: 180, velocityTarget: 5,  valueLabel: "per groom",      label: "pet groomers" },
-  vet:           { defaultValue: 290,   vol: 220, velocityTarget: 10, valueLabel: "per visit",      label: "vet practices" },
-  autoshop:      { defaultValue: 480,   vol: 160, velocityTarget: 8,  valueLabel: "per service",    label: "auto repair shops" },
-  funeral:       { defaultValue: 9500,  vol: 12,  velocityTarget: 2,  valueLabel: "per service",    label: "funeral homes" },
-  moving:        { defaultValue: 2100,  vol: 35,  velocityTarget: 4,  valueLabel: "per move",       label: "moving companies" },
-  seniorliving:  { defaultValue: 4800,  vol: 40,  velocityTarget: 3,  valueLabel: "per resident/mo",label: "senior living facilities" },
-  marketing:     { defaultValue: 3200,  vol: 8,   velocityTarget: 2,  valueLabel: "per engagement", label: "marketing consultants" },
-  b2b:           { defaultValue: 2400,  vol: 15,  velocityTarget: 2,  valueLabel: "per engagement", label: "B2B service businesses" },
+  petgroomer:    { defaultValue: 70,    vol: 180, velocityTarget: 5,  valueLabel: "per groom",      label: "pet groomers",            valueMin: 25,    valueMax: 250,    valueStep: 5 },
+  vet:           { defaultValue: 290,   vol: 220, velocityTarget: 10, valueLabel: "per visit",      label: "vet practices",           valueMin: 50,    valueMax: 800,    valueStep: 10 },
+  autoshop:      { defaultValue: 480,   vol: 160, velocityTarget: 8,  valueLabel: "per service",    label: "auto repair shops",       valueMin: 100,   valueMax: 1500,   valueStep: 25 },
+  funeral:       { defaultValue: 9500,  vol: 12,  velocityTarget: 2,  valueLabel: "per service",    label: "funeral homes",           valueMin: 2000,  valueMax: 25000,  valueStep: 250 },
+  moving:        { defaultValue: 2100,  vol: 35,  velocityTarget: 4,  valueLabel: "per move",       label: "moving companies",        valueMin: 500,   valueMax: 6000,   valueStep: 100 },
+  seniorliving:  { defaultValue: 4800,  vol: 40,  velocityTarget: 3,  valueLabel: "per resident/mo",label: "senior living facilities",valueMin: 1000,  valueMax: 12000,  valueStep: 250 },
+  marketing:     { defaultValue: 3200,  vol: 8,   velocityTarget: 2,  valueLabel: "per engagement", label: "marketing consultants",   valueMin: 500,   valueMax: 10000,  valueStep: 250 },
+  b2b:           { defaultValue: 2400,  vol: 15,  velocityTarget: 2,  valueLabel: "per engagement", label: "B2B service businesses",  valueMin: 500,   valueMax: 10000,  valueStep: 100 },
 };
 
 const rankingTraffic: Record<number, number> = {
@@ -213,19 +224,21 @@ export function RevenueCalculator() {
                 <div className="flex items-center gap-4">
                   <input
                     type="range"
-                    min="25"
-                    max="15000"
-                    step="25"
+                    min={ind ? ind.valueMin : 25}
+                    max={ind ? ind.valueMax : 15000}
+                    step={ind ? ind.valueStep : 25}
                     value={customerValue}
                     onChange={(e) => setCustomerValue(parseInt(e.target.value))}
-                    className="flex-1 h-2 bg-[var(--color-border)] rounded-lg appearance-none cursor-pointer slider"
+                    disabled={!ind}
+                    className="flex-1 h-2 bg-[var(--color-border)] rounded-lg appearance-none cursor-pointer slider disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                   <div className="text-lg font-bold text-[var(--color-text-body)] min-w-[80px] text-right">
                     ${customerValue.toLocaleString()}
                   </div>
                 </div>
                 <p className="mt-2 text-xs text-[var(--color-text-muted)]">
-                  Drag to your actual number. Defaults are industry averages — most owners adjust.
+                  Drag to your actual number. Defaults + slider range are industry-tuned — most
+                  owners adjust within the range.
                 </p>
               </div>
 
@@ -357,7 +370,7 @@ export function RevenueCalculator() {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="rounded-xl bg-red-500/10 border border-red-500/30 p-4">
                         <p className="text-[10px] uppercase tracking-wider text-red-300/80 font-bold mb-3">
-                          Loss
+                          Current Gap
                         </p>
                         <div className="mb-3">
                           <p className="text-xs text-white/50 mb-1">Customers / mo</p>
@@ -370,7 +383,7 @@ export function RevenueCalculator() {
                       </div>
                       <div className="rounded-xl bg-green-500/10 border border-green-500/30 p-4">
                         <p className="text-[10px] uppercase tracking-wider text-green-300/80 font-bold mb-3">
-                          With AOH plan
+                          With Our Help
                         </p>
                         <div className="mb-3">
                           <p className="text-xs text-white/50 mb-1">Customers / mo</p>
@@ -387,10 +400,8 @@ export function RevenueCalculator() {
                       </div>
                     </div>
                     <p className="text-[10px] text-white/40 mb-6 leading-relaxed">
-                      Estimates based on industry benchmarks. Actual results depend on your
-                      market, response time, and review-collection consistency. We don&apos;t
-                      guarantee outcomes — your free report shows what&apos;s realistic for your
-                      specific business.
+                      Estimates only. Results vary by business, market, and platform changes. We
+                      don&apos;t guarantee outcomes.
                     </p>
 
                     <div
