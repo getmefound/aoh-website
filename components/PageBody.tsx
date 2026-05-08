@@ -2,7 +2,11 @@ import Link from "next/link";
 
 export function PageBody({ children }: { children: React.ReactNode }) {
   return (
-    <main className="flex flex-1 flex-col bg-[var(--color-bg-page)] text-[var(--color-text-body)]">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="flex flex-1 flex-col bg-[var(--color-bg-page)] text-[var(--color-text-body)] focus:outline-none"
+    >
       {children}
     </main>
   );
@@ -45,9 +49,15 @@ export function CtaBlock({
           </p>
           <Link
             href={buttonHref}
-            className="inline-flex bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-8 py-4 rounded-xl font-semibold transition-colors"
+            className="group inline-flex items-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-[var(--color-accent)]/25 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-page)]"
           >
             {buttonText}
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:translate-x-0.5"
+            >
+              →
+            </span>
           </Link>
         </div>
       </div>
