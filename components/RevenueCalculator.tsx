@@ -1,6 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
+const TRUSTED_REPORT_HOSTS = [
+  "gohighlevel.com",
+  "msgsndr.com",
+  "leadconnectorhq.com",
+  "hub360ai.com",
+  "aioutsourcehub.com",
+];
+
+function trustedReportUrl(raw: string | null): string | null {
+  if (!raw) return null;
+  try {
+    const u = new URL(raw);
+    if (u.protocol !== "https:") return null;
+    const ok = TRUSTED_REPORT_HOSTS.some(
+      (h) => u.hostname === h || u.hostname.endsWith("." + h),
+    );
+    return ok ? u.toString() : null;
+  } catch {
+    return null;
+  }
+}
 
 // vol = monthly transaction count for a typical business in the niche.
 // defaultValue = avg customer value per transaction/visit/service (slider seed).
@@ -58,6 +81,16 @@ function fmt(n: number): string {
 }
 
 export function RevenueCalculator() {
+  return (
+    <Suspense fallback={null}>
+      <RevenueCalculatorInner />
+    </Suspense>
+  );
+}
+
+function RevenueCalculatorInner() {
+  const searchParams = useSearchParams();
+  const aiVisUrl = trustedReportUrl(searchParams.get("ai_vis_url"));
   const [industry, setIndustry] = useState("");
   const [customerValue, setCustomerValue] = useState(290);
   const [reviewsPerMonth, setReviewsPerMonth] = useState(2);
@@ -359,11 +392,22 @@ export function RevenueCalculator() {
                   <option value="dont-know">I don&apos;t know — never tested</option>
                   <option value="tested-invisible">Tested and I&apos;m invisible</option>
                 </select>
-                {(aiVisibility === "dont-know" || aiVisibility === "think-so") && (
+                {(aiVisibility === "dont-know" || aiVisibility === "think-so") && !aiVisUrl && (
                   <p className="mt-3 text-xs text-[var(--color-accent)] leading-relaxed">
                     We&apos;ll run a live ChatGPT + Perplexity + Google AI Overviews check for your
                     business in your free report — see exactly what they say (or don&apos;t).
                   </p>
+                )}
+                {aiVisUrl && (
+                  <a
+                    href={aiVisUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-4 inline-flex items-center justify-center gap-2 w-full sm:w-auto rounded-xl bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-6 py-3 text-base font-semibold transition-all hover:shadow-lg hover:shadow-[var(--color-accent)]/25 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
+                  >
+                    See My AI Visibility Report
+                    <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+                  </a>
                 )}
               </div>
             </div>

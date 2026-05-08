@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
+import { checkEmailRate } from "@/lib/rate-limit";
 
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -62,6 +63,15 @@ export async function POST(req: NextRequest) {
   const v = validateEmail(email);
   if (!v.ok) {
     return NextResponse.json({ ok: false, error: v.error }, { status: 400 });
+  }
+
+  const normalizedEmail = (email as string).trim().toLowerCase();
+  const rate = checkEmailRate(normalizedEmail, 3);
+  if (!rate.ok) {
+    return NextResponse.json(
+      { ok: false, error: "You've sent us a few messages today already. We'll reply soon." },
+      { status: 429, headers: rate.retryAfterSec ? { "Retry-After": String(rate.retryAfterSec) } : undefined },
+    );
   }
 
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
