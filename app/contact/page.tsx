@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { PageBody, PageSection } from "@/components/PageBody";
 import { ContactForm } from "@/components/ContactForm";
+import { GhlContactEmbed } from "@/components/GhlContactEmbed";
 import { pageBreadcrumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
 const breadcrumb = pageBreadcrumbs("Contact", "/contact");
 
 export default function ContactPage() {
+  const ghlEmbedSrc = process.env.NEXT_PUBLIC_GHL_CONTACT_FORM_EMBED_URL?.trim();
+
   return (
     <>
       <script
@@ -59,7 +62,7 @@ export default function ContactPage() {
               </ul>
             </div>
 
-            <ContactForm />
+            {ghlEmbedSrc ? <GhlContactEmbed src={ghlEmbedSrc} /> : <ContactForm />}
           </div>
         </PageSection>
       </PageBody>
