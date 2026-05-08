@@ -1,7 +1,28 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { PageBody, PageSection, CtaBlock } from "@/components/PageBody";
+import { ContactForm } from "@/components/ContactForm";
+import { Reveal } from "@/components/Reveal";
 import { pageBreadcrumbs } from "@/lib/seo";
+
+const aboutPillars = [
+  {
+    title: "Free report first, payment later",
+    body: "Every client gets a free marketing audit and AI visibility check before they pay a single dollar. We have to earn your trust before we ask for anything. That's not how most agencies work, and we know it.",
+  },
+  {
+    title: "No contracts",
+    body: "Cancel anytime. We're a new company. We don't lock anyone in — we keep you by doing good work, or we don't keep you at all.",
+  },
+  {
+    title: "Honest timelines",
+    body: "Reviews start within 48 hours. New reviews land within two weeks. Ranking moves take 60–90 days. We tell you upfront — no inflated promises.",
+  },
+  {
+    title: "Less than 10 minutes of your time",
+    body: "Setup takes less than 10 minutes. After that, completely hands-off. You run your business. We handle your reputation, your AI presence, and your visibility.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "About",
@@ -49,40 +70,47 @@ export default function AboutPage() {
         <PageSection className="border-t border-[var(--color-border)]">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">How we work</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8">
-              <h3 className="text-xl font-semibold mb-3">Free report first, payment later</h3>
-              <p className="text-[var(--color-text-muted)] leading-relaxed">
-                Every client gets a free marketing audit and AI visibility check before they pay
-                a single dollar. We have to earn your trust before we ask for anything. That's
-                not how most agencies work, and we know it.
+            {aboutPillars.map((p, i) => (
+              <Reveal
+                key={p.title}
+                delay={i * 0.08}
+                className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8 hover:shadow-lg transition-shadow"
+              >
+                <h3 className="text-xl font-semibold mb-3">{p.title}</h3>
+                <p className="text-[var(--color-text-muted)] leading-relaxed">{p.body}</p>
+              </Reveal>
+            ))}
+          </div>
+        </PageSection>
+
+        <PageSection className="border-t border-[var(--color-border)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Talk to a human.</h2>
+              <p className="text-lg text-[var(--color-text-muted)] leading-relaxed mb-6">
+                Questions about pricing, setup, or whether AOH is right for your business? Send us
+                a note. We answer every message — usually within a few hours.
               </p>
+              <ul className="space-y-3 text-[var(--color-text-body)]">
+                <li>
+                  <span className="block text-xs uppercase tracking-wider text-[var(--color-text-muted)] font-semibold mb-1">
+                    Email
+                  </span>
+                  <a
+                    href="mailto:support@aioutsourcehub.com"
+                    className="text-[var(--color-accent)] hover:underline font-medium"
+                  >
+                    support@aioutsourcehub.com
+                  </a>
+                </li>
+              </ul>
             </div>
-            <div className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8">
-              <h3 className="text-xl font-semibold mb-3">No contracts</h3>
-              <p className="text-[var(--color-text-muted)] leading-relaxed">
-                Cancel anytime. We're a new company. We don't lock anyone in — we keep you by
-                doing good work, or we don't keep you at all.
-              </p>
-            </div>
-            <div className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8">
-              <h3 className="text-xl font-semibold mb-3">Honest timelines</h3>
-              <p className="text-[var(--color-text-muted)] leading-relaxed">
-                Reviews start within 48 hours. New reviews land within two weeks. Ranking moves
-                take 60–90 days. We tell you upfront — no inflated promises.
-              </p>
-            </div>
-            <div className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8">
-              <h3 className="text-xl font-semibold mb-3">Less than 10 minutes of your time</h3>
-              <p className="text-[var(--color-text-muted)] leading-relaxed">
-                Setup takes less than 10 minutes. After that, completely hands-off. You run your
-                business. We handle your reputation, your AI presence, and your visibility.
-              </p>
-            </div>
+            <ContactForm />
           </div>
         </PageSection>
 
         <CtaBlock
-          headline="Get your free report."
+          headline="Or get your free report."
           subline="No credit card. No contract. We'll show you exactly where you stand and what to fix first."
         />
       </PageBody>

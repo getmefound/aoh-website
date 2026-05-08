@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { PageBody, PageSection, CtaBlock } from "@/components/PageBody";
+import { Reveal } from "@/components/Reveal";
 import { pageBreadcrumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -115,13 +116,14 @@ export default function PricingPage() {
         <PageSection className="!max-w-6xl">
           <div className="mx-auto max-w-6xl">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tiers.map((t) => (
-                <div
+              {tiers.map((t, i) => (
+                <Reveal
                   key={t.name}
+                  delay={i * 0.07}
                   className={`rounded-2xl p-8 flex flex-col ${
                     t.highlight
                       ? "bg-[var(--color-bg-dark-card)] text-[var(--color-hero-text)] ring-2 ring-[var(--color-accent)]"
-                      : "bg-[var(--color-bg-elevated)] border border-[var(--color-border)]"
+                      : "bg-[var(--color-bg-elevated)] border border-[var(--color-border)] hover:shadow-lg transition-shadow"
                   }`}
                 >
                   <p
@@ -171,7 +173,7 @@ export default function PricingPage() {
                   >
                     {t.cta}
                   </Link>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>

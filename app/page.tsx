@@ -3,6 +3,7 @@ import { HeroEmailForm } from "@/components/hero/HeroEmailForm";
 import { RevenueCalculator } from "@/components/RevenueCalculator";
 import { SocialProof } from "@/components/sections/SocialProof";
 import { FAQ } from "@/components/sections/FAQ";
+import { Reveal } from "@/components/Reveal";
 import { faqPageSchema } from "@/lib/faq";
 
 export const metadata: Metadata = {
@@ -65,10 +66,11 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-              {products.map((product) => (
-                <div
+              {products.map((product, i) => (
+                <Reveal
                   key={product.name}
-                  className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-xl p-8 hover:shadow-lg transition-shadow"
+                  delay={i * 0.06}
+                  className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-xl p-8 hover:shadow-lg hover:-translate-y-0.5 transition-all"
                 >
                   <div className="mb-4">
                     <h3 className="text-xl font-semibold text-[var(--color-text-body)] mb-2">
@@ -81,7 +83,7 @@ export default function Home() {
                   <p className="text-[var(--color-text-muted)] leading-relaxed">
                     {product.description}
                   </p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>

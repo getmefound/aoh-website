@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { PageBody, PageSection, CtaBlock } from "@/components/PageBody";
+import { Reveal } from "@/components/Reveal";
 import { pageBreadcrumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -78,14 +79,15 @@ export default function ReviewsPage() {
             we'll be honest about that timeline upfront.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {features.map((f) => (
-              <div
+            {features.map((f, i) => (
+              <Reveal
                 key={f.title}
-                className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8"
+                delay={i * 0.08}
+                className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8 hover:shadow-lg transition-shadow"
               >
                 <h3 className="text-xl font-semibold mb-3">{f.title}</h3>
                 <p className="text-[var(--color-text-muted)] leading-relaxed">{f.body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </PageSection>

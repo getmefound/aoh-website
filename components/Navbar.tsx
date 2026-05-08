@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const services = [
   { href: "/reviews", label: "Reviews" },
@@ -65,6 +66,20 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [mobileOpen]);
+
   return (
     <nav className="sticky top-0 z-50 bg-[var(--color-hero-bg)] backdrop-blur-sm border-b border-[var(--color-hero-border)]">
       <div className="mx-auto max-w-6xl px-6 py-4">
@@ -96,25 +111,36 @@ export function Navbar() {
                 Services
                 <ChevronDown className="h-3 w-3" />
               </button>
-              {servicesOpen && (
-                <div className="absolute left-1/2 top-full -translate-x-1/2 pt-2">
-                  <div className="w-56 rounded-xl border border-[var(--color-hero-border)] bg-[var(--color-hero-bg)] p-2 shadow-2xl">
-                    {services.map((s) => (
-                      <Link
-                        key={s.href}
-                        href={s.href}
-                        className="block rounded-lg px-3 py-2 text-sm hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
-                        onClick={() => setServicesOpen(false)}
-                      >
-                        {s.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <AnimatePresence>
+                {servicesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.16, ease: [0.2, 0.8, 0.2, 1] }}
+                    className="absolute left-1/2 top-full -translate-x-1/2 pt-2"
+                  >
+                    <div className="w-56 rounded-xl border border-[var(--color-hero-border)] bg-[var(--color-hero-bg)] p-2 shadow-2xl">
+                      {services.map((s) => (
+                        <Link
+                          key={s.href}
+                          href={s.href}
+                          className="block rounded-lg px-3 py-2 text-sm hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
+                          onClick={() => setServicesOpen(false)}
+                        >
+                          {s.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <Link href="/pricing" className="hover:text-[var(--color-hero-text)] transition-colors">
               Pricing
+            </Link>
+            <Link href="/blog" className="hover:text-[var(--color-hero-text)] transition-colors">
+              Blog
             </Link>
             <Link href="/about" className="hover:text-[var(--color-hero-text)] transition-colors">
               About
@@ -130,55 +156,97 @@ export function Navbar() {
 
           <button
             type="button"
-            className="md:hidden text-[var(--color-hero-text)]"
+            className="md:hidden text-[var(--color-hero-text)] -mr-1 p-1 rounded hover:bg-white/5 transition-colors"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             {mobileOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           </button>
         </div>
-
-        {mobileOpen && (
-          <div className="md:hidden mt-4 border-t border-[var(--color-hero-border)] pt-4 pb-2 space-y-1 text-sm">
-            <p className="px-3 mb-1 text-xs uppercase tracking-wider text-[var(--color-hero-subtext)]/60">
-              Services
-            </p>
-            {services.map((s) => (
-              <Link
-                key={s.href}
-                href={s.href}
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
-              >
-                {s.label}
-              </Link>
-            ))}
-            <div className="my-2 h-px bg-[var(--color-hero-border)]" />
-            <Link
-              href="/pricing"
-              onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/about"
-              onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/#calculator"
-              onClick={() => setMobileOpen(false)}
-              className="mt-3 block bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-4 py-3 rounded-lg font-semibold text-center transition-colors"
-            >
-              Get Free Report
-            </Link>
-          </div>
-        )}
       </div>
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close menu overlay"
+              tabIndex={-1}
+              onClick={() => setMobileOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              className="md:hidden fixed inset-0 top-[calc(theme(spacing.16)+1px)] z-40 bg-black/40 backdrop-blur-sm"
+            />
+            <motion.div
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site navigation"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
+              className="md:hidden absolute left-0 right-0 top-full z-50 border-b border-[var(--color-hero-border)] bg-[var(--color-hero-bg)] shadow-2xl"
+            >
+              <div className="mx-auto max-w-6xl px-6 py-4 space-y-1 text-sm">
+                <p className="px-3 mb-1 text-xs uppercase tracking-wider text-[var(--color-hero-subtext)]/60">
+                  Services
+                </p>
+                {services.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+                <div className="my-2 h-px bg-[var(--color-hero-border)]" />
+                <Link
+                  href="/pricing"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
+                >
+                  Pricing
+                </Link>
+                <Link
+                  href="/blog"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/about"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
+                >
+                  Contact
+                </Link>
+                <Link
+                  href="/#calculator"
+                  onClick={() => setMobileOpen(false)}
+                  className="mt-3 block bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-4 py-3 rounded-lg font-semibold text-center transition-colors"
+                >
+                  Get Free Report
+                </Link>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

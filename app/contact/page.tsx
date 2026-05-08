@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { PageBody, PageSection } from "@/components/PageBody";
+import { ContactForm } from "@/components/ContactForm";
 import { pageBreadcrumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -58,62 +59,7 @@ export default function ContactPage() {
               </ul>
             </div>
 
-            <div className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">Send a message</h2>
-              <form className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="contact-name"
-                    className="block text-sm font-semibold mb-2"
-                  >
-                    Name
-                  </label>
-                  <input
-                    id="contact-name"
-                    name="name"
-                    type="text"
-                    required
-                    className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl bg-white focus:outline-none focus:border-[var(--color-accent)] transition-colors"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="contact-email"
-                    className="block text-sm font-semibold mb-2"
-                  >
-                    Business email
-                  </label>
-                  <input
-                    id="contact-email"
-                    name="email"
-                    type="email"
-                    required
-                    className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl bg-white focus:outline-none focus:border-[var(--color-accent)] transition-colors"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="contact-message"
-                    className="block text-sm font-semibold mb-2"
-                  >
-                    What's on your mind?
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    name="message"
-                    rows={5}
-                    required
-                    className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl bg-white focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] py-3 px-6 rounded-xl font-semibold transition-colors"
-                >
-                  Send message
-                </button>
-              </form>
-            </div>
+            <ContactForm />
           </div>
         </PageSection>
       </PageBody>

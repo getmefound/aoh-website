@@ -28,8 +28,6 @@ const nextConfig: NextConfig = {
       { source: "/terms-and-disclosures/", destination: "/terms", permanent: true },
       { source: "/review-boost", destination: "/reviews", permanent: true },
       { source: "/review-boost/", destination: "/reviews", permanent: true },
-      { source: "/blog", destination: "/", permanent: true },
-      { source: "/blog/", destination: "/", permanent: true },
       { source: "/custom-solutions", destination: "/contact", permanent: true },
       { source: "/custom-solutions/", destination: "/contact", permanent: true },
 

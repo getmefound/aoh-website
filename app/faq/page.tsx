@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { PageBody, PageSection, CtaBlock } from "@/components/PageBody";
+import { Reveal } from "@/components/Reveal";
 import { FAQ_ITEMS, faqPageSchema } from "@/lib/faq";
 import { pageBreadcrumbs } from "@/lib/seo";
 
@@ -33,14 +34,15 @@ export default function FaqPage() {
       <PageBody>
         <PageSection>
           <div className="space-y-6">
-            {FAQ_ITEMS.map((item) => (
-              <div
+            {FAQ_ITEMS.map((item, i) => (
+              <Reveal
                 key={item.q}
+                delay={i * 0.05}
                 className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8"
               >
                 <h2 className="text-xl font-semibold mb-3">{item.q}</h2>
                 <p className="text-[var(--color-text-muted)] leading-relaxed">{item.a}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </PageSection>
