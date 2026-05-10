@@ -40,11 +40,11 @@ type VariantConfig = {
 
 const variants: Record<Variant, VariantConfig> = {
   reviews: {
-    headlineLines: ["Your competitor", "just got another", <><span style={{ color: "#2D6A4F" }}>5-star</span> review.</>],
+    headlineLines: ["Your competitor", "just got another", <><span style={{ color: "#2D6A4F" }}>5-star</span> review.</>, "Your turn."],
     subheadline:
       "Automated review requests, done for you. AI replies turn on at standard plan.",
     priceLine: "$1/day. No contract.",
-    buttonText: "Get Your Free Report",
+    buttonText: "See My Free Review Audit",
     checkbox: {
       label:
         "Also check my AI Visibility Score — see if I'm showing up in ChatGPT and Google AI.",
@@ -53,11 +53,11 @@ const variants: Record<Variant, VariantConfig> = {
     },
   },
   ai: {
-    headlineLines: ["Your next customer", "asked ChatGPT.", "You weren't there."],
+    headlineLines: ["Get named", "by ChatGPT", <>before your <span style={{ color: "#2D6A4F" }}>competitor</span> does.</>],
     subheadline:
       "We get your business recommended by ChatGPT and Google AI — before your competitors do.",
     priceLine: "$3/day. No contract.",
-    buttonText: "Get Your Free Report",
+    buttonText: "See My Free AI Visibility Score",
     checkbox: {
       label:
         "Also run my full Marketing Audit — see how my reviews and listings stack up.",
@@ -70,7 +70,7 @@ const variants: Record<Variant, VariantConfig> = {
     subheadline:
       "Google, Maps, ChatGPT, Claude — we make sure your business shows up everywhere.",
     priceLine: "Starting at $1/day. No contract.",
-    buttonText: "Get Your Free Reports",
+    buttonText: "See My Free Visibility Check",
   },
 };
 
@@ -197,9 +197,9 @@ function HeroInner() {
                   speed={70}
                   startDelay={300}
                   segments={[
-                    { text: "The way customers find you ", speed: 70 },
+                    { text: "The way customers find you just changed. ", speed: 70 },
                     {
-                      text: "just changed.",
+                      text: "You're invisible.",
                       speed: 130,
                       className: "text-[var(--color-accent)]",
                     },
