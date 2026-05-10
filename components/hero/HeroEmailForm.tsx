@@ -5,6 +5,7 @@ import Script from "next/script";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { validateEmail } from "@/lib/email-validation";
+import { Typewriter } from "@/components/ui/Typewriter";
 
 const HeroVisualReviews = dynamic(
   () => import("./HeroVisualReviews").then((m) => m.HeroVisualReviews),
@@ -190,16 +191,31 @@ function HeroInner() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 md:items-stretch">
           <div className="md:flex md:flex-col md:justify-center">
             <h1 className="font-semibold leading-[1.05] tracking-tight text-[clamp(2rem,8vw,3.5rem)] md:text-[clamp(2.5rem,5vw,4.5rem)]">
-              {config.headlineLines.map((line, i) => (
-                <span className="hero-line-mask" key={`${variant}-${i}`}>
-                  <span
-                    className="hero-roll"
-                    style={{ animationDelay: `${i * 100}ms` }}
-                  >
-                    {line}
+              {variant === "default" ? (
+                <Typewriter
+                  key={variant}
+                  speed={50}
+                  startDelay={250}
+                  segments={[
+                    { text: "The way customers find you " },
+                    {
+                      text: "just changed.",
+                      className: "text-[var(--color-accent)]",
+                    },
+                  ]}
+                />
+              ) : (
+                config.headlineLines.map((line, i) => (
+                  <span className="hero-line-mask" key={`${variant}-${i}`}>
+                    <span
+                      className="hero-roll"
+                      style={{ animationDelay: `${i * 100}ms` }}
+                    >
+                      {line}
+                    </span>
                   </span>
-                </span>
-              ))}
+                ))
+              )}
             </h1>
 
             <p
