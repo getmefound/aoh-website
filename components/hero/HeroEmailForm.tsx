@@ -66,7 +66,7 @@ const variants: Record<Variant, VariantConfig> = {
     },
   },
   default: {
-    headlineLines: ["The way customers", "find you", "just changed."],
+    headlineLines: ["More calls.", "More customers.", <span style={{ color: "#2D6A4F" }}>Done for you.</span>],
     subheadline:
       "Google, Maps, ChatGPT, Claude — we make sure your business shows up everywhere.",
     priceLine: "Starting at $1/day. No contract.",
@@ -197,9 +197,9 @@ function HeroInner() {
                   speed={70}
                   startDelay={300}
                   segments={[
-                    { text: "The way customers find you just changed. ", speed: 70 },
+                    { text: "More calls. More customers. ", speed: 70 },
                     {
-                      text: "You're invisible.",
+                      text: "Done for you.",
                       speed: 130,
                       className: "text-[var(--color-accent)]",
                     },
