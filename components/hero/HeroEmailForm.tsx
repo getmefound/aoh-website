@@ -42,7 +42,7 @@ const variants: Record<Variant, VariantConfig> = {
   reviews: {
     headlineLines: ["Your competitor", "just got another", <><span style={{ color: "#2D6A4F" }}>5-star</span> review.</>, "Your turn."],
     subheadline:
-      "Automated review requests, done for you. AI replies turn on at standard plan.",
+      "Automated review requests, done for you.",
     priceLine: "$1/day. No contract.",
     buttonText: "See My Free Review Audit",
     checkbox: {
