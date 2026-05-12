@@ -90,7 +90,7 @@ const products: ProductDetailData[] = [
     ],
     setupSteps: [
       { title: "Google profile tune-up", sub: "We tighten your profile foundation beyond the Review Automation baseline." },
-      { title: "Site visibility setup", sub: "We structure your site so AI tools can recommend your business." },
+      { title: "Site visibility setup", sub: "We structure your site so AI tools like ChatGPT, Google AI, and Claude can recommend your business." },
       { title: "AI citation setup", sub: "We place your business in trusted sources AI tools reference." },
       { title: "First monthly review call", sub: "We show what changed, what moved, and what’s next." },
     ],
