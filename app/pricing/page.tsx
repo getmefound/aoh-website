@@ -430,7 +430,11 @@ export default function PricingPage() {
                 href: `#${nextProduct.slug}`,
               }
             : undefined;
-          return <ProductDetail key={p.slug} data={p} next={next} />;
+          const sectionData: ProductDetailData = {
+            ...p,
+            variant: i % 2 === 1 ? "dark" : "light",
+          };
+          return <ProductDetail key={p.slug} data={sectionData} next={next} />;
         })}
 
         <CtaBlock
