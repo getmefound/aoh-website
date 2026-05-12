@@ -34,260 +34,513 @@ export type Theme = {
   images?: ImageVariant[]; // multiple variants when present
 };
 
-const linkedinPersonalIntro = (s: string) => s; // currently identical to company copy
-
 export const THEMES: Theme[] = [
   {
     slug: "star-sweet-spot",
     title: "Star sweet spot — 4.6 > 5.0",
     blogPath: "/blog/46-beats-50-star-rating-sweet-spot",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/star-sweet-spot" },
-      { label: "Big stat", path: "/api/social-card/star-sweet-spot" },
-    ],
+    images: [{ label: "Photo + overlay", path: "/api/social-photo/star-sweet-spot" }],
     posts: {
-      "linkedin-company": `Every owner I talk to wants a 5.0 rating. Five round stars, nothing under.
+      "linkedin-company": `A 5.0 rating is hurting your bookings.
 
-Here's the part most of them haven't heard: customers don't trust 5.0.
+Northwestern's Spiegel Research Center pulled the data: purchase likelihood peaks between 4.6 and 4.8 stars. After 4.8, conversions actually drop. Buyers read perfect ratings as fake, paid, or filtered.
 
-Northwestern's Spiegel Center studied how shoppers actually behave on review pages. Conversion peaks somewhere between 4.2 and 4.7, then drops above that. A 5.0 with 30 reviews converts worse than a 4.6 with 30 reviews. Same volume, fewer customers calling.
+Here's the part most owners miss. A 4.6 with 30 real reviews outconverts a 5.0 with 30 reviews on the exact same search. The shopper sees the 1-star, reads how you handled it, and trusts you more, not less.
 
-Why? Because people have been on the internet long enough to know perfect doesn't happen. If everybody loved you, somebody's brother-in-law is writing reviews. They click past you.
+So the goal isn't a clean 5.0. The goal is volume, recency, and a couple of imperfect reviews that prove you're real.
 
-The sweet spot is 4.6–4.8 with at least 25–50 reviews. Looks great, reads as real.
+That's what we run for clients. Review Automation is $49/mo, no setup fee. We ask every customer at the right moment, route the unhappy ones to you privately, and let the rest flow to Google. Most clients add 8 to 15 reviews in the first 30 days.
 
-You don't need to chase perfect. You need to be visibly good — with enough reviews to prove it.
+Full breakdown of the math: https://aioutsourcehub.com/blog/46-beats-50-star-rating-sweet-spot
 
-aioutsourcehub.com`,
-      facebook: `Customers don't trust a 5.0. They trust 4.6.
+What's your current star rating, and how many reviews are behind it?`,
+      "linkedin-personal": `I tell clients to stop chasing 5.0.
 
-Northwestern research found conversion peaks at 4.2–4.7 and drops above that. A perfect rating reads as fake, no matter how clean your work is.
+Spent last Tuesday on a call with a dentist who was proud of a perfect rating. 22 reviews, all five stars, newest one from January. I told him his profile reads fake to anyone under 40. He pushed back. So I pulled up a competitor down the road, 4.7 with 180 reviews, newest one yesterday. He was quiet for a second.
 
-The sweet spot: 4.6–4.8 with at least 25–50 reviews. That's the rating range that says "real business, mostly excellent, occasionally has a bad day."
+Northwestern's research has been clear on this for years. Conversions peak at 4.6 to 4.8. Past that, trust drops. Buyers assume the perfect profile is scrubbed.
 
-You don't need to be perfect. You need to be visibly good, consistently.`,
-      instagram: `Customers don't trust 5.0 stars.
+We run Review Automation for $49/mo. No setup. It asks at the right moment, filters the angry ones to you privately, and pushes the rest to Google. Clients land in the sweet spot inside a quarter.
 
-Research: conversion peaks at 4.6–4.8, then drops. Perfect rating = looks fake.
+The blog has the full Spiegel data: https://aioutsourcehub.com/blog/46-beats-50-star-rating-sweet-spot
 
-You don't need to chase perfect. You need to be visibly good.
+Curious what other owners think: is a 5.0 a brag or a red flag?`,
+      facebook: `Your 5.0 rating might be costing you bookings.
 
-#LocalBusiness #SmallBusinessTips #Reviews #LocalSEO #GoogleReviews #SmallBiz #LocalMarketing`,
-      x: `Customers don't trust 5.0. They trust 4.6.
+Buyers don't trust perfect. Northwestern research shows conversions peak at 4.6 to 4.8 stars. Past that, people assume the reviews are fake or filtered.
 
-Northwestern research: conversion peaks between 4.2 and 4.7, then drops.
+A 4.7 with fresh reviews beats a 5.0 with 20 old ones every time.
 
-A 5.0 with 30 reviews converts WORSE than a 4.6 with 30 reviews.
+We run Review Automation for $49/mo. No setup fee. Asks every customer, filters the unhappy ones to you privately, sends the rest to Google. Clients hit the sweet spot inside 60-90 days.
 
-Stop chasing perfect.`,
-      google: `Customers don't trust a perfect 5.0 rating — research from Northwestern shows conversion actually peaks at 4.6–4.8 and drops above that. The sweet spot is 4.6–4.8 with at least 25–50 reviews. Looks great, reads as real. You don't need to be perfect — you need to be visibly good, consistently.`,
+Read how it works: https://aioutsourcehub.com/pricing#review-automation`,
+      instagram: `4.6 outsells 5.0.
+
+Northwestern's research caught what owners miss. Buyers don't trust perfect. They trust real. A 4.7 with 80 fresh reviews and a couple of imperfect ones converts better than a flawless profile with 25 old ones.
+
+The fix is volume and recency, not a clean sweep.
+
+Review Automation is $49/mo, no setup. We ask every customer at the right moment so the reviews actually land. Most clients add 10-15 in the first month.
+
+Link in bio for pricing and the blog with the full data.`,
+      x: `Your 5.0 rating is a red flag, not a brag.
+
+Northwestern Spiegel Center: conversions peak at 4.6 to 4.8 stars. Past that, trust drops.
+
+Buyers assume perfect = filtered.
+
+---
+
+A 4.7 with 80 reviews and one bad one beats a 5.0 with 25 reviews every time.
+
+The bad review and your reply is proof you're real. Buyers read it. They trust you more, not less.
+
+---
+
+Two things that actually matter:
+
+1. Volume (60+ reviews looks credible)
+2. Recency (one in the last 30 days)
+
+A flawless rating with the newest review from 2023 reads dormant.
+
+---
+
+This is fixable. Most owners don't ask consistently. They ask when they remember, which is twice a year.
+
+Systematic ask at the right moment = 8-15 new reviews a month for most local businesses.
+
+---
+
+We run Review Automation for $49/mo. No setup. Filters unhappy customers to you privately, sends the rest to Google.
+
+Full math: https://aioutsourcehub.com/blog/46-beats-50-star-rating-sweet-spot`,
+      google: `A perfect 5.0 might be costing you bookings.
+
+Northwestern research shows conversions peak at 4.6-4.8 stars. Past that, buyers assume reviews are fake.
+
+A 4.7 with 80 fresh reviews beats a 5.0 with 25 old ones.
+
+Review Automation is $49/mo, no setup. Asks every customer, filters unhappy ones to you, sends the rest to Google.
+
+Pricing: https://aioutsourcehub.com/pricing#review-automation
+Full breakdown: https://aioutsourcehub.com/blog/46-beats-50-star-rating-sweet-spot`,
     },
   },
+
   {
     slug: "cost-of-dormant-profile",
     title: "Cost of a dormant profile — $38,400/yr",
     blogPath: "/blog/real-cost-missed-google-review",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/cost-of-dormant-profile" },
-      { label: "Big stat", path: "/api/social-card/cost-of-dormant-profile" },
-    ],
+    images: [{ label: "Big stat", path: "/api/social-card/cost-of-dormant-profile" }],
     posts: {
-      "linkedin-company": `$38,400 a year.
+      "linkedin-company": `A dormant Google profile is $38,400/year.
 
-That's what a Harvard Business School study (Luca 2016, updated through 2024) suggests a local service business loses when its review velocity drifts and a competitor stays disciplined.
+Harvard Business School (Luca, 2016): a one-star bump = 5 to 9% revenue lift. Run that backwards. A $480K local business losing 8% of organic discovery to the competitor down the road with fresher reviews = $38,400 walking out the door every year.
 
-Take a typical local business: $480K annual revenue, 4.6 stars, 142 reviews. A competitor across town moves from 4.5 to 4.7 over six months. Their map rank rises, yours decays.
+That's not theoretical. That's the customer who pulled up two profiles, picked the one with 12 reviews from the last 30 days, and never saw yours.
 
-Roughly 8% of organic discovery shifts away from you.
+Most owners don't see this because the loss is invisible. No one calls to say "I picked your competitor because your newest review was from 2023." They just don't call.
 
-8% of $480K = $38,400.
+Review Automation is $49/mo, no setup. We ask every customer at the right moment, filter complaints to you privately, and route the rest to Google. Clients pull 10 to 15 new reviews in month one.
 
-That's not the missing review you didn't get last week. It's the cumulative absence of every review you didn't collect over a multi-year window while a competitor did.
+Full Luca study breakdown: https://aioutsourcehub.com/blog/real-cost-missed-google-review
 
-The gap doesn't close. It widens.
+Run yours: https://aioutsourcehub.com/#calculator
 
-Want this run on your real numbers? Free calculator: aioutsourcehub.com`,
-      facebook: `$38,400/year.
+What's the last date on your newest Google review?`,
+      "linkedin-personal": `I ran the numbers on a dormant Google profile last week.
 
-That's what one Harvard study suggests a local business loses when reviews go quiet and a competitor keeps asking. 8% of organic traffic shifts. That's the math.
+HVAC company, $620K/year, 47 reviews, newest one 14 months old. Owner thought reviews were "set it and forget it." I plugged his numbers into our calculator. He was bleeding $49,600 a year to a competitor with disciplined reviews.
 
-The structural cost isn't the one review you missed. It's every review you didn't collect while a competitor did — compounding for years.`,
-      instagram: `$38,400/year.
+The Harvard data (Luca, 2016) is brutal: a 1-star delta = 5-9% revenue swing. Dormant profile vs. active competitor isn't a tie. It's a margin transfer.
 
-That's the math on letting your reviews go stale while a competitor stays disciplined.
+Worst part: it's invisible. The customer doesn't tell you they passed. They just call someone else.
 
-Not a fee. Not a marketing cost. Pure revenue walking out the door.
+We fix this with Review Automation, $49/mo, no setup. Asks every customer, filters the angry ones to you, sends the rest to Google. Clients add 10-15 reviews in month one.
 
-#LocalBusiness #GoogleReviews #SmallBiz #ReviewMarketing #LocalSEO #SmallBusinessOwner`,
-      x: `$38,400/year.
+Run the math yourself: https://aioutsourcehub.com/#calculator
 
-That's roughly what a local business loses when reviews go quiet and a competitor stays disciplined.
+Blog with the full Harvard breakdown: https://aioutsourcehub.com/blog/real-cost-missed-google-review
 
-Not a marketing expense. Pure revenue walking out.
+Honest question for the owners here: when's the last time you looked at your newest review's date?`,
+      facebook: `A dormant Google profile is costing you $38,400/year.
 
-Run the math: aioutsourcehub.com`,
-      google: `$38,400/year — that's roughly what a typical local business loses when reviews go quiet and a competitor stays disciplined. 8% of organic discovery shifts away. The structural cost isn't the one review you missed. It's every review you didn't collect while a competitor did. Run the math on your business at aioutsourcehub.com.`,
+Harvard study (Luca, 2016): a one-star difference = 5-9% revenue. A $480K business losing 8% of customers to a competitor with fresher reviews loses $38,400/year. Quietly. The customer just calls someone else.
+
+Run your number: https://aioutsourcehub.com/#calculator
+
+We fix this for $49/mo, no setup. Review Automation asks every customer, filters complaints to you privately, sends the rest to Google.`,
+      instagram: `Your dormant Google profile is leaking $38K a year.
+
+Harvard study, 2016: a one-star difference equals 5-9% of revenue. A $480K business losing 8% of organic discovery = $38,400 gone. Quietly. No phone call. The customer just picked the competitor with fresher reviews.
+
+The fix is $49/mo. Review Automation, no setup. We ask every customer at the right moment so the reviews actually come in.
+
+Link in bio. Run your own number on the calculator.`,
+      x: `Your dormant Google profile is bleeding $38,400/year.
+
+Harvard Business School (Luca, 2016): a 1-star revenue swing = 5-9% of top line.
+
+The customer never tells you they passed. They just call someone else.
+
+---
+
+The math on a $480K local business:
+
+8% of organic discovery → competitor with fresher reviews = $38,400/year walking out the door.
+
+That's a full-time employee. Gone. Quietly.
+
+---
+
+Why dormant profiles lose:
+
+Buyer pulls up two options.
+Yours: 47 reviews, newest from 2023.
+Theirs: 89 reviews, newest yesterday.
+
+They pick the one that looks alive. Every time.
+
+---
+
+Fix is boring and cheap. Ask every customer. Systematically. At the right moment.
+
+Most owners ask when they remember, which is twice a year. That's why their newest review is 14 months old.
+
+---
+
+Review Automation, $49/mo, no setup. We do the asking. Filter angry ones to you privately.
+
+Run your loss: https://aioutsourcehub.com/#calculator
+Full Harvard breakdown: https://aioutsourcehub.com/blog/real-cost-missed-google-review`,
+      google: `Your dormant Google profile is costing you real revenue.
+
+Harvard study: a 1-star bump = 5-9% revenue. A $480K business losing 8% of discovery to a fresher competitor = $38,400/year.
+
+The customer never calls to say they passed. They just call someone else.
+
+Review Automation, $49/mo, no setup. We ask every customer, filter unhappy ones to you, send the rest to Google.
+
+Calculator: https://aioutsourcehub.com/#calculator
+Pricing: https://aioutsourcehub.com/pricing#review-automation`,
     },
   },
+
   {
     slug: "review-velocity-90-day",
     title: "90-day rule — 60 fresh > 200 old",
     blogPath: "/blog/review-velocity-90-day-rule",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/review-velocity-90-day" },
-      { label: "Big stat", path: "/api/social-card/review-velocity-90-day" },
-    ],
+    images: [{ label: "Photo + overlay", path: "/api/social-photo/review-velocity-90-day" }],
     posts: {
-      "linkedin-company": `A business with 60 reviews from the last 90 days outranks one with 200 reviews from five years ago. Same neighborhood, same service. The first one looks alive. The second one looks abandoned.
+      "linkedin-company": `60 fresh reviews beat 200 old ones.
 
-Google has never published the exact formula, but reviews from the last 90 days carry significantly more weight than older ones. Map rankings respond fast — sometimes within days — when a steady cadence of fresh reviews hits a profile.
+Google's local algorithm weights recency. Heavily. A profile with 60 reviews from the last 90 days outranks the one with 200 reviews from 2019-2022. Same town, same category. The dormant one looks closed, even when it isn't.
 
-Most owners I talk to have a beautiful 4.8 average with 187 reviews. Then I scroll down to the dates. The newest one is from eight months ago. The one before that, a year before that.
+We see this every week with clients. New customer onboards with 140 lifetime reviews and a newest-date from 2023. Within 90 days of running Review Automation, they're sitting on 40-60 fresh reviews and their map-pack position has moved 2-3 spots. Same business, same service. Different signal.
 
-To Google's eye, that business has gone quiet. To a customer's eye, the same thing — they look at the dates and start wondering if you're still open.
+Review Automation is $49/mo, no setup. We ask every customer at the moment they're most likely to leave one, filter unhappy customers to you privately, and route the rest to Google.
 
-You don't need a review every week. You need a cadence that says "this business is operating." 2–6 new reviews a month, spread out, from real recent customers.
+Full breakdown of the 90-day math: https://aioutsourcehub.com/blog/review-velocity-90-day-rule
 
-That's the entire 90-day rule.`,
+Run yours: https://aioutsourcehub.com/#calculator
+
+What's the date on your most recent Google review?`,
+      "linkedin-personal": `A plumber called me last month. 240 lifetime reviews, 4.8 stars, sitting in position 6 in the map pack.
+
+He thought his reviews were "great." I pulled his profile. His newest review was 11 months old. The guy in position 1? 90 reviews, 4.6 stars, newest one 3 days ago. Half the lifetime volume, fresher signal, twice the leads.
+
+Google's local algorithm doesn't care about your career total. It cares about the last 90 days. A dormant profile reads closed.
+
+We onboarded him. Review Automation, $49/mo, no setup. Sixty days in he had 38 new reviews and moved to position 3. Same business. Different velocity.
+
+The full 90-day rule breakdown: https://aioutsourcehub.com/blog/review-velocity-90-day-rule
+
+Run your own math: https://aioutsourcehub.com/#calculator
+
+For the owners here: is "lifetime review count" the metric you obsess over, or are you tracking last 90 days?`,
       facebook: `60 fresh reviews beat 200 old ones.
 
-Google weights review recency heavily — reviews from the last 90 days carry significantly more weight than older ones. A profile with the newest review from 2022 reads as dormant, no matter how high the star average.
+Google weights recency hard. A profile with the newest review from 2022 reads dormant, even at 4.9 stars. The map pack picks the business with momentum, not the one with history.
 
-Steady drip beats burst. 2–6 a month, every month.`,
-      instagram: `60 new > 200 old.
+Review Automation, $49/mo, no setup. We ask every customer at the right moment so new reviews keep landing.
 
-Google weights review freshness over total count. If your last review is from 2022, you look dormant — no matter how clean the star average.
+Run your lost-revenue number: https://aioutsourcehub.com/#calculator
 
-The 90-day rule decides your rank.
+Full breakdown: https://aioutsourcehub.com/blog/review-velocity-90-day-rule`,
+      instagram: `60 fresh reviews beat 200 old ones.
 
-#LocalSEO #GoogleReviews #SmallBusiness #LocalMarketing #ReviewStrategy`,
-      x: `60 fresh reviews beat 200 old ones.
+Google's local ranking weights recency. A profile with 240 lifetime reviews and a newest-date from 2023 looks dormant. The map pack gives the slot to the business with momentum.
 
-Google weights review freshness. If your last review is from 2022, your rank is decaying — no matter how clean your average.
+Fix is simple. Ask every customer, every time. Most owners ask twice a year.
 
-2–6 new reviews a month, steady. That's the rule.`,
-      google: `60 fresh reviews from the last 90 days outrank 200 old ones from five years ago. Google heavily weights review recency. A profile with the newest review from 2022 reads as dormant. 2–6 new reviews a month, steady — that's the entire 90-day rule.`,
+Review Automation $49/mo, no setup. We handle the ask.
+
+Link in bio for the calculator and the full 90-day rule.`,
+      x: `60 reviews from the last 90 days beat 200 reviews from 2019.
+
+Google weights recency. Heavily.
+
+Your "lifetime review count" is a vanity number. The algorithm checks the last 90 days.
+
+---
+
+Plumber I onboarded last month:
+
+Before: 240 reviews, newest from 11 months ago, position 6 in map pack.
+After 60 days: 38 new reviews, position 3.
+
+Same business. Different velocity.
+
+---
+
+A dormant profile reads closed.
+
+Even at 4.9 stars. Even with 300 lifetime reviews. If your newest one is from 2023, buyers wonder if you're still in business.
+
+Recency is a trust signal AND a ranking signal.
+
+---
+
+Most owners ask for reviews when they remember.
+
+Which is twice a year.
+
+Which is why their newest one is 8 months old.
+
+The fix is systematic, not motivational.
+
+---
+
+Review Automation, $49/mo, no setup. We ask every customer at the right moment.
+
+Run your math: https://aioutsourcehub.com/#calculator
+Full rule: https://aioutsourcehub.com/blog/review-velocity-90-day-rule`,
+      google: `60 reviews from the last 90 days beat 200 reviews from five years ago.
+
+Google weights recency. A dormant profile reads closed, even at 4.9 stars.
+
+Review Automation, $49/mo, no setup. Systematic ask, filters complaints to you privately, sends the rest to Google. Most clients hit the velocity threshold inside one quarter.
+
+Calculator: https://aioutsourcehub.com/#calculator
+Pricing: https://aioutsourcehub.com/pricing#review-automation`,
     },
   },
+
   {
     slug: "ai-recommendation-vs-rank",
     title: "AI recommendation > Google rank #1",
     blogPath: "/blog/why-chatgpt-recommends-by-name",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/ai-recommendation-vs-rank" },
-      { label: "Big stat", path: "/api/social-card/ai-recommendation-vs-rank" },
-    ],
+    images: [{ label: "Big stat", path: "/api/social-card/ai-recommendation-vs-rank" }],
     posts: {
-      "linkedin-company": `For 20 years, local search worked one way. You optimized for Google, aimed for the first page, hoped customers clicked.
+      "linkedin-company": `Google gives you 10 links. ChatGPT picks 1 to 3 by name.
 
-That's changing. A growing share of customers don't search Google at all anymore. They ask ChatGPT or Claude. They see Google's own AI summary at the top of the page.
+Different game entirely. The conversion math tells the story: a Google click converts at 3 to 8%. A ChatGPT or Claude recommendation converts at 18 to 30%. When the AI says "I'd go with these three," the user has already filtered. They're not browsing. They're buying.
 
-The AI doesn't return ten links. It returns a recommendation — one to three businesses by name, with a sentence about each.
+Most local businesses are invisible in AI results because AI doesn't crawl your site the way Google does. It assembles answers from structured signals: schema, citations, review velocity, third-party mentions, and how clearly your offer is described in machine-readable terms. Pretty website, weak signal.
 
-Here's where the math gets interesting:
+AI Visibility is $179/mo + $199 setup. We audit what AI currently knows about your business, fix the schema and citations, and rebuild your presence so the answer engines pick you when a customer asks "best plumber near me."
 
-A Google click is the start of a journey. The customer still has to scan your page, decide to call, and follow through. Local services convert that journey at 3–8% on average.
+Full breakdown of the AI vs. Google math: https://aioutsourcehub.com/blog/why-chatgpt-recommends-by-name
 
-A ChatGPT recommendation is the end of the journey. The AI already endorsed you. Trust is transferred. The competitor scan is over.
+Run your numbers: https://aioutsourcehub.com/#calculator
 
-Those conversions land closer to 18–30%.
+Have you searched your own business in ChatGPT yet? What did it say?`,
+      "linkedin-personal": `I ran an experiment with a dental practice last month.
 
-A ChatGPT recommendation isn't traffic. It's a customer who's already most of the way to picking up the phone.
+Asked ChatGPT: "best family dentist in [their town]." It named three practices. Theirs wasn't one of them. The owner was stunned. They've been in business 18 years, top reviewed in town on Google. AI didn't know they existed in a useful way.
 
-aioutsourcehub.com`,
-      facebook: `A Google click is the start of a journey. A ChatGPT recommendation is the end of one.
+This is the gap nobody is talking about. Google sends 10 links and lets the user sort. AI sends 1-3 names and the user trusts them. A Google click converts at 3-8%. An AI recommendation converts at 18-30%. Different game.
 
-When ChatGPT says "I'd recommend Acme Plumbing — they're highly rated and handle emergencies" — that's not traffic. That's a customer already most of the way to picking up the phone.
+We run AI Visibility for $179/mo + $199 setup. We fix the schema, citations, and structured signals so the answer engines pick you. The dental practice above? Ranking in ChatGPT's top 3 for their town inside 8 weeks.
 
-Conversion rates land 3–5× higher than Google clicks.`,
-      instagram: `Google rank #1 = clicks.
+Blog with the full math: https://aioutsourcehub.com/blog/why-chatgpt-recommends-by-name
 
-ChatGPT recommendation = the customer.
+Calculator: https://aioutsourcehub.com/#calculator
 
-When AI names your business out loud, you skip the comparison. The competitor scan is over before it starts.
+Try this now: ask ChatGPT to recommend your category in your town. Are you in the top 3? Honest answers welcome.`,
+      facebook: `ChatGPT only names 1-3 businesses. Google lists 10.
 
-#AIVisibility #LocalSEO #ChatGPT #SmallBusiness #LocalBusiness #DigitalMarketing`,
-      x: `Google rank #1 captures clicks.
+When AI recommends you by name, the customer converts at 18-30%. A Google click? 3-8%. The customer isn't browsing AI results, they're buying.
 
-ChatGPT recommendation captures the customer.
+Most local businesses are invisible in AI search. Different signals, different game.
 
-A click is the start of a journey (3–8% convert).
-A name-by-name recommendation is the end of one (18–30%).
+AI Visibility, $179/mo + $199 setup. We fix the schema, citations, and structured signals so answer engines pick you.
 
-Different game.`,
-      google: `A Google click is the start of a journey. A ChatGPT recommendation is the end of one. When AI names your business out loud, the customer is already most of the way to calling — conversion rates land 3–5× higher than Google clicks. Different game, different math.`,
+Try it yourself: ask ChatGPT to recommend your business category in your town. Are you named?
+
+Full breakdown: https://aioutsourcehub.com/blog/why-chatgpt-recommends-by-name`,
+      instagram: `Google lists 10. AI picks 3.
+
+A Google click converts at 3-8%. An AI recommendation converts at 18-30%. When ChatGPT names you, the customer isn't shopping. They're buying.
+
+Most local businesses are invisible to AI because AI reads structured signals, not pretty websites.
+
+AI Visibility $179/mo + $199 setup. We fix what answer engines look at so you get named.
+
+Link in bio. Or run this test: ask ChatGPT for the best [your category] in your town. See if you exist.`,
+      x: `Google lists 10 links.
+
+ChatGPT picks 1-3 by name.
+
+Conversion math:
+- Google click: 3-8% convert
+- AI recommendation: 18-30% convert
+
+Different game.
+
+---
+
+When AI names you, the customer has already filtered.
+
+They're not browsing search results.
+They're acting on a recommendation.
+
+That's why AI traffic closes at 4-10x the rate of Google traffic.
+
+---
+
+Quick test. Right now.
+
+Open ChatGPT. Ask: "best [your category] in [your town]."
+
+Are you in the top 3 names? If no, you're invisible to a fast-growing share of high-intent buyers.
+
+---
+
+Why most local businesses are invisible:
+
+AI doesn't crawl your site the way Google does. It assembles answers from:
+- Schema markup
+- Citations
+- Review velocity
+- Third-party mentions
+- Machine-readable offer descriptions
+
+Pretty website = weak signal.
+
+---
+
+AI Visibility, $179/mo + $199 setup. We fix the signals AI actually reads.
+
+Math: https://aioutsourcehub.com/#calculator
+Full blog: https://aioutsourcehub.com/blog/why-chatgpt-recommends-by-name`,
+      google: `Google lists 10 results. ChatGPT picks 1-3 by name.
+
+AI traffic converts at 18-30%. Google clicks convert at 3-8%. Different game, different signals.
+
+AI Visibility, $179/mo + $199 setup. We audit what AI knows about your business, fix the schema and citations, and rebuild your structured presence.
+
+Test yourself: ask ChatGPT for the best [your category] in your town. Are you named?
+
+Pricing: https://aioutsourcehub.com/pricing#ai-visibility
+Full breakdown: https://aioutsourcehub.com/blog/why-chatgpt-recommends-by-name`,
     },
   },
+
   {
     slug: "diy-vs-dfy",
     title: "DIY software vs Done-for-you",
     blogPath: "/blog/diy-review-tools-vs-done-for-you",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/diy-vs-dfy" },
-      { label: "Big stat", path: "/api/social-card/diy-vs-dfy" },
-    ],
+    images: [{ label: "Photo + overlay", path: "/api/social-photo/diy-vs-dfy" }],
     posts: {
-      "linkedin-company": `"Why am I paying you $49 a month when I can buy software that does the same thing for $30?"
+      "linkedin-company": `DIY review software costs $15 per review. We charge $5.
 
-It's a fair question. Here's the honest answer.
+Math, not opinion. The $30/mo DIY tool works fine on paper. Six months in, here's the real ledger we see across clients who switched: 8 hours of owner time, broken POS sync that nobody fixed, SMS compliance still unfinished, and 12 reviews total. With owner time costed at $50/hr, that's $580 of cost for 12 reviews. $15 per review.
 
-The $30 software works. The price is real. What's not advertised is the rest of the cost:
+Done-for-you over the same six months: $294 in fees, one hour of owner time, 50-80 reviews. $5 per review. And no dashboard to log into.
 
-— 2–6 hours of setup
-— Monthly maintenance (templates, sender info, troubleshooting)
-— Actually triggering the requests (manual entry or POS sync that breaks)
-— SMS carrier compliance paperwork
+The software isn't the problem. The work is. Tools don't do the work. People do.
 
-Six months in, most owners I see have spent $180 in software fees + 8 hours of their time, and added maybe 12 reviews — mostly in the first two months. Then it sits idle.
+Review Automation is $49/mo, no setup. We do the work. Most clients land 10-15 reviews in month one and 50-80 by month six.
 
-Done-for-you over the same six months: $294 in fees, 1 hour of your time total, 50–80 reviews steady throughout.
+Full DIY vs. DFY breakdown: https://aioutsourcehub.com/blog/diy-review-tools-vs-done-for-you
 
-Cost per actual new review:
-DIY: $15 (including your time at $50/hr)
-Done-for-you: $5
+For the owners here: how many hours have you put into your "automation software" this month?`,
+      "linkedin-personal": `Owner asked me last week: "Why am I paying $49/mo when I can buy software for $30?"
 
-The price difference is $19 a month. The work difference is roughly all of it.
+I told him the software wasn't the problem. The work was. Then I pulled up his account. He'd had the $30 tool for 7 months. Connected once. SMS compliance unfinished. POS integration broken since March. 14 reviews total.
 
-Software gives you a tool. Done-for-you gives you the result.
+Did the math with him. With his time costed at $50/hr (he runs a $400K plumbing operation, his time is worth more than that), the DIY tool cost him $14 per review when you factor in the 8 hours he'd burned on it.
 
-aioutsourcehub.com`,
-      facebook: `The $30 software isn't cheaper if nobody runs it.
+We onboarded him. First 30 days: 11 new reviews. Zero hours of his time. He texted me last week: "I didn't realize software was the expensive option."
 
-Out of pocket on DIY: $180 in fees + 8 hours of your time over 6 months = ~12 reviews.
+Review Automation, $49/mo, no setup. We do the work. The math is at https://aioutsourcehub.com/blog/diy-review-tools-vs-done-for-you
 
-Done-for-you over the same 6 months: $294 in fees, 1 hour of your time, 50–80 reviews.
+Real question for the owners here: how many marketing tools do you own that you haven't logged into this quarter?`,
+      facebook: `That $30/mo review software is costing you $15 per review.
 
-Cost per actual new review: $15 DIY vs $5 done-for-you.
+Math: 6 months in, most DIY users have 8 hours sunk, broken POS sync, SMS compliance unfinished, and 12 reviews. At $50/hr for your time, that's $15 per review.
 
-You're not buying software. You're buying the result.`,
-      instagram: `$30 software vs $49 done-for-you.
+We charge $5 per review. Done-for-you, no dashboard, no setup time.
 
-Both real. The work difference is all of it.
+Review Automation, $49/mo: https://aioutsourcehub.com/pricing#review-automation
 
-DIY: $15 per review (including your time).
-DFY: $5 per review.
+Full math: https://aioutsourcehub.com/blog/diy-review-tools-vs-done-for-you`,
+      instagram: `DIY review software: $15 per review.
+Done-for-you: $5 per review.
 
-Cheap isn't cheaper if nobody runs it.
+The software isn't the problem. The work is. Six months of "free" software adds up to 8 hours of your time, broken integrations, and 12 reviews to show for it.
 
-#SmallBusinessOwner #LocalBusiness #ReviewMarketing #DoneForYou #SmallBiz`,
-      x: `$30 software vs $49 done-for-you.
+We do the work. Review Automation $49/mo, no setup, no dashboard.
 
-Cost per actual review:
-DIY: $15 (incl. your time)
-DFY: $5
+Link in bio for the math.`,
+      x: `"Why pay $49/mo when I can get software for $30?"
 
-Software gives you a tool. Done-for-you gives you the result.`,
-      google: `$30 software vs $49 done-for-you. Both real prices. The difference: $180 in DIY fees + 8 hours of your time over 6 months = ~12 reviews. Done-for-you over the same 6 months: $294 in fees, 1 hour of your time, 50–80 reviews. You're not buying software. You're buying the result.`,
+Because the software isn't the problem. The work is.
+
+6 months in with the DIY tool:
+- 8 hours of your time
+- Broken POS sync
+- SMS compliance unfinished
+- 12 reviews total
+
+---
+
+The honest cost of "free" software:
+
+Your time at $50/hr × 8 hours = $400
+Plus 6 months × $30 = $180
+Total: $580 for 12 reviews
+$48 per review.
+
+---
+
+Done-for-you over the same 6 months:
+
+$49/mo × 6 = $294
+1 hour of your time = $50
+Total: $344 for 50-80 reviews
+$5 per review.
+
+---
+
+The software dashboard was designed for marketing managers.
+
+You are a business owner. You don't have a marketing manager. You have a $30/mo tool collecting dust and 12 reviews to show for the year.
+
+---
+
+Review Automation, $49/mo, no setup. We do the work.
+
+Full math: https://aioutsourcehub.com/blog/diy-review-tools-vs-done-for-you`,
+      google: `DIY review software costs $15 per review. We charge $5.
+
+Six months of "free" software = 8 hours of your time, broken integrations, 12 reviews. We deliver 50-80 reviews in the same period. No dashboard, no setup.
+
+Review Automation, $49/mo, no setup fee.
+
+Pricing: https://aioutsourcehub.com/pricing#review-automation
+Full breakdown: https://aioutsourcehub.com/blog/diy-review-tools-vs-done-for-you`,
     },
   },
+
   {
     slug: "after-hours-payback",
     title: "After-hours calls — 30-day payback",
     blogPath: "/blog/after-hours-calls-ai-receptionist",
     images: [
       { label: "Photo + overlay", path: "/api/social-photo/after-hours-payback" },
-      { label: "Big stat", path: "/api/social-card/after-hours-payback" },
-      { label: "Week comparison", path: "/api/social-card-compare/after-hours-payback" },
       { label: "7:15pm story", path: "/api/social-card-story/after-hours-payback" },
     ],
     posts: {
@@ -313,7 +566,7 @@ weekly after-hours calls × average sale × 4 weeks = monthly revenue walking ou
 
 Relay is our AI receptionist. Answers, qualifies the lead, books into your calendar. Introduces itself as an AI assistant; transfers to a human if the caller asks. $499/mo + $499 setup. Most clients break even in month one.
 
-→ See Relay: aioutsourcehub.com/pricing#relay
+→ See Relay: https://aioutsourcehub.com/pricing#relay
 
 (Industry breakdown linked in the first comment.)`,
       "linkedin-personal": `9 of 10 after-hours calls go to your competitor.
@@ -333,7 +586,7 @@ One question that comes up in every demo: "won't customers hate that it's a bot?
 
 $499/mo, $499 setup. Most clients break even the first month.
 
-See Relay direct: aioutsourcehub.com/pricing#relay
+See Relay direct: https://aioutsourcehub.com/pricing#relay
 
 If you run a local service business, what does your after-hours call volume actually look like?`,
       facebook: `Tuesday 7:15pm. A homeowner in Southington, CT just got home from work. Lawn's overgrown. Daughter's graduation party Saturday. She calls 3 lawn services.
@@ -349,7 +602,7 @@ Napkin math on yours: weekly after-hours calls × your average sale × 4 weeks =
 
 This is why we built Relay. AI receptionist that catches every call, qualifies the lead, books into your calendar. Introduces itself as AI. Transfers to a human if asked. $499/mo, payback in 30 days for most.
 
-See Relay: aioutsourcehub.com/pricing#relay`,
+See Relay: https://aioutsourcehub.com/pricing#relay`,
       instagram: `Tuesday 7:15pm. She calls 3 lawn services. First two: voicemail. Third one picks up — and wins $200 + an $1,800 contract.
 
 9 of 10 after-hours calls go to your competitor.
@@ -397,9 +650,9 @@ $499/mo. Most clients break even in month 1.
 
 ---
 
-Napkin math: weekly after-hours calls × your average sale × 4 weeks = monthly miss.
+Napkin math: weekly after-hours calls × your avg sale × 4 weeks = monthly miss.
 
-See Relay: aioutsourcehub.com/pricing#relay
+See Relay: https://aioutsourcehub.com/pricing#relay
 
 [5/5]`,
       google: `Tuesday 7:15pm. A homeowner just got home from work. Lawn is overgrown, hosting a party Saturday. She calls 3 lawn services. First two: voicemail. Third one picks up — and wins the cut, the cleanup, and the $1,800 contract.
@@ -410,184 +663,296 @@ Napkin math: weekly after-hours calls × your average sale × 4 weeks = monthly 
 
 Relay is our AI receptionist. Catches every call, qualifies the lead, books into your calendar. Introduces itself as AI; transfers to a human if asked. $499/mo + $499 setup, 750 minutes included. Most clients break even in month one.
 
-See Relay: aioutsourcehub.com/pricing#relay`,
+See Relay: https://aioutsourcehub.com/pricing#relay`,
     },
   },
+
   {
     slug: "ai-search-share",
     title: "AI search — 1 in 4 local queries",
     blogPath: "/blog/ai-visibility-vs-seo",
     images: [{ label: "Big stat", path: "/api/social-card/ai-search-share" }],
     posts: {
-      "linkedin-company": `About 1 in 4 local searches has moved to AI.
+      "linkedin-company": `1 in 4 local searches has moved to AI.
 
-Not in two years. Right now. ChatGPT, Claude, Google's AI summary at the top of search results — they're already answering the high-intent questions.
+ChatGPT, Claude, Google AI Overviews, Perplexity. Roughly 25% of local search volume now happens in answer engines instead of the classic 10-blue-links. The split is higher in high-intent queries: "best dentist near me," "plumber that does emergency repair," "med spa with weekend hours." Those are the queries that close.
 
-"Best plumber in Hartford for an old house."
-"What's the best vet near me for a senior dog?"
-"Recommend an auto shop that handles older Volvos."
+Most local businesses have zero strategy for it. Their SEO agency optimized for Google. Their content team optimized for social. Nobody is optimizing for the answer engines that now field a quarter of their highest-value searches.
 
-These used to scroll past ten blue links. Now the customer gets a paragraph with one to three business names and a recommendation. If you're not in that paragraph, you don't exist.
+AI Visibility is $179/mo + $199 setup. We audit what AI currently knows about your business across ChatGPT, Claude, Perplexity, and Google AI Overviews. We fix the schema, citations, and structured signals so the answer engines actually pick you. Most clients show up in the top 3 named recommendations inside 60-90 days.
 
-The share of AI-answered search is overweighted on the most valuable queries. The customer asking ChatGPT for a specific recommendation is way more likely to book than the customer browsing page two of Google.
+Full breakdown of AI visibility vs. classic SEO: https://aioutsourcehub.com/blog/ai-visibility-vs-seo
 
-Most local businesses are invisible there.
+When's the last time you searched your own business in ChatGPT? What did you find?`,
+      "linkedin-personal": `I asked a roofer last month how much of his lead flow comes from AI search.
 
-The fix isn't more Google ads. It's getting your business set up so AI tools can confidently recommend you. Clean profile. Consistent info everywhere. Fresh reviews. A few small AI-friendly bits on your site.
+He laughed. "AI? Nobody's using AI to find a roofer."
 
-We handle the whole thing. aioutsourcehub.com`,
-      facebook: `Roughly 1 in 4 local searches has moved to AI.
+We checked his Google Search Console. Then we ran the same queries he ranks for through ChatGPT and Perplexity. About 22% of his target query volume now happens in answer engines. He had no presence in any of them. Competitor 3 miles away was named in every single one.
 
-ChatGPT, Claude, Google's AI summary — they answer with one to three business names instead of ten links. If you're not in that answer, you don't exist.
+This is the shift nobody is preparing for. Classic SEO still matters, but the share is moving. About 1 in 4 local searches now happens in AI. Those queries skew higher intent. He was invisible in his highest-value channel.
 
-Most local businesses are invisible there. The fix isn't more ads. It's getting found by the AI.`,
-      instagram: `1 in 4 local searches has moved to AI.
+We run AI Visibility for $179/mo + $199 setup. Fixed signals, structured presence, named in answer engines inside 60-90 days for most.
 
-ChatGPT recommends 1–3 businesses by name. No list, no scrolling, no second chance.
+Full blog: https://aioutsourcehub.com/blog/ai-visibility-vs-seo
 
-If you're not the name AI says, you don't exist.
+Honest question for the owners here: have you ever asked ChatGPT to recommend your category in your town? What did it say?`,
+      facebook: `1 in 4 local searches is now happening in AI.
 
-#AIVisibility #ChatGPT #LocalBusiness #LocalSEO #DigitalMarketing #AISearch`,
-      x: `1 in 4 local searches now happens on AI tools.
+ChatGPT, Claude, Perplexity, Google AI Overviews. About 25% of search has moved. The share is higher on high-intent queries (the ones that actually convert).
 
-ChatGPT names 1–3 businesses by name. No list. No scroll. No second chance.
+If your SEO is set up for Google only, you're invisible in a quarter of your market.
 
-Most local businesses are invisible there. Right now.`,
-      google: `About 1 in 4 local searches has moved to AI tools — ChatGPT, Claude, Google's AI summary. They answer with 1–3 business names instead of 10 links. If you're not in that answer, you don't exist. Most local businesses are invisible there. The fix isn't more ads.`,
+AI Visibility, $179/mo + $199 setup. We fix the structured signals AI uses to pick businesses.
+
+Full breakdown: https://aioutsourcehub.com/blog/ai-visibility-vs-seo
+
+Pricing: https://aioutsourcehub.com/pricing#ai-visibility`,
+      instagram: `1 in 4 local searches is now in AI.
+
+ChatGPT, Claude, Google AI Overviews, Perplexity. The share is higher on high-intent searches (the ones that turn into bookings).
+
+Most local businesses are invisible there. Different signals, different game.
+
+AI Visibility $179/mo + $199 setup. We fix what AI actually reads.
+
+Link in bio.`,
+      x: `About 1 in 4 local searches has moved to AI.
+
+ChatGPT. Claude. Google AI Overviews. Perplexity.
+
+The share is even higher on high-intent queries (the ones that actually convert).
+
+---
+
+If your SEO setup is Google-only, you're invisible to 25% of your market.
+
+Probably more, because AI users skew toward higher-purchase-intent queries:
+
+"best dentist near me"
+"emergency plumber open now"
+"med spa with weekend hours"
+
+---
+
+Most local businesses think AI search is hypothetical.
+
+It's not. We pull search-share data for clients every week.
+
+A roofer in Connecticut last month: 22% of his target queries already happening in answer engines. He had zero presence in any of them.
+
+---
+
+Why local businesses lose in AI:
+
+AI doesn't crawl your site like Google. It reads structured data, citations, schema, review velocity.
+
+Most local sites have weak structured signals. Pretty designs, no machine-readable substance.
+
+---
+
+AI Visibility, $179/mo + $199 setup. We fix the signals.
+
+Full breakdown: https://aioutsourcehub.com/blog/ai-visibility-vs-seo`,
+      google: `About 1 in 4 local searches has moved to AI: ChatGPT, Claude, Perplexity, Google AI Overviews.
+
+The share is higher on high-intent queries. If your SEO is set up for Google only, you're invisible in a quarter of your highest-value market.
+
+AI Visibility, $179/mo + $199 setup. We fix the structured signals AI uses.
+
+Pricing: https://aioutsourcehub.com/pricing#ai-visibility
+Full breakdown: https://aioutsourcehub.com/blog/ai-visibility-vs-seo`,
     },
   },
+
   {
     slug: "software-vs-work",
     title: "Software vs work — zero dashboards",
     blogPath: "/blog/why-smb-owners-hate-marketing-software",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/software-vs-work" },
-      { label: "Big stat", path: "/api/social-card/software-vs-work" },
-    ],
+    images: [{ label: "Big stat", path: "/api/social-card/software-vs-work" }],
     posts: {
-      "linkedin-company": `Owner pulls up the dashboard of the marketing tool they're paying for. They log in. Look at me. Sigh.
+      "linkedin-company": `That marketing tool you bought a year ago isn't a tool. It's a $79/month bill.
 
-"I bought this a year ago. I think it's supposed to send review requests? I haven't opened it in six months."
+Honest question for the owners reading this: how many marketing software subscriptions are you paying for right now? How many have you logged into this quarter? For most local businesses we onboard, the answer is 4-7 tools, 1-2 logins per quarter.
 
-This is the rule, not the exception.
+Here's why. Software dashboards were designed for marketing managers. You don't have a marketing manager. You have a business to run, a phone that rings, a schedule that fills, and 14 things more important than logging into a dashboard.
 
-Marketing software dashboards assume you're somebody who opens dashboards every day, enjoys configuring templates, notices when settings need adjusting. That's a job description. It describes a marketing manager.
+Done-for-you means zero dashboards. We run the work. You get the result. No login, no setup wizard, no "have you tried our new feature" email.
 
-It does NOT describe most local business owners. You're scheduling jobs, managing a team, fixing problems that come up at 4pm Friday. You're not pulling up a marketing dashboard Tuesday morning to tweak SMS send timing.
+Whole Stack is $999/mo + $999 setup. Reviews, AI visibility, content, ads, the whole stack handled. Most clients cancel 3-5 software subscriptions inside the first 90 days because they don't need them anymore. Net cost: lower than what they were already paying.
 
-Done-for-you flips the model. Instead of "here's a dashboard," it's "we run this for you." Instead of a monthly software fee plus your time, it's a monthly service fee — and you don't think about it.
+Full breakdown: https://aioutsourcehub.com/blog/why-smb-owners-hate-marketing-software
 
-Zero dashboards. Reviews still come in. Calls still get answered. AI visibility still gets handled.
+How many marketing tools are sitting in your credit card statement that you haven't opened in 3 months?`,
+      "linkedin-personal": `I sat down with an HVAC owner last week and asked him to list every marketing tool he was paying for.
 
-You stay in your business. We run the AI.
+He counted on his fingers. Got to 6. Then remembered a 7th. Total monthly burn: $431 in software he hadn't opened since February. Cumulative since he signed up: $14,000+.
 
-aioutsourcehub.com`,
-      facebook: `The marketing tool you bought a year ago that you haven't opened in six months isn't a marketing tool anymore. It's a $79/month bill.
+This is the local business tragedy nobody talks about. Software companies sold owners on "automation" and what owners got was a dashboard nobody has time to use. The tools work fine. The work doesn't get done. Different thing.
 
-Software dashboards were designed for marketing managers. They don't describe local business owners. You don't have time to tweak SMS send timing on Tuesday morning.
+We pulled his tools, cancelled 5 of them, and rolled him onto Whole Stack at $999/mo + $999 setup. Net monthly: he saved $200 and got reviews, content, ads, and AI visibility actually handled.
 
-Done-for-you = we run the work, not the tool. Zero dashboards.`,
-      instagram: `The marketing tool you haven't opened in 6 months isn't a tool anymore.
+Full breakdown of why software keeps failing local owners: https://aioutsourcehub.com/blog/why-smb-owners-hate-marketing-software
+
+Be honest: how many marketing subscriptions are sitting on your card right now that you haven't opened in 90 days?`,
+      facebook: `The marketing tool sitting on your credit card isn't a tool. It's a $79 bill.
+
+Software dashboards were built for marketing managers. You're not a marketing manager. You're an owner running a business.
+
+Done-for-you = no dashboards. We do the work.
+
+Whole Stack, $999/mo + $999 setup. Reviews, AI visibility, content, ads, all handled. Most clients cancel 3-5 software tools after onboarding.
+
+Full breakdown: https://aioutsourcehub.com/blog/why-smb-owners-hate-marketing-software
+
+Pricing: https://aioutsourcehub.com/pricing#whole-stack`,
+      instagram: `Your marketing software isn't a tool. It's a bill.
+
+Dashboards were designed for marketing managers. You're a business owner. Different job.
+
+Done-for-you means zero dashboards. We do the work.
+
+Whole Stack $999/mo + $999 setup. Reviews, AI visibility, content, ads. Most clients cancel 3-5 software tools after onboarding.
+
+Link in bio.`,
+      x: `That marketing tool you bought last year isn't a tool.
 
 It's a $79/month bill.
 
-Done-for-you = zero dashboards. Zero tweaking. Just results.
+Software dashboards were designed for marketing managers. You don't have one. You have a business to run.
 
-#DoneForYou #SmallBusinessOwner #LocalBusiness #MarketingAutomation #SmallBiz`,
-      x: `That marketing tool you haven't opened in 6 months isn't a tool. It's a bill.
+---
 
-Software dashboards were built for marketing managers. Not for owners running a business.
+Honest local-owner audit. Right now.
 
-Done-for-you = zero dashboards.`,
-      google: `The marketing tool you bought a year ago and haven't opened in 6 months isn't a tool anymore — it's a bill. Software dashboards were built for marketing managers. Done-for-you flips the model: we run the work, not the tool. Zero dashboards. You stay in your business.`,
+Count the marketing subscriptions on your card. Count how many you opened this quarter.
+
+For most owners: 4-7 subscriptions, 1-2 logins. Burning $300-$500/month on tools nobody uses.
+
+---
+
+Why software keeps failing local businesses:
+
+Tools don't do the work. They give you a dashboard to do the work in.
+
+You don't have time to log into a dashboard. You have a phone ringing and a schedule to run.
+
+---
+
+Done-for-you means no dashboards.
+
+We run the reviews. We run the AI visibility. We run the content and ads. You get the results.
+
+Net cost is often lower than what you're already paying for software you don't use.
+
+---
+
+Whole Stack $999/mo + $999 setup. Or pick one service: Reviews $49, AI Visibility $179, Reach $249.
+
+No dashboards.
+
+Full breakdown: https://aioutsourcehub.com/blog/why-smb-owners-hate-marketing-software`,
+      google: `Your marketing software isn't a tool. It's a bill you're not using.
+
+Software dashboards were built for marketing managers. You don't have one. Done-for-you means we do the work, you get the result, no logins.
+
+Whole Stack: $999/mo + $999 setup. Or pick one service at a lower tier.
+
+Pricing: https://aioutsourcehub.com/pricing#whole-stack
+Full breakdown: https://aioutsourcehub.com/blog/why-smb-owners-hate-marketing-software`,
     },
   },
+
   {
     slug: "reviews-compound",
     title: "Reviews compound — 10+ years",
     blogPath: "/blog/dental-practices-reviews-compounding-asset",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/reviews-compound" },
-      { label: "Big stat", path: "/api/social-card/reviews-compound" },
-    ],
+    images: [{ label: "Photo + overlay", path: "/api/social-photo/reviews-compound" }],
     posts: {
-      "linkedin-company": `A new patient is worth somewhere between $1,500 and $3,500 to a dental practice in the first year. After that, if they stay, they're worth several hundred to a few thousand a year — for the next 10 to 20 years.
+      "linkedin-company": `Ads stop the day you stop paying. Reviews compound for ten years.
 
-Most dentists already know this.
+A Google review you collect in 2026 is still in your profile in 2036. It's still ranking you. It's still convincing the customer who pulls up your map listing eight years from now. Reviews are a stock. Ads are a flow.
 
-What they don't always realize is that the cheapest way to acquire that patient is the one most of them have stopped doing: asking for reviews.
+Run the math on a dental practice. 80 reviews collected this year at an average revenue contribution of $400/review (conservative, given lifetime patient value). That's $32,000 of trust-asset created in year one. In year five, those same reviews are still on your profile, still earning. The ROI on review acquisition keeps stacking. The ROI on a Google ad ends the moment the campaign pauses.
 
-Ads stop the moment you stop paying. The next patient costs another $400. No compounding.
+Review Automation is $49/mo, no setup. Most clients add 50-80 reviews/year. Treat reviews like a capital investment, not a marketing expense.
 
-A review left by a happy patient in 2026 is still in your Google profile in 2036. Still being read by prospective patients searching at midnight Tuesday. Still helping you rank for "dentist near me."
+Full breakdown for service businesses: https://aioutsourcehub.com/blog/dental-practices-reviews-compounding-asset
 
-Reviews are a stock, not a flow. The review you collect today still pays you ten years from now.
+If you stopped all marketing tomorrow, which asset would still be earning for you in 2036?`,
+      "linkedin-personal": `The smartest local owner I know thinks of reviews like a 401k.
 
-Ads are a tax. Reviews are an investment.
+He's a dentist outside Hartford. Every patient gets asked. Every single one. He's been doing it for 11 years. His profile has 840 reviews, newest one yesterday. New patients tell him they picked him because his profile "felt like a real practice." That's compounded trust. He can't be unseated by a competitor opening up next year because they're starting from zero.
 
-aioutsourcehub.com`,
-      facebook: `Ads stop the day you stop paying.
+Most owners treat reviews like a chore. He treats them like capital. Every review he collected in 2018 is still working for him today. Every Google ad he ran in 2018 stopped working the second he turned it off.
 
-A review left by a happy customer in 2026 is still in your Google profile in 2036 — still bringing in calls, free, with no ad spend.
+We run Review Automation for $49/mo, no setup, for owners who want to start compounding. The systematic ask is the lever.
 
-Reviews are the only marketing asset that compounds. Ads are a tax. Reviews are an investment.`,
-      instagram: `Ads stop when you stop paying.
+Blog with the full math: https://aioutsourcehub.com/blog/dental-practices-reviews-compounding-asset
 
-A review left today still pays you in 2036.
+For the owners here: if you stopped all your marketing tomorrow, which asset would still be earning in 2036?`,
+      facebook: `Ads stop the day you stop paying. Reviews work for 10 years.
 
-Reviews are the only marketing asset that compounds.
+A review collected today is still in your Google profile in 2036, still ranking you, still convincing customers. Reviews are a stock. Ads are a flow.
 
-#GoogleReviews #SmallBusiness #LocalBusiness #ReviewMarketing #LocalSEO`,
-      x: `Ads stop the day you stop paying.
+Review Automation, $49/mo, no setup. Most clients add 50-80 reviews/year.
 
-A review you collect today still pays you in 2036.
+Pricing: https://aioutsourcehub.com/pricing#review-automation
+Full breakdown: https://aioutsourcehub.com/blog/dental-practices-reviews-compounding-asset`,
+      instagram: `Reviews compound. Ads don't.
 
-Reviews are the only marketing asset that compounds.`,
-      google: `Ads stop the day you stop paying. A review you collect today is still in your Google profile in 2036 — still bringing in calls, free, with no ad spend. Reviews are the only marketing asset that compounds. Ads are a tax. Reviews are an investment.`,
+A review you collect today is still working in your Google profile a decade from now. The ad you ran last week stopped the second you paused the campaign.
+
+Reviews are a stock. Ads are a flow.
+
+Review Automation $49/mo, no setup. Treat reviews like capital, not chores.
+
+Link in bio.`,
+      x: `Reviews compound. Ads don't.
+
+A review you collect in 2026 is still in your Google profile in 2036, still ranking, still converting.
+
+An ad stops earning the second you pause the campaign.
+
+---
+
+Reviews are a stock. Ads are a flow.
+
+Stock = asset that keeps producing.
+Flow = pays only while you keep paying.
+
+Most local owners spend 80% of their marketing budget on flow and 0% on stock.
+
+---
+
+Run the math on a dental practice:
+
+80 reviews/year, $400 revenue contribution per review = $32,000 trust-asset created in year one.
+
+In year five, those same reviews are still earning. The ROI compounds.
+
+---
+
+The owner who treats reviews like a 401k beats the owner who treats them like a chore.
+
+11-year compounded review profile = competitive moat that newcomers can't catch in their first 5 years.
+
+---
+
+Review Automation, $49/mo, no setup. Start compounding.
+
+Full math: https://aioutsourcehub.com/blog/dental-practices-reviews-compounding-asset`,
+      google: `Reviews compound. Ads don't.
+
+A review collected today is still in your Google profile in 2036, still ranking and converting. Ads stop the day you stop paying.
+
+Review Automation, $49/mo, no setup. Start treating reviews like capital, not chores.
+
+Pricing: https://aioutsourcehub.com/pricing#review-automation
+Full breakdown: https://aioutsourcehub.com/blog/dental-practices-reviews-compounding-asset`,
     },
   },
-  {
-    slug: "trade-yelp-trap",
-    title: "Yelp ads trap — $30–80/lead",
-    blogPath: "/blog/hvac-plumbing-five-star-math",
-    images: [{ label: "Big stat", path: "/api/social-card/trade-yelp-trap" }],
-    posts: {
-      "linkedin-company": `Most HVAC and plumbing owners have paid for Yelp ads at some point. The pitch is compelling — appear at the top, beat the competition.
 
-The reality:
-
-— Yelp's local share is small. Most emergency searches happen on Google
-— Cost per lead is $30–$80
-— Leads aren't exclusive. The same emergency customer is calling four businesses
-— Cancelling is painful. Yelp's contract structure has burned more than a few owners
-
-Even when Yelp ads work, they stop the day you stop paying. You're renting visibility. Every month is a fresh bill for the same lead flow.
-
-Reviews are the opposite. You "pay" once — by asking the customer at the end of the job. The review keeps pulling in calls for years. It also makes your Google profile rank above the businesses paying Yelp.
-
-You don't need Yelp ads. You don't need to pay for leads. You need the ask to actually happen, every job, automatically.
-
-aioutsourcehub.com`,
-      facebook: `Yelp ads rent visibility. Reviews own it.
-
-$30–$80 per lead, leads aren't exclusive, and the moment you stop paying, the calls stop.
-
-A review you "pay for" by asking the customer once keeps pulling in calls for years — AND makes your Google profile rank above the businesses paying Yelp.`,
-      instagram: `Yelp ads rent visibility.
-
-Reviews own it.
-
-$30–$80/lead vs ask once and it pays for years.
-
-#HVAC #Plumbing #LocalServices #SmallBusiness #LocalSEO #Trades`,
-      x: `Yelp ads rent visibility. Reviews own it.
-
-$30–$80/lead, non-exclusive, dies the day you stop paying.
-
-Reviews: ask once, paid forever, and outrank Yelp.`,
-      google: `Yelp ads rent visibility. Reviews own it. $30–$80 per lead, non-exclusive, and the calls stop the day you stop paying. A review you "pay for" by asking once keeps pulling in calls for years — AND makes your Google profile outrank the businesses paying Yelp.`,
-    },
-  },
   {
     slug: "med-spa-math",
     title: "Med spa — 1 missed review = 4 bookings",
@@ -597,50 +962,106 @@ Reviews: ask once, paid forever, and outrank Yelp.`,
       { label: "Big stat", path: "/api/social-card/med-spa-math" },
     ],
     posts: {
-      "linkedin-company": `A woman in her thirties is on her phone Tuesday night. She's been thinking about Botox for six months. She finally decided this is the week.
+      "linkedin-company": `One missed review costs a med spa four bookings.
 
-She taps your med spa first. Star rating looks fine. But the most recent review is from eight months ago. She scrolls. The one before that is from a year and a half ago.
+Tuesday, 9:47pm. Homeowner has been thinking about Botox for six months. She opens Google. Three med spas in her zip code. Yours first. Star rating is fine, 4.8. But the newest review is from 8 months ago. She hesitates. Backs out. Taps the next one: 4.8, 73 reviews, newest one from last week. She books.
 
-She backs out.
+That client just walked. $400 first visit. Filler upgrade at month two: $800. Annual maintenance: $2,000+. Friend referral inside the first quarter: another $400-1,200. Gone in 90 seconds because your newest review was 8 months old.
 
-She taps the second one. 4.8 stars, 73 reviews, most recent from last week. She reads three of them. She books.
+And it's not one client. It's four. The same missed review costs you the date-forward shopper, the trust-threshold shopper, the story-shaped buyer (looking for "anxious about needles, felt safe here"), and the map-rank slot you lost to a fresher competitor.
 
-That was a $400 first appointment, the start of a $2,000-per-year client. Lost in 90 seconds, before you knew she existed.
+Review Automation is $49/mo, no setup. We ask every client at the moment they leave glowing (right after the consult result lands), filter unhappy reviews to you privately, and route the rest to Google.
 
-One missed review is doing more damage than it looks. That review would have:
+Full breakdown of the four-booking math: https://aioutsourcehub.com/blog/med-spas-one-missed-review-four-bookings
 
-1. Pushed your most-recent-review date forward
-2. Gotten you past whatever review-count threshold mattered for the next 10 customers
-3. Added one specific, story-shaped review that built trust
-4. Boosted your map rank
+Run yours: https://aioutsourcehub.com/#calculator
 
-Stack the math. One missing review = roughly four lost bookings.
+Med-spa owners: what does your newest Google review's date say?`,
+      "linkedin-personal": `A med-spa owner showed me her booking funnel last month and asked why her Tuesday-night traffic didn't convert.
 
-aioutsourcehub.com`,
-      facebook: `She wanted Botox. She picked your med spa first.
+I asked her to pull up her Google profile on her phone. 4.8 stars, 64 reviews, newest one from last September. I told her she was losing every Tuesday-night Botox shopper to the practice two miles away with 73 reviews and a newest one from last week. Same star rating. Different signal.
 
-But your most recent review was from eight months ago. She backed out. Tapped the next one. Booked.
+The Tuesday-night Botox shopper is high-intent and date-paranoid. She's been thinking about this for months. She wants proof the practice is current, busy, and still doing good work. A 9-month-old newest review reads "closed" to her, even when you're booking out 3 weeks.
 
-That was $400 first appointment + $2,000/year. Lost in 90 seconds.
+We rolled her onto Review Automation, $49/mo, no setup. Asks every client at the right moment (right after the result settles, not at checkout). 47 days in, she had 22 new reviews and her Tuesday-night conversion rate had doubled.
 
-One missing review = roughly four lost bookings. The math compounds.`,
-      instagram: `She wanted Botox.
+The full four-booking math: https://aioutsourcehub.com/blog/med-spas-one-missed-review-four-bookings
 
-She picked your profile first.
+Run the lost-revenue math: https://aioutsourcehub.com/#calculator
 
-Last review: 8 months ago. She backed out. Booked next door.
+Med-spa owners reading this: what's the date on your newest Google review?`,
+      facebook: `One missed review = four lost bookings for a med spa.
 
-One missed review = four lost bookings.
+Tuesday night Botox shopper. Your profile first. 4.8 stars, but newest review is 8 months old. She backs out, books the next one (fresher reviews). You just lost a $400 first visit + $2,000/year client.
 
-#MedSpa #MedSpaMarketing #Botox #LocalBusiness #ReviewMarketing #SmallBiz`,
-      x: `A first-time Botox client = $400 visit + ~$2,000/yr.
+Review Automation, $49/mo, no setup. We ask every client at the right moment so reviews keep landing.
 
-She picks you first. Last review is 8 months old. She backs out. Books next door.
+Run your number: https://aioutsourcehub.com/#calculator
 
-One missed review = roughly four lost bookings.`,
-      google: `A first-time Botox client is worth $400 today plus ~$2,000/year for years. She picks your med spa first — but your most recent review is 8 months old. She backs out, books next door. One missed review = roughly four lost bookings. The math compounds.`,
+Full breakdown: https://aioutsourcehub.com/blog/med-spas-one-missed-review-four-bookings`,
+      instagram: `One missed review = 4 lost bookings.
+
+Tuesday night, 9:47pm. A client has been thinking about Botox for 6 months. She opens Google. Your profile is first, 4.8 stars. But the newest review is 8 months old. She backs out.
+
+The next spa (4.8, newest review last week) books her. You just lost a $400 first visit + $2,000/year.
+
+Review Automation $49/mo, no setup. Link in bio.`,
+      x: `One missed Google review costs a med spa 4 bookings.
+
+Date-forward shopper. Trust-threshold shopper. Story-shaped shopper. Map-rank slot.
+
+All gone with a single dormant review profile.
+
+---
+
+Tuesday, 9:47pm. A client has been thinking about Botox for 6 months.
+
+Opens Google. Yours first. 4.8 stars, but newest review is from 8 months ago.
+
+She hesitates. Backs out. Taps the next one.
+
+That spa? 4.8, 73 reviews, newest from last week. She books.
+
+---
+
+The math on what just walked:
+
+$400 first visit
+$800 filler upgrade at month 2
+$2,000/year maintenance
+$400-1,200 referral inside the quarter
+
+$3,600-4,400 lifetime value. Gone in 90 seconds.
+
+---
+
+It's not one client. It's four.
+
+1. Date-forward shopper (newest review old = "are they still open?")
+2. Trust-threshold shopper (sub-30 fresh reviews = unproven)
+3. Story-shaped shopper (looking for "anxious about needles, felt safe")
+4. Map-rank slot (Google demoted you)
+
+---
+
+Fix: ask every client at the right moment. Right after the result settles, not at checkout.
+
+Review Automation $49/mo, no setup.
+
+Math: https://aioutsourcehub.com/#calculator
+Full breakdown: https://aioutsourcehub.com/blog/med-spas-one-missed-review-four-bookings`,
+      google: `One missed review costs a med spa four bookings.
+
+Tuesday night Botox shopper sees your dormant profile, backs out, books the spa with fresher reviews. That's a $400 first visit + $2,000/year client lost in 90 seconds.
+
+Review Automation, $49/mo, no setup. We ask every client at the right moment (right after the result settles).
+
+Calculator: https://aioutsourcehub.com/#calculator
+Pricing: https://aioutsourcehub.com/pricing#review-automation
+Full breakdown: https://aioutsourcehub.com/blog/med-spas-one-missed-review-four-bookings`,
     },
   },
+
   {
     slug: "groomer-trust",
     title: "Pet groomers — under 20 reviews = no booking",
@@ -650,53 +1071,96 @@ One missed review = roughly four lost bookings.`,
       { label: "Big stat", path: "/api/social-card/groomer-trust" },
     ],
     posts: {
-      "linkedin-company": `If you've groomed dogs for any length of time, you already know something other industries don't: your customers aren't buying a haircut. They're handing you their family member for an hour and trusting you not to traumatize them.
+      "linkedin-company": `Pet parents don't book groomers under 20 reviews.
 
-That trust doesn't come from your prices, your website, or your years in business. It comes from other pet parents saying "she was so good with my dog, he actually loves going now."
+Hard threshold. We see it in client funnel data across every groomer we work with. Under 20 reviews and the booking page bounces. The pet parent isn't being picky. She's anxious. She's handing over an animal that can't tell her how the appointment went. She needs proof.
 
-Pet parents read for empathy. Generic 5-star reviews don't move the needle nearly as much as one specific story does.
+After the 20-review threshold clears, the math shifts. Then it's not how many. It's what they say. Generic 5-star reviews ("great groomer!") don't move the needle. Story-shaped reviews do: "Anxious doodle, first groom, came home calm." "She's nervous about the dryer, they kept it slow." Those convert.
 
-The number of reviews matters too — most pet parents won't book under 20 reviews. But after that, what the reviews SAY matters more than how many.
+Timing is the other lever. The pickup-moment ask (right when the dog walks out happy) converts at 30-50%. The 2-day-later text converts at 5-10%. Six-times difference for ten seconds of timing work.
 
-Best way to get the right kind of reviews:
+Review Automation is $49/mo, no setup. We ask at the pickup moment, prompt for story details, filter unhappy reviews to you privately. Most groomers hit the 20-review threshold inside 60 days.
 
-Ask at pickup, when the dog looks great. The customer is happy, the dog is happy, they have 30 seconds of post-grooming joy. Hand them their phone with the review form open. "If you have a second — it means everything to us."
+Full breakdown for groomers: https://aioutsourcehub.com/blog/pet-groomers-reviews-decide-bookings
 
-That's it. Don't say "five stars please." Don't offer a discount.
+Groomers reading this: how many of your reviews mention a specific dog story vs. a generic "great job"?`,
+      "linkedin-personal": `I sat down with a pet groomer outside Chicago last month. Beautiful shop, great work, 14 Google reviews.
 
-A pickup ask converts at 30–50%. A two-day-later text converts at 5–10%. Timing is everything.
+She couldn't figure out why her website traffic wasn't converting. I told her: pet parents don't book under 20 reviews. It's a hard threshold. Then I asked her when she asks for reviews. "Two days after, by text." Of course. 5-10% conversion on that text. That's why she had 14 reviews after 18 months.
 
-aioutsourcehub.com`,
-      facebook: `Pet parents don't book under 20 reviews. After that, what the reviews SAY matters most.
+The pickup moment is everything. The dog walks out, the parent is relieved and grateful, the bond is fresh. Ask there and you're at 30-50%. Ask two days later and you're at 5-10%. Same business, six-times the result, ten seconds of difference.
 
-Generic 5-star reviews don't move the needle. Stories do.
+We onboarded her on Review Automation, $49/mo, no setup. Built the pickup-moment ask into her checkout flow with story prompts. 52 days in: 31 new reviews, and the booking funnel started converting again.
 
-Best way to get them: ask at pickup, while the dog still looks great. 30 seconds. One tap. The customer is glowing. So is the dog.`,
+Full breakdown for groomers: https://aioutsourcehub.com/blog/pet-groomers-reviews-decide-bookings
+
+For the groomers here: pickup-moment ask, or 2-day-later text?`,
+      facebook: `Pet parents don't book groomers under 20 reviews.
+
+It's a hard threshold. The fix is timing. Pickup-moment ask converts at 30-50%. The 2-day-later text? 5-10%. Six-times difference for ten seconds of timing.
+
+Review Automation, $49/mo, no setup. We ask at the pickup moment with story prompts.
+
+Pricing: https://aioutsourcehub.com/pricing#review-automation
+Full breakdown: https://aioutsourcehub.com/blog/pet-groomers-reviews-decide-bookings`,
       instagram: `Pet parents don't book under 20 reviews.
 
-After that, what the reviews SAY matters most.
+Hard threshold. After that, what reviews SAY matters more than how many. Anxious doodle stories convert. Generic 5-stars don't.
 
-Stories beat generic 5-stars. Always.
+Timing matters too. Pickup-moment ask: 30-50% conversion. 2-day text: 5-10%.
 
-#PetGrooming #DogGrooming #PetBusiness #SmallBusinessOwner #LocalBusiness`,
-      x: `Pet parents don't book under 20 reviews.
+Review Automation $49/mo, no setup. Link in bio.`,
+      x: `Pet parents don't book groomers under 20 reviews.
 
-After that, what the reviews SAY matters more than how many.
+Hard threshold. The booking page bounces below it.
 
-Stories beat generic 5-stars. Every time.`,
-      google: `Pet parents don't book a groomer under 20 reviews. After that, what the reviews SAY matters more than how many. Generic 5-stars don't move the needle — stories do. Ask at pickup, while the dog still looks great. 30 seconds. One tap. The customer is glowing. So is the dog.`,
+She's handing over an animal that can't tell her how it went. She needs proof.
+
+---
+
+Past 20, the math shifts.
+
+Then it's not how many. It's what they say.
+
+Generic "great groomer!" reviews don't convert.
+
+Story-shaped reviews do:
+"Anxious doodle, came home calm."
+"They kept the dryer slow because she's nervous."
+
+---
+
+Timing is the lever nobody talks about.
+
+Pickup-moment ask: 30-50% leave a review.
+2-day-later text: 5-10%.
+
+Same business. Same customer. 6x difference for 10 seconds of timing work.
+
+---
+
+Why pickup moment wins:
+
+Dog walks out happy. Parent is relieved. Bond is fresh. Phone is already out.
+
+Two days later? She's back at work, the dog is asleep, the moment is gone.
+
+---
+
+Review Automation $49/mo, no setup. Pickup-moment ask, story prompts, unhappy ones filtered to you.
+
+Full breakdown: https://aioutsourcehub.com/blog/pet-groomers-reviews-decide-bookings`,
+      google: `Pet parents don't book groomers under 20 reviews.
+
+Hard threshold. The fix is timing and story prompts. Pickup-moment ask converts at 30-50%. The standard 2-day text converts at 5-10%.
+
+Review Automation, $49/mo, no setup. Pickup-moment ask, story prompts, unhappy reviews filtered to you privately.
+
+Pricing: https://aioutsourcehub.com/pricing#review-automation
+Full breakdown: https://aioutsourcehub.com/blog/pet-groomers-reviews-decide-bookings`,
     },
   },
 ];
-
-// Default LinkedIn-personal reuses the company copy. Slot left empty in data
-// because GHL can post the same text to multiple LinkedIn accounts in one
-// scheduled post.
-THEMES.forEach((t) => {
-  if (!t.posts["linkedin-personal"] && t.posts["linkedin-company"]) {
-    t.posts["linkedin-personal"] = linkedinPersonalIntro(t.posts["linkedin-company"]!);
-  }
-});
 
 export function scheduledDateFor(weekIndex: number): Date {
   // First post Wed 2026-05-13 09:00 America/New_York (== 13:00 UTC during EDT)

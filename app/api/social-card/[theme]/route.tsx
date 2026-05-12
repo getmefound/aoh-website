@@ -73,13 +73,6 @@ const THEMES: Record<string, Theme> = {
     tagline: "Ads stop the moment you stop paying. A review you collect today still ranks for you in 2036.",
     accent: "green",
   },
-  "trade-yelp-trap": {
-    eyebrow: "THE YELP TRAP",
-    stat: "$30–80",
-    unit: "per lead",
-    tagline: "Yelp ads rent visibility. Reviews own it. You ask once; the review brings you calls for years.",
-    accent: "red",
-  },
   "med-spa-math": {
     eyebrow: "MED SPA MATH",
     stat: "1 review = 4 bookings",
