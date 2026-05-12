@@ -144,3 +144,6 @@ Project 1 in `HIRING.md` was scoped against the v9 single-page site. A lot has s
 - [`HIRING.md`](./HIRING.md) — original Project 1 brief (partly superseded by what's listed above)
 - [`PRODUCT.md`](./PRODUCT.md) — product context
 - [`DESIGN.md`](./DESIGN.md) — design system
+
+## PP Wiring
+- See \\docs/PP_GHL_WIRING.md\\ for full Prospecting Premium + GHL callback mapping.
