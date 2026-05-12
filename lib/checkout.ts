@@ -42,7 +42,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "AI-drafted replies in your voice (you approve)",
       "SMS review requests (3× higher response than email)",
       "Monthly 15-min review call + ongoing GBP work",
-      "Cited in ChatGPT, Google AI Overviews, Perplexity, Claude",
+      "Cited in ChatGPT, Google AI Overviews, Claude",
       "Structured data + schema markup on your site",
     ],
     ctaUrl: "https://pay.aioutsourcehub.com/checkout-ai-visibility-plan-page",

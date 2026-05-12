@@ -18,7 +18,7 @@ For 20 years, local search worked one way. You wanted to be on the first page of
 
 Position #1 in Google Maps captures roughly all the clicks in its category. Position #2 captures about a third. Position #8 captures about one in ten. Position #20 captures almost nothing.
 
-Those numbers haven't changed in years. What HAS changed is that a growing share of customers don't search Google at all anymore. They open ChatGPT, or Perplexity, or they see Google's AI summary at the top of the page, and they ask:
+Those numbers haven't changed in years. What HAS changed is that a growing share of customers don't search Google at all anymore. They open ChatGPT, or Claude, or they see Google's AI summary at the top of the page, and they ask:
 
 > *"Who's a good plumber in Hartford?"*
 
@@ -44,7 +44,7 @@ A ChatGPT recommendation isn't traffic. It's a customer who's already most of th
 
 ## What it actually takes to be recommended
 
-AI tools like ChatGPT, Perplexity, and Google's AI summaries build their answers by reading a handful of sources. If those sources tell a clean, consistent story about your business, the AI feels confident recommending you. If they don't, you get skipped.
+AI tools like ChatGPT, Claude, and Google's AI summaries build their answers by reading a handful of sources. If those sources tell a clean, consistent story about your business, the AI feels confident recommending you. If they don't, you get skipped.
 
 The sources that matter most:
 

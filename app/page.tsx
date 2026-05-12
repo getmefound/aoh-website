@@ -56,7 +56,7 @@ const teaserCards: TeaserCard[] = [
     cadence: "/month",
     bullets: [
       "Reviews fully managed + AI replies",
-      "Cited in ChatGPT, Google AI, Perplexity",
+      "Cited in ChatGPT, Google AI, Claude",
       "Monthly call + ongoing optimization",
     ],
     href: "/pricing#ai-visibility",

@@ -31,7 +31,7 @@ Four customer-facing services:
 |---|---|
 | **Reviews** | SMS + email review collection, AI-drafted responses, Google Business Profile optimization, AI-search visibility, local-rank tracking. |
 | **Relay** | 24/7 inbound call handling, bilingual EN+ES single-agent, unlimited inbound minutes. Books appointments, transfers to humans when needed. |
-| **AI Visibility** | Get found in ChatGPT, Perplexity, Google AI Overviews, and traditional search. Schema markup, llms.txt, JSON-LD, GBP optimization, ongoing monitoring. |
+| **AI Visibility** | Get found in ChatGPT, Claude, Google AI Overviews, and traditional search. Schema markup, llms.txt, JSON-LD, GBP optimization, ongoing monitoring. |
 | **Studio** | Content production — images, copy, social posts, blog. Includes ad creative for Meta and Google. |
 
 Specific pricing is shared with serious applicants and clients directly.

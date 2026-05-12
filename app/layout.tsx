@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AI Outsource Hub",
     description:
-      "Get your business found on Google, Maps, ChatGPT, and Perplexity. Starting at $1/day.",
+      "Get your business found on Google, Maps, ChatGPT, and Claude. Starting at $1/day.",
     images: ["/AOH-logo-light-bg.svg"],
   },
   robots: {

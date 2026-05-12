@@ -246,7 +246,7 @@ export default function AboutPage() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-wider">
-              {["Google", "Maps", "ChatGPT", "Perplexity", "AI Overviews", "Claude"].map((c) => (
+              {["Google", "Maps", "ChatGPT", "AI Overviews", "Claude"].map((c) => (
                 <span
                   key={c}
                   className="rounded-md bg-white/[0.04] border border-white/10 px-2.5 py-1 text-white/70"

@@ -156,13 +156,13 @@ function RevenueCalculatorInner() {
     const target = ind.velocityTarget;
 
     if (aiVisibility === "tested-invisible") {
-      insight = `<strong>You&apos;re invisible in AI search — that&apos;s the biggest issue.</strong> 25%+ of local discovery has shifted to ChatGPT, Perplexity, and Google AI Overviews. Reviews and ranking only fix half the problem.`;
+      insight = `<strong>You&apos;re invisible in AI search — that&apos;s the biggest issue.</strong> 25%+ of local discovery has shifted to ChatGPT, Claude, and Google AI Overviews. Reviews and ranking only fix half the problem.`;
     } else if (reviewsPerMonth === 0) {
       insight = `<strong>Zero new reviews this month is the biggest issue.</strong> Google&apos;s local pack weights review <em>freshness</em> over total count. Reviews older than 6 months carry only 10–20% of their original ranking power. The top ${ind.label} get ${target}+ new reviews per month, every month — that&apos;s why they outrank you, even if you have a higher total count.`;
     } else if (reviewsPerMonth < target * 0.5) {
       insight = `<strong>Your review velocity is too low to keep ranking.</strong> The top ${ind.label} collect ${target}+ new reviews per month. At ${reviewsPerMonth}/month, Google reads your business as slowing down — your ranking starts decaying within 30 days regardless of how many older reviews you have. Velocity is the ranking signal; volume isn&apos;t.`;
     } else if (aiVisibility === "dont-know" && reviewsPerMonth >= target * 0.6 && ranking <= 5) {
-      insight = `<strong>Your Google game is decent — the AI gap is wide open.</strong> You&apos;re close on velocity (${reviewsPerMonth}/mo vs ${target}+) and rank #${ranking}. Unknown is AI search, where most local businesses score under 20/100. Free report includes a live ChatGPT and Perplexity check for your business.`;
+      insight = `<strong>Your Google game is decent — the AI gap is wide open.</strong> You&apos;re close on velocity (${reviewsPerMonth}/mo vs ${target}+) and rank #${ranking}. Unknown is AI search, where most local businesses score under 20/100. Free report includes a live ChatGPT and Claude check for your business.`;
     } else if (ranking > 5) {
       insight = `<strong>Your ranking is costing you the most.</strong> Positions #1–3 capture ${Math.round(rankingTraffic[1] * 100)}% of local search clicks. At #${ranking}, you&apos;re getting roughly ${Math.round(currentTraffic * 100)}% of that traffic. Most customers never see you.`;
     } else if (stars < 4.0) {
@@ -378,7 +378,7 @@ function RevenueCalculatorInner() {
               {/* AI Visibility */}
               <div className="mb-2">
                 <label htmlFor="ai-visibility-select" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
-                  Does ChatGPT, Perplexity, or Google AI Overviews recommend you?
+                  Does ChatGPT, Claude, or Google AI Overviews recommend you?
                 </label>
                 <select
                   id="ai-visibility-select"
@@ -400,7 +400,7 @@ function RevenueCalculatorInner() {
                 </select>
                 {(aiVisibility === "dont-know" || aiVisibility === "think-so") && !aiVisUrl && (
                   <p className="mt-3 text-xs text-[var(--color-accent)] leading-relaxed">
-                    We&apos;ll run a live ChatGPT + Perplexity + Google AI Overviews check for your
+                    We&apos;ll run a live ChatGPT + Claude + Google AI Overviews check for your
                     business in your free report — see exactly what they say (or don&apos;t).
                   </p>
                 )}
@@ -473,7 +473,7 @@ function RevenueCalculatorInner() {
                         <strong className="block mb-1 text-white">
                           We&apos;ll run the AI check for you.
                         </strong>
-                        Your free report includes live ChatGPT, Perplexity, and Google AI Overviews
+                        Your free report includes live ChatGPT, Claude, and Google AI Overviews
                         queries for your business + niche. See exactly who&apos;s being cited (and
                         why it&apos;s not you).
                       </div>

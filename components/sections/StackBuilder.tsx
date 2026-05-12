@@ -28,7 +28,7 @@ const SERVICES: Service[] = [
   {
     slug: "ai-visibility",
     name: "AI Visibility",
-    oneLiner: "Cited in ChatGPT, Google AI, Perplexity.",
+    oneLiner: "Cited in ChatGPT, Google AI, Claude.",
     monthly: 179,
     setup: 199,
     href: "/checkout/ai-visibility",

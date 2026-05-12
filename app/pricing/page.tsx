@@ -68,7 +68,7 @@ const products: ProductDetailData[] = [
     name: "AI Visibility",
     outcome: "Be the answer when customers ask ChatGPT or Google AI.",
     story:
-      "A quarter of searches have already moved to AI tools. Most local businesses are invisible there. We get your business named in ChatGPT, Google AI Overviews, Perplexity, and Claude — and we run AI-drafted replies + SMS review requests so your reputation feeds the answer.",
+      "A quarter of searches have already moved to AI tools. Most local businesses are invisible there. We get your business named in ChatGPT, Google AI Overviews, and Claude — and we run AI-drafted replies + SMS review requests so your reputation feeds the answer.",
     stats: [
       { label: "Channels", value: "4+ AI" },
       { label: "SMS lift", value: "3×" },
@@ -79,7 +79,7 @@ const products: ProductDetailData[] = [
       "AI-drafted replies in your voice (you approve)",
       "SMS review requests (3× higher response than email)",
       "Monthly 15-min review call + ongoing GBP work",
-      "Cited in ChatGPT, Google AI Overviews, Perplexity, Claude",
+      "Cited in ChatGPT, Google AI Overviews, Claude",
       "Structured data + schema markup on your site",
       "Multi-platform review monitoring",
     ],

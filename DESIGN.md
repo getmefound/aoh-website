@@ -115,8 +115,8 @@ When adding new animations: keep them subtle, gate them by reduced-motion, and a
 
 `app/layout.tsx` injects `Organization` + `WebSite` JSON-LD into `<head>`. The site also ships:
 
-- `public/llms.txt` — plain-text business summary that AI crawlers (GPTBot, ClaudeBot, PerplexityBot) prefer over HTML
-- `public/robots.txt` — explicitly allows GPTBot, ClaudeBot, PerplexityBot, Google-Extended, anthropic-ai, cohere-ai
+- `public/llms.txt` — plain-text business summary that AI crawlers (GPTBot, ClaudeBot) prefer over HTML
+- `public/robots.txt` — explicitly allows GPTBot, ChatGPT-User, ClaudeBot, anthropic-ai, Google-Extended, Googlebot, xAI, cohere-ai
 
 If you add a new section or page, add the appropriate Schema.org block (e.g., `Service`, `FAQPage`, `BreadcrumbList`) to maintain AEO / GEO surface. See vault `04 AI Outsource Hub/HR/Training/playbooks/SEO-AEO-GEO Setup.md` for the full schema list AOH commits to.
 
