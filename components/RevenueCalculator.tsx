@@ -203,7 +203,7 @@ function RevenueCalculatorInner() {
   return (
     <section
       id="calculator"
-      className="py-16 md:py-24 bg-[var(--color-bg-page)] scroll-mt-24"
+      className="py-20 md:py-28 bg-[var(--color-bg-page)] scroll-mt-24"
     >
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="bg-white border border-[var(--color-border)] rounded-2xl md:rounded-3xl p-5 md:p-10 shadow-sm">

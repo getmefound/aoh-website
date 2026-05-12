@@ -202,7 +202,7 @@ function HeroInner() {
       aria-label="Hero"
       className="bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
     >
-      <div className="mx-auto max-w-6xl px-6 py-10 md:py-16">
+      <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 md:items-stretch">
           <div className="md:flex md:flex-col md:justify-center">
             <h1 className="font-semibold leading-[1.05] tracking-tight text-[clamp(2rem,8vw,3.5rem)] md:text-[clamp(2.5rem,5vw,4.5rem)]">
@@ -410,7 +410,7 @@ function HeroFallback() {
       aria-label="Hero"
       className="bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
     >
-      <div className="mx-auto max-w-6xl px-6 py-10 md:py-16">
+      <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
         <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
           <div>
             <div className="h-32 w-full max-w-xl rounded-md bg-white/[0.03]" />
