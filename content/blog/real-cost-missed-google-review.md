@@ -3,7 +3,7 @@ title: "The real cost of a missed Google review"
 description: "Harvard Business School ran the math. A 1-star rating bump correlates with 5–9% revenue. Here's what one missed review actually costs your business."
 date: "2026-05-07"
 category: "Reviews"
-coverImage: "https://images.unsplash.com/photo-1642043175009-5997b3a078d8?w=1600&q=80&auto=format&fit=crop"
+coverImage: "/api/blog-cover/real-cost-missed-google-review"
 author:
   name: "Mike Egidio"
   role: "Founder, AI Outsource Hub"
