@@ -173,6 +173,11 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
         </div>
       </div>
     ),
-    { ...SIZE }
+    {
+      ...SIZE,
+      headers: {
+        "Content-Disposition": `inline; filename="aoh-motto-${slug}.png"`,
+      },
+    }
   );
 }
