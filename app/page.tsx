@@ -186,7 +186,9 @@ export default function Home() {
           </div>
         </section>
 
-        <RevenueCalculator />
+        <section id="calculator" className="scroll-mt-24">
+          <RevenueCalculator />
+        </section>
 
         <HowItWorks />
 
