@@ -28,31 +28,22 @@ export const metadata: Metadata = {
     template: "%s - AI Outsource Hub",
   },
   description:
-    "A hub of AI services for local businesses - review automation, AI voice agents, AI visibility, and more. You run your business, we run the AI. Starting at $1/day.",
+    "Done-for-you AI for local businesses. Review automation, AI receptionists, and AI search visibility — run for you, not in a dashboard. Starts at $49/mo. No contract.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "AI Outsource Hub",
+    title: "AI Outsource Hub — You run your business. We run the AI.",
     description:
-      "Review automation, AI voice agents, and AI visibility for local businesses. Starting at $1/day, no contract.",
+      "Done-for-you AI for local businesses. Review automation, AI receptionists, and AI search visibility. Starts at $49/mo. No contract.",
     url: "https://aioutsourcehub.com",
     siteName: "AI Outsource Hub",
     type: "website",
     locale: "en_US",
-    images: [
-      {
-        url: "/AOH-logo-light-bg.svg",
-        width: 1200,
-        height: 630,
-        alt: "AI Outsource Hub",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Outsource Hub",
+    title: "AI Outsource Hub — You run your business. We run the AI.",
     description:
-      "Get your business found on Google, Maps, ChatGPT, and Claude. Starting at $1/day.",
-    images: ["/AOH-logo-light-bg.svg"],
+      "Done-for-you AI for local businesses. Review automation, AI receptionists, AI search visibility. Starts at $49/mo. No contract.",
   },
   robots: {
     index: true,
