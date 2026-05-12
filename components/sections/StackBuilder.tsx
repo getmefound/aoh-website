@@ -110,6 +110,7 @@ export function StackBuilder() {
         href: only.href,
         disabled: false,
         hint: only.setup > 0 ? `${money(only.setup)} one-time setup.` : "No setup fee.",
+        external: true,
       };
     }
     return {
