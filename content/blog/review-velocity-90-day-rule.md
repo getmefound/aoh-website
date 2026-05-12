@@ -3,7 +3,7 @@ title: "200 old reviews lose to 60 new ones — the 90-day rule"
 description: "Google quietly weights recent reviews more than old ones. If your last review was in 2022, your reputation looks frozen no matter how many stars you have."
 date: "2026-05-09"
 category: "Reviews"
-coverImage: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1600&q=80&auto=format&fit=crop"
+coverImage: "https://images.unsplash.com/photo-1675352161828-c07170f1b114?w=1600&q=80&auto=format&fit=crop"
 author:
   name: "Mike Egidio"
   role: "Founder, AI Outsource Hub"
