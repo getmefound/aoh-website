@@ -1,0 +1,221 @@
+# AOH Social Profile Kit
+
+Copy-paste ready. Banner images served from the live site — right-click any URL below and save image to upload to the matching platform.
+
+---
+
+## 1. COMPANY PAGES (you run these)
+
+### LinkedIn Company Page
+
+**Banner image (1128×191):**
+`https://aioutsourcehub.com/api/social-banner/linkedin-company`
+
+**Tagline (under company name, ~120 chars):**
+> Done-for-you AI for local businesses. You run the business. We run the AI.
+
+**About (1,000 char LinkedIn limit — this is 720):**
+> AI Outsource Hub runs AI for local businesses so owners can stay in their business instead of in a dashboard.
+>
+> We handle Review Automation, AI Visibility, AI receptionists, outbound, and content — done-for-you, no software to log into. Six services starting at $49/mo, no contract.
+>
+> Most local-business owners pay $300–$500 a month for marketing software they never open. We replace the stack with services that actually run. Reviews come in. Calls get answered. AI search names your business.
+>
+> If you run a service business — plumbing, HVAC, lawn care, dental, vet, med spa, pet grooming, salon — start with our free revenue calculator at aioutsourcehub.com.
+
+**Industry:** Marketing Services
+**Specialties:** Review Automation, AI Visibility, Local SEO, AI Voice Agents, Done-for-you Marketing, Small Business Marketing, Google Business Profile, Lead Generation
+
+---
+
+### Facebook Page
+
+**Cover photo (820×312):**
+`https://aioutsourcehub.com/api/social-banner/facebook`
+
+**Page description (255 char limit):**
+> Done-for-you AI for local businesses. Review automation, AI receptionists, AI search visibility. Starts at $49/mo, no contract. You run the business — we run the AI.
+
+**About (longer, no hard limit):**
+> AI Outsource Hub runs AI for local businesses. Reviews, AI search visibility, AI receptionists, content, ads — handled for you. No dashboards to log into. No contracts. Just results.
+>
+> Six services, starting at $49/mo. Built for plumbing, HVAC, lawn care, dental, vet, med spa, pet grooming, and salon owners who want their phone to ring more without learning more software.
+>
+> aioutsourcehub.com
+
+**CTA button:** Book Now → `https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56`
+
+---
+
+### Instagram (Business Profile)
+
+**No traditional cover — profile pic + bio matter most.**
+
+**Bio (150 char limit — this is 148):**
+> Done-for-you AI for local businesses.
+> Reviews · AI search · Voice agents · Content
+> Run your business. We run the AI.
+> $49/mo, no contract ↓
+
+**Category:** Marketing Agency
+
+**Bio link (paste in Instagram's "Add link" feature — supports 5 native links since 2023):**
+
+| Title | URL |
+|---|---|
+| Review Automation pricing | `https://aioutsourcehub.com/pricing#review-automation` |
+| AI Visibility pricing | `https://aioutsourcehub.com/pricing#ai-visibility` |
+| Whole Stack pricing | `https://aioutsourcehub.com/pricing#whole-stack` |
+| Relay pricing | `https://aioutsourcehub.com/pricing#relay` |
+| Lost-Revenue Calculator | `https://aioutsourcehub.com/#calculator` |
+
+---
+
+### X / Twitter
+
+**Header image (1500×500):**
+`https://aioutsourcehub.com/api/social-banner/x`
+
+**Bio (160 char limit — this is 157):**
+> Done-for-you AI for local businesses.
+> Reviews · AI search · Voice agents · Content.
+> You run the business. We run the AI.
+> aioutsourcehub.com · $49/mo
+
+**Website URL:** `https://aioutsourcehub.com`
+**Location:** Southington, CT
+
+---
+
+### Google Business Profile (your own GBP for AOH)
+
+**Cover photo:** use the LinkedIn banner asset
+**Logo:** AOH icon
+**Category:** Marketing Agency
+**Service area:** all US
+
+**Business description (750 char limit — this is 720):**
+> AI Outsource Hub runs AI for local businesses so owners can stay in their business instead of in a dashboard.
+>
+> We handle Review Automation, AI Visibility, AI receptionists, outbound, and content — done-for-you, no software to log into.
+>
+> Six services starting at $49/mo, no contract. Built for plumbing, HVAC, lawn care, dental, vet, med spa, pet grooming, and salon owners who want their phone to ring more without learning more software.
+>
+> Most local owners pay $300–$500/mo for marketing software they never open. We replace the stack with services that actually run. Start with our free revenue calculator at aioutsourcehub.com.
+
+**Services to list inside GBP:**
+- Review Automation
+- AI Visibility (AI search)
+- Relay (AI Voice Receptionist)
+- Reach (Lead Generation)
+- Studio (Content)
+- Whole Stack (Bundle)
+
+---
+
+## 2. PERSONAL LINKEDIN PROFILES — UNIFORM ACROSS THE TEAM
+
+Every team member uses the same **closing paragraph** so any AOH person's profile reads consistently. Their individual headline + opening About paragraph varies by role.
+
+### LinkedIn shared closing paragraph (paste at end of each About)
+
+> ---
+>
+> **About AI Outsource Hub:** We run AI for local businesses — done-for-you Review Automation, AI Visibility, AI receptionists, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the AI. → aioutsourcehub.com
+
+---
+
+### Mike Egidio — Founder
+
+**Banner (1584×396):**
+`https://aioutsourcehub.com/api/social-banner/mike`
+
+**Headline (220 char limit — this is 88):**
+> Founder, AI Outsource Hub · Done-for-you AI for local businesses · You run the business. We run the AI.
+
+**About (paste as your "About" / "Summary"):**
+> I built AI Outsource Hub because I watched too many local-business owners lose to availability and bandwidth, not skill. Their phones go to voicemail at 7pm. Their reviews go stale. Their profiles read dormant to ChatGPT. None of it is because they're bad operators — they just don't have time to be marketers too.
+>
+> So we run the AI for them. No dashboards. No setup wizards. No "have you tried our new feature" emails. We answer the calls, ask for the reviews, fix the AI search visibility, and write the content. The owner stays in the truck, the chair, the kitchen, the shop.
+>
+> 15+ years automating local-business work before AOH. Based in Southington, CT.
+>
+> If you run a service business and want to see what your missed-revenue number actually looks like, the calculator at aioutsourcehub.com runs it in 30 seconds.
+>
+> ---
+>
+> **About AI Outsource Hub:** We run AI for local businesses — done-for-you Review Automation, AI Visibility, AI receptionists, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the AI. → aioutsourcehub.com
+
+---
+
+### Kip Leathers — Business Development
+
+**Banner (1584×396):**
+`https://aioutsourcehub.com/api/social-banner/kip`
+
+**Headline (220 char limit — this is 102):**
+> Business Development at AI Outsource Hub · Connecting local-business owners with the AI they didn't know they needed
+
+**About:**
+> I find the right local-business owners to talk to — then open the conversation.
+>
+> Most owners I talk to are paying for 4–7 marketing tools they haven't opened in 90 days. They're trying to figure out why their phone isn't ringing while the answer is sitting on their Google profile (newest review: 14 months ago) and in the AI tools where customers now ask "best plumber near me."
+>
+> My job is to be the first useful conversation an owner has had in a while — no funnel theater, no comment-bait, no "schedule a 30-minute discovery call." We run the numbers on what they're already losing, show what we'd fix first, and let the math do the work.
+>
+> If you'd rather have your AI run for you than figured out, I'm the one to talk to.
+>
+> ---
+>
+> **About AI Outsource Hub:** We run AI for local businesses — done-for-you Review Automation, AI Visibility, AI receptionists, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the AI. → aioutsourcehub.com
+
+---
+
+### Teri Egidio — Sales Manager
+
+**Banner (1584×396):**
+`https://aioutsourcehub.com/api/social-banner/teri`
+
+**Headline (220 char limit — this is 99):**
+> Sales Manager at AI Outsource Hub · I make sure your first 30 days with us feel handled, not figured out
+
+**About:**
+> I run the inbound pipeline at AI Outsource Hub and onboard every new client.
+>
+> When an owner books a call with us, the first thing they tell me is some version of "I don't have time for another tool." They're right. They don't. That's why my whole job is making the first 30 days feel handled instead of figured out — we connect the systems, write in your voice, set the cadence, and the reviews/calls/visibility start showing up without you doing anything.
+>
+> My background is local-business operations. I've watched the marketing-software cycle break good owners enough times to know what gets in the way. So I run our side of the relationship like an operator, not a salesperson — clear expectations, real timelines, and an honest read on whether AOH is actually the right move for your business.
+>
+> If you're looking at us, I'm the one you'll talk to next.
+>
+> ---
+>
+> **About AI Outsource Hub:** We run AI for local businesses — done-for-you Review Automation, AI Visibility, AI receptionists, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the AI. → aioutsourcehub.com
+
+---
+
+## 3. UPLOAD INSTRUCTIONS
+
+### Banners (one-time per page, ~1 min each)
+
+For each banner URL above:
+1. Open the URL in your browser
+2. Right-click the image → **Save image as** → save to desktop
+3. Open the matching page settings on the platform → upload as cover/header
+
+### Profile copy
+
+Copy each block above, paste into the corresponding profile field. Save.
+
+### LinkedIn personal — Kip and Teri
+
+Send each of them their section above. They paste headline + About into their personal LinkedIn profile and upload their banner. ~5 min per person.
+
+---
+
+## 4. WHAT THIS GIVES YOU
+
+- **Uniform brand:** every AOH-affiliated profile (company + 3 personals + GBP) closes with the same "About AOH" paragraph. Reader who lands on Kip's profile, then yours, then the company page reads a consistent story.
+- **Differentiated voice:** each personal profile leads with what THAT person does at AOH — Mike's "why I built it," Kip's "I open conversations," Teri's "I run onboarding." No two AOH profiles read the same.
+- **Cross-link without spamming:** every profile points to aioutsourcehub.com once. Not 4 links in every bio.
+- **Banner consistency:** all three personal banners use the same template, name + role swap. Company pages get brand-forward banners with the headline tagline.

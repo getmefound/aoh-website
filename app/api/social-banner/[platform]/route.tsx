@@ -36,6 +36,14 @@ const BANNERS: Record<string, Banner> = {
     headline: "You run the business. We run the AI.",
     subhead: "Done-for-you reviews, AI visibility, and voice agents for local businesses.",
   },
+  "mike": {
+    width: 1584,
+    height: 396,
+    variant: "person",
+    name: "Mike Egidio",
+    role: "Founder · AI Outsource Hub",
+    focus: "I built AOH so local-business owners can run their business while we run the AI.",
+  },
   "kip": {
     width: 1584,
     height: 396,
