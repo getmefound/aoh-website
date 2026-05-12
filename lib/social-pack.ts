@@ -957,10 +957,7 @@ Full breakdown: https://aioutsourcehub.com/blog/dental-practices-reviews-compoun
     slug: "med-spa-math",
     title: "Med spa — 1 missed review = 4 bookings",
     blogPath: "/blog/med-spas-one-missed-review-four-bookings",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/med-spa-math" },
-      { label: "Big stat", path: "/api/social-card/med-spa-math" },
-    ],
+    images: [{ label: "Photo + overlay", path: "/api/social-photo/med-spa-math" }],
     posts: {
       "linkedin-company": `One missed review costs a med spa four bookings.
 
@@ -1066,10 +1063,7 @@ Full breakdown: https://aioutsourcehub.com/blog/med-spas-one-missed-review-four-
     slug: "groomer-trust",
     title: "Pet groomers — under 20 reviews = no booking",
     blogPath: "/blog/pet-groomers-reviews-decide-bookings",
-    images: [
-      { label: "Photo + overlay", path: "/api/social-photo/groomer-trust" },
-      { label: "Big stat", path: "/api/social-card/groomer-trust" },
-    ],
+    images: [{ label: "Photo + overlay", path: "/api/social-photo/groomer-trust" }],
     posts: {
       "linkedin-company": `Pet parents don't book groomers under 20 reviews.
 
