@@ -2,7 +2,12 @@
 title: "AI Visibility vs SEO — they're not the same thing"
 description: "SEO gets you a slot in a list of links. AI Visibility gets you recommended by name. Different mechanism, different work, different outcome."
 date: "2026-05-08"
-author: "AI Outsource Hub"
+category: "AI & Search"
+coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80&auto=format&fit=crop"
+author:
+  name: "Mike Egidio"
+  role: "Founder, AI Outsource Hub"
+  avatar: "/team/mike.jpg"
 tags: ["AI Visibility", "SEO", "Local Search"]
 ---
 
@@ -72,4 +77,6 @@ The window of opportunity for being the local business that's recommended by nam
 
 That's the gap.
 
-If your business runs on local discovery — and you're not visible across both traditional Google and the AI engines — you're losing the customers that ask AI first. We can show you exactly where you stand. [Get a free AI Visibility audit.](/ai-visibility)
+If your business runs on local discovery — and you're not visible across both traditional Google and the AI engines — you're losing the customers that ask AI first.
+
+Our [AI Visibility](/ai-visibility) service handles all of this — the schema, the structured data, the ongoing tuning, the citation tracking across ChatGPT and Perplexity. We can show you exactly where you stand first. [Get a free AI Visibility audit.](/ai-visibility)

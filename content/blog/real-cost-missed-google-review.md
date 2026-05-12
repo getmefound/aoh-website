@@ -2,7 +2,12 @@
 title: "The real cost of a missed Google review"
 description: "Harvard Business School ran the math. A 1-star rating bump correlates with 5–9% revenue. Here's what one missed review actually costs your business."
 date: "2026-05-07"
-author: "AI Outsource Hub"
+category: "Reviews"
+coverImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=80&auto=format&fit=crop"
+author:
+  name: "Mike Egidio"
+  role: "Founder, AI Outsource Hub"
+  avatar: "/team/mike.jpg"
 tags: ["Reviews", "Local Search", "Pricing Math"]
 ---
 
@@ -85,4 +90,4 @@ The gap doesn't close. It widens.
 
 That's the structural cost of inaction: not the missing review you didn't get last week, but the cumulative absence of every review you didn't collect over a multi-year window while a competitor did.
 
-If your review flow is "I'll get to it later" or "I sometimes ask," there's a math problem here that's worth a free audit. [Get one.](/reviews)
+If your review flow is "I'll get to it later" or "I sometimes ask," there's a math problem here that's worth a free audit. That's exactly what our [Review Automation](/reviews) service handles — every customer, every job, the right ask at the right moment, with replies handled in your voice. [Get a free audit.](/reviews)

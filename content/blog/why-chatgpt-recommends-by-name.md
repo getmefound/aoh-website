@@ -1,9 +1,15 @@
 ---
-title: "Why getting ChatGPT to recommend your business by name matters more than ranking #1 on Google"
-description: "Position #1 on Google captures clicks. A ChatGPT recommendation captures the customer outright. The difference between traffic and conversion."
+title: "Getting recommended by ChatGPT beats ranking #1 on Google"
+description: "Position #1 captures clicks. A ChatGPT recommendation captures the customer outright. The difference between traffic and conversion."
 date: "2026-05-06"
-author: "AI Outsource Hub"
+category: "AI & Search"
+coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1600&q=80&auto=format&fit=crop"
+author:
+  name: "Mike Egidio"
+  role: "Founder, AI Outsource Hub"
+  avatar: "/team/mike.jpg"
 tags: ["AI Visibility", "Local Search", "ChatGPT"]
+featured: true
 ---
 
 ## The shift nobody's talking about
@@ -101,4 +107,4 @@ If you're a local service business and you've never had your site audited for:
 
 That's not a problem you fix with more Google ads. That's a problem you fix by getting your structured data right.
 
-If that's where you are, [we'll show you exactly what's missing for free.](/ai-visibility) No credit card. No contract. We earn the work — or we don't keep you.
+If that's where you are, our [AI Visibility](/ai-visibility) service handles all of it — the schema, the entity linking, the AI-crawler files, the ongoing tuning. We'll show you exactly what's missing in a free audit first. No credit card. No contract. We earn the work, or we don't keep you. [Run the audit.](/ai-visibility)
