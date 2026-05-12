@@ -25,6 +25,18 @@ The marketing site for **AI Outsource Hub** — a done-for-you AI services agenc
 
 One server route — `app/api/report/route.ts` — handles the homepage lead form. Validates email, verifies Cloudflare Turnstile, forwards to a GHL webhook. `middleware.ts` rate-limits it to 3/hour/IP. Env vars: `TURNSTILE_SECRET_KEY`, `GHL_WEBHOOK_URL` (both in Vercel project settings; `.env.local` for local dev). Everything else is fully static and server-rendered.
 
+## Lead capture routes + env
+
+- `/api/report` -> homepage form -> `GHL_WEBHOOK_URL`
+- `/api/contact` -> contact form -> `GHL_CONTACT_WEBHOOK_URL` (falls back to `GHL_WEBHOOK_URL`)
+- `/api/newsletter` -> newsletter form -> `GHL_NEWSLETTER_WEBHOOK_URL` (falls back to `GHL_WEBHOOK_URL`)
+
+Required/optional envs:
+- `TURNSTILE_SECRET_KEY` (used by report/contact anti-bot validation)
+- `GHL_WEBHOOK_URL` (base fallback webhook)
+- `GHL_CONTACT_WEBHOOK_URL` (optional contact-specific webhook)
+- `GHL_NEWSLETTER_WEBHOOK_URL` (optional newsletter-specific webhook)
+
 ## Local development
 
 ```bash
