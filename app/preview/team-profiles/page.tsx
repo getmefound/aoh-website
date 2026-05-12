@@ -210,6 +210,43 @@ export default function TeamProfilesPreview() {
             <p className="text-sm text-white/85 leading-relaxed mb-4">
               <span className="font-bold text-emerald-300">For all profile pictures</span> (LinkedIn personal + company, Facebook page, Instagram, X, GBP) — use the same navy-background icon. The 2048×2048 file downscales cleanly to every platform's display size and stays crisp.
             </p>
+
+            {/* Circular crop preview — show what Instagram/LinkedIn/etc will display */}
+            <div className="mb-5 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+              <div className="text-xs font-bold uppercase tracking-wider text-white/70 mb-3">
+                How it renders cropped to a circle (Instagram, LinkedIn, X, etc.)
+              </div>
+              <div className="flex items-center gap-6 flex-wrap">
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    src="/logos/aoh-icon-2048-navy.png"
+                    alt="Profile pic — navy bg, circular"
+                    className="h-24 w-24 rounded-full border-2 border-white/20"
+                  />
+                  <span className="text-[10px] font-mono text-white/50">96×96 — IG mobile</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    src="/logos/aoh-icon-2048-navy.png"
+                    alt="Profile pic — navy bg, circular larger"
+                    className="h-36 w-36 rounded-full border-2 border-white/20"
+                  />
+                  <span className="text-[10px] font-mono text-white/50">152×152 — LinkedIn personal</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    src="/logos/aoh-icon-2048-navy.png"
+                    alt="Profile pic — navy bg, circular largest"
+                    className="h-48 w-48 rounded-full border-2 border-white/20"
+                  />
+                  <span className="text-[10px] font-mono text-white/50">200×200 — LinkedIn company / X</span>
+                </div>
+              </div>
+              <p className="mt-3 text-xs text-white/60 leading-relaxed">
+                The full wordmark <code className="text-white/80">AI OUTSOURCE HUB</code> won't fit a circular crop — the "AI OUTSOURCE HUB" text would clip at the edges. Use the icon-only file. Brand recognition still works because the "Ai" monogram is the AOH logomark.
+              </p>
+            </div>
+
             <div className="grid gap-3 md:grid-cols-2">
               {LOGOS.map((logo) => (
                 <div
