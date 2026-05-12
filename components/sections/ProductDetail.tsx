@@ -135,7 +135,21 @@ export function ProductDetail({
                 {data.whatYouGet.map((f) => (
                   <li key={f} className="flex items-start gap-2 leading-relaxed">
                     <span className="text-[var(--color-accent)] mt-0.5 flex-shrink-0">✓</span>
-                    <span>{f}</span>
+                    {data.slug === "review-automation" &&
+                    f === "You reply yourself (upgrade to AI Visibility for AI-drafted replies + SMS)" ? (
+                      <span>
+                        You reply yourself (upgrade to{" "}
+                        <Link
+                          href="#ai-visibility"
+                          className="underline underline-offset-2 text-[var(--color-accent)] hover:opacity-80"
+                        >
+                          AI Visibility
+                        </Link>{" "}
+                        for AI-drafted replies + SMS)
+                      </span>
+                    ) : (
+                      <span>{f}</span>
+                    )}
                   </li>
                 ))}
               </ul>
