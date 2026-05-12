@@ -25,6 +25,11 @@ export type ProductDetailData = {
   iconPaths: readonly string[];
   mock: ReactNode;
   variant?: "light" | "dark";
+  quickMath?: {
+    label: string;
+    formula: string;
+    note?: string;
+  };
 };
 
 type NextRef = { label: string; href: string };
@@ -98,6 +103,35 @@ export function ProductDetail({
               {data.outcome}
             </h2>
             <p className={`text-base md:text-lg leading-relaxed mb-8 ${subText}`}>{data.story}</p>
+
+            {/* Quick napkin math (optional) */}
+            {data.quickMath && (
+              <div
+                className={`mb-8 rounded-2xl p-5 ${
+                  dark
+                    ? "bg-[var(--color-accent)]/15 ring-1 ring-[var(--color-accent)]/40"
+                    : "bg-[var(--color-accent-soft)] ring-1 ring-[var(--color-accent)]/25"
+                }`}
+              >
+                <p
+                  className={`mb-2 font-mono text-[11px] uppercase tracking-[0.2em] ${
+                    dark ? "text-[var(--color-accent)]" : "text-[var(--color-accent)]"
+                  }`}
+                >
+                  {data.quickMath.label}
+                </p>
+                <p
+                  className={`font-mono text-sm md:text-base leading-snug ${
+                    dark ? "text-[var(--color-hero-text)]" : "text-[var(--color-text-body)]"
+                  }`}
+                >
+                  {data.quickMath.formula}
+                </p>
+                {data.quickMath.note && (
+                  <p className={`mt-2 text-xs ${subText}`}>{data.quickMath.note}</p>
+                )}
+              </div>
+            )}
 
             {/* Stat row */}
             <div className="mb-10 grid grid-cols-3 gap-3">

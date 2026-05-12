@@ -184,6 +184,11 @@ const products: ProductDetailData[] = [
     ctaHref: "https://pay.aioutsourcehub.com/checkout-relay-plan-page",
     iconPaths: ICON_PATHS.phone,
     mock: <MockRelayPanel />,
+    quickMath: {
+      label: "Quick napkin math",
+      formula: "weekly after-hours calls × your average sale × 4 weeks = monthly revenue walking out",
+      note: "Catch one extra job a month and Relay pays for itself. Most clients break even in month one.",
+    },
   },
   {
     slug: "studio",
