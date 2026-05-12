@@ -184,6 +184,7 @@ const products: ProductDetailData[] = [
     ctaHref: "https://pay.aioutsourcehub.com/checkout-relay-plan-page",
     iconPaths: ICON_PATHS.phone,
     mock: <MockRelayPanel />,
+    variant: "dark",
     quickMath: {
       label: "Quick napkin math",
       formula: "weekly after-hours calls × your average sale × 4 weeks = monthly revenue walking out",
@@ -229,7 +230,6 @@ const products: ProductDetailData[] = [
     ctaHref: "https://pay.aioutsourcehub.com/checkout-studio-plan-page",
     iconPaths: ICON_PATHS.studio,
     mock: <MockStudioPanel />,
-    variant: "dark",
   },
   {
     slug: "whole-stack",
@@ -435,11 +435,7 @@ export default function PricingPage() {
                 href: `#${nextProduct.slug}`,
               }
             : undefined;
-          const sectionData: ProductDetailData = {
-            ...p,
-            variant: i % 2 === 1 ? "dark" : "light",
-          };
-          return <ProductDetail key={p.slug} data={sectionData} next={next} />;
+          return <ProductDetail key={p.slug} data={p} next={next} />;
         })}
 
         <CtaBlock
