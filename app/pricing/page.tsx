@@ -38,7 +38,7 @@ const products: ProductDetailData[] = [
     whatYouGet: [
       "Automated email review requests after every job",
       "One-time Google Business Profile audit + fix",
-      "You reply to reviews yourself (upgrade for AI-drafted replies)",
+      "You reply yourself (upgrade to AI Visibility for AI-drafted replies + SMS)",
       "Monthly digest — what was sent, what came in",
       "Cancel anytime · no contract",
     ],
