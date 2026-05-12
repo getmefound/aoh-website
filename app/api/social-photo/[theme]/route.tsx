@@ -13,7 +13,7 @@ type PhotoOverlay = {
   hook: string;
   ctaLabel: string;
   ctaUrl: string;
-  accent: "green" | "amber" | "red";
+  accent: "green" | "amber" | "red" | "blue";
 };
 
 const PHOTOS: Record<string, PhotoOverlay> = {
@@ -25,12 +25,85 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     ctaUrl: "aioutsourcehub.com/pricing#relay",
     accent: "green",
   },
+  "star-sweet-spot": {
+    imagePath: "/social/ai-gen/star-sweet-spot.jpg",
+    topEyebrow: "REVIEWS · STAR MATH",
+    hook: "Customers don't trust 5.0.",
+    ctaLabel: "Review Automation — $49/mo",
+    ctaUrl: "aioutsourcehub.com/pricing#review-automation",
+    accent: "amber",
+  },
+  "cost-of-dormant-profile": {
+    imagePath: "/social/ai-gen/cost-of-dormant-profile.jpg",
+    topEyebrow: "THE COST OF DOING NOTHING",
+    hook: "$38,400/year walking out.",
+    ctaLabel: "Review Automation — $49/mo",
+    ctaUrl: "aioutsourcehub.com/pricing#review-automation",
+    accent: "red",
+  },
+  "review-velocity-90-day": {
+    imagePath: "/social/ai-gen/review-velocity-90-day.jpg",
+    topEyebrow: "THE 90-DAY RULE",
+    hook: "60 fresh reviews beat 200 old ones.",
+    ctaLabel: "Review Automation — $49/mo",
+    ctaUrl: "aioutsourcehub.com/pricing#review-automation",
+    accent: "green",
+  },
+  "ai-recommendation-vs-rank": {
+    imagePath: "/social/ai-gen/ai-recommendation-vs-rank.jpg",
+    topEyebrow: "AI VISIBILITY",
+    hook: "AI names 1 of 3. Google lists 10.",
+    ctaLabel: "AI Visibility — $179/mo",
+    ctaUrl: "aioutsourcehub.com/pricing#ai-visibility",
+    accent: "blue",
+  },
+  "diy-vs-dfy": {
+    imagePath: "/social/ai-gen/diy-vs-dfy.jpg",
+    topEyebrow: "DIY vs DONE-FOR-YOU",
+    hook: "$30 software isn't cheaper if no one runs it.",
+    ctaLabel: "Review Automation — $49/mo",
+    ctaUrl: "aioutsourcehub.com/pricing#review-automation",
+    accent: "amber",
+  },
+  "software-vs-work": {
+    imagePath: "/social/ai-gen/software-vs-work.jpg",
+    topEyebrow: "DONE-FOR-YOU",
+    hook: "Haven't opened the app in 6 months? It's a bill, not a tool.",
+    ctaLabel: "See AOH pricing",
+    ctaUrl: "aioutsourcehub.com/pricing",
+    accent: "amber",
+  },
+  "reviews-compound": {
+    imagePath: "/social/ai-gen/reviews-compound.jpg",
+    topEyebrow: "REVIEWS COMPOUND",
+    hook: "Ads stop. Reviews still pay you in 2036.",
+    ctaLabel: "Review Automation — $49/mo",
+    ctaUrl: "aioutsourcehub.com/pricing#review-automation",
+    accent: "green",
+  },
+  "med-spa-math": {
+    imagePath: "/social/ai-gen/med-spa-math.jpg",
+    topEyebrow: "MED SPA MATH",
+    hook: "1 missed review = 4 lost bookings.",
+    ctaLabel: "Review Automation — $49/mo",
+    ctaUrl: "aioutsourcehub.com/pricing#review-automation",
+    accent: "amber",
+  },
+  "groomer-trust": {
+    imagePath: "/social/ai-gen/groomer-trust.jpg",
+    topEyebrow: "PET GROOMERS",
+    hook: "Pet parents don't book under 20 reviews.",
+    ctaLabel: "Review Automation — $49/mo",
+    ctaUrl: "aioutsourcehub.com/pricing#review-automation",
+    accent: "blue",
+  },
 };
 
 const ACCENT: Record<PhotoOverlay["accent"], string> = {
   green: "#7CE7B7",
   amber: "#FFC857",
   red: "#FF8A80",
+  blue: "#8AB6FF",
 };
 
 export function generateStaticParams() {
@@ -45,10 +118,18 @@ export async function GET(_req: Request, { params }: { params: Promise<{ theme: 
     return new Response("Theme not found", { status: 404 });
   }
 
-  // Load the AI-gen photo from /public and inline as data URL
+  // Load the AI-gen photo from /public and inline as data URL.
+  // Mime is inferred from the file extension so WebP / JPEG / PNG all work.
   const filePath = join(process.cwd(), "public", cfg.imagePath.replace(/^\//, ""));
   const buf = await readFile(filePath);
-  const dataUrl = `data:image/jpeg;base64,${buf.toString("base64")}`;
+  const ext = filePath.split(".").pop()?.toLowerCase() ?? "jpeg";
+  const mime =
+    ext === "webp"
+      ? "image/webp"
+      : ext === "png"
+      ? "image/png"
+      : "image/jpeg";
+  const dataUrl = `data:${mime};base64,${buf.toString("base64")}`;
 
   const accentHex = ACCENT[cfg.accent];
 

@@ -40,6 +40,11 @@ export const THEMES: Theme[] = [
   {
     slug: "star-sweet-spot",
     title: "Star sweet spot — 4.6 > 5.0",
+    blogPath: "/blog/46-beats-50-star-rating-sweet-spot",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/star-sweet-spot" },
+      { label: "Big stat", path: "/api/social-card/star-sweet-spot" },
+    ],
     posts: {
       "linkedin-company": `Every owner I talk to wants a 5.0 rating. Five round stars, nothing under.
 
@@ -81,6 +86,11 @@ Stop chasing perfect.`,
   {
     slug: "cost-of-dormant-profile",
     title: "Cost of a dormant profile — $38,400/yr",
+    blogPath: "/blog/real-cost-missed-google-review",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/cost-of-dormant-profile" },
+      { label: "Big stat", path: "/api/social-card/cost-of-dormant-profile" },
+    ],
     posts: {
       "linkedin-company": `$38,400 a year.
 
@@ -122,6 +132,11 @@ Run the math: aioutsourcehub.com`,
   {
     slug: "review-velocity-90-day",
     title: "90-day rule — 60 fresh > 200 old",
+    blogPath: "/blog/review-velocity-90-day-rule",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/review-velocity-90-day" },
+      { label: "Big stat", path: "/api/social-card/review-velocity-90-day" },
+    ],
     posts: {
       "linkedin-company": `A business with 60 reviews from the last 90 days outranks one with 200 reviews from five years ago. Same neighborhood, same service. The first one looks alive. The second one looks abandoned.
 
@@ -157,6 +172,11 @@ Google weights review freshness. If your last review is from 2022, your rank is 
   {
     slug: "ai-recommendation-vs-rank",
     title: "AI recommendation > Google rank #1",
+    blogPath: "/blog/why-chatgpt-recommends-by-name",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/ai-recommendation-vs-rank" },
+      { label: "Big stat", path: "/api/social-card/ai-recommendation-vs-rank" },
+    ],
     posts: {
       "linkedin-company": `For 20 years, local search worked one way. You optimized for Google, aimed for the first page, hoped customers clicked.
 
@@ -201,6 +221,11 @@ Different game.`,
   {
     slug: "diy-vs-dfy",
     title: "DIY software vs Done-for-you",
+    blogPath: "/blog/diy-review-tools-vs-done-for-you",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/diy-vs-dfy" },
+      { label: "Big stat", path: "/api/social-card/diy-vs-dfy" },
+    ],
     posts: {
       "linkedin-company": `"Why am I paying you $49 a month when I can buy software that does the same thing for $30?"
 
@@ -391,6 +416,8 @@ See Relay: aioutsourcehub.com/pricing#relay`,
   {
     slug: "ai-search-share",
     title: "AI search — 1 in 4 local queries",
+    blogPath: "/blog/ai-visibility-vs-seo",
+    images: [{ label: "Big stat", path: "/api/social-card/ai-search-share" }],
     posts: {
       "linkedin-company": `About 1 in 4 local searches has moved to AI.
 
@@ -432,6 +459,11 @@ Most local businesses are invisible there. Right now.`,
   {
     slug: "software-vs-work",
     title: "Software vs work — zero dashboards",
+    blogPath: "/blog/why-smb-owners-hate-marketing-software",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/software-vs-work" },
+      { label: "Big stat", path: "/api/social-card/software-vs-work" },
+    ],
     posts: {
       "linkedin-company": `Owner pulls up the dashboard of the marketing tool they're paying for. They log in. Look at me. Sigh.
 
@@ -473,6 +505,11 @@ Done-for-you = zero dashboards.`,
   {
     slug: "reviews-compound",
     title: "Reviews compound — 10+ years",
+    blogPath: "/blog/dental-practices-reviews-compounding-asset",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/reviews-compound" },
+      { label: "Big stat", path: "/api/social-card/reviews-compound" },
+    ],
     posts: {
       "linkedin-company": `A new patient is worth somewhere between $1,500 and $3,500 to a dental practice in the first year. After that, if they stay, they're worth several hundred to a few thousand a year — for the next 10 to 20 years.
 
@@ -512,6 +549,8 @@ Reviews are the only marketing asset that compounds.`,
   {
     slug: "trade-yelp-trap",
     title: "Yelp ads trap — $30–80/lead",
+    blogPath: "/blog/hvac-plumbing-five-star-math",
+    images: [{ label: "Big stat", path: "/api/social-card/trade-yelp-trap" }],
     posts: {
       "linkedin-company": `Most HVAC and plumbing owners have paid for Yelp ads at some point. The pitch is compelling — appear at the top, beat the competition.
 
@@ -552,6 +591,11 @@ Reviews: ask once, paid forever, and outrank Yelp.`,
   {
     slug: "med-spa-math",
     title: "Med spa — 1 missed review = 4 bookings",
+    blogPath: "/blog/med-spas-one-missed-review-four-bookings",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/med-spa-math" },
+      { label: "Big stat", path: "/api/social-card/med-spa-math" },
+    ],
     posts: {
       "linkedin-company": `A woman in her thirties is on her phone Tuesday night. She's been thinking about Botox for six months. She finally decided this is the week.
 
@@ -600,6 +644,11 @@ One missed review = roughly four lost bookings.`,
   {
     slug: "groomer-trust",
     title: "Pet groomers — under 20 reviews = no booking",
+    blogPath: "/blog/pet-groomers-reviews-decide-bookings",
+    images: [
+      { label: "Photo + overlay", path: "/api/social-photo/groomer-trust" },
+      { label: "Big stat", path: "/api/social-card/groomer-trust" },
+    ],
     posts: {
       "linkedin-company": `If you've groomed dogs for any length of time, you already know something other industries don't: your customers aren't buying a haircut. They're handing you their family member for an hour and trusting you not to traumatize them.
 
