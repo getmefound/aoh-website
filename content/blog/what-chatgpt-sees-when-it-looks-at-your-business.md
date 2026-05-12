@@ -71,6 +71,6 @@ Here's the bigger reason to start now: the businesses that look clean and consis
 
 Businesses that start cleaning up in 2027 will be playing catch-up against the ones who started in 2026.
 
-Cleaning up your picture is exactly what our <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">AI Visibility</a> service does — the directory cleanup, the website rewrite, the schema, the ongoing tuning as AI models change. Paired with our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> keeping the freshness signal alive, the picture stays sharp.
+Cleaning up your picture is exactly what our <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">AI Visibility</a> service does — the directory cleanup, the website rewrite, the AI-friendly bits, the ongoing tuning as the AI tools keep changing. $179/mo plus a one-time $199 setup. Paired with our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> ($49/mo) keeping a steady flow of fresh reviews, the picture stays sharp.
 
 If you want to see what AI actually says about you right now, and what your fix would look like, we run a free check. <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">Try it here</a>.
