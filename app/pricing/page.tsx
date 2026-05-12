@@ -131,7 +131,7 @@ const products: ProductDetailData[] = [
       "You've tried doing outreach yourself and it didn't get done.",
     ],
     setupSteps: [
-      { title: "ICP intake call", sub: "We define your ideal customer profile: who to target, who to skip, and why they buy." },
+      { title: "Ideal customer intake call", sub: "We define who to target, who to skip, and why they buy." },
       { title: "Messaging + list build", sub: "We align on how your outreach should sound and build your prospect list." },
       { title: "First campaign live", sub: "Live within 3 business days after we receive everything from you." },
     ],
