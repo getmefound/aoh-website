@@ -15,7 +15,7 @@ const company = [
   { href: "/about", label: "About" },
   { href: "/pricing#review-automation", label: "What We Do" },
   { href: "/blog", label: "Blog" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/#faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ];
 
