@@ -82,7 +82,7 @@ The fix is volume and recency, not a clean sweep.
 
 Review Automation is $49/mo, no setup. We ask every customer at the right moment so the reviews actually land. Most clients add 10-15 in the first month.
 
-Link in bio for pricing and the blog with the full data.`,
+Tap our bio link → "Review Automation pricing." See the $49/mo math.`,
       x: `Your 5.0 rating is a red flag, not a brag.
 
 Northwestern: conversions peak at 4.6 to 4.8 stars. Past that, trust drops. Buyers assume perfect = filtered.
@@ -91,7 +91,7 @@ A 4.7 with 80 reviews beats a 5.0 with 25, every time.
 
 Review Automation $49/mo, no setup.
 
-→ https://aioutsourcehub.com/pricing#review-automation`,
+Price the fix → https://aioutsourcehub.com/pricing#review-automation`,
       google: `A perfect 5.0 might be costing you bookings.
 
 Northwestern research shows conversions peak at 4.6-4.8 stars. Past that, buyers assume reviews are fake.
@@ -154,7 +154,7 @@ Harvard study, 2016: a one-star difference equals 5-9% of revenue. A $480K busin
 
 The fix is $49/mo. Review Automation, no setup. We ask every customer at the right moment so the reviews actually come in.
 
-Link in bio. Run your own number on the calculator.`,
+Tap bio → "Lost-Revenue Calculator." 30 seconds to run yours.`,
       x: `Your dormant Google profile is bleeding $38,400/year.
 
 Harvard study: 1-star revenue swing = 5-9% of top line.
@@ -233,7 +233,7 @@ Google weights recency. Your "lifetime review count" is a vanity number — the 
 
 Review Automation $49/mo, no setup.
 
-→ https://aioutsourcehub.com/pricing#review-automation`,
+Start the systematic ask → https://aioutsourcehub.com/pricing#review-automation`,
       google: `60 reviews from the last 90 days beat 200 reviews from five years ago.
 
 Google weights recency. A dormant profile reads closed, even at 4.9 stars.
@@ -287,6 +287,7 @@ AI Visibility, $179/mo + $199 setup. We fix the schema, citations, and structure
 
 Try it yourself: ask ChatGPT to recommend your business category in your town. Are you named?
 
+Run the test, then see the fix: https://aioutsourcehub.com/pricing#ai-visibility
 Full breakdown: https://aioutsourcehub.com/blog/why-chatgpt-recommends-by-name`,
       instagram: `Google lists 10. AI picks 3.
 
@@ -296,7 +297,7 @@ Most local businesses are invisible to AI because AI reads structured signals, n
 
 AI Visibility $179/mo + $199 setup. We fix what answer engines look at so you get named.
 
-Link in bio. Or run this test: ask ChatGPT for the best [your category] in your town. See if you exist.`,
+Tap bio → "AI Visibility pricing." Or run this test now: ask ChatGPT for the best [your category] in your town. See if you exist.`,
       x: `Google lists 10 links. ChatGPT picks 1-3 by name.
 
 Google click converts at 3-8%. AI recommendation converts at 18-30%.
@@ -305,7 +306,7 @@ Different game. Most local businesses are invisible in AI.
 
 AI Visibility $179/mo + $199 setup. We fix what AI reads.
 
-→ https://aioutsourcehub.com/pricing#ai-visibility`,
+See what we fix → https://aioutsourcehub.com/pricing#ai-visibility`,
       google: `Google lists 10 results. ChatGPT picks 1-3 by name.
 
 AI traffic converts at 18-30%. Google clicks convert at 3-8%. Different game, different signals.
@@ -337,7 +338,7 @@ Review Automation is $49/mo, no setup. We do the work. Most clients land 10-15 r
 
 Full DIY vs. DFY breakdown: https://aioutsourcehub.com/blog/diy-review-tools-vs-done-for-you
 
-For the owners here: how many hours have you put into your "automation software" this month?`,
+If the math surprises you, the $49/mo done-for-you alternative is at https://aioutsourcehub.com/pricing#review-automation`,
       "linkedin-personal": `Owner asked me last week: "Why am I paying $49/mo when I can buy software for $30?"
 
 I told him the software wasn't the problem. The work was. Then I pulled up his account. He'd had the $30 tool for 7 months. Connected once. SMS compliance unfinished. POS integration broken since March. 14 reviews total.
@@ -365,7 +366,7 @@ The software isn't the problem. The work is. Six months of "free" software adds 
 
 We do the work. Review Automation $49/mo, no setup, no dashboard.
 
-Link in bio for the math.`,
+Tap bio → "Review Automation pricing." See the $49/mo math.`,
       x: `Your "$30/mo" review software is actually costing you $48 per review.
 
 6 months in: 8 hours of your time, broken POS sync, SMS compliance unfinished, 12 reviews total.
@@ -374,7 +375,7 @@ Done-for-you over the same 6 months: $5 per review.
 
 Review Automation $49/mo, no setup.
 
-→ https://aioutsourcehub.com/pricing#review-automation`,
+Price the done-for-you → https://aioutsourcehub.com/pricing#review-automation`,
       google: `DIY review software costs $15 per review. We charge $5.
 
 Six months of "free" software = 8 hours of your time, broken integrations, 12 reviews. We deliver 50-80 reviews in the same period. No dashboard, no setup.
@@ -417,9 +418,9 @@ weekly after-hours calls × average sale × 4 weeks = monthly revenue walking ou
 
 Relay is our AI receptionist. Answers, qualifies the lead, books into your calendar. Introduces itself as an AI assistant; transfers to a human if the caller asks. $499/mo + $499 setup. Most clients break even in month one.
 
-→ See Relay: https://aioutsourcehub.com/pricing#relay
+See if Relay pays for itself in your industry: https://aioutsourcehub.com/pricing#relay
 
-(Industry breakdown linked in the first comment.)`,
+(Per-vertical breakdown in the first comment.)`,
       "linkedin-personal": `9 of 10 after-hours calls go to your competitor.
 
 Not because your service is worse. Because nobody picked up.
@@ -458,7 +459,7 @@ See Relay: https://aioutsourcehub.com/pricing#relay`,
 
 9 of 10 after-hours calls go to your competitor.
 
-Relay catches them. $499/mo. Link in bio.
+Tap bio → "Relay pricing." See if it pays for itself.
 
 #LocalBusiness #LawnCare #SmallBusinessOwner #LocalServices`,
       x: `9 of 10 after-hours calls go to your competitor.
@@ -469,7 +470,7 @@ Tuesday 7:15pm. Homeowner calls 3 lawn services. Two: voicemail. Third picks up 
 
 Relay (AI receptionist) catches every call. $499/mo. Payback in month 1.
 
-→ https://aioutsourcehub.com/pricing#relay`,
+See if it pays for itself → https://aioutsourcehub.com/pricing#relay`,
       google: `Tuesday 7:15pm. A homeowner just got home from work. Lawn is overgrown, hosting a party Saturday. She calls 3 lawn services. First two: voicemail. Third one picks up — and wins the cut, the cleanup, and the $1,800 contract.
 
 9 of 10 after-hours calls go to your competitor. Not because your service is worse. Because nobody picked up.
@@ -531,7 +532,7 @@ If you're not in the top 3 names, you're invisible to 25% of your highest-value 
 
 AI Visibility. $179/mo + $199 setup. We fix the schema and citations so answer engines pick you. Most clients are named in top 3 inside 90 days.
 
-Tap link in bio → see what AI says about your business.`,
+Tap bio → "AI Visibility pricing." See what the fix looks like.`,
       x: `1 in 4 local searches has moved to AI.
 
 ChatGPT. Claude. Google AI Overviews. The share is higher on high-intent queries (the ones that close).
@@ -540,7 +541,7 @@ If your SEO is Google-only, you're invisible in 25% of your market.
 
 AI Visibility $179/mo + $199 setup.
 
-→ https://aioutsourcehub.com/pricing#ai-visibility`,
+See the fix → https://aioutsourcehub.com/pricing#ai-visibility`,
       google: `About 1 in 4 local searches has moved to AI: ChatGPT, Claude, Perplexity, Google AI Overviews.
 
 The share is higher on high-intent queries. If your SEO is set up for Google only, you're invisible in a quarter of your highest-value market.
@@ -597,14 +598,14 @@ Done-for-you means zero dashboards. We do the work.
 
 Whole Stack $999/mo + $999 setup. Reviews, AI visibility, content, ads. Most clients cancel 3-5 software tools after onboarding.
 
-Link in bio.`,
+Tap bio → "Whole Stack pricing." See what you'd cancel.`,
       x: `That marketing tool you bought a year ago isn't a tool. It's a $79 bill.
 
 Software dashboards were built for marketing managers. You don't have one.
 
 Done-for-you = zero dashboards. Whole Stack $999/mo, or pick one service from $49.
 
-→ https://aioutsourcehub.com/pricing#whole-stack`,
+See what you'd cancel → https://aioutsourcehub.com/pricing#whole-stack`,
       google: `Your marketing software isn't a tool. It's a bill you're not using.
 
 Software dashboards were built for marketing managers. You don't have one. Done-for-you means we do the work, you get the result, no logins.
@@ -630,9 +631,9 @@ Run the math on a dental practice. 80 reviews collected this year at an average 
 
 Review Automation is $49/mo, no setup. Most clients add 50-80 reviews/year. Treat reviews like a capital investment, not a marketing expense.
 
-Full breakdown for service businesses: https://aioutsourcehub.com/blog/dental-practices-reviews-compounding-asset
+Read the math on why review assets compound for a decade: https://aioutsourcehub.com/blog/dental-practices-reviews-compounding-asset
 
-If you stopped all marketing tomorrow, which asset would still be earning for you in 2036?`,
+Then price the $49/mo automation that starts your stack: https://aioutsourcehub.com/pricing#review-automation`,
       "linkedin-personal": `The smartest local owner I know thinks of reviews like a 401k.
 
 He's a dentist outside Hartford. Every patient gets asked. Every single one. He's been doing it for 11 years. His profile has 840 reviews, newest one yesterday. New patients tell him they picked him because his profile "felt like a real practice." That's compounded trust. He can't be unseated by a competitor opening up next year because they're starting from zero.
@@ -662,7 +663,7 @@ That's a moat, not a marketing line item.
 
 Review Automation. $49/mo, no setup. Most clients add 50-80 reviews/year.
 
-Tap the link in our bio → start compounding.`,
+Tap bio → "Review Automation pricing." Start compounding for $49/mo.`,
       x: `The review you collect today is still earning in 2036.
 
 The ad you ran last week is already dead.
@@ -671,7 +672,7 @@ Reviews are a stock. Ads are a flow. Most owners spend 80% of their budget on fl
 
 Review Automation $49/mo, no setup.
 
-→ https://aioutsourcehub.com/pricing#review-automation`,
+Start compounding → https://aioutsourcehub.com/pricing#review-automation`,
       google: `Reviews compound. Ads don't.
 
 A review collected today is still in your Google profile in 2036, still ranking and converting. Ads stop the day you stop paying.
@@ -732,14 +733,14 @@ Tuesday night, 9:47pm. A client has been thinking about Botox for 6 months. She 
 
 The next spa (4.8, newest review last week) books her. You just lost a $400 first visit + $2,000/year.
 
-Review Automation $49/mo, no setup. Link in bio.`,
+Review Automation $49/mo, no setup. Tap bio → "Lost-Revenue Calculator." See yours in 30 seconds.`,
       x: `One missed Google review costs a med spa 4 bookings — and $3,600 in client lifetime value.
 
 Tuesday 9:47pm. Botox shopper backs out because your newest review is 8 months old. Books next door.
 
 Review Automation $49/mo, no setup.
 
-→ https://aioutsourcehub.com/pricing#review-automation`,
+Stop the leak → https://aioutsourcehub.com/pricing#review-automation`,
       google: `One missed review costs a med spa four bookings.
 
 Tuesday night Botox shopper sees your dormant profile, backs out, books the spa with fresher reviews. That's a $400 first visit + $2,000/year client lost in 90 seconds.
@@ -796,7 +797,7 @@ Hard threshold. After that, what reviews SAY matters more than how many. Anxious
 
 Timing matters too. Pickup-moment ask: 30-50% conversion. 2-day text: 5-10%.
 
-Review Automation $49/mo, no setup. Link in bio.`,
+Review Automation $49/mo, no setup. Tap bio → "Review Automation pricing." See how to hit 20.`,
       x: `Pet parents won't book a groomer under 20 reviews. Hard threshold.
 
 Past 20, what reviews SAY matters more than how many.
@@ -805,7 +806,7 @@ Pickup-moment ask: 30-50% convert. 2-day text: 5-10%. 10 seconds of timing = 6x 
 
 Review Automation $49/mo, no setup.
 
-→ https://aioutsourcehub.com/pricing#review-automation`,
+Hit 20 reviews → https://aioutsourcehub.com/pricing#review-automation`,
       google: `Pet parents don't book groomers under 20 reviews.
 
 Hard threshold. The fix is timing and story prompts. Pickup-moment ask converts at 30-50%. The standard 2-day text converts at 5-10%.
