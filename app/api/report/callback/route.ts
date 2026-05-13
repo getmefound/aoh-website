@@ -1,5 +1,5 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
-import { updateReportRun } from "@/lib/report-runs";
+import { upsertReportRunFromCallback } from "@/lib/report-runs";
 
 type CallbackPayload = {
   runId?: string;
@@ -37,10 +37,10 @@ export async function POST(req: NextRequest) {
   // If event omitted but auditUrl is present, treat as report-ready.
   if (!body.event && body.auditUrl) patch.reportReadyAt = now;
 
-  const run = updateReportRun(body.runId, patch);
-  if (!run) {
-    return NextResponse.json({ ok: false, error: "Run not found" }, { status: 404 });
-  }
+  const run = upsertReportRunFromCallback({
+    runId: body.runId,
+    patch,
+  });
 
   return NextResponse.json({ ok: true, runId: run.runId });
 }

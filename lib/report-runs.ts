@@ -39,7 +39,30 @@ export function updateReportRun(
   return next;
 }
 
+export function upsertReportRunFromCallback(input: {
+  runId: string;
+  patch: Partial<Pick<ReportRun, "reportReadyAt" | "heatmapReadyAt" | "auditUrl" | "heatmapUrl">>;
+}): ReportRun {
+  const existing = runs.get(input.runId);
+  if (existing) {
+    const next = { ...existing, ...input.patch };
+    runs.set(input.runId, next);
+    return next;
+  }
+
+  // Production callbacks can hit a different instance than submit.
+  // Seed a minimal run so callback updates are never dropped.
+  const seeded: ReportRun = {
+    runId: input.runId,
+    email: "unknown@unknown.local",
+    campaign: "organic",
+    submittedAt: Date.now(),
+    ...input.patch,
+  };
+  runs.set(input.runId, seeded);
+  return seeded;
+}
+
 export function getReportRun(runId: string): ReportRun | null {
   return runs.get(runId) ?? null;
 }
-

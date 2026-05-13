@@ -2,8 +2,9 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-export const dynamic = "force-static";
-export const revalidate = false;
+// Keep runtime-rendered for stability across Next 16 OG prerender edge cases.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const NAVY = "#0A1628";
 const NAVY_2 = "#142a44";
@@ -33,7 +34,7 @@ const SURFACES: Record<string, SurfaceConfig> = {
   "linkedin-company": { width: 1128, height: 191, density: "tight" },
   "facebook": { width: 820, height: 312, density: "standard" },
   "x": { width: 1500, height: 500, density: "standard" },
-  "gbp-cover": { width: 1408, height: 768, density: "tall" },
+  "gbp-cover": { width: 1080, height: 608, density: "tall" },
   "mike": { width: 1584, height: 396, density: "standard" },
   "kip": { width: 1584, height: 396, density: "standard" },
   "teri": { width: 1584, height: 396, density: "standard" },
@@ -60,20 +61,20 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   const isTall = cfg.density === "tall";
 
   // Scale everything by SCALE so the 2x output renders all sizing proportionally
-  const padding = (isTight ? 18 : isTall ? 64 : Math.round(56 * scaleH)) * SCALE;
-  const wordmarkH = (isTight ? 28 : isTall ? 72 : Math.round(56 * scaleH)) * SCALE;
+  const padding = (isTight ? 18 : isTall ? 48 : Math.round(56 * scaleH)) * SCALE;
+  const wordmarkH = (isTight ? 28 : isTall ? 56 : Math.round(56 * scaleH)) * SCALE;
   const wordmarkW = Math.round(wordmarkH * (730 / 160));
 
   // Motto sizing — match line count
   const lineCount = MOTTO_LINES.length;
   let mottoSize: number;
   if (isTight) mottoSize = 22;
-  else if (isTall) mottoSize = 88;
+  else if (isTall) mottoSize = 64;
   else mottoSize = lineCount === 1 ? 110 * scaleH : lineCount === 2 ? 76 * scaleH : 60 * scaleH;
   mottoSize = Math.round(mottoSize) * SCALE;
 
-  const servicesSize = (isTight ? 10 : isTall ? 24 : Math.round(18 * scaleH)) * SCALE;
-  const urlSize = (isTight ? 9 : isTall ? 18 : Math.round(15 * scaleH)) * SCALE;
+  const servicesSize = (isTight ? 10 : isTall ? 16 : Math.round(18 * scaleH)) * SCALE;
+  const urlSize = (isTight ? 9 : isTall ? 14 : Math.round(15 * scaleH)) * SCALE;
 
   return new ImageResponse(
     (
@@ -88,6 +89,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
           padding,
           fontFamily: "sans-serif",
           justifyContent: "space-between",
+          alignItems: isTall ? "center" : "stretch",
           position: "relative",
         }}
       >
@@ -103,7 +105,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
         </div>
 
         {/* Middle — motto */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: isTall ? "center" : "flex-start" }}>
           {MOTTO_LINES.map((line, i) => (
             <div
               key={i}
@@ -114,6 +116,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
                 lineHeight: 1.05,
                 letterSpacing: isTight ? -0.5 : -2,
                 color: i === MOTTO_LINES.length - 1 ? GREEN : CREAM,
+                textAlign: isTall ? "center" : "left",
               }}
             >
               {line}
@@ -129,6 +132,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
             gap: isTight ? 2 : 8,
             paddingTop: isTight ? 4 : 14,
             borderTop: "1px solid rgba(255,255,255,0.18)",
+            width: isTall ? "100%" : undefined,
+            alignItems: isTall ? "center" : "stretch",
           }}
         >
           <div
@@ -139,6 +144,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
               fontWeight: 600,
               letterSpacing: 0.4,
               fontFamily: "monospace",
+              textAlign: isTall ? "center" : "left",
             }}
           >
             {SERVICES}
@@ -147,12 +153,14 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: isTall ? "center" : "space-between",
               alignItems: "center",
+              gap: isTall ? 24 : 0,
               fontSize: urlSize,
               color: "#A8B3C4",
               fontWeight: 600,
               letterSpacing: 0.3,
+              width: isTall ? "auto" : "100%",
             }}
           >
             <div style={{ display: "flex" }}>aioutsourcehub.com</div>

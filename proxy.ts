@@ -14,6 +14,17 @@ function clientIp(req: NextRequest): string {
 }
 
 export function proxy(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  const method = req.method.toUpperCase();
+
+  // Only rate-limit form submissions.
+  // Do not throttle status polling or webhook callbacks.
+  const isReportSubmit = pathname === "/api/report" && method === "POST";
+  const isContactSubmit = pathname === "/api/contact" && method === "POST";
+  if (!isReportSubmit && !isContactSubmit) {
+    return NextResponse.next();
+  }
+
   const ip = clientIp(req);
   const now = Date.now();
   const recent = (buckets.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
