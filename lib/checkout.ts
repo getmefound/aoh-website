@@ -32,7 +32,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   {
     slug: "ai-visibility",
     name: "AI Visibility",
-    price: "$199",
+    price: "$299",
     cadence: "/month",
     setup: "$199 setup",
     summary:
@@ -51,7 +51,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   {
     slug: "relay",
     name: "Relay — Voice AI",
-    price: "$349",
+    price: "$399",
     cadence: "/month",
     setup: "$299 setup",
     summary:
@@ -70,7 +70,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   {
     slug: "studio",
     name: "Studio — AI Content",
-    price: "$349",
+    price: "$599",
     cadence: "/month",
     setup: "$299 setup",
     summary:
@@ -88,7 +88,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   {
     slug: "reach",
     name: "Reach — AI Lead Engine",
-    price: "$299",
+    price: "$449",
     cadence: "/month",
     setup: "$299 setup",
     summary:
