@@ -3,6 +3,7 @@ export type ReportStage = "submitted" | "report_ready" | "heatmap_ready";
 export type ReportRun = {
   runId: string;
   email: string;
+  businessName: string;
   campaign: "reviews" | "ai" | "organic";
   reportType: "marketing" | "ai_visibility";
   secondaryReport: boolean;
@@ -18,6 +19,7 @@ const runs = new Map<string, ReportRun>();
 export function createReportRun(input: {
   runId: string;
   email: string;
+  businessName: string;
   campaign: "reviews" | "ai" | "organic";
   reportType: "marketing" | "ai_visibility";
   secondaryReport: boolean;
@@ -25,6 +27,7 @@ export function createReportRun(input: {
   const run: ReportRun = {
     runId: input.runId,
     email: input.email,
+    businessName: input.businessName,
     campaign: input.campaign,
     reportType: input.reportType,
     secondaryReport: input.secondaryReport,
@@ -61,6 +64,7 @@ export function upsertReportRunFromCallback(input: {
   const seeded: ReportRun = {
     runId: input.runId,
     email: "unknown@unknown.local",
+    businessName: "Unknown Business",
     campaign: "organic",
     reportType: "marketing",
     secondaryReport: false,

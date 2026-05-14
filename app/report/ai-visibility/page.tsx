@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { PrintButton } from "@/components/ui/PrintButton";
 import { ReportTiming } from "@/components/report/ReportTiming";
@@ -25,8 +25,8 @@ function hashSeed(input: string): number {
   return Math.abs(h >>> 0);
 }
 
-function deriveReport(email: string, campaign: string): ReportData {
-  const seed = hashSeed(`${email}|${campaign}|aoh-ai-visibility`);
+function deriveReport(seedInput: string): ReportData {
+  const seed = hashSeed(`${seedInput}|aoh-ai-visibility`);
   const aiScore = 18 + (seed % 37); // 18..54
   const googleReadiness = 32 + ((seed >> 3) % 41); // 32..72
   const citationCoverage = 20 + ((seed >> 5) % 36); // 20..55
@@ -48,9 +48,11 @@ export default async function AIVisibilityReportPage({
   const params = await searchParams;
   const runId = typeof params.runId === "string" ? params.runId : "";
   const emailRaw = typeof params.email === "string" ? params.email.trim().toLowerCase() : "";
+  const businessRaw = typeof params.business === "string" ? params.business.trim() : "";
   const campaign = typeof params.campaign === "string" ? params.campaign : "organic";
   const email = emailRaw || "owner@business.com";
-  const data = deriveReport(email, campaign);
+  const business = businessRaw || "Your Business";
+  const data = deriveReport(`${email}|${business}|${campaign}`);
   const overall = band(data.aiScore);
 
   return (
@@ -64,6 +66,9 @@ export default async function AIVisibilityReportPage({
             Your AI Visibility snapshot is ready.
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-[var(--color-hero-subtext)]">
+            Business: <span className="text-[var(--color-hero-text)] font-semibold">{business}</span>
+          </p>
+          <p className="mt-2 max-w-2xl text-lg text-[var(--color-hero-subtext)]">
             Built for: <span className="text-[var(--color-hero-text)] font-semibold">{email}</span>
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -110,9 +115,9 @@ export default async function AIVisibilityReportPage({
           <article className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-6">
             <h2 className="text-2xl font-bold mb-3">What this means</h2>
             <ul className="space-y-2 text-[var(--color-text-muted)]">
-              <li>• Your business is not consistently surfaced across AI answers yet.</li>
+              <li>• {business} is not consistently surfaced across AI answers yet.</li>
               <li>• Review momentum and profile consistency are your highest-impact levers.</li>
-              <li>• Structured site signals can improve recommendation confidence.</li>
+              <li>• Structured site signals can improve recommendation confidence for this brand query set.</li>
             </ul>
           </article>
           <article className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-6">
@@ -128,3 +133,4 @@ export default async function AIVisibilityReportPage({
     </main>
   );
 }
+

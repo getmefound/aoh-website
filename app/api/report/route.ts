@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
 import { checkEmailRate } from "@/lib/rate-limit";
 import { createReportRun, updateReportRun } from "@/lib/report-runs";
+import { verifyReportToken } from "@/lib/report-token";
 
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -48,6 +49,8 @@ export async function POST(req: NextRequest) {
     visualVariant,
     reportType,
     secondaryReport,
+    token,
+    businessName,
   } = body as {
     email?: unknown;
     website?: unknown;
@@ -56,18 +59,39 @@ export async function POST(req: NextRequest) {
     visualVariant?: unknown;
     reportType?: unknown;
     secondaryReport?: unknown;
+    token?: unknown;
+    businessName?: unknown;
   };
 
   if (typeof website === "string" && website.trim().length > 0) {
     return NextResponse.json({ ok: true });
   }
 
-  const v = validateEmail(email);
+  const tokenPayload =
+    typeof token === "string" && token.trim().length > 0
+      ? verifyReportToken(token)
+      : null;
+
+  const emailFromToken = tokenPayload?.email?.trim().toLowerCase() ?? "";
+  const submittedEmail = typeof email === "string" ? email.trim().toLowerCase() : "";
+  const effectiveEmail = submittedEmail || emailFromToken;
+  const effectiveBusinessName =
+    (typeof businessName === "string" && businessName.trim()) ||
+    tokenPayload?.businessName?.trim() ||
+    "";
+
+  if (!effectiveEmail) {
+    return NextResponse.json({ ok: false, error: "Enter a valid email." }, { status: 400 });
+  }
+  const v = validateEmail(effectiveEmail);
   if (!v.ok) {
     return NextResponse.json({ ok: false, error: v.error }, { status: 400 });
   }
+  if (!effectiveBusinessName) {
+    return NextResponse.json({ ok: false, error: "Enter your business name." }, { status: 400 });
+  }
 
-  const normalizedEmail = (email as string).trim().toLowerCase();
+  const normalizedEmail = effectiveEmail;
   const rate = checkEmailRate(normalizedEmail, 2);
   if (!rate.ok) {
     return NextResponse.json(
@@ -80,6 +104,8 @@ export async function POST(req: NextRequest) {
   const bypass = canBypassTurnstileForInternalTest(req);
   const turnstileOk = bypass
     ? true
+    : tokenPayload
+      ? true
     : await verifyTurnstile(
         typeof turnstileToken === "string" ? turnstileToken : "",
         ip,
@@ -94,6 +120,10 @@ export async function POST(req: NextRequest) {
   const normalizedCampaign =
     campaign === "reviews" || campaign === "ai" || campaign === "organic"
       ? campaign
+      : tokenPayload?.campaign === "reviews" ||
+          tokenPayload?.campaign === "ai" ||
+          tokenPayload?.campaign === "organic"
+        ? tokenPayload.campaign
       : "organic";
   const normalizedVisual =
     visualVariant === "reviews" || visualVariant === "ai"
@@ -102,6 +132,8 @@ export async function POST(req: NextRequest) {
   const normalizedReportType =
     reportType === "ai_visibility" || reportType === "marketing"
       ? reportType
+      : tokenPayload?.reportType === "ai_visibility" || tokenPayload?.reportType === "marketing"
+        ? tokenPayload.reportType
       : "marketing";
   const normalizedSecondaryReport = Boolean(secondaryReport);
 
@@ -114,14 +146,18 @@ export async function POST(req: NextRequest) {
   createReportRun({
     runId,
     email: normalizedEmail,
+    businessName: effectiveBusinessName,
     campaign: normalizedCampaign,
     reportType: normalizedReportType,
     secondaryReport: normalizedSecondaryReport,
   });
   reportUrl.searchParams.set("runId", runId);
+  reportUrl.searchParams.set("business", effectiveBusinessName);
+  reportUrl.searchParams.set("email", normalizedEmail);
 
   await forwardToGHL({
-    email: (email as string).trim().toLowerCase(),
+    email: normalizedEmail,
+    businessName: effectiveBusinessName,
     timestamp: new Date().toISOString(),
     campaign: normalizedCampaign,
     visualVariant: normalizedVisual,
@@ -137,6 +173,7 @@ export async function POST(req: NextRequest) {
       source: "aioutsourcehub.com",
       runId,
       auditUrl: reportUrl.toString(),
+      businessName: effectiveBusinessName,
     },
   });
   maybeSimulateReportLifecycle({
@@ -151,6 +188,7 @@ export async function POST(req: NextRequest) {
 
 type GHLPayload = {
   email: string;
+  businessName: string;
   timestamp: string;
   campaign: "reviews" | "ai" | "organic";
   visualVariant?: "reviews" | "ai";
@@ -166,6 +204,7 @@ type GHLPayload = {
     source: string;
     runId: string;
     auditUrl: string;
+    businessName: string;
   };
 };
 

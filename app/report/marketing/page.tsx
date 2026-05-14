@@ -17,7 +17,9 @@ export default async function MarketingReportPage({
   const params = await searchParams;
   const runId = typeof params.runId === "string" ? params.runId : "";
   const emailRaw = typeof params.email === "string" ? params.email.trim().toLowerCase() : "";
+  const businessRaw = typeof params.business === "string" ? params.business.trim() : "";
   const email = emailRaw || "owner@business.com";
+  const business = businessRaw || "Your Business";
 
   return (
     <main id="main-content" className="min-h-screen bg-[var(--color-bg-page)] text-[var(--color-text-body)]">
@@ -30,6 +32,9 @@ export default async function MarketingReportPage({
             Your marketing report is ready.
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-[var(--color-hero-subtext)]">
+            Business: <span className="text-[var(--color-hero-text)] font-semibold">{business}</span>
+          </p>
+          <p className="mt-2 max-w-2xl text-lg text-[var(--color-hero-subtext)]">
             Built for: <span className="text-[var(--color-hero-text)] font-semibold">{email}</span>
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -58,4 +63,3 @@ export default async function MarketingReportPage({
     </main>
   );
 }
-

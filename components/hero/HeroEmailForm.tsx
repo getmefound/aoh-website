@@ -123,8 +123,13 @@ function HeroInner() {
   const variant = resolveVariant(searchParams.get("campaign"));
   const config = variants[variant];
   const auditUrl = trustedReportUrl(searchParams.get("audit_url"));
+  const token = searchParams.get("t") ?? "";
+  const tokenBusiness = searchParams.get("business") ?? "";
+  const tokenEmail = searchParams.get("email") ?? "";
+  const tokenMode = token.trim().length > 0;
 
-  const [email, setEmail] = useState(searchParams.get("email") ?? "");
+  const [email, setEmail] = useState(tokenEmail || searchParams.get("email") || "");
+  const [businessName, setBusinessName] = useState(tokenBusiness);
   const [secondaryReport, setSecondaryReport] = useState(true);
   const [reportType, setReportType] = useState<ReportType>(
     variant === "ai" ? "ai_visibility" : "marketing",
@@ -165,10 +170,16 @@ function HeroInner() {
       return;
     }
 
-    const v = validateEmail(email);
-    if (!v.ok) {
-      setError(v.error);
-      return;
+    if (!tokenMode) {
+      const v = validateEmail(email);
+      if (!v.ok) {
+        setError(v.error);
+        return;
+      }
+      if (!businessName.trim()) {
+        setError("Enter your business name.");
+        return;
+      }
     }
 
     setPending(true);
@@ -178,12 +189,14 @@ function HeroInner() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           email: email.trim(),
+          businessName: businessName.trim(),
           website: honeypotValue,
           turnstileToken: turnstileTokenRef.current,
           campaign: variant === "default" ? "organic" : variant,
           visualVariant,
           reportType,
           secondaryReport,
+          token: token || undefined,
         }),
       });
       const data = (await res.json().catch(() => ({}))) as {
@@ -263,22 +276,44 @@ function HeroInner() {
                 aria-label="Request free reports"
                 noValidate
               >
-                <label htmlFor="hero-email" className="sr-only">
-                  Business email
-                </label>
-                <input
-                  id="hero-email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  inputMode="email"
-                  placeholder="Enter your business email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  aria-invalid={Boolean(error)}
-                  aria-describedby={error ? "hero-email-error" : undefined}
-                  className="flex-1 rounded-md border border-[var(--color-hero-border)] bg-white/5 px-4 py-3 text-base text-[var(--color-hero-text)] placeholder:text-[var(--color-hero-subtext)] outline-none transition focus:border-[var(--color-accent)] focus:bg-white/10"
-                />
+                {!tokenMode ? (
+                  <>
+                    <label htmlFor="hero-business" className="sr-only">
+                      Business name
+                    </label>
+                    <input
+                      id="hero-business"
+                      type="text"
+                      required
+                      autoComplete="organization"
+                      placeholder="Business name"
+                      value={businessName}
+                      onChange={(e) => setBusinessName(e.target.value)}
+                      className="flex-1 rounded-md border border-[var(--color-hero-border)] bg-white/5 px-4 py-3 text-base text-[var(--color-hero-text)] placeholder:text-[var(--color-hero-subtext)] outline-none transition focus:border-[var(--color-accent)] focus:bg-white/10"
+                    />
+                    <label htmlFor="hero-email" className="sr-only">
+                      Business email
+                    </label>
+                    <input
+                      id="hero-email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      inputMode="email"
+                      placeholder="Business email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      aria-invalid={Boolean(error)}
+                      aria-describedby={error ? "hero-email-error" : undefined}
+                      className="flex-1 rounded-md border border-[var(--color-hero-border)] bg-white/5 px-4 py-3 text-base text-[var(--color-hero-text)] placeholder:text-[var(--color-hero-subtext)] outline-none transition focus:border-[var(--color-accent)] focus:bg-white/10"
+                    />
+                  </>
+                ) : (
+                  <div className="flex-1 rounded-md border border-[var(--color-hero-border)] bg-white/5 px-4 py-3 text-sm text-[var(--color-hero-subtext)]">
+                    Ready for {businessName || "your business"}.
+                    {email ? <> Report will be sent to <strong className="text-[var(--color-hero-text)]">{email}</strong>.</> : null}
+                  </div>
+                )}
                 <div
                   aria-hidden="true"
                   className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden"
@@ -299,7 +334,7 @@ function HeroInner() {
                   disabled={pending}
                   className="w-full sm:w-auto min-h-[52px] min-w-fit whitespace-nowrap rounded-md bg-[var(--color-accent)] px-6 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2 focus:ring-offset-[var(--color-hero-bg)] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {pending ? "Sending…" : config.buttonText}
+                  {pending ? "Sending..." : tokenMode ? "Generate My Report" : config.buttonText}
                 </button>
               </form>
               <fieldset className="mt-4 rounded-md border border-[var(--color-hero-border)] bg-white/5 p-3">
@@ -466,3 +501,4 @@ export function HeroEmailForm() {
     </Suspense>
   );
 }
+
