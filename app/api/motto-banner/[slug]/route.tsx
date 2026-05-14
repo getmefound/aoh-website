@@ -57,7 +57,7 @@ export const MOTTOS: Motto[] = [
   },
 ];
 
-const SERVICES = "Review Automation · AI Visibility · Reach · Studio · Relay · Whole Stack";
+const SERVICES = "Review Automation · AI Visibility · Reach · Studio · Relay · Full Service";
 
 export function generateStaticParams() {
   return MOTTOS.map((m) => ({ slug: m.slug }));

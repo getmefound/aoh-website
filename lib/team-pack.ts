@@ -1,4 +1,4 @@
-// Final team profile kit — picked motto + matching profile copy across 8 surfaces.
+﻿// Final team profile kit â€” picked motto + matching profile copy across 8 surfaces.
 // Motto: "Phones answered. Reviews chased. Leads followed up."
 // No "local businesses" framing.
 // Banners served from /api/team-banner/[slug].
@@ -28,7 +28,7 @@ export type Surface = {
   key: SurfaceKey;
   label: string;
   type: "company" | "person";
-  bannerSlug: string | null; // matches /api/team-banner/[slug] — null = no banner (IG)
+  bannerSlug: string | null; // matches /api/team-banner/[slug] â€” null = no banner (IG)
   bannerWidth: number | null;
   bannerHeight: number | null;
   // Paste-ready copy blocks
@@ -40,7 +40,7 @@ export type Surface = {
   notes?: string;
 };
 
-// Logo assets — single uniform set the team uses everywhere.
+// Logo assets â€” single uniform set the team uses everywhere.
 // Recommend the navy-background icon for circular profile pics across all platforms.
 export type LogoAsset = {
   filename: string;
@@ -54,48 +54,48 @@ export const LOGOS: LogoAsset[] = [
   {
     filename: "aoh-icon-2048-navy.png",
     url: "/logos/aoh-icon-2048-navy.png",
-    dimensions: "2048×2048",
+    dimensions: "2048Ã—2048",
     bestFor:
-      "Profile picture, all platforms (LinkedIn personal + company, Facebook page, Instagram, X, Google Business Profile). Recommended master file — platforms downscale cleanly.",
+      "Profile picture, all platforms (LinkedIn personal + company, Facebook page, Instagram, X, Google Business Profile). Recommended master file â€” platforms downscale cleanly.",
     recommended: true,
   },
   {
     filename: "aoh-icon-1080-navy.png",
     url: "/logos/aoh-icon-1080-navy.png",
-    dimensions: "1080×1080",
-    bestFor: "Profile picture fallback — Instagram, LinkedIn company, smaller upload limits.",
+    dimensions: "1080Ã—1080",
+    bestFor: "Profile picture fallback â€” Instagram, LinkedIn company, smaller upload limits.",
   },
   {
     filename: "aoh-icon-400-navy.png",
     url: "/logos/aoh-icon-400-navy.png",
-    dimensions: "400×400",
+    dimensions: "400Ã—400",
     bestFor:
-      "Profile picture minimum size. Use only if platform refuses larger. Facebook & X both display at 200×200 from this.",
+      "Profile picture minimum size. Use only if platform refuses larger. Facebook & X both display at 200Ã—200 from this.",
   },
   {
     filename: "aoh-icon-2048.png",
     url: "/logos/aoh-icon-2048.png",
-    dimensions: "2048×2048",
+    dimensions: "2048Ã—2048",
     bestFor:
-      "Icon on transparent background — for embedding in slides, decks, light-colored docs where you want the icon without the navy background.",
+      "Icon on transparent background â€” for embedding in slides, decks, light-colored docs where you want the icon without the navy background.",
   },
   {
     filename: "aoh-icon-1080.png",
     url: "/logos/aoh-icon-1080.png",
-    dimensions: "1080×1080",
+    dimensions: "1080Ã—1080",
     bestFor: "Transparent icon, social-card embeds, OG images.",
   },
   {
     filename: "aoh-wordmark-dark-h480.png",
     url: "/logos/aoh-wordmark-dark-h480.png",
-    dimensions: "2190×480",
+    dimensions: "2190Ã—480",
     bestFor:
       "Full wordmark for dark backgrounds. Email signatures, letterheads on dark stock, slide masters.",
   },
   {
     filename: "aoh-wordmark-light-h480.png",
     url: "/logos/aoh-wordmark-light-h480.png",
-    dimensions: "2190×480",
+    dimensions: "2190Ã—480",
     bestFor:
       "Full wordmark for light backgrounds. Letterheads on cream/white, light slide decks.",
   },
@@ -103,10 +103,10 @@ export const LOGOS: LogoAsset[] = [
 
 // LinkedIn About sections use Unicode bold characters for section headers
 // since LinkedIn strips real markdown. These render across browsers/devices.
-const B_WHAT_I_DO = "𝗪𝗵𝗮𝘁 𝗜 𝗱𝗼";
-const B_HOW = "𝗛𝗼𝘄";
-const B_WHO_FOR = "𝗪𝗵𝗼 𝗶𝘁'𝘀 𝗳𝗼𝗿";
-const B_HEADLINE = "𝗣𝗵𝗼𝗻𝗲𝘀 𝗮𝗻𝘀𝘄𝗲𝗿𝗲𝗱. 𝗥𝗲𝘃𝗶𝗲𝘄𝘀 𝗰𝗵𝗮𝘀𝗲𝗱. 𝗟𝗲𝗮𝗱𝘀 𝗳𝗼𝗹𝗹𝗼𝘄𝗲𝗱 𝘂𝗽.";
+const B_WHAT_I_DO = "ð—ªð—µð—®ð˜ ð—œ ð—±ð—¼";
+const B_HOW = "ð—›ð—¼ð˜„";
+const B_WHO_FOR = "ð—ªð—µð—¼ ð—¶ð˜'ð˜€ ð—³ð—¼ð—¿";
+const B_HEADLINE = "ð—£ð—µð—¼ð—»ð—²ð˜€ ð—®ð—»ð˜€ð˜„ð—²ð—¿ð—²ð—±. ð—¥ð—²ð˜ƒð—¶ð—²ð˜„ð˜€ ð—°ð—µð—®ð˜€ð—²ð—±. ð—Ÿð—²ð—®ð—±ð˜€ ð—³ð—¼ð—¹ð—¹ð—¼ð˜„ð—²ð—± ð˜‚ð—½.";
 
 export const SURFACES: Surface[] = [
   // ============================================================
@@ -114,7 +114,7 @@ export const SURFACES: Surface[] = [
   // ============================================================
   {
     key: "linkedin-company",
-    label: "LinkedIn — Company Page",
+    label: "LinkedIn â€” Company Page",
     type: "company",
     bannerSlug: "linkedin-company",
     bannerWidth: 1128,
@@ -126,19 +126,19 @@ export const SURFACES: Surface[] = [
         charLimit: 120,
       },
       {
-        label: "About (LinkedIn company About, ~2,000 char limit — Unicode bold renders inline)",
+        label: "About (LinkedIn company About, ~2,000 char limit â€” Unicode bold renders inline)",
         text: `${B_HEADLINE}
 
-That's what AI Outsource Hub runs for you — done-for-you AI, no dashboards, no retainer.
+That's what AI Outsource Hub runs for you â€” done-for-you AI, no dashboards, no retainer.
 
 ${B_WHAT_I_DO}
 Six services starting at $49/month:
-· Review Automation — every customer asked, every Google review chased, replies handled
-· AI Visibility — get cited by ChatGPT, Google AI, Claude
-· Reach — outbound lead generation
-· Studio — content production
-· Relay — 24/7 AI receptionist for after-hours calls
-· Whole Stack — all six bundled
+Â· Review Automation â€” every customer asked, every Google review chased, replies handled
+Â· AI Visibility â€” get cited by ChatGPT, Google AI, Claude
+Â· Reach â€” outbound lead generation
+Â· Studio â€” content production
+Â· Relay â€” 24/7 AI receptionist for after-hours calls
+Â· Full Service â€” all six bundled
 
 ${B_HOW}
 We set it up. We run it. You get daily updates by text and email. No app to download. No dashboard to learn. No 12-month contract.
@@ -148,7 +148,7 @@ Service businesses ready to stop losing customers to faster competitors with bet
 
 Founded by Mike Egidio. US-based. Month-to-month. Cancel anytime.
 
-→ aioutsourcehub.com`,
+â†’ aioutsourcehub.com`,
       },
       {
         label: "Specialties (paste into Specialties field, comma-separated)",
@@ -158,7 +158,7 @@ Founded by Mike Egidio. US-based. Month-to-month. Cancel anytime.
     fields: [
       { field: "Website", value: "https://aioutsourcehub.com" },
       { field: "Industry", value: "Marketing Services" },
-      { field: "Company size", value: "2–10 employees" },
+      { field: "Company size", value: "2â€“10 employees" },
       { field: "Custom button label", value: "Visit website" },
       { field: "Custom button URL", value: "https://aioutsourcehub.com/?utm_source=linkedin&utm_medium=company" },
     ],
@@ -169,7 +169,7 @@ Founded by Mike Egidio. US-based. Month-to-month. Cancel anytime.
   },
   {
     key: "facebook",
-    label: "Facebook — Page",
+    label: "Facebook â€” Page",
     type: "company",
     bannerSlug: "facebook",
     bannerWidth: 820,
@@ -181,8 +181,8 @@ Founded by Mike Egidio. US-based. Month-to-month. Cancel anytime.
         charLimit: 101,
       },
       {
-        label: "About (255 char limit on current Facebook — hashtags pasted at the end render clickable)",
-        text: `AI Outsource Hub runs done-for-you AI services — Review Automation, AI Visibility, Reach, Studio, Relay (24/7 receptionist), Whole Stack. From $49/mo.
+        label: "About (255 char limit on current Facebook â€” hashtags pasted at the end render clickable)",
+        text: `AI Outsource Hub runs done-for-you AI services â€” Review Automation, AI Visibility, Reach, Studio, Relay (24/7 receptionist), Full Service. From $49/mo.
 
 We run it. You don't learn another app.
 
@@ -218,17 +218,17 @@ We run it. You don't learn another app.
     ],
     fields: [
       { field: "Website", value: "https://aioutsourcehub.com" },
-      { field: "Location", value: "US — service nationwide" },
-      { field: "Pinned tweet idea", value: "Lead with the cost-of-dormant-profile post — $38,400/year math, runs hot on X" },
+      { field: "Location", value: "US â€” service nationwide" },
+      { field: "Pinned tweet idea", value: "Lead with the cost-of-dormant-profile post â€” $38,400/year math, runs hot on X" },
     ],
     hashtags: {
-      label: "Hashtags for tweets (not in bio — X bio hashtags aren't clickable)",
+      label: "Hashtags for tweets (not in bio â€” X bio hashtags aren't clickable)",
       tags: "#DoneForYouAI #AI #Automation #ReviewAutomation #AIVisibility",
     },
   },
   {
     key: "instagram",
-    label: "Instagram (no banner — profile pic + bio + native links)",
+    label: "Instagram (no banner â€” profile pic + bio + native links)",
     type: "company",
     bannerSlug: null,
     bannerWidth: null,
@@ -236,23 +236,23 @@ We run it. You don't learn another app.
     blocks: [
       {
         label: "Bio (150 char limit)",
-        text: `📞 Phones answered.
-⭐ Reviews chased.
-💬 Leads followed up.
-Done-for-you AI · from $49/mo`,
+        text: `ðŸ“ž Phones answered.
+â­ Reviews chased.
+ðŸ’¬ Leads followed up.
+Done-for-you AI Â· from $49/mo`,
         charLimit: 150,
       },
       {
-        label: "Profile picture URL (right-click → save)",
+        label: "Profile picture URL (right-click â†’ save)",
         text: "https://aioutsourcehub.com/logos/aoh-icon-400-navy.png",
       },
       {
-        label: "Native bio links (Instagram supports 5 since 2023 — Edit profile → Links → Add external link)",
-        text: `1. Review Automation pricing  →  https://aioutsourcehub.com/pricing#review-automation
-2. AI Visibility pricing      →  https://aioutsourcehub.com/pricing#ai-visibility
-3. Whole Stack pricing        →  https://aioutsourcehub.com/pricing#whole-stack
-4. Relay pricing              →  https://aioutsourcehub.com/pricing#relay
-5. Lost-Revenue Calculator    →  https://aioutsourcehub.com/#calculator`,
+        label: "Native bio links (Instagram supports 5 since 2023 â€” Edit profile â†’ Links â†’ Add external link)",
+        text: `1. Review Automation pricing  â†’  https://aioutsourcehub.com/pricing#review-automation
+2. AI Visibility pricing      â†’  https://aioutsourcehub.com/pricing#ai-visibility
+3. Full Service pricing        â†’  https://aioutsourcehub.com/pricing#full-service
+4. Relay pricing              â†’  https://aioutsourcehub.com/pricing#relay
+5. Lost-Revenue Calculator    â†’  https://aioutsourcehub.com/#calculator`,
       },
     ],
     fields: [
@@ -260,7 +260,7 @@ Done-for-you AI · from $49/mo`,
       { field: "Contact email", value: "support@aioutsourcehub.com" },
     ],
     hashtags: {
-      label: "Hashtags for IG posts (NOT in bio — bio hashtags eat character budget)",
+      label: "Hashtags for IG posts (NOT in bio â€” bio hashtags eat character budget)",
       tags: "#DoneForYouAI #AIAutomation #ReviewAutomation #AIReceptionist #AIVisibility #BusinessAutomation #SmallBusinessOwner #ServiceBusiness #LeadGeneration #AIforBusiness",
     },
   },
@@ -276,7 +276,7 @@ Done-for-you AI · from $49/mo`,
         label: "Business description (750 char)",
         text: `Phones answered. Reviews chased. Leads followed up.
 
-AI Outsource Hub runs done-for-you AI services — Review Automation, AI Visibility, AI receptionists, content production, and outbound lead generation. Six services from $49/month. No dashboards to log into. No retainer. We set it up, we run it, you get daily updates by text and email. Built for service businesses that want AI working in their business without becoming experts in it. Free presence audit on our site. Founded by Mike Egidio. US-based. Month-to-month, cancel anytime.`,
+AI Outsource Hub runs done-for-you AI services â€” Review Automation, AI Visibility, AI receptionists, content production, and outbound lead generation. Six services from $49/month. No dashboards to log into. No retainer. We set it up, we run it, you get daily updates by text and email. Built for service businesses that want AI working in their business without becoming experts in it. Free presence audit on our site. Founded by Mike Egidio. US-based. Month-to-month, cancel anytime.`,
         charLimit: 750,
       },
       {
@@ -287,18 +287,18 @@ AI Outsource Hub runs done-for-you AI services — Review Automation, AI Visibil
     fields: [
       { field: "Primary category", value: "Marketing Agency" },
       { field: "Additional categories", value: "Internet Marketing Service, Software Company, Business Management Consultant, Telephone Answering Service" },
-      { field: "Services to list", value: "Review Automation ($99/mo) · AI Visibility ($299/mo) · Reach Lead Engine ($449/mo) · Studio Content ($599/mo) · Relay AI Receptionist ($399/mo) · Whole Stack ($999/mo)" },
+      { field: "Services to list", value: "Review Automation ($99/mo) Â· AI Visibility ($299/mo) Â· Reach Lead Engine ($449/mo) Â· Studio Content ($599/mo) Â· Relay AI Receptionist ($399/mo) Â· Full Service ($999/mo)" },
       { field: "Website", value: "https://aioutsourcehub.com" },
       { field: "Appointment URL", value: "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56" },
     ],
   },
 
   // ============================================================
-  // PERSONAL LINKEDIN — MIKE, KIP, TERI
+  // PERSONAL LINKEDIN â€” MIKE, KIP, TERI
   // ============================================================
   {
     key: "mike",
-    label: "Mike Egidio — LinkedIn (personal)",
+    label: "Mike Egidio â€” LinkedIn (personal)",
     type: "person",
     bannerSlug: "mike",
     bannerWidth: 1584,
@@ -306,23 +306,23 @@ AI Outsource Hub runs done-for-you AI services — Review Automation, AI Visibil
     blocks: [
       {
         label: "Headline (220 char limit)",
-        text: "Founder, AI Outsource Hub · Phones answered. Reviews chased. Leads followed up. Done-for-you AI from $49/mo · We run it, you don't learn it · aioutsourcehub.com",
+        text: "Founder, AI Outsource Hub Â· Phones answered. Reviews chased. Leads followed up. Done-for-you AI from $49/mo Â· We run it, you don't learn it Â· aioutsourcehub.com",
         charLimit: 220,
       },
       {
-        label: "About (LinkedIn personal About — Unicode bold renders inline)",
+        label: "About (LinkedIn personal About â€” Unicode bold renders inline)",
         text: `${B_HEADLINE}
 
 That's the whole pitch. I built AI Outsource Hub to run those three things for service-business owners who don't have time to babysit another marketing tool.
 
 ${B_WHAT_I_DO}
 I run AOH. Six done-for-you AI services from $49/month:
-· Review Automation
-· AI Visibility (get cited in ChatGPT, Google AI, Claude)
-· Reach (outbound lead generation)
-· Studio (content production)
-· Relay (24/7 AI receptionist)
-· Whole Stack (everything bundled)
+Â· Review Automation
+Â· AI Visibility (get cited in ChatGPT, Google AI, Claude)
+Â· Reach (outbound lead generation)
+Â· Studio (content production)
+Â· Relay (24/7 AI receptionist)
+Â· Full Service (everything bundled)
 
 ${B_HOW}
 We set it up. We run it. You get daily updates by text and email. No app to download. No dashboard to learn. No retainer. No 12-month contract.
@@ -332,26 +332,26 @@ Operators who'd rather be in the truck, the chair, or the operatory than in a ma
 
 Three-person US-based team. Month-to-month. Cancel anytime.
 
-→ aioutsourcehub.com`,
+â†’ aioutsourcehub.com`,
       },
       {
         label: "Featured links (pin 3 in the Featured section)",
-        text: "1. Free audit — https://aioutsourcehub.com\n2. Pricing — https://aioutsourcehub.com/pricing\n3. Latest blog post — https://aioutsourcehub.com/blog",
+        text: "1. Free audit â€” https://aioutsourcehub.com\n2. Pricing â€” https://aioutsourcehub.com/pricing\n3. Latest blog post â€” https://aioutsourcehub.com/blog",
       },
     ],
     fields: [
       { field: "Contact email", value: "mike@aioutsourcehub.com" },
       { field: "Website", value: "https://aioutsourcehub.com" },
-      { field: "Open to", value: "Business inquiries · Speaking · Consulting" },
+      { field: "Open to", value: "Business inquiries Â· Speaking Â· Consulting" },
     ],
     hashtags: {
-      label: "Hashtags for posts (LinkedIn personal — 3-5 max per post)",
+      label: "Hashtags for posts (LinkedIn personal â€” 3-5 max per post)",
       tags: "#DoneForYouAI #Founder #AIAutomation #AIforBusiness #BusinessAutomation",
     },
   },
   {
     key: "kip",
-    label: "Kip Leathers — LinkedIn (personal)",
+    label: "Kip Leathers â€” LinkedIn (personal)",
     type: "person",
     bannerSlug: "kip",
     bannerWidth: 1584,
@@ -359,14 +359,14 @@ Three-person US-based team. Month-to-month. Cancel anytime.
     blocks: [
       {
         label: "Headline (220 char limit)",
-        text: "Business Development @ AI Outsource Hub · I open the door for service-business owners who want done-for-you AI without the agency BS · From $49/mo · aioutsourcehub.com",
+        text: "Business Development @ AI Outsource Hub Â· I open the door for service-business owners who want done-for-you AI without the agency BS Â· From $49/mo Â· aioutsourcehub.com",
         charLimit: 220,
       },
       {
         label: "About",
         text: `${B_HEADLINE}
 
-That's what we run at AI Outsource Hub. My job is to find the operators who'd actually benefit — and start the conversation in a way that doesn't waste their time.
+That's what we run at AI Outsource Hub. My job is to find the operators who'd actually benefit â€” and start the conversation in a way that doesn't waste their time.
 
 ${B_WHAT_I_DO}
 I run business development at AOH. Six done-for-you AI services from $49/month, set up and run by us. No demos. No decks. I walk through your phone log, your reviews, and your lead-response time, then show you the leak.
@@ -376,11 +376,11 @@ Service-business owners who've been ignoring "the AI thing" because it felt like
 
 If that's a conversation you want to have, message me.
 
-→ aioutsourcehub.com`,
+â†’ aioutsourcehub.com`,
       },
       {
         label: "Featured links (pin 3)",
-        text: "1. Free audit — https://aioutsourcehub.com\n2. Reviews service — https://aioutsourcehub.com/pricing#review-automation\n3. About AOH — https://aioutsourcehub.com/about",
+        text: "1. Free audit â€” https://aioutsourcehub.com\n2. Reviews service â€” https://aioutsourcehub.com/pricing#review-automation\n3. About AOH â€” https://aioutsourcehub.com/about",
       },
     ],
     fields: [
@@ -394,7 +394,7 @@ If that's a conversation you want to have, message me.
   },
   {
     key: "teri",
-    label: "Teri Egidio — LinkedIn (personal)",
+    label: "Teri Egidio â€” LinkedIn (personal)",
     type: "person",
     bannerSlug: "teri",
     bannerWidth: 1584,
@@ -402,17 +402,17 @@ If that's a conversation you want to have, message me.
     blocks: [
       {
         label: "Headline (220 char limit)",
-        text: "Sales Manager & Onboarding @ AI Outsource Hub · I make sure your first 30 days feel handled, not figured out · Done-for-you AI from $49/mo · aioutsourcehub.com",
+        text: "Sales Manager & Onboarding @ AI Outsource Hub Â· I make sure your first 30 days feel handled, not figured out Â· Done-for-you AI from $49/mo Â· aioutsourcehub.com",
         charLimit: 220,
       },
       {
         label: "About",
         text: `${B_HEADLINE}
 
-That's the promise at AI Outsource Hub. My job is making sure your first 30 days actually feel that way — handled, not figured out.
+That's the promise at AI Outsource Hub. My job is making sure your first 30 days actually feel that way â€” handled, not figured out.
 
 ${B_WHAT_I_DO}
-I run sales and onboarding at AOH. When you sign with us, I'm the one you talk to. I gather what we need, set up your services, and get your AI live — usually inside a week. You won't chase me. I'll already have messaged you.
+I run sales and onboarding at AOH. When you sign with us, I'm the one you talk to. I gather what we need, set up your services, and get your AI live â€” usually inside a week. You won't chase me. I'll already have messaged you.
 
 ${B_HOW}
 Six done-for-you services from $49/month. No 40-page onboarding doc. No "log into our portal and click through these 12 steps." We do the setup. You see the results.
@@ -420,11 +420,11 @@ Six done-for-you services from $49/month. No 40-page onboarding doc. No "log int
 ${B_WHO_FOR}
 Owners who are tired of being sold tools they never use. We're the opposite of that.
 
-→ aioutsourcehub.com`,
+â†’ aioutsourcehub.com`,
       },
       {
         label: "Featured links (pin 3)",
-        text: "1. Free audit — https://aioutsourcehub.com\n2. Pricing — https://aioutsourcehub.com/pricing\n3. How onboarding works — https://aioutsourcehub.com/about",
+        text: "1. Free audit â€” https://aioutsourcehub.com\n2. Pricing â€” https://aioutsourcehub.com/pricing\n3. How onboarding works â€” https://aioutsourcehub.com/about",
       },
     ],
     fields: [

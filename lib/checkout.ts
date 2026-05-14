@@ -104,8 +104,8 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     ctaKind: "subscribe",
   },
   {
-    slug: "whole-stack",
-    name: "The Whole Stack",
+    slug: "full-service",
+    name: "Full Service",
     price: "$999",
     cadence: "/month",
     setup: "$999 setup",

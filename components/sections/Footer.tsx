@@ -11,7 +11,7 @@ const services = [
   { href: "/pricing#reach", label: "Reach" },
   { href: "/pricing#studio", label: "Studio" },
   { href: "/pricing#relay", label: "Relay" },
-  { href: "/pricing#whole-stack", label: "The Whole Stack" },
+  { href: "/pricing#full-service", label: "Full Service" },
 ];
 
 const company = [

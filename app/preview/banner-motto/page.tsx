@@ -50,7 +50,7 @@ const SERVICE_FORMATS = [
   {
     id: "full",
     label: "Full names",
-    text: "Review Automation · AI Visibility · Reach · Studio · Relay · Whole Stack",
+    text: "Review Automation · AI Visibility · Reach · Studio · Relay · Full Service",
   },
   {
     id: "short",

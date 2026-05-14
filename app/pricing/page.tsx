@@ -244,9 +244,9 @@ const products: ProductDetailData[] = [
     mock: <MockStudioPanel />,
   },
   {
-    slug: "whole-stack",
+    slug: "full-service",
     number: "06",
-    name: "The Whole Stack",
+    name: "Full Service",
     outcome: "For owners running 5+ marketing channels who want it all handled by one team.",
     story:
       "Reviews, AI visibility, outbound leads, content, voice — all running together. One bill, one onboarding call, one monthly check-in. We sequence the rollout so your team isn't overwhelmed.",
@@ -278,7 +278,7 @@ const products: ProductDetailData[] = [
     price: "$999",
     cadenceLabel: "/mo",
     setup: "$999 setup",
-    ctaLabel: "Start Whole Stack",
+    ctaLabel: "Start Full Service",
     ctaHref: BOOKING_HREF,
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.dashboard,

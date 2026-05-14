@@ -13,7 +13,7 @@ const GREEN = "#7CE7B7";
 
 // Picked by Mike: motto + service list format
 const MOTTO_LINES = ["Phones answered.", "Reviews chased.", "Leads followed up."];
-const SERVICES = "Review Automation · AI Visibility · Reach · Studio · Relay · Whole Stack";
+const SERVICES = "Review Automation · AI Visibility · Reach · Studio · Relay · Full Service";
 
 type SurfaceConfig = {
   width: number;

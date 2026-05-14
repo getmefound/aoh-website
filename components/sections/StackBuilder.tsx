@@ -283,7 +283,7 @@ export function StackBuilder() {
                 href={STACK_HREF}
                 className="underline underline-offset-2 text-[var(--color-accent)] hover:text-[var(--color-accent-hover)]"
               >
-                switch to Whole Stack
+                switch to Full Service
               </Link>
               )
             </p>
@@ -369,7 +369,7 @@ export function StackBuilder() {
                 href={STACK_HREF}
                 className="underline underline-offset-2 text-[var(--color-accent)]"
               >
-                switch to Whole Stack
+                switch to Full Service
               </Link>
               )
             </p>
