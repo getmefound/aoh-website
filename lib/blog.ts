@@ -36,7 +36,20 @@ async function loadFile(filename: string): Promise<Post> {
   const raw = await readFile(join(BLOG_DIR, filename), "utf8");
   const { data, content } = matter(raw);
 
-  const html = await marked.parse(content, { async: true });
+  const rawHtml = await marked.parse(content, { async: true });
+  const html = rawHtml.replace(
+    /<a\s+([^>]*href="https?:\/\/[^"]+"[^>]*)>/gi,
+    (_match, attrs: string) => {
+      let nextAttrs = attrs;
+      if (!/\btarget\s*=/.test(nextAttrs)) {
+        nextAttrs += ' target="_blank"';
+      }
+      if (!/\brel\s*=/.test(nextAttrs)) {
+        nextAttrs += ' rel="noopener noreferrer"';
+      }
+      return `<a ${nextAttrs}>`;
+    },
+  );
   const rt = readingTime(content);
 
   return {

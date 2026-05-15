@@ -54,6 +54,8 @@ export default function ContactPage() {
                   </span>
                   <a
                     href="https://aioutsourcehub.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-[var(--color-accent)] hover:underline font-medium"
                   >
                     aioutsourcehub.com
