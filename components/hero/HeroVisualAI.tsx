@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const BUSINESS = "Austin's Best Plumbing";
-const CHAR_DELAY_MS = 26;
+const CHAR_DELAY_MS = 22;
 
 type Brand = { name: string; color: string };
 
@@ -28,28 +28,28 @@ const SLIDES: Slide[] = [
     brand: BRANDS.google,
     query: "best plumber Austin",
     before: "",
-    after: " — #1 result · Same-day service · 200+ reviews · Certified & insured",
+    after: " — #1 result · 200+ reviews",
     meta: "Google Search",
   },
   {
     brand: BRANDS.chatgpt,
     query: "best plumber near Austin",
     before: "I recommend ",
-    after: " — 47 five-star reviews and same-day service.",
+    after: " — top-rated, same-day.",
     meta: "ChatGPT",
   },
   {
     brand: BRANDS.maps,
     query: "plumber open now near me",
     before: "",
-    after: " · Open now · #1 in your area · 4.9 ★ · 2.1 mi",
+    after: " · 4.9 ★ · Open now · 0.8 mi",
     meta: "Google Maps",
   },
   {
     brand: BRANDS.claude,
     query: "who should I call for a plumber?",
     before: "",
-    after: " comes highly recommended — consistent 5-star reviews, same-day availability.",
+    after: " — my top pick. 5-star, same-day.",
     meta: "Claude",
   },
 ];

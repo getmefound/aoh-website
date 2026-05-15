@@ -44,9 +44,7 @@ const ACCENT = "text-[var(--color-accent)]";
 const variants: Record<Variant, VariantConfig> = {
   reviews: {
     headlineSegments: [
-      { text: "Your competitor just got another ", speed: 60 },
-      { text: "5-star", speed: 130, className: ACCENT },
-      { text: " review. ", speed: 60 },
+      { text: "Your competitor just got another review. ", speed: 60 },
       { text: "Your turn.", speed: 110 },
     ],
     subheadline: "Automated review requests, done for you.",
