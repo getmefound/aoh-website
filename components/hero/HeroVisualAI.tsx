@@ -9,9 +9,9 @@ const CHAR_DELAY_MS = 26;
 type Brand = { name: string; color: string };
 
 const BRANDS: Record<string, Brand> = {
-  chatgpt: { name: "ChatGPT",   color: "#10A37F" },
-  claude:  { name: "Claude",    color: "#DA7756" },
-  google:  { name: "Google AI", color: "#4285F4" },
+  google: { name: "Google",      color: "#4285F4" },
+  yelp:   { name: "Yelp",        color: "#CC2200" },
+  maps:   { name: "Google Maps", color: "#34A853" },
 };
 
 type Slide = {
@@ -24,25 +24,25 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
-    brand: BRANDS.chatgpt,
-    query: "best plumber near Austin",
-    before: "I recommend ",
-    after: " — 47 five-star reviews and same-day service.",
-    meta: "ChatGPT",
-  },
-  {
-    brand: BRANDS.claude,
-    query: "who should I call for a plumber?",
-    before: "",
-    after: " comes highly recommended — consistent 5-star reviews, same-day availability.",
-    meta: "claude.ai",
-  },
-  {
     brand: BRANDS.google,
-    query: "top-rated plumbers Austin TX",
-    before: "Top-rated locally: ",
-    after: " — fast response, 200+ verified reviews.",
-    meta: "AI Overview · Google",
+    query: "best plumber Austin",
+    before: "",
+    after: " — #1 result · Same-day service · 200+ reviews · Certified & insured",
+    meta: "Google Search",
+  },
+  {
+    brand: BRANDS.yelp,
+    query: "emergency plumber Austin TX",
+    before: "",
+    after: " — 4.9 ★ · \"Fast, honest, fixed it same day. Will use again.\"",
+    meta: "Yelp",
+  },
+  {
+    brand: BRANDS.maps,
+    query: "plumber open now near me",
+    before: "",
+    after: " · Open now · #1 in your area · 4.9 ★ · 2.1 mi",
+    meta: "Google Maps",
   },
 ];
 
@@ -219,7 +219,7 @@ export function HeroVisualAI() {
   return (
     <div
       className="relative w-full overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A1628] h-[300px] md:h-full md:min-h-[380px] md:max-h-[440px]"
-      aria-label="AI search visibility demo"
+      aria-label="Search visibility demo"
       aria-live="polite"
     >
       {/* Ambient glows */}
@@ -244,7 +244,7 @@ export function HeroVisualAI() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)]" />
             </span>
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-hero-text)]/80">
-              Live across AI search
+              Showing up when they search
             </p>
           </div>
 
