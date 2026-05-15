@@ -50,7 +50,7 @@ const variants: Record<Variant, VariantConfig> = {
       { text: "Your turn.", speed: 110 },
     ],
     subheadline: "Automated review requests, done for you.",
-    priceLine: "$1/day. No contract.",
+    priceLine: "Limited time · only $49/mo · cancel anytime",
     buttonText: "See My Free Review Audit",
     checkbox: {
       label:
@@ -67,7 +67,7 @@ const variants: Record<Variant, VariantConfig> = {
     ],
     subheadline:
       "We get your business showing up across search — before your competitors take the spot.",
-    priceLine: "$3/day. No contract.",
+    priceLine: "Limited time · only $199/mo · cancel anytime",
     buttonText: "See My Free Visibility Score",
     checkbox: {
       label:
@@ -83,7 +83,7 @@ const variants: Record<Variant, VariantConfig> = {
     ],
     subheadline:
       "We handle your reviews, rankings, and online presence — so more customers find you, and choose you.",
-    priceLine: "Starting at $1/day. No contract.",
+    priceLine: "Limited time · from $49/mo · cancel anytime",
     buttonText: "See My Free Visibility Check",
   },
 };
