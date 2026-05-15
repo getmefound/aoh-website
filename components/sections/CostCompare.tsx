@@ -233,7 +233,7 @@ export function CostCompare() {
                   AI Outsource Hub
                 </p>
                 <p className="font-mono text-2xl font-bold text-[var(--color-accent)] leading-none">
-                  $<AnimatedNumber value={149} duration={2800} />
+                  $<AnimatedNumber value={199} duration={2800} />
                   <span className="text-sm">/mo</span>
                 </p>
                 <div className="mt-2 h-1.5 w-full rounded-full bg-[var(--color-accent)]/15 overflow-hidden">
@@ -357,7 +357,7 @@ export function CostCompare() {
             </div>
             <div className="px-6 py-6 text-center border-l border-white/[0.08] bg-[var(--color-accent)]/[0.10]">
               <p className="font-mono text-3xl md:text-4xl font-bold text-[var(--color-accent)] leading-none drop-shadow-[0_0_12px_rgba(45,106,79,0.3)]">
-                $<AnimatedNumber value={149} duration={2800} />
+                $<AnimatedNumber value={199} duration={2800} />
                 <span className="text-lg text-[var(--color-accent)]/70">/mo</span>
               </p>
               <div className="mt-3 h-1.5 w-full rounded-full bg-[var(--color-accent)]/15 overflow-hidden">
