@@ -7,16 +7,14 @@ import { ICON_PATHS } from "@/lib/icon-paths";
 import { MockReviewPanel } from "@/components/ui/MockReviewPanel";
 import { MockAIVisibilityPanel } from "@/components/ui/MockAIVisibilityPanel";
 import { MockReachPanel } from "@/components/ui/MockReachPanel";
-import { MockStudioPanel } from "@/components/ui/MockStudioPanel";
 import { MockRelayPanel } from "@/components/ui/MockRelayPanel";
-import { MockWholeStackPanel } from "@/components/ui/MockWholeStackPanel";
 import { pageBreadcrumbs } from "@/lib/seo";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Build your AOH stack. Pick the services you want — Review Automation, AI Visibility, Reach, Studio, Relay — and the bundle savings appear live. Cancel anytime.",
+    "AI consulting + done-for-you agents for local businesses. Reviews, AI Visibility, Reach, Relay. Cancel anytime.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -142,7 +140,7 @@ const products: ProductDetailData[] = [
       { title: "First campaign live", sub: "Live within 3 business days after we receive everything from you." },
     ],
     cadence: "Campaign launches within 3 business days after we receive your intake details and approvals, then runs continuously with weekly reporting and optimization.",
-    crossSell: { label: "Studio — for the content side", href: "#studio" },
+    crossSell: { label: "Relay — add 24/7 call answering", href: "#relay" },
     price: "$299",
     cadenceLabel: "/mo",
     setup: "$299 setup",
@@ -198,88 +196,6 @@ const products: ProductDetailData[] = [
       formula: "weekly after-hours calls × your average sale × 4 weeks = monthly revenue walking out",
       note: "Catch one extra job a month and Relay pays for itself. Most clients break even in month one.",
     },
-  },
-  {
-    slug: "studio",
-    number: "05",
-    name: "Studio — Content Engine",
-    outcome: "Branded posts on autopilot. We write, design, post.",
-    story:
-      "3 to 5 posts a week, in your brand voice, with custom images generated in your style. Themes are built around your offers and seasonality. You don't write captions, design graphics, or schedule anything — we run the whole calendar.",
-    stats: [
-      { label: "Posts", value: "3–5×/wk" },
-      { label: "Images", value: "Custom" },
-      { label: "Voice", value: "Yours" },
-    ],
-    whatYouGet: [
-      "Branded posts published 3–5× per week",
-      "Custom images generated in your visual style",
-      "Monthly campaign themes aligned with your offers",
-      "Brand voice training (one-time onboarding)",
-      "Multi-platform posting (Facebook, Instagram, Google Business Profile, LinkedIn)",
-      "Fully managed — we write, design, and post",
-    ],
-    useThisIf: [
-      "You want a consistent social presence but don't have time to post.",
-      "Your content is sporadic and customers comment on the gaps.",
-      "You'd rather review and approve than create from scratch.",
-    ],
-    setupSteps: [
-      { title: "Brand voice intake", sub: "We capture how you sound and look." },
-      { title: "Theme calendar built", sub: "First month mapped to your offers." },
-      { title: "First wave posted", sub: "Week 1 of month one." },
-    ],
-    cadence: "3–5 posts/week. Monthly theme refresh.",
-    crossSell: { label: "Reach — pair outbound with content", href: "#reach" },
-    price: "$449",
-    cadenceLabel: "/mo",
-    setup: "$299 setup",
-    ctaLabel: "Start Studio",
-    ctaHref: "https://pay.aioutsourcehub.com/studio",
-    secondaryCtaHref: BOOKING_HREF,
-    iconPaths: ICON_PATHS.studio,
-    mock: <MockStudioPanel />,
-  },
-  {
-    slug: "full-service",
-    number: "06",
-    name: "Full Service",
-    outcome: "For owners running 5+ marketing channels who want it all handled by one team.",
-    story:
-      "Reviews, AI visibility, outbound leads, content, voice — all running together. One bill, one onboarding call, one monthly check-in. We sequence the rollout so your team isn't overwhelmed.",
-    stats: [
-      { label: "Services", value: "All 5" },
-      { label: "Bill", value: "1" },
-      { label: "Save", value: "$400+/mo" },
-    ],
-    whatYouGet: [
-      "AI Visibility (Reviews + AI search) included",
-      "Relay Voice AI (1,000 minutes/month — extra over solo)",
-      "Reach Lead Engine — full outbound",
-      "Studio Content Engine — full posting calendar",
-      "Custom Website Rebuild ($999 build included)",
-      "Single bill + priority response queue",
-      "Combined monthly call covering all 5",
-    ],
-    useThisIf: [
-      "You want growth + visibility + leads + content + voice all running.",
-      "You'd rather have one onboarding than five.",
-      "The math on solo bundles already justifies it.",
-    ],
-    setupSteps: [
-      { title: "Discovery + sequencing call", sub: "We map order of rollout to your capacity." },
-      { title: "Wave 1 — reviews + visibility", sub: "Foundation goes in first." },
-      { title: "Wave 2 — Reach + Studio + Relay", sub: "Outbound, content, and voice come online." },
-    ],
-    cadence: "Combined monthly call. Priority response queue.",
-    price: "$999",
-    cadenceLabel: "/mo",
-    setup: "$999 setup",
-    ctaLabel: "Schedule a fit call",
-    ctaHref: BOOKING_HREF,
-    iconPaths: ICON_PATHS.dashboard,
-    mock: <MockWholeStackPanel />,
-    variant: "dark",
   },
 ];
 
