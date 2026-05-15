@@ -1,4 +1,4 @@
-"use client";
+ï»¿"use client";
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import Script from "next/script";
@@ -55,7 +55,7 @@ const variants: Record<Variant, VariantConfig> = {
     buttonText: "See My Free Review Audit",
     checkbox: {
       label:
-        "Also check my AI Visibility Score — see if I'm showing up in ChatGPT and Google AI.",
+        "Also check my AI Visibility Score â€” see if I'm showing up in ChatGPT and Google AI.",
       caption:
         "25% of searches have already moved to AI. Most local businesses are completely invisible. Find out if you're one of them.",
     },
@@ -67,12 +67,12 @@ const variants: Record<Variant, VariantConfig> = {
       { text: " does.", speed: 70 },
     ],
     subheadline:
-      "We get your business recommended by ChatGPT and Google AI — before your competitors do.",
+      "We get your business recommended by ChatGPT and Google AI â€” before your competitors do.",
     priceLine: "$3/day. No contract.",
     buttonText: "See My Free AI Visibility Score",
     checkbox: {
       label:
-        "Also run my full Marketing Audit — see how my reviews and listings stack up.",
+        "Also run my full Marketing Audit â€” see how my reviews and listings stack up.",
       caption:
         "Reviews are the fuel that powers AI recommendations. Businesses with more reviews get recommended more. See where you stand.",
     },
@@ -84,7 +84,7 @@ const variants: Record<Variant, VariantConfig> = {
       { text: " hub for local businesses.", speed: 70 },
     ],
     subheadline:
-      "We find the tools that fit your business — and run them so you don't have to.",
+      "We find the tools that fit your business â€” and run them so you don't have to.",
     priceLine: "Starting at $1/day. No contract.",
     buttonText: "See My Free Visibility Check",
   },
@@ -238,7 +238,7 @@ function HeroInner() {
               style={{ animationDelay: "400ms" }}
             >
               {auditUrl
-                ? "Your free report is ready. Click below to view it — no signup, no credit card."
+                ? "Your free report is ready. Click below to view it â€” no signup, no credit card."
                 : config.subheadline}
             </p>
 
@@ -285,31 +285,6 @@ function HeroInner() {
           </div>
         </div>
 
-        
-            </div>
-
-            {error ? (
-              <p id="hero-email-error" role="alert" className="mt-3 text-sm text-[#E89B98]">
-                {error}
-              </p>
-            ) : null}
-
-            {TURNSTILE_SITE_KEY ? (
-              <>
-                <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" async defer />
-                <div
-                  className="cf-turnstile mt-3"
-                  data-sitekey={TURNSTILE_SITE_KEY}
-                  data-callback="onTurnstileSuccess"
-                  data-expired-callback="onTurnstileExpired"
-                  data-size="invisible"
-                  data-theme="dark"
-                />
-              </>
-            ) : null}
-          </div>
-        ) : null}
-
         <a
           href="#calculator"
           className="mt-10 mx-auto flex w-fit items-center gap-2 rounded-full border border-[var(--color-hero-border)] bg-white/5 px-5 py-2.5 text-sm text-[var(--color-hero-subtext)] transition hover:bg-white/10 hover:text-[var(--color-hero-text)] md:hidden"
@@ -320,7 +295,7 @@ function HeroInner() {
       </div>
 
       {!auditUrl ? (
-        <section className="bg-[var(--color-bg-page)] text-[var(--color-text-body)]">
+        <section className="bg-white text-[var(--color-text-body)]">
           <div className="mx-auto max-w-6xl px-6 py-8 md:py-10">
             <div className="rounded-2xl border border-[var(--color-border)] bg-white p-5 shadow-sm md:p-6">
               <form
@@ -358,7 +333,7 @@ function HeroInner() {
                     />
                   </>
                 ) : (
-                  <div className="md:col-span-2 rounded-md border border-[var(--color-border)] bg-[var(--color-bg-page)] px-4 py-3 text-sm text-[var(--color-text-muted)]">
+                  <div className="md:col-span-2 rounded-md border border-[var(--color-border)] bg-[#F7F8FB] px-4 py-3 text-sm text-[var(--color-text-muted)]">
                     Ready for {businessName || "your business"}.
                     {email ? <> Report will be sent to <strong className="text-[var(--color-text-body)]">{email}</strong>.</> : null}
                   </div>
@@ -373,7 +348,7 @@ function HeroInner() {
               </form>
 
               <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
-                <fieldset className="rounded-md border border-[var(--color-border)] bg-[var(--color-bg-page)] p-3">
+                <fieldset className="rounded-md border border-[var(--color-border)] bg-[#F7F8FB] p-3">
                   <legend className="px-1 text-xs font-mono uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
                     Report Type
                   </legend>
@@ -390,7 +365,7 @@ function HeroInner() {
                 </fieldset>
 
                 {config.checkbox ? (
-                  <div className="rounded-md border border-[var(--color-border)] bg-[var(--color-bg-page)] p-3">
+                  <div className="rounded-md border border-[var(--color-border)] bg-[#F7F8FB] p-3">
                     <label className="flex items-start gap-3 cursor-pointer group">
                       <input
                         type="checkbox"
@@ -478,6 +453,8 @@ export function HeroEmailForm() {
     </Suspense>
   );
 }
+
+
 
 
 
