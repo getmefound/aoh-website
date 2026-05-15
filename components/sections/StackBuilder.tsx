@@ -65,7 +65,7 @@ const SERVICES: Service[] = [
 
 const STACK_MONTHLY = 999;
 const STACK_SETUP = 999;
-const STACK_HREF = "/checkout/whole-stack";
+const STACK_HREF = "https://pay.aioutsourcehub.com/full-service";
 const BOOKING_HREF = "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56";
 
 function money(n: number) {

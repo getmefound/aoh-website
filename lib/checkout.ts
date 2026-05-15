@@ -119,8 +119,8 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Custom Website Rebuild ($999 build included)",
       "Single bill + priority response queue",
     ],
-    ctaUrl: "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56",
-    ctaKind: "book",
+    ctaUrl: "https://pay.aioutsourcehub.com/full-service",
+    ctaKind: "subscribe",
   },
 ];
 
