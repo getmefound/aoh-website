@@ -49,7 +49,7 @@ const SERVICES: Service[] = [
     oneLiner: "Branded posts 3–5×/week in your voice.",
     monthly: 349,
     setup: 299,
-    href: "/checkout/studio",
+    href: "https://pay.aioutsourcehub.com/studio",
     iconPaths: ICON_PATHS.studio,
   },
   {

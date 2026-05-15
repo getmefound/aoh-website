@@ -82,7 +82,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Brand voice training (one-time onboarding)",
       "Fully managed — we write, design, and post",
     ],
-    ctaUrl: "https://pay.aioutsourcehub.com/checkout-studio-plan-page",
+    ctaUrl: "https://pay.aioutsourcehub.com/studio",
     ctaKind: "subscribe",
   },
   {
