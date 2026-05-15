@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const STEP_DURATIONS = [3500, 3500, 5000, 5500];
 const TRANSITION_DURATION = 0.5;
 
-const stepLabels = ["Review request", "Review automation", "Response in your voice", "Google rankings"] as const;
+const stepLabels = ["Review request", "Review automation", "AI response", "Google rankings"] as const;
 
 const ACCENT = "#2D6A4F";
 
@@ -201,7 +201,7 @@ function Step3AIResponse() {
         <div className="mb-2 flex items-center gap-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-accent)]">
-            Replied in your voice · 3 min
+            AI response · posted in 3 minutes
           </p>
         </div>
         <p className="font-mono text-[12px] leading-relaxed text-[var(--color-hero-text)]">
