@@ -12,7 +12,7 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "The Hub",
   description:
-    "How AI changes how customers find local businesses. Practical guides, honest pricing math, and the moves we run for clients.",
+    "How customers find local businesses today. Practical guides, honest pricing math, and the moves we run for clients.",
   alternates: { canonical: "/blog" },
 };
 

@@ -122,14 +122,14 @@ export const SURFACES: Surface[] = [
     blocks: [
       {
         label: "Tagline (under company name, ~120 char)",
-        text: "Phones answered. Reviews chased. Leads followed up. Done-for-you AI from $49/mo.",
+        text: "Phones answered. Reviews chased. Leads followed up. Done-for-you growth from $49/mo.",
         charLimit: 120,
       },
       {
         label: "About (LinkedIn company About, ~2,000 char limit â€” Unicode bold renders inline)",
         text: `${B_HEADLINE}
 
-That's what AI Outsource Hub runs for you â€” done-for-you AI, no dashboards, no retainer.
+That's what AI Outsource Hub runs for you â€” done-for-you growth, no dashboards, no retainer.
 
 ${B_WHAT_I_DO}
 Six services starting at $49/month:
@@ -137,7 +137,7 @@ Six services starting at $49/month:
 Â· AI Visibility â€” get cited by ChatGPT, Google AI, Claude
 Â· Reach â€” outbound lead generation
 Â· Studio â€” content production
-Â· Relay â€” 24/7 AI receptionist for after-hours calls
+Â· Relay â€” 24/7 phone answering for after-hours calls
 Â· Full Service â€” all six bundled
 
 ${B_HOW}
@@ -152,7 +152,7 @@ Founded by Mike Egidio. US-based. Month-to-month. Cancel anytime.
       },
       {
         label: "Specialties (paste into Specialties field, comma-separated)",
-        text: "Review Automation, AI Visibility, AI Voice Agents, Content Production, Lead Generation, Google Business Profile Optimization, AI Search Visibility, AI Receptionist, Done-for-you AI, AI Automation, GEO, AEO",
+        text: "Review Automation, AI Visibility, AI Voice Agents, Content Production, Lead Generation, Google Business Profile Optimization, AI Search Visibility, AI Receptionist, Done-for-you growth, AI Automation, GEO, AEO",
       },
     ],
     fields: [
@@ -177,12 +177,12 @@ Founded by Mike Egidio. US-based. Month-to-month. Cancel anytime.
     blocks: [
       {
         label: "Bio / Short description (101 char limit on current Facebook)",
-        text: "Phones answered. Reviews chased. Leads followed up. Done-for-you AI from $49/mo. No dashboards.",
+        text: "Phones answered. Reviews chased. Leads followed up. Done-for-you growth from $49/mo. No dashboards.",
         charLimit: 101,
       },
       {
         label: "About (255 char limit on current Facebook â€” hashtags pasted at the end render clickable)",
-        text: `AI Outsource Hub runs done-for-you AI services â€” Review Automation, AI Visibility, Reach, Studio, Relay (24/7 receptionist), Full Service. From $49/mo.
+        text: `AI Outsource Hub runs done-for-you growth services â€” Review Automation, AI Visibility, Reach, Studio, Relay (24/7 receptionist), Full Service. From $49/mo.
 
 We run it. You don't learn another app.
 
@@ -212,7 +212,7 @@ We run it. You don't learn another app.
     blocks: [
       {
         label: "Bio (160 char limit)",
-        text: "Phones answered. Reviews chased. Leads followed up. Done-for-you AI from $49/mo. No dashboards. aioutsourcehub.com",
+        text: "Phones answered. Reviews chased. Leads followed up. Done-for-you growth from $49/mo. No dashboards. aioutsourcehub.com",
         charLimit: 160,
       },
     ],
@@ -239,7 +239,7 @@ We run it. You don't learn another app.
         text: `ðŸ“ž Phones answered.
 â­ Reviews chased.
 ðŸ’¬ Leads followed up.
-Done-for-you AI Â· from $49/mo`,
+Done-for-you growth Â· from $49/mo`,
         charLimit: 150,
       },
       {
@@ -276,7 +276,7 @@ Done-for-you AI Â· from $49/mo`,
         label: "Business description (750 char)",
         text: `Phones answered. Reviews chased. Leads followed up.
 
-AI Outsource Hub runs done-for-you AI services â€” Review Automation, AI Visibility, AI receptionists, content production, and outbound lead generation. Six services from $49/month. No dashboards to log into. No retainer. We set it up, we run it, you get daily updates by text and email. Built for service businesses that want AI working in their business without becoming experts in it. Free presence audit on our site. Founded by Mike Egidio. US-based. Month-to-month, cancel anytime.`,
+AI Outsource Hub runs done-for-you growth services â€” Review Automation, AI Visibility, phone answering services, content production, and outbound lead generation. Six services from $49/month. No dashboards to log into. No retainer. We set it up, we run it, you get daily updates by text and email. Built for service businesses that want hands-off growth automation without becoming experts in it. Free presence audit on our site. Founded by Mike Egidio. US-based. Month-to-month, cancel anytime.`,
         charLimit: 750,
       },
       {
@@ -287,7 +287,7 @@ AI Outsource Hub runs done-for-you AI services â€” Review Automation, AI Vi
     fields: [
       { field: "Primary category", value: "Marketing Agency" },
       { field: "Additional categories", value: "Internet Marketing Service, Software Company, Business Management Consultant, Telephone Answering Service" },
-      { field: "Services to list", value: "Review Automation ($99/mo) Â· AI Visibility ($299/mo) Â· Reach Lead Engine ($449/mo) Â· Studio Content ($599/mo) Â· Relay AI Receptionist ($399/mo) Â· Full Service ($999/mo)" },
+      { field: "Services to list", value: "Review Automation ($99/mo) Â· AI Visibility ($299/mo) Â· Reach Lead Engine ($449/mo) Â· Studio Content ($599/mo) Â· Relay Phone Answering ($399/mo) Â· Full Service ($999/mo)" },
       { field: "Website", value: "https://aioutsourcehub.com" },
       { field: "Appointment URL", value: "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56" },
     ],
@@ -306,7 +306,7 @@ AI Outsource Hub runs done-for-you AI services â€” Review Automation, AI Vi
     blocks: [
       {
         label: "Headline (220 char limit)",
-        text: "Founder, AI Outsource Hub Â· Phones answered. Reviews chased. Leads followed up. Done-for-you AI from $49/mo Â· We run it, you don't learn it Â· aioutsourcehub.com",
+        text: "Founder, AI Outsource Hub Â· Phones answered. Reviews chased. Leads followed up. Done-for-you growth from $49/mo Â· We run it, you don't learn it Â· aioutsourcehub.com",
         charLimit: 220,
       },
       {
@@ -316,12 +316,12 @@ AI Outsource Hub runs done-for-you AI services â€” Review Automation, AI Vi
 That's the whole pitch. I built AI Outsource Hub to run those three things for service-business owners who don't have time to babysit another marketing tool.
 
 ${B_WHAT_I_DO}
-I run AOH. Six done-for-you AI services from $49/month:
+I run AOH. Six done-for-you growth services from $49/month:
 Â· Review Automation
 Â· AI Visibility (get cited in ChatGPT, Google AI, Claude)
 Â· Reach (outbound lead generation)
 Â· Studio (content production)
-Â· Relay (24/7 AI receptionist)
+Â· Relay (24/7 phone answering)
 Â· Full Service (everything bundled)
 
 ${B_HOW}
@@ -359,7 +359,7 @@ Three-person US-based team. Month-to-month. Cancel anytime.
     blocks: [
       {
         label: "Headline (220 char limit)",
-        text: "Business Development @ AI Outsource Hub Â· I open the door for service-business owners who want done-for-you AI without the agency BS Â· From $49/mo Â· aioutsourcehub.com",
+        text: "Business Development @ AI Outsource Hub Â· I open the door for service-business owners who want done-for-you growth without the agency BS Â· From $49/mo Â· aioutsourcehub.com",
         charLimit: 220,
       },
       {
@@ -369,10 +369,10 @@ Three-person US-based team. Month-to-month. Cancel anytime.
 That's what we run at AI Outsource Hub. My job is to find the operators who'd actually benefit â€” and start the conversation in a way that doesn't waste their time.
 
 ${B_WHAT_I_DO}
-I run business development at AOH. Six done-for-you AI services from $49/month, set up and run by us. No demos. No decks. I walk through your phone log, your reviews, and your lead-response time, then show you the leak.
+I run business development at AOH. Six done-for-you growth services from $49/month, set up and run by us. No demos. No decks. I walk through your phone log, your reviews, and your lead-response time, then show you the leak.
 
 ${B_WHO_FOR}
-Service-business owners who've been ignoring "the AI thing" because it felt like too much to figure out. We figure it out for you.
+Service-business owners who've been ignoring "the automation thing" because it felt like too much to figure out. We figure it out for you.
 
 If that's a conversation you want to have, message me.
 
@@ -402,7 +402,7 @@ If that's a conversation you want to have, message me.
     blocks: [
       {
         label: "Headline (220 char limit)",
-        text: "Sales Manager & Onboarding @ AI Outsource Hub Â· I make sure your first 30 days feel handled, not figured out Â· Done-for-you AI from $49/mo Â· aioutsourcehub.com",
+        text: "Sales Manager & Onboarding @ AI Outsource Hub Â· I make sure your first 30 days feel handled, not figured out Â· Done-for-you growth from $49/mo Â· aioutsourcehub.com",
         charLimit: 220,
       },
       {
@@ -412,7 +412,7 @@ If that's a conversation you want to have, message me.
 That's the promise at AI Outsource Hub. My job is making sure your first 30 days actually feel that way â€” handled, not figured out.
 
 ${B_WHAT_I_DO}
-I run sales and onboarding at AOH. When you sign with us, I'm the one you talk to. I gather what we need, set up your services, and get your AI live â€” usually inside a week. You won't chase me. I'll already have messaged you.
+I run sales and onboarding at AOH. When you sign with us, I'm the one you talk to. I gather what we need, set up your services, and get your services live â€” usually inside a week. You won't chase me. I'll already have messaged you.
 
 ${B_HOW}
 Six done-for-you services from $49/month. No 40-page onboarding doc. No "log into our portal and click through these 12 steps." We do the setup. You see the results.

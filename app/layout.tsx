@@ -24,16 +24,16 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL("https://aioutsourcehub.com"),
   title: {
-    default: "AI Outsource Hub - AI Services for Local Businesses",
+    default: "AI Outsource Hub - Growth Services for Local Businesses",
     template: "%s - AI Outsource Hub",
   },
   description:
-    "Done-for-you AI for local businesses. Review automation, AI receptionists, and AI search visibility — run for you, not in a dashboard. Starts at $49/mo. No contract.",
+    "Done-for-you growth for local businesses. Reviews, voice answering, and search visibility — run for you, not in a dashboard. Starts at $49/mo. No contract.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "AI Outsource Hub — You run your business. We run the AI.",
+    title: "AI Outsource Hub — You run your business. We run the rest.",
     description:
-      "Done-for-you AI for local businesses. Review automation, AI receptionists, and AI search visibility. Starts at $49/mo. No contract.",
+      "Done-for-you growth for local businesses. Reviews, voice answering, and search visibility. Starts at $49/mo. No contract.",
     url: "https://aioutsourcehub.com",
     siteName: "AI Outsource Hub",
     type: "website",
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Outsource Hub — You run your business. We run the AI.",
+    title: "AI Outsource Hub — You run your business. We run the rest.",
     description:
-      "Done-for-you AI for local businesses. Review automation, AI receptionists, AI search visibility. Starts at $49/mo. No contract.",
+      "Done-for-you growth for local businesses. Reviews, voice answering, search visibility. Starts at $49/mo. No contract.",
   },
   robots: {
     index: true,
@@ -63,7 +63,7 @@ const organizationSchema = {
   name: "AI Outsource Hub",
   url: "https://aioutsourcehub.com",
   description:
-    "AI Outsource Hub operates AI on behalf of local businesses - review automation, AI voice agents, AI visibility, lead generation, and custom AI agents. You run your business. We run the AI.",
+    "AI Outsource Hub runs growth services for local businesses - review automation, voice answering, search visibility, lead generation, and custom agents built around your business. You run your business. We run the rest.",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "support",

@@ -38,7 +38,7 @@ function AIVisibilityForm() {
             Free · No credit card
           </p>
           <h1 className="text-3xl md:text-5xl font-bold leading-[1.05] tracking-tight mb-5">
-            Is AI recommending your competitor instead of you?
+            Is your competitor cited by ChatGPT instead of you?
           </h1>
           <p className="text-lg text-[var(--color-hero-subtext)] max-w-xl mx-auto">
             We check your Google listing, your website signals, and how you

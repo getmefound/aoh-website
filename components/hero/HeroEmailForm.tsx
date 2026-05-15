@@ -86,7 +86,7 @@ const variants: Record<Variant, VariantConfig> = {
       { text: "your competitor.", speed: 130, className: ACCENT },
     ],
     subheadline:
-      "We handle your reviews, rankings, and online presence — so more customers find you, and choose you.",
+      "We get you found. We get you called. Done for you — reviews, rankings, and outreach handled.",
     priceLine: "Limited time · from $49/mo · cancel anytime",
     formHeadline: "See exactly where you stand — in minutes.",
     formDescription: "We check your reviews, rankings, and AI visibility across Google, ChatGPT, and more. You'll get both reports in your inbox in about 10 minutes. Free, no card needed.",

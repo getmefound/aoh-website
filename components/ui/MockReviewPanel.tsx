@@ -23,8 +23,8 @@ export function MockReviewPanel() {
       </p>
 
       <div className="flex items-start gap-2 border-t border-white/10 pt-2">
-        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[var(--color-accent)]/20 text-[9px] font-bold text-[var(--color-accent)]">
-          AI
+        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[var(--color-accent)]/20 text-[9px] font-bold text-[var(--color-accent)]" title="Auto-reply in your voice">
+          ↩
         </div>
         <div className="flex-1 overflow-hidden">
           <motion.p

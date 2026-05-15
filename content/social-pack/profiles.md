@@ -12,19 +12,19 @@ Copy-paste ready. Banner images served from the live site — right-click any UR
 `https://aioutsourcehub.com/api/social-banner/linkedin-company`
 
 **Tagline (under company name, ~120 chars):**
-> Done-for-you AI for local businesses. You run the business. We run the AI.
+> Done-for-you growth for local businesses. You run the business. We run the rest.
 
 **About (1,000 char LinkedIn limit — this is 720):**
-> AI Outsource Hub runs AI for local businesses so owners can stay in their business instead of in a dashboard.
+> AI Outsource Hub runs growth for local businesses so owners can stay in their business instead of in a dashboard.
 >
-> We handle Review Automation, AI Visibility, AI receptionists, outbound, and content — done-for-you, no software to log into. Six services starting at $49/mo, no contract.
+> We handle Review Automation, AI Visibility, phone answering, outbound, and content — done-for-you, no software to log into. Six services starting at $49/mo, no contract.
 >
 > Most local-business owners pay $300–$500 a month for marketing software they never open. We replace the stack with services that actually run. Reviews come in. Calls get answered. AI search names your business.
 >
 > If you run a service business — plumbing, HVAC, lawn care, dental, vet, med spa, pet grooming, salon — start with our free revenue calculator at aioutsourcehub.com.
 
 **Industry:** Marketing Services
-**Specialties:** Review Automation, AI Visibility, Local SEO, AI Voice Agents, Done-for-you Marketing, Small Business Marketing, Google Business Profile, Lead Generation
+**Specialties:** Review Automation, AI Visibility, Local SEO, Phone Answering, Done-for-you Marketing, Small Business Marketing, Google Business Profile, Lead Generation
 
 ---
 
@@ -34,10 +34,10 @@ Copy-paste ready. Banner images served from the live site — right-click any UR
 `https://aioutsourcehub.com/api/social-banner/facebook`
 
 **Page description (255 char limit):**
-> Done-for-you AI for local businesses. Review automation, AI receptionists, AI search visibility. Starts at $49/mo, no contract. You run the business — we run the AI.
+> Done-for-you growth for local businesses. Review automation, phone answering, AI search visibility. Starts at $49/mo, no contract. You run the business — we run the rest.
 
 **About (longer, no hard limit):**
-> AI Outsource Hub runs AI for local businesses. Reviews, AI search visibility, AI receptionists, content, ads — handled for you. No dashboards to log into. No contracts. Just results.
+> AI Outsource Hub runs growth for local businesses. Reviews, AI search visibility, phone answering, content, ads — handled for you. No dashboards to log into. No contracts. Just results.
 >
 > Six services, starting at $49/mo. Built for plumbing, HVAC, lawn care, dental, vet, med spa, pet grooming, and salon owners who want their phone to ring more without learning more software.
 >
@@ -52,9 +52,9 @@ Copy-paste ready. Banner images served from the live site — right-click any UR
 **No traditional cover — profile pic + bio matter most.**
 
 **Bio (150 char limit — this is 148):**
-> Done-for-you AI for local businesses.
-> Reviews · AI search · Voice agents · Content
-> Run your business. We run the AI.
+> Done-for-you growth for local businesses.
+> Reviews · AI search · Phone answering · Content
+> Run your business. We run the rest.
 > $49/mo, no contract ↓
 
 **Category:** Marketing Agency
@@ -77,9 +77,9 @@ Copy-paste ready. Banner images served from the live site — right-click any UR
 `https://aioutsourcehub.com/api/social-banner/x`
 
 **Bio (160 char limit — this is 157):**
-> Done-for-you AI for local businesses.
-> Reviews · AI search · Voice agents · Content.
-> You run the business. We run the AI.
+> Done-for-you growth for local businesses.
+> Reviews · AI search · Phone answering · Content.
+> You run the business. We run the rest.
 > aioutsourcehub.com · $49/mo
 
 **Website URL:** `https://aioutsourcehub.com`
@@ -95,9 +95,9 @@ Copy-paste ready. Banner images served from the live site — right-click any UR
 **Service area:** all US
 
 **Business description (750 char limit — this is 720):**
-> AI Outsource Hub runs AI for local businesses so owners can stay in their business instead of in a dashboard.
+> AI Outsource Hub runs growth for local businesses so owners can stay in their business instead of in a dashboard.
 >
-> We handle Review Automation, AI Visibility, AI receptionists, outbound, and content — done-for-you, no software to log into.
+> We handle Review Automation, AI Visibility, phone answering, outbound, and content — done-for-you, no software to log into.
 >
 > Six services starting at $49/mo, no contract. Built for plumbing, HVAC, lawn care, dental, vet, med spa, pet grooming, and salon owners who want their phone to ring more without learning more software.
 >
@@ -106,7 +106,7 @@ Copy-paste ready. Banner images served from the live site — right-click any UR
 **Services to list inside GBP:**
 - Review Automation
 - AI Visibility (AI search)
-- Relay (AI Voice Receptionist)
+- Relay (Phone Answering)
 - Reach (Lead Generation)
 - Studio (Content)
 - Whole Stack (Bundle)
@@ -121,7 +121,7 @@ Every team member uses the same **closing paragraph** so any AOH person's profil
 
 > ---
 >
-> **About AI Outsource Hub:** We run AI for local businesses — done-for-you Review Automation, AI Visibility, AI receptionists, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the AI. → aioutsourcehub.com
+> **About AI Outsource Hub:** We run growth services for local businesses — done-for-you Review Automation, AI Visibility, phone answering, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the rest. → aioutsourcehub.com
 
 ---
 
@@ -131,16 +131,16 @@ Every team member uses the same **closing paragraph** so any AOH person's profil
 `https://aioutsourcehub.com/api/social-banner/mike`
 
 **Headline (220 char limit — this is 88):**
-> Founder, AI Outsource Hub · Done-for-you AI for local businesses · You run the business. We run the AI.
+> Founder, AI Outsource Hub · Done-for-you growth for local businesses · You run the business. We run the rest.
 
 **About (paste as your "About" / "Summary"):**
 > I grew up around local businesses. My family ran them. I worked in them. I watched good people — better than me at their craft — lose customers not because they were bad at the job, but because they couldn't be in two places at once. The phone rings at 7pm. They're already home. The customer calls the next number on the list.
 >
 > That's the gap AI fills. Not "AI" the buzzword. The actual quiet kind — the kind that answers a call when you can't, asks for a review when the customer is happy, and makes sure when somebody asks ChatGPT for the best plumber in town, your name shows up.
 >
-> I started AI Outsource Hub because most local owners don't want to learn another piece of software. They want their phone to ring more and their reviews to stay fresh, without thinking about it. So we run the AI for them. They stay in the truck, the chair, the kitchen, the shop. We handle the rest.
+> I started AI Outsource Hub because most local owners don't want to learn another piece of software. They want their phone to ring more and their reviews to stay fresh, without thinking about it. So we run the rest for them. They stay in the truck, the chair, the kitchen, the shop. We handle the rest.
 >
-> Six services, starts at $49/month, no contract. Reviews, AI search visibility, AI receptionists, lead generation, content, and the whole bundle. Most clients pay back the first month before the second month bills.
+> Six services, starts at $49/month, no contract. Reviews, AI search visibility, phone answering, lead generation, content, and the whole bundle. Most clients pay back the first month before the second month bills.
 >
 > Based in Southington, CT. 15+ years building automation tools before AOH — most of it for local-business work that big software companies overlooked.
 >
@@ -150,7 +150,7 @@ Every team member uses the same **closing paragraph** so any AOH person's profil
 >
 > ---
 >
-> **About AI Outsource Hub:** We run AI for local businesses — done-for-you Review Automation, AI Visibility, AI receptionists, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the AI. → aioutsourcehub.com
+> **About AI Outsource Hub:** We run growth services for local businesses — done-for-you Review Automation, AI Visibility, phone answering, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the rest. → aioutsourcehub.com
 
 ---
 
@@ -160,7 +160,7 @@ Every team member uses the same **closing paragraph** so any AOH person's profil
 `https://aioutsourcehub.com/api/social-banner/kip`
 
 **Headline (220 char limit — this is 102):**
-> Business Development at AI Outsource Hub · Connecting local-business owners with the AI they didn't know they needed
+> Business Development at AI Outsource Hub · Connecting local-business owners with the growth services they didn't know they needed
 
 **About:**
 > I find the right local-business owners to talk to — then open the conversation.
@@ -169,11 +169,11 @@ Every team member uses the same **closing paragraph** so any AOH person's profil
 >
 > My job is to be the first useful conversation an owner has had in a while — no funnel theater, no comment-bait, no "schedule a 30-minute discovery call." We run the numbers on what they're already losing, show what we'd fix first, and let the math do the work.
 >
-> If you'd rather have your AI run for you than figured out, I'm the one to talk to.
+> If you'd rather have your growth run for you than figured out, I'm the one to talk to.
 >
 > ---
 >
-> **About AI Outsource Hub:** We run AI for local businesses — done-for-you Review Automation, AI Visibility, AI receptionists, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the AI. → aioutsourcehub.com
+> **About AI Outsource Hub:** We run growth services for local businesses — done-for-you Review Automation, AI Visibility, phone answering, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the rest. → aioutsourcehub.com
 
 ---
 
@@ -196,7 +196,7 @@ Every team member uses the same **closing paragraph** so any AOH person's profil
 >
 > ---
 >
-> **About AI Outsource Hub:** We run AI for local businesses — done-for-you Review Automation, AI Visibility, AI receptionists, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the AI. → aioutsourcehub.com
+> **About AI Outsource Hub:** We run growth services for local businesses — done-for-you Review Automation, AI Visibility, phone answering, outbound, and content. No dashboards. Six services starting at $49/mo. You run the business. We run the rest. → aioutsourcehub.com
 
 ---
 

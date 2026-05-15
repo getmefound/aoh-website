@@ -51,31 +51,31 @@ export const SURFACES: SurfaceOptions[] = [
       {
         letter: "A",
         angle: "Money-leak / stat-first hook",
-        bannerOverlay: `AI that answers the phone when you can't.
+        bannerOverlay: `Phone answering for when you can't.
 From $49/mo.`,
         taglineOrHeadline: {
           label: "Tagline (120 char)",
-          text: "Done-for-you AI for local businesses. We answer the phone, follow up, and chase reviews — from $49/mo.",
+          text: "Done-for-you growth for local businesses. We answer the phone, follow up, and chase reviews — from $49/mo.",
           charLimit: 120,
         },
         about: {
           label: "About (1000 char)",
-          text: `Local-business owners lose more money to missed calls and ghosted reviews than to any marketing problem. We fix that. AI Outsource Hub is done-for-you AI for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners who don't have time to babysit software. Six services. From $49/month. No agency retainer. No 40-hour onboarding. No DIY tool you'll never log into again. We set it up, we run it, and the AI answers the phone at 9pm when your competitor's voicemail picks up. Founded by Mike Egidio after watching too many great operators lose to weaker ones who simply replied faster. Built for owners who'd rather run the business than learn another dashboard.`,
+          text: `Local-business owners lose more money to missed calls and ghosted reviews than to any marketing problem. We fix that. AI Outsource Hub is done-for-you growth for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners who don't have time to babysit software. Six services. From $49/month. No agency retainer. No 40-hour onboarding. No DIY tool you'll never log into again. We set it up, we run it, and the AI answers the phone at 9pm when your competitor's voicemail picks up. Founded by Mike Egidio after watching too many great operators lose to weaker ones who simply replied faster. Built for owners who'd rather run the business than learn another dashboard.`,
         },
       },
       {
         letter: "B",
         angle: "Anti-jargon / founder voice",
         bannerOverlay: `No dashboards. No retainers.
-Just AI that does the work.`,
+Just done-for-you growth.`,
         taglineOrHeadline: {
           label: "Tagline (120 char)",
-          text: "The AI your competitor's marketing agency won't sell you — because we charge $49, not $4,900.",
+          text: "The growth automation your competitor's marketing agency won't sell you — because we charge $49, not $4,900.",
           charLimit: 120,
         },
         about: {
           label: "About (1000 char)",
-          text: `Most "AI for small business" is a $300/month dashboard you'll log into twice and never open again. We're the opposite. AI Outsource Hub runs the AI for you — answering after-hours calls, chasing reviews, following up with leads who ghosted — so you never see a dashboard and never lose another customer to a faster competitor. Six services starting at $49/month. Built for plumbers, HVAC techs, dentists, vets, med spas, groomers, and salon owners who are sick of marketing software they don't have time to use. Founder Mike Egidio spent years watching local operators lose to weaker competitors with better follow-up. We sell the follow-up. Done-for-you. Month-to-month. Cancel anytime.`,
+          text: `Most "AI for small business" is a $300/month dashboard you'll log into twice and never open again. We're the opposite. AI Outsource Hub runs the rest for you — answering after-hours calls, chasing reviews, following up with leads who ghosted — so you never see a dashboard and never lose another customer to a faster competitor. Six services starting at $49/month. Built for plumbers, HVAC techs, dentists, vets, med spas, groomers, and salon owners who are sick of marketing software they don't have time to use. Founder Mike Egidio spent years watching local operators lose to weaker competitors with better follow-up. We sell the follow-up. Done-for-you. Month-to-month. Cancel anytime.`,
         },
       },
       {
@@ -85,12 +85,12 @@ Just AI that does the work.`,
 Ours picks up.`,
         taglineOrHeadline: {
           label: "Tagline (120 char)",
-          text: "Done-for-you AI receptionist, review engine, and lead follow-up for local businesses. From $49/mo.",
+          text: "Done-for-you phone answering, review engine, and lead follow-up for local businesses. From $49/mo.",
           charLimit: 120,
         },
         about: {
           label: "About (1000 char)",
-          text: `Three things kill local-business revenue: missed calls, slow follow-up, and a thin Google review profile. We fix all three. AI Outsource Hub is six done-for-you AI services built specifically for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. We answer the phone after hours. We text leads back in 60 seconds. We ask every happy customer for a Google review — and intercept the unhappy ones before they post. From $49 a month. We set it up. We run it. You stay in the truck, the chair, the operatory — wherever the money actually gets made. Founded by Mike Egidio. Team of three. No call centers. No outsourced support.`,
+          text: `Three things kill local-business revenue: missed calls, slow follow-up, and a thin Google review profile. We fix all three. AI Outsource Hub is six done-for-you growth services built specifically for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. We answer the phone after hours. We text leads back in 60 seconds. We ask every happy customer for a Google review — and intercept the unhappy ones before they post. From $49 a month. We set it up. We run it. You stay in the truck, the chair, the operatory — wherever the money actually gets made. Founded by Mike Egidio. Team of three. No call centers. No outsourced support.`,
         },
       },
     ],
@@ -135,12 +135,12 @@ We chase the reviews.
 You run the business.`,
         bioOrShortDescription: {
           label: "Short description (255 char)",
-          text: "Done-for-you AI for local businesses — plumbing, HVAC, dental, vet, med spa, groomers, salons. We answer after-hours calls, follow up with leads, and ask for Google reviews. From $49/mo. No dashboards. No retainers.",
+          text: "Done-for-you growth for local businesses — plumbing, HVAC, dental, vet, med spa, groomers, salons. We answer after-hours calls, follow up with leads, and ask for Google reviews. From $49/mo. No dashboards. No retainers.",
           charLimit: 255,
         },
         about: {
           label: "About",
-          text: "AI Outsource Hub runs the AI for you. Six services from $49/month, built for local-business owners who'd rather work in the truck than learn another piece of software. Founded by Mike Egidio.",
+          text: "AI Outsource Hub runs the rest for you. Six services from $49/month, built for local-business owners who'd rather work in the truck than learn another piece of software. Founded by Mike Egidio.",
         },
       },
       {
@@ -155,23 +155,23 @@ We fix that.`,
         },
         about: {
           label: "About",
-          text: "We're the team that picks up when you can't. Six done-for-you AI services for local businesses, starting at $49/month. Set up by us. Run by us. You just keep doing the work.",
+          text: "We're the team that picks up when you can't. Six done-for-you growth services for local businesses, starting at $49/month. Set up by us. Run by us. You just keep doing the work.",
         },
       },
       {
         letter: "C",
         angle: "Conversational / Mike-voice",
         bannerOverlay: `Hi, I'm Mike.
-I built the AI
+I built the system
 your competitor wishes they had.`,
         bioOrShortDescription: {
           label: "Short description (255 char)",
-          text: "I'm Mike. I run AI Outsource Hub. We do the AI work for local-business owners who don't have time to learn another app. After-hours phone, review chasing, lead follow-up — done-for-you from $49/mo.",
+          text: "I'm Mike. I run AI Outsource Hub. We do the work for local-business owners who don't have time to learn another app. After-hours phone, review chasing, lead follow-up — done-for-you from $49/mo.",
           charLimit: 255,
         },
         about: {
           label: "About",
-          text: "Founder-run. Three-person team. No call centers, no offshore support, no $4,900 retainer. Just six done-for-you AI services that actually work for plumbing, HVAC, dental, vet, med spa, groomer, and salon owners.",
+          text: "Founder-run. Three-person team. No call centers, no offshore support, no $4,900 retainer. Just six done-for-you growth services that actually work for plumbing, HVAC, dental, vet, med spa, groomer, and salon owners.",
         },
       },
     ],
@@ -210,11 +210,11 @@ your competitor wishes they had.`,
       {
         letter: "A",
         angle: "Punchy / single-line declaration",
-        bannerOverlay: `The AI does the work.
+        bannerOverlay: `We do the work.
 You keep the customer.`,
         bioOrShortDescription: {
           label: "Bio (160 char)",
-          text: "Done-for-you AI for local businesses. Plumbing, HVAC, dental, vet, med spa, groomers, salons. From $49/mo. Founder @mikeegidio.",
+          text: "Done-for-you growth for local businesses. Plumbing, HVAC, dental, vet, med spa, groomers, salons. From $49/mo. Founder @mikeegidio.",
           charLimit: 160,
         },
       },
@@ -226,7 +226,7 @@ Faster follow-up.
 More 5-star reviews.`,
         bioOrShortDescription: {
           label: "Bio (160 char)",
-          text: "We run the AI for local-business owners. After-hours phone, lead follow-up, Google reviews. From $49/mo. No dashboards. No retainers.",
+          text: "We run the rest for local-business owners. After-hours phone, lead follow-up, Google reviews. From $49/mo. No dashboards. No retainers.",
           charLimit: 160,
         },
       },
@@ -238,7 +238,7 @@ won't sell you this.
 We will. $49/mo.`,
         bioOrShortDescription: {
           label: "Bio (160 char)",
-          text: "The AI your marketing agency won't sell you — because we charge $49, not $4,900. Done-for-you for local businesses. Run by @mikeegidio.",
+          text: "The growth automation your marketing agency won't sell you — because we charge $49, not $4,900. Done-for-you for local businesses. Run by @mikeegidio.",
           charLimit: 160,
         },
       },
@@ -280,7 +280,7 @@ We will. $49/mo.`,
         bannerOverlay: "(profile pic only — no banner overlay)",
         bioOrShortDescription: {
           label: "Bio (150 char)",
-          text: "Done-for-you AI for local businesses. We answer the phone, chase reviews, follow up with leads. From $49/mo. Run by Mike Egidio.",
+          text: "Done-for-you growth for local businesses. We answer the phone, chase reviews, follow up with leads. From $49/mo. Run by Mike Egidio.",
           charLimit: 150,
         },
       },
@@ -290,7 +290,7 @@ We will. $49/mo.`,
         bannerOverlay: "(profile pic only)",
         bioOrShortDescription: {
           label: "Bio (150 char)",
-          text: "The phone rings at 9pm. We pick up. Done-for-you AI for plumbing, HVAC, dental, vet, salons, groomers. From $49/mo.",
+          text: "The phone rings at 9pm. We pick up. Done-for-you growth for plumbing, HVAC, dental, vet, salons, groomers. From $49/mo.",
           charLimit: 150,
         },
       },
@@ -300,7 +300,7 @@ We will. $49/mo.`,
         bannerOverlay: "(profile pic only)",
         bioOrShortDescription: {
           label: "Bio (150 char)",
-          text: "AI for the trades. Plumbing | HVAC | Dental | Vet | Med Spa | Groomer | Salon. Done-for-you from $49/mo. No dashboards.",
+          text: "Growth for the trades. Plumbing | HVAC | Dental | Vet | Med Spa | Groomer | Salon. Done-for-you from $49/mo. No dashboards.",
           charLimit: 150,
         },
       },
@@ -338,12 +338,12 @@ We will. $49/mo.`,
       {
         letter: "A",
         angle: "Service-stack / SEO-aware",
-        bannerOverlay: `Done-for-you AI
+        bannerOverlay: `Done-for-you growth
 for local businesses
 from $49/mo`,
         about: {
           label: "Description (750 char)",
-          text: `AI Outsource Hub is done-for-you AI for local-business owners. We answer after-hours phone calls so you never lose a customer to voicemail. We text leads back inside 60 seconds. We ask every happy customer for a Google review and intercept unhappy ones before they post. We follow up with quotes that went cold. We handle the social posting. We rebuild your online profile. Six services. From $49/month. No dashboards to log into. No agency retainer. No 40-hour onboarding. Built for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. Founded by Mike Egidio. Three-person US-based team. Month-to-month. Cancel anytime.`,
+          text: `AI Outsource Hub is done-for-you growth for local-business owners. We answer after-hours phone calls so you never lose a customer to voicemail. We text leads back inside 60 seconds. We ask every happy customer for a Google review and intercept unhappy ones before they post. We follow up with quotes that went cold. We handle the social posting. We rebuild your online profile. Six services. From $49/month. No dashboards to log into. No agency retainer. No 40-hour onboarding. Built for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. Founded by Mike Egidio. Three-person US-based team. Month-to-month. Cancel anytime.`,
         },
         categories:
           "Marketing Agency (primary), Business Management Consultant, Software Company, Telephone Answering Service",
@@ -355,7 +355,7 @@ from $49/mo`,
 be in the truck than the dashboard.`,
         about: {
           label: "Description (750 char)",
-          text: `You didn't start your business to spend nights doing marketing. We did. AI Outsource Hub runs the AI for local-business owners — answering the phone after hours, chasing leads, asking for Google reviews — so you can stay in the truck, the chair, or the operatory where the money actually gets made. Six done-for-you services from $49 a month. No software you'll never log into. No retainer. We set it up. We run it. You see the results in your inbox. Built for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. Founded by Mike Egidio. US-based. Month-to-month.`,
+          text: `You didn't start your business to spend nights doing marketing. We did. AI Outsource Hub runs the rest for local-business owners — answering the phone after hours, chasing leads, asking for Google reviews — so you can stay in the truck, the chair, or the operatory where the money actually gets made. Six done-for-you services from $49 a month. No software you'll never log into. No retainer. We set it up. We run it. You see the results in your inbox. Built for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. Founded by Mike Egidio. US-based. Month-to-month.`,
         },
         categories:
           "Marketing Agency (primary), Business Management Consultant, Software Company",
@@ -368,7 +368,7 @@ to missed calls
 and missed reviews.`,
         about: {
           label: "Description (750 char)",
-          text: `The average local-service business misses 27% of inbound calls and 80% of opportunities to ask for a Google review. We fix both. AI Outsource Hub provides six done-for-you AI services for local businesses — AI receptionist for after-hours calls, instant text-back for web leads, automated review requests, intercept-and-resolve for unhappy customers, lead follow-up sequences, and social posting. From $49 per month. No dashboards. No retainers. No long contracts. We set it up. We run it. We send you the results. Built specifically for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. Founded by Mike Egidio. US-based three-person team.`,
+          text: `The average local-service business misses 27% of inbound calls and 80% of opportunities to ask for a Google review. We fix both. AI Outsource Hub provides six done-for-you growth services for local businesses — phone answering for after-hours calls, instant text-back for web leads, automated review requests, intercept-and-resolve for unhappy customers, lead follow-up sequences, and social posting. From $49 per month. No dashboards. No retainers. No long contracts. We set it up. We run it. We send you the results. Built specifically for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. Founded by Mike Egidio. US-based three-person team.`,
         },
         categories:
           "Marketing Agency (primary), Business Management Consultant, Telephone Answering Service, Software Company",
@@ -393,7 +393,7 @@ and missed reviews.`,
         number: 3,
         lane: "Brand panel / typographic",
         model: "Recraft v3",
-        prompt: `Wide cover image, navy (#0A1628) field with cream (#F8F6F1) panel inset right two-thirds, cream serif headline "Done-for-you AI for local businesses" set inside the panel, small forest-green (#2D6A4F) wordmark beneath. Paper-grain texture. Letterpress restraint, no imagery.`,
+        prompt: `Wide cover image, navy (#0A1628) field with cream (#F8F6F1) panel inset right two-thirds, cream serif headline "Done-for-you growth for local businesses" set inside the panel, small forest-green (#2D6A4F) wordmark beneath. Paper-grain texture. Letterpress restraint, no imagery.`,
         whyItWorks: "Survives every GBP crop because text holds the center.",
       },
     ],
@@ -409,17 +409,17 @@ and missed reviews.`,
       {
         letter: "A",
         angle: "Founder-builder voice",
-        bannerOverlay: `I build the AI
+        bannerOverlay: `I build the system
 your competitor wishes
 they had.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "Founder, AI Outsource Hub | Done-for-you AI for local businesses from $49/mo | We answer the phone, chase reviews, follow up with leads — so you don't have to | Building the AI your marketing agency won't sell you",
+          text: "Founder, AI Outsource Hub | Done-for-you growth for local businesses from $49/mo | We answer the phone, chase reviews, follow up with leads — so you don't have to | Building the system your marketing agency won't sell you",
           charLimit: 220,
         },
         about: {
           label: "About",
-          text: `I spent years watching great local-business owners lose to weaker competitors who simply replied faster. Now I sell the follow-up. AI Outsource Hub is six done-for-you AI services built for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. From $49 a month. No dashboards. No retainer. We set it up and we run it. If you'd rather be in the truck than in a marketing dashboard, talk to me.`,
+          text: `I spent years watching great local-business owners lose to weaker competitors who simply replied faster. Now I sell the follow-up. AI Outsource Hub is six done-for-you growth services built for plumbing, HVAC, lawn care, dental, vet, med spa, pet groomer, and salon owners. From $49 a month. No dashboards. No retainer. We set it up and we run it. If you'd rather be in the truck than in a marketing dashboard, talk to me.`,
         },
       },
       {
@@ -430,28 +430,28 @@ to faster competitors.
 I'm here to fix that.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "Founder @ AI Outsource Hub | Helping plumbers, HVAC techs, dentists, vets, med spas, groomers & salon owners stop losing customers to faster competitors | Done-for-you AI from $49/mo",
+          text: "Founder @ AI Outsource Hub | Helping plumbers, HVAC techs, dentists, vets, med spas, groomers & salon owners stop losing customers to faster competitors | Done-for-you growth from $49/mo",
           charLimit: 220,
         },
         about: {
           label: "About",
-          text: `Every week I talk to a local-business owner who's losing money in plain sight — missed calls, ghosted leads, a Google profile that hasn't seen a new review in eight months. The fix isn't another piece of marketing software they won't log into. The fix is done-for-you. That's what we built. AI Outsource Hub runs the AI for you — six services from $49/month, no retainer, no contract. I'm here to make sure the best operator on the block also wins the customer.`,
+          text: `Every week I talk to a local-business owner who's losing money in plain sight — missed calls, ghosted leads, a Google profile that hasn't seen a new review in eight months. The fix isn't another piece of marketing software they won't log into. The fix is done-for-you. That's what we built. AI Outsource Hub runs the rest for you — six services from $49/month, no retainer, no contract. I'm here to make sure the best operator on the block also wins the customer.`,
         },
       },
       {
         letter: "C",
         angle: "Plain-English / no-jargon",
         bannerOverlay: `I run a small company
-that runs AI
+that runs growth
 for other small companies.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "Run AI Outsource Hub | We do the AI work for local businesses so they don't have to | Plumbing, HVAC, dental, vet, salons, groomers, med spas | From $49/mo, US-based, month-to-month",
+          text: "Run AI Outsource Hub | We do the work for local businesses so they don't have to | Plumbing, HVAC, dental, vet, salons, groomers, med spas | From $49/mo, US-based, month-to-month",
           charLimit: 220,
         },
         about: {
           label: "About",
-          text: `I'll keep this plain. AI Outsource Hub is a three-person US-based company that runs AI for local-business owners. We answer your phone after hours. We text your web leads back inside a minute. We ask your happy customers for Google reviews. We follow up with quotes that went cold. From $49 a month. No software for you to learn. No agency retainer. No 12-month contract. I started this because my friends in the trades kept asking me to fix the same problems. Now we fix them for a living.`,
+          text: `I'll keep this plain. AI Outsource Hub is a three-person US-based company that runs growth for local-business owners. We answer your phone after hours. We text your web leads back inside a minute. We ask your happy customers for Google reviews. We follow up with quotes that went cold. From $49 a month. No software for you to learn. No agency retainer. No 12-month contract. I started this because my friends in the trades kept asking me to fix the same problems. Now we fix them for a living.`,
         },
       },
     ],
@@ -494,12 +494,12 @@ from AI Outsource Hub
 is from me.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "Business Development @ AI Outsource Hub | I open the door for local-business owners who want done-for-you AI without the agency BS | Plumbing, HVAC, dental, vet, salons, groomers",
+          text: "Business Development @ AI Outsource Hub | I open the door for local-business owners who want done-for-you growth without the agency BS | Plumbing, HVAC, dental, vet, salons, groomers",
           charLimit: 220,
         },
         about: {
           label: "About",
-          text: `My job is simple: I find local-business owners who are losing money to missed calls and slow follow-up, and I show them what done-for-you AI looks like when it actually works. No 90-minute demo. No 12-month contract. No dashboard you'll never log into. AI Outsource Hub starts at $49/month and we set it up for you. If you run a plumbing, HVAC, dental, vet, med spa, groomer, or salon business and you're tired of marketing software you don't have time to use — let's talk.`,
+          text: `My job is simple: I find local-business owners who are losing money to missed calls and slow follow-up, and I show them what done-for-you growth looks like when it actually works. No 90-minute demo. No 12-month contract. No dashboard you'll never log into. AI Outsource Hub starts at $49/month and we set it up for you. If you run a plumbing, HVAC, dental, vet, med spa, groomer, or salon business and you're tired of marketing software you don't have time to use — let's talk.`,
         },
       },
       {
@@ -510,12 +510,12 @@ Most are losing money
 they don't know they're losing.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "Business Development, AI Outsource Hub | Helping local-business owners see the money they're losing in plain sight — and fix it without hiring a marketing agency | Done-for-you AI from $49/mo",
+          text: "Business Development, AI Outsource Hub | Helping local-business owners see the money they're losing in plain sight — and fix it without hiring a marketing agency | Done-for-you growth from $49/mo",
           charLimit: 220,
         },
         about: {
           label: "About",
-          text: `Most local-business owners I talk to are losing more money to missed calls and unfollowed-up leads than to any marketing problem they're trying to solve. They just can't see it from inside the business. My job is to show them the leak — and then plug it with done-for-you AI from AI Outsource Hub. From $49/month. We set it up. We run it. You stay in the work. If you'd rather have a real conversation than sit through a sales deck, message me.`,
+          text: `Most local-business owners I talk to are losing more money to missed calls and unfollowed-up leads than to any marketing problem they're trying to solve. They just can't see it from inside the business. My job is to show them the leak — and then plug it with done-for-you growth from AI Outsource Hub. From $49/month. We set it up. We run it. You stay in the work. If you'd rather have a real conversation than sit through a sales deck, message me.`,
         },
       },
       {
@@ -526,7 +526,7 @@ I show you the leak.
 Then I fix it.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "BD @ AI Outsource Hub | No demos. No decks. I show local-business owners what they're losing to missed calls & weak follow-up — then we fix it. Done-for-you AI from $49/mo.",
+          text: "BD @ AI Outsource Hub | No demos. No decks. I show local-business owners what they're losing to missed calls & weak follow-up — then we fix it. Done-for-you growth from $49/mo.",
           charLimit: 220,
         },
         about: {
@@ -574,7 +574,7 @@ Then I fix it.`,
 I make sure you stay.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "Sales Manager & Onboarding @ AI Outsource Hub | I get new clients set up fast and make sure the AI actually does what we said it would | Done-for-you AI for local businesses from $49/mo",
+          text: "Sales Manager & Onboarding @ AI Outsource Hub | I get new clients set up fast and make sure the AI actually does what we said it would | Done-for-you growth for local businesses from $49/mo",
           charLimit: 220,
         },
         about: {
@@ -590,7 +590,7 @@ No chasing us for updates.
 Just done.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "Sales & Onboarding @ AI Outsource Hub | The fastest, friendliest onboarding in done-for-you AI for local businesses | From signup to your AI answering the phone — usually under a week",
+          text: "Sales & Onboarding @ AI Outsource Hub | The fastest, friendliest onboarding in done-for-you growth for local businesses | From signup to your AI answering the phone — usually under a week",
           charLimit: 220,
         },
         about: {
@@ -606,12 +606,12 @@ I set it up.
 I answer when you call.`,
         taglineOrHeadline: {
           label: "Headline (220 char)",
-          text: "Sales Manager & Onboarding, AI Outsource Hub | Family-run, three-person team, US-based | Done-for-you AI for local businesses from $49/mo | I'm the one who picks up after you sign",
+          text: "Sales Manager & Onboarding, AI Outsource Hub | Family-run, three-person team, US-based | Done-for-you growth for local businesses from $49/mo | I'm the one who picks up after you sign",
           charLimit: 220,
         },
         about: {
           label: "About",
-          text: `AI Outsource Hub is a three-person US-based company. My husband Mike founded it. Kip handles new conversations. I handle sales close and onboarding — which means once you sign, you talk to me, not a ticket queue. I'll get your services live fast, and if anything's off, I'll know before you do. Six done-for-you AI services from $49/month for plumbing, HVAC, dental, vet, med spa, groomer, and salon owners. Small company on purpose.`,
+          text: `AI Outsource Hub is a three-person US-based company. My husband Mike founded it. Kip handles new conversations. I handle sales close and onboarding — which means once you sign, you talk to me, not a ticket queue. I'll get your services live fast, and if anything's off, I'll know before you do. Six done-for-you growth services from $49/month for plumbing, HVAC, dental, vet, med spa, groomer, and salon owners. Small company on purpose.`,
         },
       },
     ],

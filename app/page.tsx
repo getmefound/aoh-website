@@ -16,9 +16,9 @@ import { ICON_PATHS } from "@/lib/icon-paths";
 import { faqPageSchema } from "@/lib/faq";
 
 export const metadata: Metadata = {
-  title: "AI Services for Small Businesses",
+  title: "Growth Services for Small Businesses",
   description:
-    "Done-for-you AI services for small businesses: review automation, AI visibility, voice agents, and content. Start with a free audit.",
+    "Done-for-you growth for local businesses. Review automation, AI Visibility, and outreach that books calls. Free audit to start.",
   alternates: { canonical: "/" },
 };
 
@@ -55,7 +55,7 @@ const teaserCards: TeaserCard[] = [
     price: "$199",
     cadence: "/month",
     bullets: [
-      "Reviews fully managed + AI replies",
+      "Reviews fully managed, replies in your voice",
       "Cited in ChatGPT, Google AI, Claude",
       "Monthly call + ongoing optimization",
     ],

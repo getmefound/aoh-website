@@ -14,7 +14,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "AI consulting + done-for-you agents for local businesses. Reviews, AI Visibility, Reach, Relay. Cancel anytime.",
+    "Done-for-you growth for local businesses. Reviews, AI Visibility, Reach, Relay. Cancel anytime.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -37,7 +37,7 @@ const products: ProductDetailData[] = [
     whatYouGet: [
       "Automated email review requests after every job",
       "One-time Google Business Profile audit + fix",
-      "You reply yourself (upgrade to AI Visibility for AI-drafted replies + SMS)",
+      "You reply yourself (upgrade to AI Visibility for replies in your voice + SMS)",
       "Monthly digest — what was sent, what came in",
       "Cancel anytime · no contract",
     ],
@@ -52,7 +52,7 @@ const products: ProductDetailData[] = [
       { title: "First requests go out", sub: "Within 48 hours of kickoff." },
     ],
     cadence: "1 email per completed job, sent within 60 minutes.",
-    crossSell: { label: "AI Visibility — adds SMS + AI replies", href: "#ai-visibility" },
+    crossSell: { label: "AI Visibility — adds SMS + replies in your voice", href: "#ai-visibility" },
     price: "$49",
     cadenceLabel: "/mo",
     setup: "No setup fee",
@@ -69,38 +69,38 @@ const products: ProductDetailData[] = [
     name: "AI Visibility",
     outcome: "Be the answer when customers ask ChatGPT or Google AI.",
     story:
-      "A quarter of searches have already moved to AI tools. Most local businesses are invisible there. We get your business named in ChatGPT, Google AI Overviews, and Claude — and we run AI-drafted replies + SMS review requests so your reputation feeds the answer.",
+      "A quarter of searches have already moved to ChatGPT, Claude, and Google's AI answers. Most local businesses are invisible there. We get your business named in those answers — and we run review replies in your voice + SMS review requests so your reputation feeds the answer.",
     stats: [
-      { label: "Channels", value: "4+ AI" },
+      { label: "Search engines", value: "4+" },
       { label: "SMS lift", value: "3×" },
       { label: "Review", value: "Monthly" },
     ],
     whatYouGet: [
       "Everything in Review Automation",
-      "AI-drafted replies in your voice (you approve)",
+      "Replies drafted in your voice (you approve)",
       "SMS review requests (3× higher response than email)",
       "Monthly 15-min review call + ongoing Google profile improvements",
-      "Show up when people ask ChatGPT or Google AI who to hire nearby",
-      "Website trust signals set up so AI can confidently recommend your business",
+      "Show up when people ask ChatGPT, Claude, or Google who to hire nearby",
+      "Website trust signals set up so search engines can confidently recommend your business",
       "Your reviews tracked across platforms so nothing important gets missed",
     ],
     useThisIf: [
-      "You want reviews AND to be found in AI search.",
+      "You want reviews AND to be found across search — including ChatGPT and Google's AI answers.",
       "You're serious about local ranking, not just dabbling.",
-      "You'd rather approve AI replies than write them yourself.",
+      "You'd rather approve drafted replies than write them yourself.",
     ],
     setupSteps: [
       { title: "Google profile tune-up", sub: "We tighten your profile foundation beyond the Review Automation baseline." },
-      { title: "Site visibility setup", sub: "We structure your site so AI tools like ChatGPT, Google AI, and Claude can recommend your business." },
-      { title: "AI citation setup", sub: "We place your business in trusted web sources so AI is more likely to recommend you." },
+      { title: "Site visibility setup", sub: "We structure your site so ChatGPT, Claude, and Google can recommend your business." },
+      { title: "Citation setup", sub: "We place your business in trusted web sources so search engines are more likely to recommend you." },
       { title: "First monthly review call", sub: "We show what changed, what moved, and what’s next." },
     ],
-    cadence: "Monthly 15-min review call. Ongoing Google profile + AI visibility work.",
+    cadence: "Monthly 15-min review call. Ongoing Google profile + search visibility work.",
     crossSell: { label: "Reach — to add new outbound leads", href: "#reach" },
     price: "$199",
     cadenceLabel: "/mo",
     setup: "$199 setup",
-    promoNote: "First month $99 — AI review replies + ChatGPT & Google AI visibility setup. Then $199/mo. No contract.",
+    promoNote: "First month $99 — review replies in your voice + ChatGPT & Google AI visibility setup. Then $199/mo. No contract.",
     ctaLabel: "Start for $99 this month →",
     ctaHref: "https://pay.aioutsourcehub.com/ai-visibility-page",
     secondaryCtaHref: BOOKING_HREF,
@@ -153,10 +153,10 @@ const products: ProductDetailData[] = [
   {
     slug: "relay",
     number: "04",
-    name: "Relay — Voice AI",
+    name: "Relay — Phone Answering",
     outcome: "24/7 receptionist. Never miss another call.",
     story:
-      "Multilingual AI receptionist that answers every call, qualifies the lead, and books appointments directly into your calendar. Works in 27+ languages so you don't lose calls from customers who don't speak yours. After-hours, lunch breaks, you're with a customer — Relay picks up.",
+      "Multilingual phone answering in your company voice. Every call answered, every lead qualified, every appointment booked directly into your calendar. Works in 27+ languages so you don't lose calls from customers who don't speak yours. After-hours, lunch breaks, you're with a customer — Relay picks up.",
     stats: [
       { label: "Languages", value: "27+" },
       { label: "Coverage", value: "24/7" },

@@ -3,7 +3,7 @@ const services = [
   "AI Visibility",
   "Reach — Lead Engine",
   "Studio — Content Engine",
-  "Relay — Voice AI",
+  "Relay — Phone Answering",
 ];
 
 export function MockWholeStackPanel() {

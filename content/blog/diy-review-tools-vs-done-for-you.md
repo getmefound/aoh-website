@@ -32,7 +32,7 @@ The software cost is real. The hidden cost is your time and your team's time. Fo
 
 ## What "done-for-you" actually costs
 
-Our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> is $49/mo with no setup fee. No contract. If you want SMS plus AI-drafted replies and our full AI search work, that's <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">AI Visibility</a> at $179/mo plus $199 setup. Both real prices, both on the pricing page.
+Our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> is $49/mo with no setup fee. No contract. If you want SMS plus replies auto-drafted in your voice and our full AI search work, that's <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">AI Visibility</a> at $179/mo plus $199 setup. Both real prices, both on the pricing page.
 
 What you get for that price is *the work happening*, not the tool. We handle:
 

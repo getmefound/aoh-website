@@ -22,27 +22,27 @@ type Motto = {
 export const MOTTOS: Motto[] = [
   {
     slug: "we-run",
-    lines: ["We run the AI.", "You run the business."],
+    lines: ["We run the rest.", "You run the business."],
     tone: "Founder signature line — already on the site",
   },
   {
     slug: "dfy",
-    lines: ["Done-for-you AI."],
-    tone: "Minimal · 4 words",
+    lines: ["Done-for-you growth."],
+    tone: "Minimal · 3 words",
   },
   {
     slug: "outcome",
-    lines: ["The AI does the work.", "You keep the customer."],
+    lines: ["We do the work.", "You keep the customer."],
     tone: "Outcome-first · plain",
   },
   {
     slug: "ai-run",
-    lines: ["AI, run."],
-    tone: "Two-word minimalism · tagline pun (AI runs / AI we run)",
+    lines: ["Hands-off."],
+    tone: "Two-word minimalism",
   },
   {
     slug: "no-dashboards",
-    lines: ["No dashboards.", "No retainers.", "Just AI that does the work."],
+    lines: ["No dashboards.", "No retainers.", "Just done-for-you growth."],
     tone: "Anti-positioning · three-beat",
   },
   {

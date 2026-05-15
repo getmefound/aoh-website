@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "AI Outsource Hub — AI Services for Local Businesses";
+export const alt = "AI Outsource Hub — Growth Services for Local Businesses";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -58,7 +58,7 @@ export default function Image() {
               maxWidth: 960,
             }}
           >
-            You run your business. We run the AI.
+            You run your business. We run the rest.
           </div>
         </div>
 
@@ -72,7 +72,7 @@ export default function Image() {
           }}
         >
           <div style={{ display: "flex", maxWidth: 760 }}>
-            Review automation, AI voice agents, and AI visibility for local businesses.
+            Review automation, voice answering, and AI Visibility for local businesses.
           </div>
           <div style={{ display: "flex", color: "#3D7A65", fontWeight: 600 }}>
             From $1/day

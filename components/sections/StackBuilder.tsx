@@ -36,7 +36,7 @@ const SERVICES: Service[] = [
   },
   {
     slug: "reach",
-    name: "Reach — Lead Engine",
+    name: "Reach ï¿½ Lead Engine",
     oneLiner: "Done-for-you outreach. Calls on your calendar.",
     monthly: 249,
     setup: 199,
@@ -45,8 +45,8 @@ const SERVICES: Service[] = [
   },
   {
     slug: "studio",
-    name: "Studio — Content Engine",
-    oneLiner: "Branded posts 3–5×/week in your voice.",
+    name: "Studio ï¿½ Content Engine",
+    oneLiner: "Branded posts 3ï¿½5ï¿½/week in your voice.",
     monthly: 349,
     setup: 299,
     href: "https://pay.aioutsourcehub.com/studio",
@@ -54,7 +54,7 @@ const SERVICES: Service[] = [
   },
   {
     slug: "relay",
-    name: "Relay — Voice AI",
+    name: "Relay ï¿½ Phone Answering",
     oneLiner: "24/7 multilingual receptionist. Books calls.",
     monthly: 499,
     setup: 499,
@@ -108,7 +108,7 @@ export function StackBuilder() {
     if (totals.count === 1) {
       const only = totals.picks[0];
       return {
-        label: `Continue — ${money(only.monthly)}/mo`,
+        label: `Continue ï¿½ ${money(only.monthly)}/mo`,
         href: only.href,
         disabled: false,
         hint: only.setup > 0 ? `${money(only.setup)} one-time setup.` : "No setup fee.",
@@ -128,7 +128,7 @@ export function StackBuilder() {
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_22rem] gap-8 items-start pb-28 lg:pb-0">
       <div className="space-y-3">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)] mb-1">
-          Step 1 — Build your stack
+          Step 1 ï¿½ Build your stack
         </p>
         <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-body)] mb-6">
           Tap the services you want. We&apos;ll add up the cost.
@@ -274,7 +274,7 @@ export function StackBuilder() {
               <span className="font-mono text-[var(--color-hero-text)]">{money(STACK_MONTHLY)}/mo</span>
               {totals.monthlySavings > 0 ? (
                 <>
-                  {" "}— save{" "}
+                  {" "}ï¿½ save{" "}
                   <span className="font-semibold text-[var(--color-hero-text)]">
                     {money(totals.monthlySavings)}/mo
                   </span>
@@ -329,7 +329,7 @@ export function StackBuilder() {
         </div>
       </aside>
 
-      {/* Mobile sticky bottom bar — total + CTA always thumb-reachable */}
+      {/* Mobile sticky bottom bar ï¿½ total + CTA always thumb-reachable */}
       <div
         className="lg:hidden fixed inset-x-0 bottom-0 z-40 bg-[var(--color-bg-dark-card)] text-[var(--color-hero-text)] border-t border-[var(--color-hero-border)] shadow-[0_-10px_30px_rgba(0,0,0,0.25)]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
@@ -362,7 +362,7 @@ export function StackBuilder() {
               <span className="font-mono text-[var(--color-hero-text)]">{money(STACK_MONTHLY)}/mo</span>
               {totals.monthlySavings > 0 ? (
                 <>
-                  {" "}— save{" "}
+                  {" "}ï¿½ save{" "}
                   <span className="font-semibold text-[var(--color-hero-text)]">
                     {money(totals.monthlySavings)}/mo
                   </span>

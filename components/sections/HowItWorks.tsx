@@ -150,7 +150,7 @@ function ReviewFeed() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ delay: r.delay + 0.4, duration: 0.3 }}
             className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)]/20"
-            title="AI replied"
+            title="Reply sent in your voice"
           >
             <svg
               width="9"

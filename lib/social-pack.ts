@@ -416,7 +416,7 @@ For a shop like Bill at Southington Lawn Service, one missed Saturday-rush call 
 Quick napkin math on your own business:
 weekly after-hours calls Ã— average sale Ã— 4 weeks = monthly revenue walking out the door
 
-Relay is our AI receptionist. Answers, qualifies the lead, books into your calendar. Introduces itself as an AI assistant; transfers to a human if the caller asks. $299/mo + $299 setup. Most clients break even in month one.
+Relay is our phone answering service. Answers, qualifies the lead, books into your calendar. Introduces itself as an AI assistant; transfers to a human if the caller asks. $299/mo + $299 setup. Most clients break even in month one.
 
 See if Relay pays for itself in your industry: https://aioutsourcehub.com/pricing#relay
 
@@ -452,7 +452,7 @@ Third one wins $200 in mowing plus an $1,800 annual contract.
 
 Napkin math on yours: weekly after-hours calls Ã— your average sale Ã— 4 weeks = monthly leak.
 
-This is why we built Relay. AI receptionist that catches every call, qualifies the lead, books into your calendar. Introduces itself as AI. Transfers to a human if asked. $299/mo, payback in 30 days for most.
+This is why we built Relay. A phone answering service that catches every call, qualifies the lead, books into your calendar. Introduces itself as AI. Transfers to a human if asked. $299/mo, payback in 30 days for most.
 
 See Relay: https://aioutsourcehub.com/pricing#relay`,
       instagram: `Tuesday 7:15pm. She calls 3 lawn services. First two: voicemail. Third one picks up â€” and wins $200 + an $1,800 contract.
@@ -468,7 +468,7 @@ Not because your service is worse. Because nobody picked up.
 
 Tuesday 7:15pm. Homeowner calls 3 lawn services. Two: voicemail. Third picks up â€” wins $200 + an $1,800 contract.
 
-Relay (AI receptionist) catches every call. $299/mo. Payback in month 1.
+Relay (phone answering service) catches every call. $299/mo. Payback in month 1.
 
 See if it pays for itself â†’ https://aioutsourcehub.com/pricing#relay`,
       google: `Tuesday 7:15pm. A homeowner just got home from work. Lawn is overgrown, hosting a party Saturday. She calls 3 lawn services. First two: voicemail. Third one picks up â€” and wins the cut, the cleanup, and the $1,800 contract.
@@ -477,7 +477,7 @@ See if it pays for itself â†’ https://aioutsourcehub.com/pricing#relay`,
 
 Napkin math: weekly after-hours calls Ã— your average sale Ã— 4 weeks = monthly revenue walking out.
 
-Relay is our AI receptionist. Catches every call, qualifies the lead, books into your calendar. Introduces itself as AI; transfers to a human if asked. $299/mo + $299 setup, 750 minutes included. Most clients break even in month one.
+Relay is our phone answering service. Catches every call, qualifies the lead, books into your calendar. Introduces itself as AI; transfers to a human if asked. $299/mo + $299 setup, 750 minutes included. Most clients break even in month one.
 
 See Relay: https://aioutsourcehub.com/pricing#relay`,
     },

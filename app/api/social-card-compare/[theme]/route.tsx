@@ -19,7 +19,7 @@ type CompareData = {
 const COMPARES: Record<string, CompareData> = {
   "after-hours-payback": {
     eyebrow: "AFTER-HOURS CALLS · ONE WEEK",
-    leftLabel: "Without an AI receptionist",
+    leftLabel: "Without 24/7 phone answering",
     rightLabel: "With Relay running",
     leftRows: [
       "Mon 7:43pm — voicemail",

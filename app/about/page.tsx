@@ -6,7 +6,7 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "AI Outsource Hub runs the AI for local businesses on Hub360ai, our white-labeled ops platform. Built by people who've spent 15+ years explaining technology to non-technical buyers.",
+    "AI Outsource Hub runs growth services for local businesses on Hub360ai, our white-labeled ops platform. Built by people who've spent 15+ years explaining technology to non-technical buyers.",
   alternates: { canonical: "/about" },
 };
 
@@ -16,11 +16,11 @@ const breadcrumb = pageBreadcrumbs("About", "/about");
 const serif = "[font-family:var(--font-fraunces)]";
 
 const companyFields: { k: string; v: string }[] = [
-  { k: "what", v: "AOH operates AI on behalf of local businesses" },
+  { k: "what", v: "AOH runs reviews, search visibility, voice answering, and outreach for local businesses" },
   { k: "tools", v: "Automation for the busywork — runs while your team stays small" },
   { k: "for", v: "Local SMB owners running their business" },
   { k: "model", v: "Done-for-you · monthly · cancel anytime" },
-  { k: "platform", v: "Hub360ai — our white-labeled AI ops stack" },
+  { k: "platform", v: "Hub360ai — our white-labeled ops platform" },
   { k: "won't", v: "Teach you to use the tools yourself" },
 ];
 

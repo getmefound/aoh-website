@@ -22,7 +22,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     whatYouGet: [
       "Automated email review requests after every job",
       "One-time Google Business Profile audit + fix",
-      "You reply to reviews yourself (upgrade for AI replies)",
+      "You reply to reviews yourself (upgrade for replies in your voice)",
       "Monthly digest email — what was sent, what came in",
       "Cancel anytime · no contract",
     ],
@@ -39,7 +39,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Be found everywhere — Google reviews, AI search engines, and across the platforms your customers actually use.",
     whatYouGet: [
       "Everything in Review Automation",
-      "AI-drafted replies in your voice (you approve)",
+      "Replies drafted in your voice (you approve)",
       "SMS review requests (3× higher response than email)",
       "Monthly 15-min review call + ongoing GBP work",
       "Cited in ChatGPT, Google AI Overviews, Claude",
@@ -50,12 +50,12 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   },
   {
     slug: "relay",
-    name: "Relay — Voice AI",
+    name: "Relay — Phone Answering",
     price: "$399",
     cadence: "/month",
     setup: "$299 setup",
     summary:
-      "24/7 multilingual AI receptionist that books calls into your calendar. Never miss another lead.",
+      "24/7 multilingual phone answering in your company voice. Books calls into your calendar. Never miss another lead.",
     whatYouGet: [
       "24/7 call answering — no missed leads",
       "27+ languages supported",
@@ -69,7 +69,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   },
   {
     slug: "studio",
-    name: "Studio — AI Content",
+    name: "Studio — Content",
     price: "$599",
     cadence: "/month",
     setup: "$299 setup",
@@ -87,7 +87,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   },
   {
     slug: "reach",
-    name: "Reach — AI Lead Engine",
+    name: "Reach — Lead Engine",
     price: "$449",
     cadence: "/month",
     setup: "$299 setup",
@@ -113,9 +113,9 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Every AOH service combined. One bill, one onboarding, one monthly call. Save over $700/mo vs buying each piece separately.",
     whatYouGet: [
       "AI Visibility (Reviews + AI search) included",
-      "Relay Voice AI (1,000 minutes/month)",
-      "Reach AI Lead Engine",
-      "Studio AI Content",
+      "Relay Phone Answering (1,000 minutes/month)",
+      "Reach Lead Engine",
+      "Studio Content",
       "Custom Website Rebuild ($999 build included)",
       "Single bill + priority response queue",
     ],

@@ -6,8 +6,8 @@ export const FAQ_ITEMS: FaqItem[] = [
     a: "No contract, cancel anytime. We give you a free report before you pay a single dollar. We have to earn your trust before we ask for anything.",
   },
   {
-    q: "Will AI replies sound fake and hurt me with Google?",
-    a: "Generic AI responses do hurt rankings. Ours are different — once your standard plan begins, every reply is written in your specific business voice using your tone profile. Personalized and indistinguishable from something your best employee would write. During the 30-day intro, you reply manually.",
+    q: "Will automated replies sound fake and hurt me with Google?",
+    a: "Generic, templated responses do hurt rankings. Ours are different — once your standard plan begins, every reply is written in your specific business voice using your tone profile. Personalized and indistinguishable from something your best employee would write. During the 30-day intro, you reply manually.",
   },
   {
     q: "How much of my time does this take?",
@@ -18,12 +18,12 @@ export const FAQ_ITEMS: FaqItem[] = [
     a: "Review requests start going out within 48 hours of setup. Most clients see new reviews within the first two weeks. Google ranking improvements typically take 60–90 days.",
   },
   {
-    q: "Is AI visibility just regular SEO with a new name?",
-    a: "Different mechanism entirely. Traditional SEO gets you a spot on Google's list of links. AI visibility gets your business recommended by name when someone asks ChatGPT who's the best plumber near me — that's a recommendation, not a ranking.",
+    q: "Is AI Visibility just regular SEO with a new name?",
+    a: "Different mechanism entirely. Traditional SEO gets you a spot on Google's list of links. AI Visibility gets your business recommended by name when someone asks ChatGPT who's the best plumber near me — that's a recommendation, not a ranking.",
   },
   {
     q: "Why do I need to keep paying monthly?",
-    a: "AI search constantly retrains. Google's algorithm keeps changing. Review velocity matters — a business that stops getting reviews looks inactive to both customers and algorithms. Your monthly fee keeps you active, monitored, and found.",
+    a: "ChatGPT and Claude constantly retrain. Google's algorithm keeps changing. Review velocity matters — a business that stops getting reviews looks inactive to both customers and algorithms. Your monthly fee keeps you active, monitored, and found.",
   },
   {
     q: "What if I get a bad review?",

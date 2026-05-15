@@ -283,7 +283,7 @@ You're catching about 1 in 10 after-hours calls. Nine in ten are gone before you
 
 If one job is worth $300–$2,000, three missed jobs a month is $2,400+ walking out the door.
 
-An AI receptionist at $299/month needs to catch *one* extra job to break even. That's a single service call.
+A 24/7 phone answering service at $299/month needs to catch *one* extra job to break even. That's a single service call.
 
 In most local businesses I look at, that payback lands inside 30 days.
 
@@ -294,14 +294,14 @@ You catch about 1 in 10 after-hours calls. Nine in ten are gone before you knew 
 
 Most local businesses get 15–30 a week. 60–70% go to voicemail. Most customers won't leave one.
 
-If one job is worth $500, an AI receptionist that catches one extra call a month already paid for itself. Most pay back in 30 days.
+If one job is worth $500, a 24/7 phone answering service that catches one extra call a month already paid for itself. Most pay back in 30 days.
 
 ### Instagram
 You catch 1 in 10 after-hours calls.
 
 The other 9 went to your competitor.
 
-An AI receptionist that catches just ONE extra job a month pays for itself in 30 days.
+A 24/7 phone answering service that catches just ONE extra job a month pays for itself in 30 days.
 
 #LocalBusiness #SmallBusinessTips #AIReceptionist #HVAC #Plumbing #LocalServices
 
@@ -310,7 +310,7 @@ You catch 1 in 10 after-hours calls. The other 9 went to your competitor.
 
 15–30 calls a week outside hours. 60–70% to voicemail. Most won't leave one.
 
-An AI receptionist that catches ONE extra job a month pays for itself. Most do in 30 days.
+A 24/7 phone answering service that catches ONE extra job a month pays for itself. Most do in 30 days.
 
 ---
 
@@ -381,7 +381,7 @@ Done-for-you flips the model. Instead of "here's a dashboard," it's "we run this
 
 Zero dashboards. Reviews still come in. Calls still get answered. AI visibility still gets handled.
 
-You stay in your business. We run the AI.
+You stay in your business. We run the rest.
 
 aioutsourcehub.com
 

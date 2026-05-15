@@ -114,7 +114,7 @@ After all 8 are loaded, hit Bulk Publish (or let scheduler fire).
 >
 > If one job is worth $300–$2,000, three missed jobs a month is $2,400+ walking out the door.
 >
-> An AI receptionist at $299/month needs to catch *one* extra job to break even. That's a single service call.
+> A 24/7 phone answering service at $299/month needs to catch *one* extra job to break even. That's a single service call.
 >
 > In most local businesses I look at, that payback lands inside 30 days.
 
@@ -128,7 +128,7 @@ After all 8 are loaded, hit Bulk Publish (or let scheduler fire).
 >
 > Most local businesses get 15–30 a week. 60–70% go to voicemail. Most customers won't leave one.
 >
-> If one job is worth $500, an AI receptionist that catches one extra call a month already paid for itself. Most pay back in 30 days.
+> If one job is worth $500, a 24/7 phone answering service that catches one extra call a month already paid for itself. Most pay back in 30 days.
 
 ### Instagram caption
 
@@ -136,7 +136,7 @@ After all 8 are loaded, hit Bulk Publish (or let scheduler fire).
 >
 > The other 9 went to your competitor.
 >
-> An AI receptionist that catches just ONE extra job a month pays for itself in 30 days.
+> A 24/7 phone answering service that catches just ONE extra job a month pays for itself in 30 days.
 >
 > #LocalBusiness #SmallBusinessTips #AIReceptionist #HVAC #Plumbing #LocalServices
 

@@ -19,22 +19,22 @@ const BANNERS: Record<string, Banner> = {
     width: 1128,
     height: 191,
     variant: "brand",
-    headline: "You run the business. We run the AI.",
-    subhead: "Review automation · AI visibility · Voice agents · For local businesses.",
+    headline: "You run the business. We run the rest.",
+    subhead: "Review automation · AI Visibility · Phone answering · For local businesses.",
   },
   "facebook": {
     width: 820,
     height: 312,
     variant: "brand",
     headline: "You run the business.",
-    subhead: "We run the AI. Review automation, AI search visibility, and voice agents for local businesses.",
+    subhead: "We run the rest. Review automation, AI search visibility, and phone answering for local businesses.",
   },
   "x": {
     width: 1500,
     height: 500,
     variant: "brand",
-    headline: "You run the business. We run the AI.",
-    subhead: "Done-for-you reviews, AI visibility, and voice agents for local businesses.",
+    headline: "You run the business. We run the rest.",
+    subhead: "Done-for-you reviews, AI Visibility, and phone answering for local businesses.",
   },
   "mike": {
     width: 1584,
@@ -42,7 +42,7 @@ const BANNERS: Record<string, Banner> = {
     variant: "person",
     name: "Mike Egidio",
     role: "Founder · AI Outsource Hub",
-    focus: "I built AOH so local-business owners can run their business while we run the AI.",
+    focus: "I built AOH so local-business owners can run their business while we run the rest.",
   },
   "kip": {
     width: 1584,
@@ -180,7 +180,7 @@ function BrandBanner({ b }: { b: Banner }) {
             textTransform: "uppercase",
           }}
         >
-          Run the AI →
+          Run the rest →
         </div>
       </div>
     </div>

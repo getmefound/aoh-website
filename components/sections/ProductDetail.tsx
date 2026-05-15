@@ -173,7 +173,7 @@ export function ProductDetail({
                   <li key={f} className="flex items-start gap-2 leading-relaxed">
                     <span className="text-[var(--color-accent)] mt-0.5 flex-shrink-0">✓</span>
                     {data.slug === "review-automation" &&
-                    f === "You reply yourself (upgrade to AI Visibility for AI-drafted replies + SMS)" ? (
+                    f === "You reply yourself (upgrade to AI Visibility for replies in your voice + SMS)" ? (
                       <span>
                         You reply yourself (upgrade to{" "}
                         <Link
@@ -182,7 +182,7 @@ export function ProductDetail({
                         >
                           AI Visibility
                         </Link>{" "}
-                        for AI-drafted replies + SMS)
+                        for replies in your voice + SMS)
                       </span>
                     ) : (
                       <span>{f}</span>
