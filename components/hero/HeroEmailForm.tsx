@@ -54,36 +54,35 @@ const variants: Record<Variant, VariantConfig> = {
     buttonText: "See My Free Review Audit",
     checkbox: {
       label:
-        "Also check my AI Visibility Score — see if I'm showing up in ChatGPT and Google AI.",
+        "Also check my Visibility Score — see if I'm showing up across search and new platforms.",
       caption:
-        "25% of searches have already moved to AI. Most businesses are completely invisible. Find out if you're one of them.",
+        "Most businesses are invisible on new search platforms. Find out where you stand before your competitor does.",
     },
   },
   ai: {
     headlineSegments: [
-      { text: "Get named by ChatGPT before your ", speed: 70 },
+      { text: "Get found before your ", speed: 70 },
       { text: "competitor", speed: 130, className: ACCENT },
       { text: " does.", speed: 70 },
     ],
     subheadline:
-      "We get your business recommended by ChatGPT and Google AI — before your competitors do.",
+      "We get your business showing up across search — before your competitors take the spot.",
     priceLine: "$3/day. No contract.",
-    buttonText: "See My Free AI Visibility Score",
+    buttonText: "See My Free Visibility Score",
     checkbox: {
       label:
         "Also run my full Marketing Audit — see how my reviews and listings stack up.",
       caption:
-        "Reviews are the fuel that powers AI recommendations. Businesses with more reviews get recommended more. See where you stand.",
+        "Reviews are the fuel that powers search rankings. Businesses with more reviews get found more. See where you stand.",
     },
   },
   default: {
     headlineSegments: [
-      { text: "We run the ", speed: 70 },
-      { text: "AI", speed: 130, className: ACCENT },
-      { text: ". You run the business.", speed: 70 },
+      { text: "Your customers are choosing ", speed: 70 },
+      { text: "your competitor.", speed: 130, className: ACCENT },
     ],
     subheadline:
-      "We find the tools that fit your business — and run them so you don't have to.",
+      "We handle your reviews, rankings, and online presence — so more customers find you, and choose you.",
     priceLine: "Starting at $1/day. No contract.",
     buttonText: "See My Free Visibility Check",
   },
