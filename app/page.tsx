@@ -45,8 +45,8 @@ const teaserCards: TeaserCard[] = [
       "Google Business Profile audit",
       "Cancel anytime · no setup fee",
     ],
-    href: "/pricing#review-automation",
-    cta: "See plan details",
+    href: "https://pay.aioutsourcehub.com/checkout-review-automation-plan-page",
+    cta: "Start Review Automation",
     iconPaths: ICON_PATHS.star,
   },
   {
@@ -59,8 +59,8 @@ const teaserCards: TeaserCard[] = [
       "Cited in ChatGPT, Google AI, Claude",
       "Monthly call + ongoing optimization",
     ],
-    href: "/pricing#ai-visibility",
-    cta: "See plan details",
+    href: "https://pay.aioutsourcehub.com/checkout-ai-visibility-plan-page",
+    cta: "Start AI Visibility",
     iconPaths: ICON_PATHS.search,
     highlight: true,
   },
@@ -74,8 +74,8 @@ const teaserCards: TeaserCard[] = [
       "Outreach written in your voice — never a template",
       "We book the calls. Your only job is to show up.",
     ],
-    href: "/pricing#reach",
-    cta: "See plan details",
+    href: "https://pay.aioutsourcehub.com/reach-plan-page",
+    cta: "Start Reach",
     iconPaths: ICON_PATHS.target,
   },
 ];
@@ -161,6 +161,8 @@ export default function Home() {
                         <div className="mt-auto">
                           <Link
                             href={p.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-[var(--color-accent-text)] transition-all hover:bg-[var(--color-accent-hover)] hover:gap-3 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
                           >
                             {p.cta}
