@@ -58,8 +58,8 @@ const products: ProductDetailData[] = [
     price: "$49",
     cadenceLabel: "/mo",
     setup: "No setup fee",
-    promoNote: "Introductory rate · no contract · cancel anytime",
-    ctaLabel: "Start at $49/mo",
+    promoNote: "Introductory rate — locks in at $49 as long as you stay. Price increases as we scale.",
+    ctaLabel: "Lock in $49/mo →",
     ctaHref: "https://pay.aioutsourcehub.com/review-automation-plan",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.star,
@@ -102,8 +102,8 @@ const products: ProductDetailData[] = [
     price: "$199",
     cadenceLabel: "/mo",
     setup: "$199 setup",
-    promoNote: "First month $99 · then $199/mo · cancel anytime",
-    ctaLabel: "Start AI Visibility",
+    promoNote: "First month $99 — AI review replies + ChatGPT & Google AI visibility setup. Then $199/mo. No contract.",
+    ctaLabel: "Start for $99 this month →",
     ctaHref: "https://pay.aioutsourcehub.com/ai-visibility-page",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.search,
@@ -401,7 +401,7 @@ export default function PricingPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 hover:bg-green-500 text-white px-6 py-3.5 text-sm font-semibold transition-all hover:gap-3 hover:shadow-lg hover:shadow-green-600/30"
                   >
-                    Start at $49/mo
+                    Lock in $49/mo
                     <span aria-hidden="true">→</span>
                   </Link>
                   <Link
