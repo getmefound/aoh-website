@@ -28,7 +28,7 @@ const SERVICES: Service[] = [
   {
     slug: "ai-visibility",
     name: "AI Visibility",
-    oneLiner: "Cited in ChatGPT, Google AI, Claude.",
+    oneLiner: "Cited in ChatGPT, Google AI, Perplexity.",
     monthly: 179,
     setup: 199,
     href: "https://pay.aioutsourcehub.com/ai-visibility-page",
@@ -36,17 +36,17 @@ const SERVICES: Service[] = [
   },
   {
     slug: "reach",
-    name: "Reach â€” Lead Engine",
+    name: "Reach — Lead Engine",
     oneLiner: "Done-for-you outreach. Calls on your calendar.",
     monthly: 249,
     setup: 199,
-    href: "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56",
+    href: "https://pay.aioutsourcehub.com/reach-plan",
     iconPaths: ICON_PATHS.target,
   },
   {
     slug: "studio",
-    name: "Studio â€” Content Engine",
-    oneLiner: "Branded posts 3â€“5Ã—/week in your voice.",
+    name: "Studio — Content Engine",
+    oneLiner: "Branded posts 3–5×/week in your voice.",
     monthly: 349,
     setup: 299,
     href: "https://pay.aioutsourcehub.com/studio",
@@ -54,7 +54,7 @@ const SERVICES: Service[] = [
   },
   {
     slug: "relay",
-    name: "Relay â€” Voice AI",
+    name: "Relay — Voice AI",
     oneLiner: "24/7 multilingual receptionist. Books calls.",
     monthly: 499,
     setup: 499,
@@ -64,7 +64,8 @@ const SERVICES: Service[] = [
 ];
 
 const STACK_MONTHLY = 999;
-const STACK_SETUP = 999;`r`nconst STACK_HREF = "https://pay.aioutsourcehub.com/full-service";
+const STACK_SETUP = 999;
+const STACK_HREF = "https://pay.aioutsourcehub.com/full-service";
 const BOOKING_HREF = "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56";
 
 function money(n: number) {
@@ -73,6 +74,8 @@ function money(n: number) {
 
 export function StackBuilder() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const isExternalHref = (href: string) =>
+    href.startsWith("http://") || href.startsWith("https://");
 
   const toggle = (slug: string) => {
     setSelected((prev) => {
@@ -105,11 +108,11 @@ export function StackBuilder() {
     if (totals.count === 1) {
       const only = totals.picks[0];
       return {
-        label: `Continue â€” ${money(only.monthly)}/mo`,
+        label: `Continue — ${money(only.monthly)}/mo`,
         href: only.href,
         disabled: false,
         hint: only.setup > 0 ? `${money(only.setup)} one-time setup.` : "No setup fee.",
-        external: true,
+        external: isExternalHref(only.href),
       };
     }
     return {
@@ -125,7 +128,7 @@ export function StackBuilder() {
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_22rem] gap-8 items-start pb-28 lg:pb-0">
       <div className="space-y-3">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)] mb-1">
-          Step 1 â€” Build your stack
+          Step 1 — Build your stack
         </p>
         <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-body)] mb-6">
           Tap the services you want. We&apos;ll add up the cost.
@@ -271,7 +274,7 @@ export function StackBuilder() {
               <span className="font-mono text-[var(--color-hero-text)]">{money(STACK_MONTHLY)}/mo</span>
               {totals.monthlySavings > 0 ? (
                 <>
-                  {" "}â€” save{" "}
+                  {" "}— save{" "}
                   <span className="font-semibold text-[var(--color-hero-text)]">
                     {money(totals.monthlySavings)}/mo
                   </span>
@@ -280,9 +283,11 @@ export function StackBuilder() {
               (
               <Link
                 href={STACK_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="underline underline-offset-2 text-[var(--color-accent)] hover:text-[var(--color-accent-hover)]"
               >
-                switch to Full Service
+                switch to Whole Stack
               </Link>
               )
             </p>
@@ -304,7 +309,7 @@ export function StackBuilder() {
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-5 py-3.5 text-sm font-semibold transition-all hover:gap-3 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
             >
               {cta.label}
-              <span aria-hidden="true">â†’</span>
+              <span aria-hidden="true">?</span>
             </a>
           ) : (
             <Link
@@ -312,7 +317,7 @@ export function StackBuilder() {
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-5 py-3.5 text-sm font-semibold transition-all hover:gap-3 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
             >
               {cta.label}
-              <span aria-hidden="true">â†’</span>
+              <span aria-hidden="true">?</span>
             </Link>
           )}
 
@@ -324,7 +329,7 @@ export function StackBuilder() {
         </div>
       </aside>
 
-      {/* Mobile sticky bottom bar â€” total + CTA always thumb-reachable */}
+      {/* Mobile sticky bottom bar — total + CTA always thumb-reachable */}
       <div
         className="lg:hidden fixed inset-x-0 bottom-0 z-40 bg-[var(--color-bg-dark-card)] text-[var(--color-hero-text)] border-t border-[var(--color-hero-border)] shadow-[0_-10px_30px_rgba(0,0,0,0.25)]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
@@ -357,7 +362,7 @@ export function StackBuilder() {
               <span className="font-mono text-[var(--color-hero-text)]">{money(STACK_MONTHLY)}/mo</span>
               {totals.monthlySavings > 0 ? (
                 <>
-                  {" "}â€” save{" "}
+                  {" "}— save{" "}
                   <span className="font-semibold text-[var(--color-hero-text)]">
                     {money(totals.monthlySavings)}/mo
                   </span>
@@ -366,9 +371,11 @@ export function StackBuilder() {
               (
               <Link
                 href={STACK_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="underline underline-offset-2 text-[var(--color-accent)]"
               >
-                switch to Full Service
+                switch to Whole Stack
               </Link>
               )
             </p>
@@ -390,7 +397,7 @@ export function StackBuilder() {
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-5 py-3 text-sm font-semibold"
             >
               {cta.label}
-              <span aria-hidden="true">â†’</span>
+              <span aria-hidden="true">?</span>
             </a>
           ) : (
             <Link
@@ -398,7 +405,7 @@ export function StackBuilder() {
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-5 py-3 text-sm font-semibold"
             >
               {cta.label}
-              <span aria-hidden="true">â†’</span>
+              <span aria-hidden="true">?</span>
             </Link>
           )}
         </div>
@@ -406,3 +413,6 @@ export function StackBuilder() {
     </div>
   );
 }
+
+
+

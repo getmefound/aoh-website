@@ -290,6 +290,8 @@ export function ProductDetail({
               <div className="space-y-2">
                 <Link
                   href={data.ctaHref}
+                  target={isExternalCta ? "_blank" : undefined}
+                  rel={isExternalCta ? "noopener noreferrer" : undefined}
                   className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all hover:gap-3 ${
                     dark
                       ? "bg-[var(--color-accent-text)] text-[var(--color-accent)] hover:bg-white"
@@ -301,6 +303,8 @@ export function ProductDetail({
                 </Link>
                 <Link
                   href={data.secondaryCtaHref ?? "/contact"}
+                  target={data.secondaryCtaHref?.startsWith("http") ? "_blank" : undefined}
+                  rel={data.secondaryCtaHref?.startsWith("http") ? "noopener noreferrer" : undefined}
                   className={`inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-colors ${
                     dark
                       ? "border-[var(--color-accent-text)]/35 text-[var(--color-accent-text)] hover:bg-white/10"
@@ -363,4 +367,6 @@ export function ProductDetail({
     </section>
   );
 }
+
+
 
