@@ -51,5 +51,8 @@ lighthouse-local-*
 /scripts/
 /data/
 
+# tmp / scratch artifacts (dev logs, ad-hoc scan outputs, pids)
+.tmp_*
 
-.vercel
+# accidentally-cloned aoh-tooling — belongs in its own repo
+UsersmichaDocumentsaoh-tooling-scan/
