@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
+import { track } from "@vercel/analytics";
 import { validateEmail } from "@/lib/email-validation";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
@@ -81,6 +82,7 @@ export function ContactForm() {
         setError(data.error ?? "Something went wrong. Try again.");
         return;
       }
+      track("contact_submit");
       setSubmitted(true);
     } catch {
       setError("Network error. Try again.");

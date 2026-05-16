@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { track } from "@vercel/analytics";
 
 const TRUSTED_REPORT_HOSTS = [
   "gohighlevel.com",
@@ -112,6 +113,7 @@ function RevenueCalculatorInner() {
   useEffect(() => {
     if (industry && industries[industry]) {
       setCustomerValue(industries[industry].defaultValue);
+      track("calculator_run", { industry });
     }
   }, [industry]);
 

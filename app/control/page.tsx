@@ -349,8 +349,18 @@ export default function ControlPage() {
           ownedRows={[
             { primary: "Inbox demands", secondary: "7 emails waiting on reply · oldest 2d", badge: { tone: "warn", label: "manual" } },
             { primary: "Stuck deals", secondary: "5 warm not called in 7+ days", badge: { tone: "warn", label: "manual" } },
-            { primary: "Site signals", secondary: "8 calc runs · 2 form submits today", badge: { tone: "warn", label: "manual" } },
+            { primary: "Site signals", secondary: "calc_run + contact_submit events live in Vercel Analytics", badge: { tone: "accent", label: "tracking" } },
           ]}
+          ownedFooter={
+            <a
+              href="https://vercel.com/aoh-inc/aoh-website/analytics"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full rounded-md border border-zinc-800 bg-zinc-900/50 py-2 text-center font-mono text-[10px] uppercase tracking-wider text-zinc-400 transition hover:bg-zinc-900 hover:text-zinc-300"
+            >
+              open Vercel Analytics →
+            </a>
+          }
         />
       </section>
 
