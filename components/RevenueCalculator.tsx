@@ -97,11 +97,14 @@ function RevenueCalculatorInner() {
   const [stars, setStars] = useState(3.8);
   const [ranking, setRanking] = useState(8);
   const [aiVisibility, setAiVisibility] = useState<AiVisibilityStatus>("");
+  const [afterHoursCalls, setAfterHoursCalls] = useState(0);
+  const [noCallbackRate, setNoCallbackRate] = useState(70);
   const [results, setResults] = useState<{
     lostCustomers: string;
     lostRevenue: string;
     gainedCustomers: string;
     gainedRevenue: string;
+    phoneLeakRevenue: string | null;
     insight: string;
     needsAiCheck: boolean;
   } | null>(null);
@@ -146,16 +149,40 @@ function RevenueCalculatorInner() {
     const aiRevenueAtRisk = monthlyRevenue * aiWeight;
     const aiCustomersAtRisk = ind.vol * aiWeight;
 
-    const totalLostRevenue = Math.round((lostRevenueRaw + aiRevenueAtRisk) / 100) * 100;
-    const totalLostCustomers = Math.round(lostCustomersRaw + aiCustomersAtRisk);
+    // After-hours phone leak — conversion-stage loss, additive to discovery loss above.
+    // Formula: weekly calls × 4.33 wk/mo × no-callback rate × close-if-answered rate × ticket.
+    // CLOSE_RATE 0.30 = industry-typical close on a returned inbound service call (would-have-booked).
+    // Relay recovery weight is higher than review/AI recovery because the fix is mechanical (answer the phone).
+    const CLOSE_RATE = 0.30;
+    const PHONE_RECOVERY = 0.85;
+    const monthlyAfterHoursCalls = afterHoursCalls * 4.33;
+    const missedBookings = monthlyAfterHoursCalls * (noCallbackRate / 100) * CLOSE_RATE;
+    const phoneLeakRevenueRaw = missedBookings * customerValue;
+    const phoneLeakRevenue = Math.round(phoneLeakRevenueRaw / 100) * 100;
+    const phoneLeakCustomers = Math.round(missedBookings);
 
-    const recoverableRevenue = Math.round(totalLostRevenue * 0.7 / 100) * 100;
-    const recoverableCustomers = Math.round(totalLostCustomers * 0.7);
+    const totalLostRevenue =
+      Math.round((lostRevenueRaw + aiRevenueAtRisk) / 100) * 100 + phoneLeakRevenue;
+    const totalLostCustomers =
+      Math.round(lostCustomersRaw + aiCustomersAtRisk) + phoneLeakCustomers;
+
+    const discoveryRecoverable = Math.round((lostRevenueRaw + aiRevenueAtRisk) * 0.7 / 100) * 100;
+    const phoneRecoverable = Math.round(phoneLeakRevenue * PHONE_RECOVERY / 100) * 100;
+    const recoverableRevenue = discoveryRecoverable + phoneRecoverable;
+    const discoveryRecoverableCustomers = Math.round((lostCustomersRaw + aiCustomersAtRisk) * 0.7);
+    const recoverableCustomers =
+      discoveryRecoverableCustomers + Math.round(phoneLeakCustomers * PHONE_RECOVERY);
+
+    const phoneIsBiggestLeak =
+      phoneLeakRevenue > 0 &&
+      phoneLeakRevenue > Math.round((lostRevenueRaw + aiRevenueAtRisk) / 100) * 100;
 
     let insight = "";
     const target = ind.velocityTarget;
 
-    if (aiVisibility === "tested-invisible") {
+    if (phoneIsBiggestLeak) {
+      insight = `<strong>Your phone is your biggest leak.</strong> ${afterHoursCalls} after-hours call${afterHoursCalls === 1 ? "" : "s"}/week at ${noCallbackRate}% no-callback = roughly ${fmt(phoneLeakRevenue)}/mo in bookings going to whoever picks up next. Discovery fixes won&apos;t help if the calls never get answered.`;
+    } else if (aiVisibility === "tested-invisible") {
       insight = `<strong>You&apos;re invisible in AI search — that&apos;s the biggest issue.</strong> 25%+ of local discovery has shifted to ChatGPT, Claude, and Google AI Overviews. Reviews and ranking only fix half the problem.`;
     } else if (reviewsPerMonth === 0) {
       insight = `<strong>Zero new reviews this month is the biggest issue.</strong> Google&apos;s local pack weights review <em>freshness</em> over total count. Reviews older than 6 months carry only 10–20% of their original ranking power. The top ${ind.label} get ${target}+ new reviews per month, every month — that&apos;s why they outrank you, even if you have a higher total count.`;
@@ -178,10 +205,11 @@ function RevenueCalculatorInner() {
       lostRevenue: fmt(totalLostRevenue) + "/mo",
       gainedCustomers: recoverableCustomers + "/mo",
       gainedRevenue: fmt(recoverableRevenue) + "/mo",
+      phoneLeakRevenue: phoneLeakRevenue > 0 ? fmt(phoneLeakRevenue) + "/mo" : null,
       insight,
       needsAiCheck: aiVisibility === "dont-know" || aiVisibility === "think-so",
     });
-  }, [industry, customerValue, reviewsPerMonth, stars, ranking, aiVisibility]);
+  }, [industry, customerValue, reviewsPerMonth, stars, ranking, aiVisibility, afterHoursCalls, noCallbackRate]);
 
   const renderStars = (rating: number) => {
     const arr = [];
@@ -375,6 +403,73 @@ function RevenueCalculatorInner() {
                 </div>
               </div>
 
+              {/* After-hours phone leak */}
+              <div className="mb-8">
+                <label htmlFor="after-hours-range" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+                  How many calls come in after hours each week?{" "}
+                  <span className="font-normal text-[var(--color-text-muted)]">
+                    ({afterHoursCalls}/wk)
+                  </span>
+                </label>
+                <div className="flex items-center gap-4">
+                  <input
+                    id="after-hours-range"
+                    type="range"
+                    min="0"
+                    max="50"
+                    value={afterHoursCalls}
+                    onChange={(e) => setAfterHoursCalls(parseInt(e.target.value))}
+                    className="flex-1 h-2 bg-[var(--color-border)] rounded-lg appearance-none cursor-pointer slider"
+                  />
+                  <div className="text-lg font-bold text-[var(--color-text-body)] min-w-[60px] text-right">
+                    {afterHoursCalls}
+                  </div>
+                </div>
+                <div className="flex justify-between mt-2 text-xs text-[var(--color-text-muted)]">
+                  <span>0 / week</span>
+                  <span>50+ / week</span>
+                </div>
+                <p className="mt-2 text-xs text-[var(--color-text-muted)]">
+                  Evenings, weekends, lunch — any time the phone goes to voicemail.
+                  Leave at 0 if you answer every call.
+                </p>
+              </div>
+
+              {/* No-callback rate */}
+              {afterHoursCalls > 0 && (
+                <div className="mb-8">
+                  <label htmlFor="no-callback-range" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+                    Of those, how many never get a callback?{" "}
+                    <span className="font-normal text-[var(--color-text-muted)]">
+                      ({noCallbackRate}%)
+                    </span>
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <input
+                      id="no-callback-range"
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="5"
+                      value={noCallbackRate}
+                      onChange={(e) => setNoCallbackRate(parseInt(e.target.value))}
+                      className="flex-1 h-2 bg-[var(--color-border)] rounded-lg appearance-none cursor-pointer slider"
+                    />
+                    <div className="text-lg font-bold text-[var(--color-text-body)] min-w-[60px] text-right">
+                      {noCallbackRate}%
+                    </div>
+                  </div>
+                  <div className="flex justify-between mt-2 text-xs text-[var(--color-text-muted)]">
+                    <span>0% (every call returned)</span>
+                    <span>100%</span>
+                  </div>
+                  <p className="mt-2 text-xs text-[var(--color-text-muted)]">
+                    Industry average is ~70%. Voicemails get listened to next morning,
+                    but the caller already booked someone else.
+                  </p>
+                </div>
+              )}
+
               {/* AI Visibility */}
               <div className="mb-2">
                 <label htmlFor="ai-visibility-select" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
@@ -439,6 +534,14 @@ function RevenueCalculatorInner() {
                           <p className="text-xs text-white/80 mb-1">Revenue / mo</p>
                           <p className="text-2xl font-bold text-red-400">{results.lostRevenue}</p>
                         </div>
+                        {results.phoneLeakRevenue && (
+                          <div className="mt-3 pt-3 border-t border-red-500/20">
+                            <p className="text-[10px] uppercase tracking-wider text-red-200 font-bold mb-1">
+                              of which · phone leak
+                            </p>
+                            <p className="text-lg font-bold text-red-300">{results.phoneLeakRevenue}</p>
+                          </div>
+                        )}
                       </div>
                       <div className="rounded-xl bg-green-500/10 border border-green-500/30 p-4">
                         <p className="text-[10px] uppercase tracking-wider text-green-200 font-bold mb-3">
