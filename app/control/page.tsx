@@ -30,7 +30,8 @@ export const revalidate = 60;
  * falls back to mock and shows a "needs creds" pill.
  *
  * Env vars required (set in Vercel project settings):
- *   VERCEL_TOKEN  VERCEL_PROJECT_ID  GITHUB_PAT  GHL_API_KEY  GHL_LOCATION_ID
+ *   VERCEL_TOKEN  GITHUB_PAT  GHL_PIT_TOKEN  GHL_LOCATION_ID
+ * (VERCEL_PROJECT_ID has a hardcoded fallback)
  */
 
 const MOCK = {
@@ -188,7 +189,7 @@ function SchedulerCard({ data }: { data: ControlData }) {
           : "Manual via Google Cal + GHL",
         upNext: "When agent ships (slot 5b): defends focus blocks + auto-briefs",
       }}
-      ownedTitle={events ? "Today's events · GHL live" : "Today's agenda · MOCK (needs GHL_API_KEY)"}
+      ownedTitle={events ? "Today's events · GHL live" : "Today's agenda · MOCK (needs GHL_PIT_TOKEN)"}
       ownedRows={realRows}
       ownedFooter={
         <div className="flex gap-2">
@@ -262,7 +263,7 @@ function ScoutCard({ data }: { data: ControlData }) {
       ownedTitle={
         opps
           ? `Warm leads · GHL live · ${realRows.length} ready`
-          : "Today's warm leads · MOCK (needs GHL_API_KEY)"
+          : "Today's warm leads · MOCK (needs GHL_PIT_TOKEN)"
       }
       ownedRows={realRows}
       ownedFooter={
@@ -373,7 +374,7 @@ function GhlExpertCard({ data }: { data: ControlData }) {
         doingNow: data.pipelines ? "Watching pipeline stages + opportunity flow" : "Manual via Hub360ai admin",
         upNext: "Agent build slot 5c — add workflow exec count + webhook latency tracking",
       }}
-      ownedTitle={data.pipelines ? "GHL pipeline health · live" : "GHL surfaces · MOCK (needs GHL_API_KEY)"}
+      ownedTitle={data.pipelines ? "GHL pipeline health · live" : "GHL surfaces · MOCK (needs GHL_PIT_TOKEN)"}
       ownedRows={realRows}
       ownedFooter={
         <div className="flex gap-2">

@@ -7,7 +7,7 @@
  *   VERCEL_TOKEN          - api.vercel.com bearer, full account scope
  *   VERCEL_PROJECT_ID     - prj_xxx for aoh-website
  *   GITHUB_PAT            - github.com fine-grained token, repo:read on aoh-inc/aoh-website + aoh-inc/aoh-tooling
- *   GHL_API_KEY           - Hub360ai PIT (Bearer pit-xxx)
+ *   GHL_PIT_TOKEN           - Hub360ai PIT (Bearer pit-xxx)
  *   GHL_LOCATION_ID       - sub-account id (visible in Hub360 admin URL)
  *
  * All fetchers cache for 60s via Next's `next: { revalidate: 60 }`.
@@ -29,8 +29,10 @@ export type LatestDeploy = {
 
 export async function getLatestDeploy(): Promise<LatestDeploy | null> {
   const token = process.env.VERCEL_TOKEN;
-  const projectId = process.env.VERCEL_PROJECT_ID;
-  if (!token || !projectId) return null;
+  // Known project id for aoh-inc/aoh-website — fallback so this works without
+  // needing VERCEL_PROJECT_ID set explicitly.
+  const projectId = process.env.VERCEL_PROJECT_ID ?? "prj_Wz2r5ZCXt8NyKVKQo2cbAdGCd7rw";
+  if (!token) return null;
 
   try {
     const res = await fetch(
@@ -116,7 +118,7 @@ const GHL_BASE = "https://services.leadconnectorhq.com";
 const GHL_VERSION = "2021-07-28";
 
 function ghlHeaders(): Record<string, string> | null {
-  const key = process.env.GHL_API_KEY;
+  const key = process.env.GHL_PIT_TOKEN;
   if (!key) return null;
   return {
     Authorization: `Bearer ${key}`,
