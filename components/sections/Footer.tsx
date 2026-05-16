@@ -9,9 +9,7 @@ const services = [
   { href: "/pricing#review-automation", label: "Review Automation" },
   { href: "/pricing#ai-visibility", label: "AI Visibility" },
   { href: "/pricing#reach", label: "Reach" },
-  { href: "/pricing#studio", label: "Studio" },
   { href: "/pricing#relay", label: "Relay" },
-  { href: "/pricing#full-service", label: "Full Service" },
 ];
 
 const company = [
