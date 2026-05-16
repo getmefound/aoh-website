@@ -91,11 +91,15 @@ export default function AboutPage() {
               className={`${serif} text-4xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight mb-5 max-w-5xl`}
               style={{ fontWeight: 600, fontVariationSettings: '"opsz" 144' }}
             >
-              Meet the <span className="text-green-400">team</span>.
+              You want more <span className="text-green-400">customers</span>.
             </h1>
 
+            <p className="text-xl md:text-2xl text-white leading-relaxed max-w-3xl mb-5">
+              We get you found. We bring you the rest. You run the business.
+            </p>
+
             <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-2xl">
-              We stay ahead of the technology so you don&apos;t have to.
+              Most local owners don&apos;t lose to better businesses. They lose to faster ones who showed up first in search. We fix that — and a couple things more.
             </p>
           </div>
         </section>
@@ -243,6 +247,10 @@ export default function AboutPage() {
               The way customers find local businesses just{" "}
               <span className="text-green-400">changed</span>. Most are{" "}
               <span className="text-amber-300">completely invisible</span> across the new channels.
+            </p>
+
+            <p className="mt-6 text-base md:text-lg text-white/80 leading-relaxed max-w-3xl">
+              <span className="font-bold text-white">80% of your future customers find you by searching.</span> We make sure they find YOU — Google, Maps, ChatGPT, Claude, AI Overviews — so the right name comes up first.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-wider">
