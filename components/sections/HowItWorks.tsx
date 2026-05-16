@@ -215,7 +215,7 @@ export function HowItWorks() {
             From signup to live in 48 hours.
           </h2>
           <p className="text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto leading-relaxed">
-            No long onboarding. No learning curve. We run the work; you run your business.
+            No long onboarding. No learning curve. We run the rest — you stay in your business.
           </p>
         </div>
 

@@ -4,7 +4,6 @@ import { HeroEmailForm } from "@/components/hero/HeroEmailForm";
 import { RevenueCalculator } from "@/components/RevenueCalculator";
 import { SocialProof } from "@/components/sections/SocialProof";
 import { CostCompare } from "@/components/sections/CostCompare";
-import { WhyLess } from "@/components/sections/WhyLess";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { FAQ } from "@/components/sections/FAQ";
@@ -203,13 +202,11 @@ export default function Home() {
 
         <HowItWorks />
 
-        <WhyLess />
-
         <CostCompare />
 
         <SocialProof />
 
-        <FAQ />
+        <FAQ limit={3} showSeeAllLink />
 
         <FinalCta />
       </main>
