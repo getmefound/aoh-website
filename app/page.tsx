@@ -32,6 +32,7 @@ type TeaserCard = {
   cta: string;
   iconPaths: readonly string[];
   highlight?: boolean;
+  jobLabel: "Get Found" | "Find Customers";
 };
 
 const teaserCards: TeaserCard[] = [
@@ -48,6 +49,7 @@ const teaserCards: TeaserCard[] = [
     href: "https://pay.aioutsourcehub.com/review-automation-plan",
     cta: "Start Review Automation",
     iconPaths: ICON_PATHS.star,
+    jobLabel: "Get Found",
   },
   {
     name: "AI Visibility",
@@ -63,6 +65,7 @@ const teaserCards: TeaserCard[] = [
     cta: "Start AI Visibility",
     iconPaths: ICON_PATHS.search,
     highlight: true,
+    jobLabel: "Get Found",
   },
   {
     name: "Reach — Lead Engine",
@@ -77,6 +80,7 @@ const teaserCards: TeaserCard[] = [
     href: "https://pay.aioutsourcehub.com/reach-plan",
     cta: "Start Reach",
     iconPaths: ICON_PATHS.target,
+    jobLabel: "Find Customers",
   },
 ];
 
@@ -99,13 +103,13 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                What we run for you
+                Get found. Find customers. Run your business.
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-body)] mb-4">
-                We grade your online presence. Then we fix it.
+                Customers can&apos;t find you when they search. We fix that — three ways.
               </h2>
               <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
-                Reviews. Listings. AI search. Google ranking. And the new customers you&apos;re missing. Most owners only see one piece — we run all of it.
+                <span className="font-bold text-[var(--color-text-body)]">80% of your future customers find you by searching.</span> We get you found on Google, in ChatGPT, and across AI search. We also bring you the customers who haven&apos;t found you yet. And we run it all — so you stay in your business.
               </p>
             </div>
 
@@ -123,14 +127,19 @@ export default function Home() {
                       <BackgroundBeams />
 
                       <div className="relative z-10 flex h-full flex-col p-8 md:p-10">
-                        {p.highlight && (
-                          <div className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--color-accent)]/15 px-3 py-1 ring-1 ring-[var(--color-accent)]/40">
-                            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
-                            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                              Most popular
+                        <div className="mb-4 flex flex-wrap items-center gap-2">
+                          <span className="inline-flex w-fit items-center rounded-full border border-[var(--color-hero-border)] bg-white/5 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-hero-subtext)]">
+                            {p.jobLabel}
+                          </span>
+                          {p.highlight && (
+                            <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--color-accent)]/15 px-3 py-1 ring-1 ring-[var(--color-accent)]/40">
+                              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
+                              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                                Most popular
+                              </span>
                             </span>
-                          </div>
-                        )}
+                          )}
+                        </div>
 
                         <div className="mb-6 flex items-start justify-between gap-4">
                           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent)]/15 text-[var(--color-accent)] ring-1 ring-[var(--color-accent)]/30">
