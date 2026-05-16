@@ -44,15 +44,6 @@ const SERVICES: Service[] = [
     iconPaths: ICON_PATHS.target,
   },
   {
-    slug: "studio",
-    name: "Studio � Content Engine",
-    oneLiner: "Branded posts 3�5�/week in your voice.",
-    monthly: 349,
-    setup: 299,
-    href: "https://pay.aioutsourcehub.com/studio",
-    iconPaths: ICON_PATHS.studio,
-  },
-  {
     slug: "relay",
     name: "Relay � Phone Answering",
     oneLiner: "24/7 multilingual receptionist. Books calls.",
@@ -63,9 +54,6 @@ const SERVICES: Service[] = [
   },
 ];
 
-const STACK_MONTHLY = 999;
-const STACK_SETUP = 999;
-const STACK_HREF = "https://pay.aioutsourcehub.com/full-service";
 const BOOKING_HREF = "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56";
 
 function money(n: number) {
@@ -91,9 +79,7 @@ export function StackBuilder() {
     const monthly = picks.reduce((acc, s) => acc + s.monthly, 0);
     const setup = picks.reduce((acc, s) => acc + s.setup, 0);
     const count = picks.length;
-    const monthlySavings = Math.max(0, monthly - STACK_MONTHLY);
-    const showStackSuggestion = monthly > 700;
-    return { picks, monthly, setup, count, monthlySavings, showStackSuggestion };
+    return { picks, monthly, setup, count };
   }, [selected]);
 
   const cta = (() => {
@@ -268,31 +254,6 @@ export function StackBuilder() {
             </div>
           </div>
 
-          {totals.showStackSuggestion && (
-            <p className="mb-4 text-xs leading-relaxed text-[var(--color-hero-subtext)]">
-              Or get everything for{" "}
-              <span className="font-mono text-[var(--color-hero-text)]">{money(STACK_MONTHLY)}/mo</span>
-              {totals.monthlySavings > 0 ? (
-                <>
-                  {" "}� save{" "}
-                  <span className="font-semibold text-[var(--color-hero-text)]">
-                    {money(totals.monthlySavings)}/mo
-                  </span>
-                </>
-              ) : null}{" "}
-              (
-              <Link
-                href={STACK_HREF}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 text-[var(--color-accent)] hover:text-[var(--color-accent-hover)]"
-              >
-                switch to Whole Stack
-              </Link>
-              )
-            </p>
-          )}
-
           {cta.disabled ? (
             <button
               type="button"
@@ -355,31 +316,6 @@ export function StackBuilder() {
               </p>
             </div>
           </div>
-
-          {totals.showStackSuggestion && (
-            <p className="mb-2 text-[11px] leading-relaxed text-[var(--color-hero-subtext)]">
-              Or all of it for{" "}
-              <span className="font-mono text-[var(--color-hero-text)]">{money(STACK_MONTHLY)}/mo</span>
-              {totals.monthlySavings > 0 ? (
-                <>
-                  {" "}� save{" "}
-                  <span className="font-semibold text-[var(--color-hero-text)]">
-                    {money(totals.monthlySavings)}/mo
-                  </span>
-                </>
-              ) : null}{" "}
-              (
-              <Link
-                href={STACK_HREF}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 text-[var(--color-accent)]"
-              >
-                switch to Whole Stack
-              </Link>
-              )
-            </p>
-          )}
 
           {cta.disabled ? (
             <button

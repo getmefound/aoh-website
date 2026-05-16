@@ -405,7 +405,7 @@ export function CostCompare() {
         </div>
 
         <p className="mt-6 text-center text-xs text-[var(--color-text-muted)] max-w-3xl mx-auto leading-relaxed">
-          Prices reflect publicly listed rates as of 2026: Birdeye Standard ($349/mo), Yext Essential / BrightLocal ($37–$39/mo), Profound Starter ($99/mo, ChatGPT-only tier), and typical small-business marketing-assistant labor. Voice answering (Relay) and content production (Studio) are separate AOH products — add as you scale.
+          Prices reflect publicly listed rates as of 2026: Birdeye Standard ($349/mo), Yext Essential / BrightLocal ($37–$39/mo), Profound Starter ($99/mo, ChatGPT-only tier), and typical small-business marketing-assistant labor. Voice answering (Relay) is a separate AOH product — add as you scale.
         </p>
       </div>
     </section>

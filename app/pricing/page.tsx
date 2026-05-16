@@ -101,6 +101,11 @@ const products: ProductDetailData[] = [
     cadenceLabel: "/mo",
     setup: "$199 setup",
     promoNote: "First month $99 (save $100) — then $199/mo. 30 days fully refundable. No contract.",
+    coupon: {
+      code: "FOUND100",
+      headline: "$100 off your first month",
+      sub: "Apply at checkout. New customers only.",
+    },
     ctaLabel: "Get named in ChatGPT — $99 first month →",
     ctaHref: "https://pay.aioutsourcehub.com/ai-visibility-page",
     secondaryCtaHref: BOOKING_HREF,

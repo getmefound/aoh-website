@@ -68,24 +68,6 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     ctaKind: "subscribe",
   },
   {
-    slug: "studio",
-    name: "Studio — Content",
-    price: "$599",
-    cadence: "/month",
-    setup: "$299 setup",
-    summary:
-      "Done-for-you content creation and publishing in your brand voice. Branded posts on autopilot.",
-    whatYouGet: [
-      "Branded posts published 3-5× per week",
-      "Custom images generated in your style",
-      "Monthly campaign themes aligned with your offers",
-      "Brand voice training (one-time onboarding)",
-      "Fully managed — we write, design, and post",
-    ],
-    ctaUrl: "https://pay.aioutsourcehub.com/studio",
-    ctaKind: "subscribe",
-  },
-  {
     slug: "reach",
     name: "Reach — Lead Engine",
     price: "$449",
@@ -101,25 +83,6 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Fully managed — we write, send, reply, book",
     ],
     ctaUrl: "https://pay.aioutsourcehub.com/reach-plan",
-    ctaKind: "subscribe",
-  },
-  {
-    slug: "full-service",
-    name: "Full Service",
-    price: "$999",
-    cadence: "/month",
-    setup: "$999 setup",
-    summary:
-      "Every AOH service combined. One bill, one onboarding, one monthly call. Save over $700/mo vs buying each piece separately.",
-    whatYouGet: [
-      "AI Visibility (Reviews + AI search) included",
-      "Relay Phone Answering (1,000 minutes/month)",
-      "Reach Lead Engine",
-      "Studio Content",
-      "Custom Website Rebuild ($999 build included)",
-      "Single bill + priority response queue",
-    ],
-    ctaUrl: "https://pay.aioutsourcehub.com/full-service",
     ctaKind: "subscribe",
   },
 ];

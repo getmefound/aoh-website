@@ -20,10 +20,6 @@ ongoing optimization. Starting at $3/day, no contract.
 Multilingual AI receptionist that answers calls, books appointments, and handles customer
 inquiries 24/7 in 27+ languages. Fully managed — AOH handles setup, training, and operation.
 
-### Studio — AI Content
-Done-for-you AI content production — social media posts, images, carousels, and campaigns,
-created and published in the business owner's brand voice.
-
 ### Custom AI Agents
 Custom-built AI agents for business owners. Example: Business Owner Briefing — a daily AI
 digest of business performance, leads, and alerts delivered automatically each morning.

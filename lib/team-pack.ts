@@ -132,13 +132,11 @@ export const SURFACES: Surface[] = [
 That's what AI Outsource Hub runs for you â€” done-for-you growth, no dashboards, no retainer.
 
 ${B_WHAT_I_DO}
-Six services starting at $49/month:
+Four services starting at $49/month:
 Â· Review Automation â€” every customer asked, every Google review chased, replies handled
 Â· AI Visibility â€” get cited by ChatGPT, Google AI, Claude
 Â· Reach â€” outbound lead generation
-Â· Studio â€” content production
 Â· Relay â€” 24/7 phone answering for after-hours calls
-Â· Full Service â€” all six bundled
 
 ${B_HOW}
 We set it up. We run it. You get daily updates by text and email. No app to download. No dashboard to learn. No 12-month contract.

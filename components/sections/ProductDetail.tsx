@@ -31,6 +31,11 @@ export type ProductDetailData = {
     note?: string;
   };
   promoNote?: string;
+  coupon?: {
+    code: string;
+    headline: string;
+    sub?: string;
+  };
 };
 
 type NextRef = { label: string; href: string };
@@ -288,6 +293,39 @@ export function ProductDetail({
                 }`}>
                   🏷 {data.promoNote}
                 </p>
+              )}
+              {data.coupon && (
+                <div
+                  className={`mb-4 rounded-xl border-2 border-dashed px-4 py-3 ${
+                    dark
+                      ? "border-[var(--color-accent)]/60 bg-[var(--color-accent)]/10"
+                      : "border-[var(--color-accent)]/50 bg-[var(--color-accent)]/[0.06]"
+                  }`}
+                >
+                  <p
+                    className={`text-sm font-semibold leading-tight ${
+                      dark ? "text-[var(--color-hero-text)]" : "text-[var(--color-text-body)]"
+                    }`}
+                  >
+                    {data.coupon.headline}
+                  </p>
+                  <p
+                    className={`mt-1 font-mono text-base font-bold tracking-wider ${
+                      dark ? "text-[var(--color-accent)]" : "text-[var(--color-accent)]"
+                    }`}
+                  >
+                    Code: {data.coupon.code}
+                  </p>
+                  {data.coupon.sub && (
+                    <p
+                      className={`mt-1 text-[11px] ${
+                        dark ? "text-[var(--color-hero-subtext)]" : "text-[var(--color-text-muted)]"
+                      }`}
+                    >
+                      {data.coupon.sub}
+                    </p>
+                  )}
+                </div>
               )}
               <div className="space-y-2">
                 <Link
