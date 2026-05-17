@@ -301,6 +301,16 @@ export const BOARD_TASKS: BoardTask[] = [
     tags: ["gbp", "manager-access", "reviews"],
   },
   {
+    title: "Rotate exposed OpenClaw gateway token",
+    client: "AOH",
+    service: "Mission Control",
+    agent: "Auditor",
+    status: "Assigned",
+    priority: "P0",
+    due: "Now",
+    tags: ["security", "secrets", "openclaw"],
+  },
+  {
     title: "Teach GHL Expert Review Automation backend setup",
     client: "AOH",
     service: "Review Automation",
@@ -419,6 +429,13 @@ export const SCHEDULED_WORK: ScheduledWork[] = [
     owner: "Manager",
     checks: ["Vercel deploy", "GitHub latest commit", "GHL API", "Slack bot presence"],
     reason: "Catches broken pipes before client work depends on them.",
+  },
+  {
+    cadence: "Daily",
+    title: "Secret exposure sweep",
+    owner: "Auditor",
+    checks: ["Tokens in URLs", "Secrets in source code", "Public screenshots", "Unsafe client-side env vars"],
+    reason: "Catches leaked credentials before a screenshot, browser history, or repo commit turns them into an incident.",
   },
   {
     cadence: "Daily",
