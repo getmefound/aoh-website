@@ -162,7 +162,24 @@ function JobCostCard({
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="mt-5 rounded-xl border border-zinc-800/70 bg-black/20 p-4">
+        <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
+          Job overview
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-zinc-400">{job.overview}</p>
+        <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
+          {job.agentRoles.map((item) => (
+            <div key={`${job.slug}-${item.agent}`} className="rounded-lg border border-zinc-800/70 bg-zinc-950/70 p-3">
+              <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-300">
+                {item.agent}
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-zinc-500">{item.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
           <div className="mb-3 flex items-center justify-between gap-3">
             <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
@@ -249,4 +266,3 @@ function statusLabel(status: JobCostStatus) {
   if (status === "paused") return "paused";
   return "too early";
 }
-

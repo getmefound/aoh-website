@@ -5,6 +5,11 @@ export type ScheduledJobCost = {
   name: string;
   service: string;
   owner: string;
+  overview: string;
+  agentRoles: {
+    agent: string;
+    role: string;
+  }[];
   cadence: string;
   status: JobCostStatus;
   startedOn: string;
@@ -29,6 +34,16 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     name: "Reviews Outreach - Reach lead engine",
     service: "Reach",
     owner: "Scout + Sender + Sorter + Booker",
+    overview:
+      "Find likely buyers, enrich contact details, send outreach in AOH's voice, sort replies, and turn interested replies into booked calls.",
+    agentRoles: [
+      { agent: "Scout", role: "Finds the right local businesses and checks whether they look like a fit." },
+      { agent: "Enricher", role: "Adds usable email, phone, website, and business details before outreach." },
+      { agent: "Sender", role: "Prepares and sends the outreach sequence without making it sound templated." },
+      { agent: "Sorter", role: "Reads replies, separates real interest from noise, and flags hot leads." },
+      { agent: "Booker", role: "Moves interested replies toward a call on the calendar." },
+      { agent: "Auditor", role: "Checks cost, booked-call rate, and whether the list/copy should change." },
+    ],
     cadence: "Daily at 7:00am",
     status: "watch",
     startedOn: "2026-05-14",
@@ -59,6 +74,15 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     name: "AI Visibility Outreach",
     service: "Reach",
     owner: "Scout + Sender + Sorter",
+    overview:
+      "Find businesses with weak local/AI visibility signals, start the conversation, and watch whether the offer creates audit calls.",
+    agentRoles: [
+      { agent: "Scout", role: "Finds prospects with profile, review, citation, or AI visibility gaps." },
+      { agent: "Sender", role: "Sends the visibility-audit angle and keeps the message aligned to AOH's offer." },
+      { agent: "Sorter", role: "Classifies replies and sends interested leads toward discovery." },
+      { agent: "Profile", role: "Provides the visibility checklist and proof points used in the pitch." },
+      { agent: "Auditor", role: "Watches reply quality and whether booked audits justify the daily spend." },
+    ],
     cadence: "Daily at 7:15am",
     status: "watch",
     startedOn: "2026-05-14",
@@ -82,6 +106,13 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     name: "GHL workflow heartbeat",
     service: "Mission Control",
     owner: "GHL Expert",
+    overview:
+      "Check the HighLevel systems that make bookings, workflows, and pipeline movement work before failures reach Mike or a client.",
+    agentRoles: [
+      { agent: "GHL Expert", role: "Checks workflow errors, calendar sync, pipeline movement, and webhook health." },
+      { agent: "Manager", role: "Turns any failure into a visible Mission Control task or blocker." },
+      { agent: "Auditor", role: "Reviews recurring failures and decides whether the system is drifting." },
+    ],
     cadence: "Daily",
     status: "worth-it",
     startedOn: "2026-05-17",
@@ -104,6 +135,13 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     name: "Secret exposure sweep",
     service: "Security",
     owner: "Auditor",
+    overview:
+      "Scan for obvious credential leaks, unsafe token exposure, and risky public/client-side configuration before they become incidents.",
+    agentRoles: [
+      { agent: "Auditor", role: "Runs the sweep, flags exposures, and blocks risky deploys." },
+      { agent: "Manager", role: "Routes any security fix to the right owner and keeps it visible." },
+      { agent: "GHL Expert", role: "Helps when leaked or unsafe credentials touch HighLevel integrations." },
+    ],
     cadence: "Daily",
     status: "worth-it",
     startedOn: "2026-05-17",
@@ -126,6 +164,14 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     name: "Profile visibility sweep",
     service: "AI Visibility",
     owner: "Profile",
+    overview:
+      "Check AOH or client profiles for basic visibility decay: profile completeness, reviews, unanswered reviews, and NAP drift.",
+    agentRoles: [
+      { agent: "Profile", role: "Checks GBP completeness, reviews, photos, services, categories, and NAP consistency." },
+      { agent: "GHL Expert", role: "Confirms connected HighLevel/GBP pieces still sync where needed." },
+      { agent: "Auditor", role: "Confirms recurring profile issues are not being ignored." },
+      { agent: "Coach", role: "Turns findings into client-facing explanations or monthly report language." },
+    ],
     cadence: "Weekly",
     status: "too-early",
     startedOn: "2026-05-17",
@@ -169,4 +215,3 @@ export function formatUsd(amount: number): string {
     maximumFractionDigits: amount >= 100 ? 0 : 2,
   }).format(amount);
 }
-
