@@ -122,16 +122,27 @@ export const SERVICES: ServiceWork[] = [
 export const AGENT_SKILLS: AgentSkillProfile[] = [
   {
     agent: "Manager",
-    role: "Fleet orchestration and work assignment",
+    role: "Fleet orchestration, model routing, and work assignment",
     skills: [
       "task-routing",
+      "model-tier-selection",
+      "risk-classification",
+      "reviewer-assignment",
+      "proof-before-done",
       "handoff-planning",
       "client-blocker-triage",
       "launch-readiness",
+      "antigravity-vscode-coordination",
+      "cost-aware-agent-routing",
+      "mike-escalation-rules",
       "daily-briefs",
     ],
     serviceOwners: ["All services"],
-    sourceDocs: ["docs/AGENT_OPERATING_MODEL.md", "docs/REVIEW_AUTOMATION_AGENT_SKILLS.md"],
+    sourceDocs: [
+      "docs/AGENT_OPERATING_MODEL.md",
+      "docs/MANAGER_ROUTING_SKILL_PACK.md",
+      "docs/REVIEW_AUTOMATION_AGENT_SKILLS.md",
+    ],
   },
   {
     agent: "Profile",

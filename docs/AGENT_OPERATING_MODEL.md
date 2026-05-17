@@ -52,6 +52,16 @@ Owns orchestration. Manager decides what is ready, who owns the next step, and w
 
 Manager does not do specialist setup unless explicitly assigned.
 
+Manager is also the model/tool router. Manager decides whether a task should use a cheap/local model, Gemini/DeepSeek/Grok-style credit model, or a premium build/review model such as Codex or Claude Code.
+
+Manager must route by risk:
+
+- low-risk summaries, formatting, and first drafts can use cheap/local models
+- research and SOP expansion can use medium/credit models
+- production code, GHL live workflows, outbound campaign launch, security, billing, and client launch decisions require premium review
+
+Manager cannot mark work Done until the required proof exists. The detailed routing rules live in `docs/MANAGER_ROUTING_SKILL_PACK.md`.
+
 ### Scout
 
 Owns research. Scout finds current platform docs, saved training, videos, edge cases, and examples.
@@ -110,6 +120,7 @@ Auditor also owns security drift. Before deploys and during daily checks, Audito
 - Sorter hands back to GHL Expert when the list is ready to import.
 - GHL Expert hands off to Auditor before launch is marked done.
 - Auditor hands off to Manager when setup is verified or when a blocker needs client/Mike action.
+- Manager hands off model/tool selection before work begins and records the reviewer/proof required before Done.
 
 ## Mission Control Should Show
 
@@ -125,6 +136,8 @@ Auditor also owns security drift. Before deploys and during daily checks, Audito
 - next expected action
 - launch readiness
 - post-launch monitoring status
+- model/tool tier used when the work is agent-driven
+- proof required before Done
 
 ## Auditor Security Checklist
 
@@ -145,3 +158,4 @@ If the sweep fails, fix the exposure before deploy. If a token was already visib
 - HighLevel GBP integration: https://help.gohighlevel.com/support/solutions/articles/48001222899-how-to-integrate-google-business-profile-gbp-with-highlevel
 - HighLevel Reputation Management docs: https://help.gohighlevel.com/support/solutions/48000449583
 - Google review API capabilities: https://developers.google.com/my-business/content/review-data
+- Manager routing and model/tool selection: `docs/MANAGER_ROUTING_SKILL_PACK.md`

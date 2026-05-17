@@ -53,6 +53,17 @@ It documents:
 - Auditor owns launch QA and drift checks
 - Manager owns handoffs, blockers, and status
 
+Manager routing doc:
+
+- `docs/MANAGER_ROUTING_SKILL_PACK.md`
+
+This defines how Manager chooses the right agent, model/tool tier, reviewer, proof requirement, and Mike escalation path. It also defines the Antigravity + VS Code parallel operating rule:
+
+- GitHub is the source of truth.
+- VS Code/Codex remains the trusted control room until Antigravity proves reliable.
+- Antigravity starts on low-risk docs, SOPs, checklists, research, and drafts.
+- Auditor reviews Antigravity output before production, GHL workflows, outbound sends, billing, or security work.
+
 ## Review Automation Agent Skills
 
 Main doc:
