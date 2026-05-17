@@ -3,18 +3,19 @@ const OPENCLAW_BASE = "https://hubgateway.aioutsourcehub.com";
 
 export async function GET() {
   try {
-    // Server-side login POST (avoids mixed-content HTTPS→HTTP issue)
+    // Server-side login POST with automatic redirect following
     const res = await fetch(`${OPENCLAW_BASE}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `token=${encodeURIComponent(OPENCLAW_TOKEN)}`,
-      redirect: "manual",
+      redirect: "follow",
+      credentials: "include",
     });
 
-    // Extract cookie from OpenClaw response
+    // Extract all cookies from the response chain
     const setCookie = res.headers.get("set-cookie");
 
-    // Return page that redirects to OpenClaw with JS (no mixed content)
+    // Return JS redirect to OpenClaw (session preserved via cookie)
     const html = `
 <!DOCTYPE html>
 <html>
@@ -34,7 +35,7 @@ export async function GET() {
       headers: { "Content-Type": "text/html; charset=utf-8" },
     });
 
-    // Forward cookie so session works after redirect
+    // Forward all cookies so session persists
     if (setCookie) {
       response.headers.set("set-cookie", setCookie);
     }
