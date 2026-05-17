@@ -1,45 +1,36 @@
-import { NextResponse } from "next/server";
-
 const OPENCLAW_TOKEN = "hgIa8rM0e2xzJODyAg1rsOCPRBWKsl3K";
 const OPENCLAW_BASE = "http://2.24.198.207:56006";
 
 export async function GET() {
-  try {
-    const loginUrl = `${OPENCLAW_BASE}/login`;
-    console.log("🔓 OpenClaw login", { url: loginUrl, token: OPENCLAW_TOKEN.slice(0, 5) + "..." });
+  // Return HTML form that auto-submits to OpenClaw.
+  // Browser handles the POST + redirect natively, so cookies work correctly.
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logging in to OpenClaw...</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; padding: 2rem; }
+    .loading { text-align: center; }
+    form { display: none; }
+  </style>
+</head>
+<body>
+  <div class="loading">
+    <p>Connecting to OpenClaw...</p>
+  </div>
+  <form id="login" method="POST" action="${OPENCLAW_BASE}/login">
+    <input type="hidden" name="token" value="${OPENCLAW_TOKEN}">
+  </form>
+  <script>
+    document.getElementById('login').submit();
+  </script>
+</body>
+</html>
+  `;
 
-    // POST token to OpenClaw login endpoint (must be absolute URL)
-    const res = await fetch(loginUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `token=${encodeURIComponent(OPENCLAW_TOKEN)}`,
-      redirect: "manual",
-    });
-
-    console.log("📡 OpenClaw response", { status: res.status });
-
-    // Extract Set-Cookie header from OpenClaw response
-    const setCookie = res.headers.get("set-cookie");
-    const location = res.headers.get("location");
-
-    console.log("🍪 Cookie:", setCookie ? "present" : "none", "| Location:", location);
-
-    // Session is in the connect.sid cookie, redirect to OpenClaw homepage
-    // (ignore location header which contains fragment)
-    const redirectUrl = `${OPENCLAW_BASE}/`;
-    console.log("🔄 Redirect to:", redirectUrl, "| With cookie:", setCookie ? "yes" : "no");
-
-    const redirectResponse = NextResponse.redirect(redirectUrl);
-
-    // Forward the session cookie so user stays logged in after redirect
-    if (setCookie) {
-      redirectResponse.headers.set("set-cookie", setCookie);
-      console.log("✅ Session cookie forwarded");
-    }
-
-    return redirectResponse;
-  } catch (error) {
-    console.error("❌ OpenClaw login failed:", error);
-    return NextResponse.json({ error: String(error) }, { status: 500 });
-  }
+  return new Response(html, {
+    status: 200,
+    headers: { "Content-Type": "text/html; charset=utf-8" },
+  });
 }

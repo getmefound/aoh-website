@@ -17,13 +17,16 @@ Default path:
 6. Sorter/GHL Expert handle customer list and POS/CRM connection as the next phase.
 7. Auditor verifies launch.
 
+Base Review Automation is email-only review automation plus a one-time Google Business Profile audit/fix and monthly digest. SMS review requests, Reviews AI, AI-drafted replies, ongoing AI Visibility work, and social review posting belong to AI Visibility or another approved upgrade.
+
 ## Scout Skill Pack
 
 Purpose: keep the knowledge current.
 
 Scout must know how to research:
 
-- official HighLevel docs for Reputation, GBP integration, Reviews AI, workflows, snapshots, custom values, widgets, webhooks, phone/SMS, and CRM integrations
+- official HighLevel docs for Reputation, GBP integration, workflows, snapshots, custom values, widgets, webhooks, email sending, and CRM integrations
+- official HighLevel docs for Reviews AI, phone/SMS, and social planner as upgrade/service modules
 - official Google Business Profile docs for owners/managers, agency invites, verification, reviews, posts, photos, services, and profile edits
 - saved AOH Drive/Obsidian SOPs and checklist notes
 - edge cases from client onboarding problems
@@ -95,11 +98,13 @@ GHL Expert must know:
 - how to connect Google Business Profile inside HighLevel
 - how to confirm Google reviews are syncing into Reputation
 - how to configure Reputation settings
-- how to configure Reviews AI and reply tone/signature
+- how to keep base Review Automation email-only unless the client has AI Visibility
+- how to configure Reviews AI and reply tone/signature for AI Visibility upgrades
 - how to configure review request workflows
 - how to configure trigger links and webhooks
 - how to create review widgets
-- how to configure phone/SMS/email sending basics
+- how to configure email sending basics
+- how to configure phone/SMS basics for upgrade plans and other services
 - how to connect POS/CRM later through native integration, Zapier, CRM Connector, or manual CSV flow
 - how to test the setup before launch
 
@@ -111,7 +116,7 @@ GHL Expert "done" means:
 - GBP connected inside HighLevel
 - reviews visible/syncing in Reputation, or blocker recorded
 - review request workflow configured
-- Reviews AI configured if included
+- Reviews AI configured only if AI Visibility or another upgrade is included
 - review widget created if included
 - launch test passed or blocker assigned
 - Auditor notified for verification
@@ -153,7 +158,7 @@ Auditor must know how to check:
 - workflows are active only where intended
 - test contact receives the expected message/email
 - reply number and links are correct
-- Reviews AI tone/signature are correct
+- Reviews AI tone/signature are correct if the client has AI Visibility
 - customer list import did not create obvious bad data
 - first 1-2 weeks of send/review activity
 
@@ -189,11 +194,11 @@ Manager "done" means:
 Client-facing instructions should be built around these sections:
 
 1. Business information
-2. Review reply preferences
+2. Review request/customer-flow preferences
 3. Google Business Profile manager invite to AOH
 4. Customer list upload, optional at first
 5. POS/CRM information for later integration
-6. Social access, only if included
+6. Upgrade-only reply/SMS/social details, only if included
 7. Final confirmation
 
 ## Current Research Anchors

@@ -14,7 +14,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   {
     slug: "review-automation",
     name: "Review Automation",
-    price: "$99",
+    price: "$49",
     cadence: "/month",
     setup: "No setup fee",
     summary:
@@ -22,7 +22,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     whatYouGet: [
       "Automated email review requests after every job",
       "One-time Google Business Profile audit + fix",
-      "You reply to reviews yourself (upgrade for replies in your voice)",
+      "You reply to reviews yourself (upgrade to AI Visibility for replies in your voice + SMS)",
       "Monthly digest email — what was sent, what came in",
       "Cancel anytime · no contract",
     ],
@@ -32,7 +32,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   {
     slug: "ai-visibility",
     name: "AI Visibility",
-    price: "$299",
+    price: "$199",
     cadence: "/month",
     setup: "$199 setup",
     summary:
@@ -51,7 +51,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   {
     slug: "relay",
     name: "Relay — Phone Answering",
-    price: "$399",
+    price: "$299",
     cadence: "/month",
     setup: "$299 setup",
     summary:

@@ -22,6 +22,26 @@ Profile handles the authority step. GHL Expert handles the HighLevel connection 
 
 HighLevel's GBP integration is the path that syncs Google messages, reviews, and reputation data into the CRM. Once connected, the Reputation area is where reviews, review requests, widgets, Reviews AI, summaries, and related reputation tools live.
 
+## AOH Plan Boundary
+
+Base Review Automation includes:
+
+- automated email review requests after completed jobs
+- one-time Google Business Profile audit/fix
+- customer-flow mapping through CRM/POS or a simple form
+- monthly digest of what was sent and what came in
+- no setup fee, no contract
+
+Base Review Automation does not include:
+
+- SMS review requests
+- AI-drafted review replies
+- Reviews AI auto-replies
+- ongoing AI Visibility work
+- social review posting
+
+Those belong to AI Visibility or another upgrade unless Mike explicitly approves an exception.
+
 ## Setup Flow
 
 ### 1. Confirm client is ready
@@ -31,14 +51,14 @@ Required before GHL setup:
 - payment/order confirmed by Manager
 - business basics submitted
 - AOH has GBP manager access or a blocker is recorded
-- review reply tone/language submitted, if Reviews AI is included
+- review request/customer-flow details submitted
 
 Optional but useful:
 
 - customer list
 - POS/CRM name
 - logo/photo
-- social posting access
+- social posting access only for upgrade plans
 
 ### 2. Create or confirm subaccount
 
@@ -71,7 +91,7 @@ After loading:
 
 Custom Values are key/value pairs that can be reused across the platform. Update the client's values before turning on workflows.
 
-Typical Review Automation values:
+Typical base Review Automation values:
 
 - business name
 - owner name
@@ -80,7 +100,6 @@ Typical Review Automation values:
 - Google review link
 - logo link
 - personalized image link
-- review reply signature
 - sending email/domain
 - offer/referral text if used
 
@@ -113,12 +132,11 @@ If HighLevel shows missing permissions, use reconnect and grant the missing Goog
 
 ### 7. Configure review request settings
 
-Review requests can be sent manually or automatically from workflows.
+Base Review Automation uses email review requests. Review requests can be sent manually or automatically from workflows.
 
 GHL Expert should configure:
 
 - Reputation > Settings > Review Link
-- SMS request templates
 - email request templates
 - live template
 - retry templates
@@ -126,7 +144,7 @@ GHL Expert should configure:
 - max retries
 - review link token or element
 
-HighLevel docs indicate `{{reputation.review_link}}` is the key token for SMS review links, and email templates can use the Review Link element.
+HighLevel email templates can use the Review Link element. SMS review links and SMS templates are upgrade-plan work.
 
 ### 8. Configure workflow review requests
 
@@ -165,6 +183,8 @@ For POS/CRM later:
 Always test webhook payloads before launch.
 
 ### 10. Configure Reviews AI
+
+Plan gate: Reviews AI belongs to AI Visibility or an approved upgrade, not base Review Automation.
 
 Reviews AI can work in suggestive mode or auto-pilot mode. Reviews AI Agents can be created with tone, sentiment handling, language behavior, and brand instructions.
 
@@ -221,11 +241,11 @@ Before marking done:
 - GBP connected to correct location
 - reviews visible/syncing, or documented pending state
 - Reputation review link is correct
-- SMS/email templates are assigned
+- email templates are assigned
 - workflows are configured but not accidentally over-sending
 - trigger links point to correct destinations
 - webhook tests pass if POS/CRM is connected
-- Reviews AI settings match client preference
+- Reviews AI settings match client preference if the client has AI Visibility
 - review widget exists if included
 - Auditor has enough proof to verify
 
@@ -254,7 +274,7 @@ Review link wrong:
 
 Workflow fired but no review request sent:
 
-- SMS/email request templates not assigned
+- email request templates not assigned
 - channel disabled
 - contact missing phone/email
 - contact unsubscribed

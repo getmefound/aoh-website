@@ -36,11 +36,11 @@ The client should not need a Zoom setup call as the default path.
 They receive written instructions with screenshots and a video. Their work is to provide access and information:
 
 - business basics
-- preferred review reply style/language
 - Google Business Profile manager invite to AOH
+- how completed customers should enter the review flow
 - customer list, if available now
 - POS/CRM name and integration details, if known
-- social access only if social review posting is part of the plan
+- reply/SMS/social details only if the client has AI Visibility or another upgrade
 
 The required first launch dependency is Google Business Profile access. A customer list and POS/CRM connection can be handled as follow-up work if needed.
 
@@ -74,7 +74,7 @@ Profile verifies the client added AOH as a manager, confirms the correct busines
 
 Owns HighLevel setup and automations.
 
-GHL Expert creates/configures subaccounts, applies snapshots, updates custom values, connects GBP inside HighLevel, configures Reputation/Reviews AI/workflows/widgets, and tests technical readiness.
+GHL Expert creates/configures subaccounts, applies snapshots, updates custom values, connects GBP inside HighLevel, configures Reputation/email review workflows/widgets, and tests technical readiness. Reviews AI/SMS work belongs to AI Visibility or an approved upgrade.
 
 ### Sorter
 

@@ -21,14 +21,13 @@ Required:
 
 - business information
 - Google Business Profile manager invite to AOH
-- review reply preferences
+- review request/customer-flow details
 - final confirmation
 
 Helpful but can come later:
 
-- customer list
-- POS/CRM information
-- social media access
+- customer list if available
+- POS/CRM information if the client wants automatic ongoing sends
 - logo/team photo
 
 ## Step 1: Business Information
@@ -45,21 +44,22 @@ Client provides:
 - timezone
 - business category/industry
 
-## Step 2: Review Reply Preferences
+## Step 2: Review Request Preferences
 
 Client chooses:
 
-- reply language
-- reply signature
-- tone: professional, warm, casual, energetic, or custom
-- whether AOH should reply only to positive reviews at first
-- any words/phrases to avoid
+- how completed customers should enter the review flow
+- whether they will provide a customer list, connect a POS/CRM later, or use a simple completed-job form
+- whether review requests should start with a past customer list or only new customers going forward
+- any customers or customer types to exclude
 
 Client can add notes like:
 
-- "Use English with a Spanish signature"
-- "Keep replies short"
-- "Mention our team when natural"
+- "Only send to completed jobs"
+- "Do not send to warranty complaints"
+- "Start with new customers only"
+
+Review replies in the client's voice and SMS review requests belong to AI Visibility, not the base Review Automation plan.
 
 ## Step 3: Add AOH As Google Business Profile Manager
 
@@ -106,9 +106,9 @@ Client provides:
 
 This does not have to block initial backend setup.
 
-## Step 6: Social Access
+## Step 6: Upgrade-Only Social / Reply Details
 
-Only required if the plan includes social review posting.
+Skip this for the base Review Automation plan. Only collect this if the client bought or upgrades to AI Visibility or another plan that includes replies, SMS, or social review posting.
 
 Client provides:
 
@@ -123,7 +123,7 @@ Client confirms:
 
 - business information is accurate
 - AOH manager invite was sent
-- review preferences are accurate
+- review request preferences are accurate
 - customer list is uploaded or will come later
 - POS/CRM information is provided or will come later
 - they understand AOH will review setup and contact them if anything is missing
@@ -136,7 +136,7 @@ Internal agent flow:
 2. Profile accepts/verifies Google Business Profile access.
 3. GHL Expert creates/configures the HighLevel backend.
 4. Sorter cleans the customer list if provided.
-5. GHL Expert connects GBP, configures Reputation, review requests, Reviews AI, workflows, and widgets.
+5. GHL Expert connects GBP, configures Reputation, email review requests, workflows, and included widget/digest items.
 6. Auditor tests the setup.
 7. Manager tells the client whether setup is complete or what is still needed.
 
