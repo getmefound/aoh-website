@@ -237,6 +237,7 @@ Current security note:
 - The Hostinger OpenClaw wrapper on the VPS is intentionally patched so login redirects to `/__aoh-token-bootstrap` instead of `/#token=...`.
 - The bootstrap page stores the dashboard token in browser storage for `wss://hubgateway.aioutsourcehub.com`, then redirects to `/`.
 - The wrapper patch is persisted by `/docker/openclaw-dntw/docker-compose.yml`, which bind-mounts `/docker/openclaw-dntw/server.mjs` over `/hostinger/server.mjs`.
+- A current copy of the core AOH operations docs is stored on the VPS at `/root/aoh-docs`.
 - Next security step: add real auth/password protection in front of Mission Control.
 
 ## Auditor Security Sweep

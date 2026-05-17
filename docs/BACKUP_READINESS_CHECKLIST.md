@@ -13,6 +13,7 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 | Client/training docs | Google Drive + Obsidian | Medium until sync is confirmed |
 | Agent architecture notes | Repo docs + Obsidian sync | Medium |
 | OpenClaw/Atlantis | VPS | Medium until access is tested |
+| VPS operations docs copy | VPS `/root/aoh-docs` | Medium; synced 2026-05-17 |
 | Mission Control | Vercel at `mc.aioutsourcehub.com` | Medium until auth is added |
 | OpenClaw gateway token | Vercel env var `OPENCLAW_TOKEN` + VPS `/docker/openclaw-dntw/.env` | Medium; rotated 2026-05-17, keep in password manager |
 | OpenClaw login wrapper patch | VPS `/docker/openclaw-dntw/server.mjs` mounted by compose | Medium; bootstraps dashboard auth without browser URL token exposure |
