@@ -207,6 +207,9 @@ The internal operator pages are:
 - `https://mc.aioutsourcehub.com/ops`
   - rewrites to `/mike-mc/ops`
   - public-safe operations index
+- `https://mc.aioutsourcehub.com/jobs`
+  - rewrites to `/mike-mc/jobs`
+  - scheduled job cost and value ledger
 - `https://hubgateway.aioutsourcehub.com`
   - OpenClaw gateway
   - opened from the Mission Control top button through `/api/openclaw/login`

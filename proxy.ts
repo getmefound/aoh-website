@@ -37,6 +37,12 @@ export function proxy(req: NextRequest) {
       url.pathname = "/mike-mc/ops";
       return NextResponse.rewrite(url);
     }
+
+    if (pathname === "/jobs") {
+      const url = req.nextUrl.clone();
+      url.pathname = "/mike-mc/jobs";
+      return NextResponse.rewrite(url);
+    }
   }
 
   // Only rate-limit form submissions.
@@ -76,5 +82,5 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/ops", "/api/report/:path*", "/api/contact/:path*"],
+  matcher: ["/", "/ops", "/jobs", "/api/report/:path*", "/api/contact/:path*"],
 };
