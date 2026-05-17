@@ -55,6 +55,7 @@ It documents:
 
 Manager routing doc:
 
+- `ANTIGRAVITY_START_HERE.md`
 - `docs/MANAGER_ROUTING_SKILL_PACK.md`
 - `docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md`
 
