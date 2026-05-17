@@ -2,46 +2,33 @@ const OPENCLAW_TOKEN = "hgIa8rM0e2xzJODyAg1rsOCPRBWKsl3K";
 const OPENCLAW_BASE = "https://hubgateway.aioutsourcehub.com";
 
 export async function GET() {
-  try {
-    // Server-side login POST with automatic redirect following
-    const res = await fetch(`${OPENCLAW_BASE}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `token=${encodeURIComponent(OPENCLAW_TOKEN)}`,
-      redirect: "follow",
-      credentials: "include",
-    });
-
-    // Extract all cookies from the response chain
-    const setCookie = res.headers.get("set-cookie");
-
-    // Return JS redirect to OpenClaw (session preserved via cookie)
-    const html = `
+  const action = `${OPENCLAW_BASE}/login`;
+  const html = `
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8" />
   <title>Opening OpenClaw...</title>
 </head>
 <body>
+  <form id="openclaw-login" method="post" action=${JSON.stringify(action)}>
+    <input type="hidden" name="token" value=${JSON.stringify(OPENCLAW_TOKEN)} />
+    <noscript>
+      <button type="submit">Open OpenClaw</button>
+    </noscript>
+  </form>
   <script>
-    window.location.replace("${OPENCLAW_BASE}/");
+    document.getElementById("openclaw-login").submit();
   </script>
 </body>
 </html>
-    `;
+  `;
 
-    const response = new Response(html, {
-      status: 200,
-      headers: { "Content-Type": "text/html; charset=utf-8" },
-    });
-
-    // Forward all cookies so session persists
-    if (setCookie) {
-      response.headers.set("set-cookie", setCookie);
-    }
-
-    return response;
-  } catch (error) {
-    return new Response(`Error: ${error}`, { status: 500 });
-  }
+  return new Response(html, {
+    status: 200,
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "no-store",
+    },
+  });
 }
