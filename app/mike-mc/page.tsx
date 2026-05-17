@@ -33,8 +33,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 60;
 
-const OPENCLAW_HREF =
-  process.env.NEXT_PUBLIC_OPENCLAW_URL ?? "http://localhost:3333";
+const OPENCLAW_HREF = "/api/openclaw/login";
 
 /**
  * SLICE 2 — LIVE DATA WIRING
@@ -698,6 +697,9 @@ function AgentSkillsSection() {
             </div>
             <LabelList label="Services" items={profile.serviceOwners} />
             <LabelList label="Skills" items={profile.skills} muted />
+            {profile.sourceDocs ? (
+              <LabelList label="Source docs" items={profile.sourceDocs} muted />
+            ) : null}
           </article>
         ))}
       </div>
