@@ -89,6 +89,30 @@ Important offer boundary:
 - Base Review Automation is email-only review automation plus GBP audit/fix and monthly digest.
 - SMS, AI-drafted replies, Reviews AI, ongoing AI Visibility work, and social review posting belong to AI Visibility or another approved upgrade.
 
+## Email Campaign Agent Skills
+
+For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the following agent skills were loaded on 2026-05-17:
+
+- **Scout**: `cheap-prefilter`
+  - Pre-score prospects before deep GBP scanning to control acquisition cost
+  - Blocks the "Prospect list filter before spending" blocker
+
+- **Sender**: `dynamic-email-template`, `report-cta-generation`
+  - Build personalized emails with merge fields for business/niche/competitor data
+  - Embed prospect-specific report CTA links
+  - Blocks the "Final dynamic email template" blocker (execution)
+
+- **Coach**: `email-draft-approval`, `template-merge-field-validation`
+  - Review Sender's template drafts for voice/tone correctness
+  - Validate all merge fields resolve before send
+  - Blocks the "Final dynamic email template" blocker (review + validation)
+
+- **GHL Expert**: `report-generation-workflow`
+  - Trigger and monitor GHL workflow to generate marketing report + heatmap
+  - Blocks the "Live GHL report + heatmap workflow" blocker
+
+All 5 REACH_TOMORROW_BLOCKERS now have agent skill coverage. See `lib/control/job-costs.ts` REACH_TOMORROW_BLOCKERS for current status of each blocker.
+
 ## GHL Expert Knowledge Packs
 
 GHL Expert is not limited to reviews. The agent now has modular HighLevel knowledge packs:
