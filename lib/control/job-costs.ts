@@ -6,6 +6,17 @@ export type ScheduledJobCost = {
   service: string;
   owner: string;
   overview: string;
+  reachPart?: string;
+  salesAgentTasks: {
+    title: string;
+    description: string;
+    owner: string;
+  }[];
+  internalTasks: {
+    title: string;
+    description: string;
+    owner: string;
+  }[];
   agentRoles: {
     agent: string;
     role: string;
@@ -35,7 +46,53 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     service: "Reach",
     owner: "Scout + Sender + Sorter + Booker",
     overview:
-      "Find likely buyers, enrich contact details, send outreach in AOH's voice, sort replies, and turn interested replies into booked calls.",
+      "Reach is the outbound growth machine. It finds likely buyers, enriches their contact details, sends a clean first-touch message, sorts replies, and moves interested people toward a booked call.",
+    reachPart:
+      "This is the core Reach workflow: find the right businesses, start conversations, separate real buying signals from noise, and hand warm replies to booking.",
+    salesAgentTasks: [
+      {
+        title: "Build the prospect list",
+        description: "Scout finds businesses that look like they need review automation or local visibility help.",
+        owner: "Scout",
+      },
+      {
+        title: "Prepare usable contact records",
+        description: "Enricher turns a business name into a useful lead record with website, phone, email, and context.",
+        owner: "Enricher",
+      },
+      {
+        title: "Send the first conversation starter",
+        description: "Sender writes and sends outreach in AOH's voice so the message feels specific, not like a blast.",
+        owner: "Sender",
+      },
+      {
+        title: "Read and classify every reply",
+        description: "Sorter separates interested replies, objections, bad fits, and unsubscribe/no-response noise.",
+        owner: "Sorter",
+      },
+      {
+        title: "Turn interest into a call",
+        description: "Booker nudges warm replies toward the /talk calendar and makes sure no lead sits unanswered.",
+        owner: "Booker",
+      },
+    ],
+    internalTasks: [
+      {
+        title: "Measure cost against booked calls",
+        description: "Auditor watches daily spend, cost per booked call, reply quality, and whether the list or message should change.",
+        owner: "Auditor",
+      },
+      {
+        title: "Keep the workflow visible",
+        description: "Manager makes sure the job status, blockers, and next actions stay visible in Mission Control.",
+        owner: "Manager",
+      },
+      {
+        title: "Improve the offer loop",
+        description: "Coach turns reply patterns into better sales language, clearer objections, and future playbook updates.",
+        owner: "Coach",
+      },
+    ],
     agentRoles: [
       { agent: "Scout", role: "Finds the right local businesses and checks whether they look like a fit." },
       { agent: "Enricher", role: "Adds usable email, phone, website, and business details before outreach." },
@@ -75,7 +132,38 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     service: "Reach",
     owner: "Scout + Sender + Sorter",
     overview:
-      "Find businesses with weak local/AI visibility signals, start the conversation, and watch whether the offer creates audit calls.",
+      "A Reach campaign angle focused on local and AI visibility. It finds companies with weak public visibility signals, starts the audit conversation, and watches whether that creates discovery calls.",
+    reachPart:
+      "This is a Reach campaign variant: the sales angle is visibility/audit instead of review automation.",
+    salesAgentTasks: [
+      {
+        title: "Spot visibility gaps",
+        description: "Scout looks for weak profiles, stale reviews, poor category coverage, and unclear local presence.",
+        owner: "Scout",
+      },
+      {
+        title: "Lead with the audit angle",
+        description: "Sender frames the outreach around what customers and AI systems may not be finding.",
+        owner: "Sender",
+      },
+      {
+        title: "Route interested replies",
+        description: "Sorter identifies who wants an audit, who needs more context, and who is not a fit.",
+        owner: "Sorter",
+      },
+    ],
+    internalTasks: [
+      {
+        title: "Supply proof points",
+        description: "Profile gives the campaign the checklist and findings that make the visibility pitch credible.",
+        owner: "Profile",
+      },
+      {
+        title: "Decide whether to keep spending",
+        description: "Auditor compares replies and booked audits against the daily cost before scaling.",
+        owner: "Auditor",
+      },
+    ],
     agentRoles: [
       { agent: "Scout", role: "Finds prospects with profile, review, citation, or AI visibility gaps." },
       { agent: "Sender", role: "Sends the visibility-audit angle and keeps the message aligned to AOH's offer." },
@@ -108,6 +196,30 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     owner: "GHL Expert",
     overview:
       "Check the HighLevel systems that make bookings, workflows, and pipeline movement work before failures reach Mike or a client.",
+    salesAgentTasks: [
+      {
+        title: "Protect booked-call flow",
+        description: "GHL Expert checks the calendar, workflow, and pipeline pieces that convert interest into a real appointment.",
+        owner: "GHL Expert",
+      },
+    ],
+    internalTasks: [
+      {
+        title: "Catch broken automations",
+        description: "GHL Expert checks workflow errors, missed handoffs, calendar sync, and stuck pipeline movement.",
+        owner: "GHL Expert",
+      },
+      {
+        title: "Escalate failures",
+        description: "Manager turns any failure into a visible Mission Control item with an owner.",
+        owner: "Manager",
+      },
+      {
+        title: "Review recurring issues",
+        description: "Auditor watches for repeated breaks so the system gets fixed instead of repeatedly patched.",
+        owner: "Auditor",
+      },
+    ],
     agentRoles: [
       { agent: "GHL Expert", role: "Checks workflow errors, calendar sync, pipeline movement, and webhook health." },
       { agent: "Manager", role: "Turns any failure into a visible Mission Control task or blocker." },
@@ -137,6 +249,30 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     owner: "Auditor",
     overview:
       "Scan for obvious credential leaks, unsafe token exposure, and risky public/client-side configuration before they become incidents.",
+    salesAgentTasks: [
+      {
+        title: "Keep client trust clean",
+        description: "Auditor makes sure sales and demo links are not exposing tokens or sensitive operational details.",
+        owner: "Auditor",
+      },
+    ],
+    internalTasks: [
+      {
+        title: "Run exposure checks",
+        description: "Auditor scans for secrets in source, screenshots, URLs, and unsafe public configuration.",
+        owner: "Auditor",
+      },
+      {
+        title: "Route fixes",
+        description: "Manager sends any risk to the right owner and keeps it visible until closed.",
+        owner: "Manager",
+      },
+      {
+        title: "Review connected apps",
+        description: "GHL Expert helps if the risk touches HighLevel credentials, webhooks, or connected workflows.",
+        owner: "GHL Expert",
+      },
+    ],
     agentRoles: [
       { agent: "Auditor", role: "Runs the sweep, flags exposures, and blocks risky deploys." },
       { agent: "Manager", role: "Routes any security fix to the right owner and keeps it visible." },
@@ -166,6 +302,30 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     owner: "Profile",
     overview:
       "Check AOH or client profiles for basic visibility decay: profile completeness, reviews, unanswered reviews, and NAP drift.",
+    salesAgentTasks: [
+      {
+        title: "Create client-facing findings",
+        description: "Profile turns profile gaps, unanswered reviews, and visibility drift into simple sales talking points.",
+        owner: "Profile",
+      },
+    ],
+    internalTasks: [
+      {
+        title: "Monitor profile health",
+        description: "Profile checks GBP completeness, photos, services, categories, reviews, and NAP consistency.",
+        owner: "Profile",
+      },
+      {
+        title: "Confirm GHL connection health",
+        description: "GHL Expert verifies connected GBP or reputation pieces still sync where needed.",
+        owner: "GHL Expert",
+      },
+      {
+        title: "Turn findings into reporting",
+        description: "Coach translates checks into client-friendly explanations and monthly report language.",
+        owner: "Coach",
+      },
+    ],
     agentRoles: [
       { agent: "Profile", role: "Checks GBP completeness, reviews, photos, services, categories, and NAP consistency." },
       { agent: "GHL Expert", role: "Confirms connected HighLevel/GBP pieces still sync where needed." },

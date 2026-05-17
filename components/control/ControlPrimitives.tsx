@@ -1,9 +1,15 @@
 import type { ReactNode } from "react";
 
-export function ControlShell({ children }: { children: ReactNode }) {
+export function ControlShell({
+  children,
+  wide = false,
+}: {
+  children: ReactNode;
+  wide?: boolean;
+}) {
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-200">
-      <div className="mx-auto max-w-7xl px-4 py-8 md:px-8 md:py-12">
+      <div className={`mx-auto px-4 py-8 md:px-8 md:py-12 ${wide ? "max-w-[96rem]" : "max-w-7xl"}`}>
         {children}
       </div>
     </main>
