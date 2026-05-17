@@ -43,7 +43,7 @@ Copy-paste ready. Banner images served from the live site — right-click any UR
 >
 > aioutsourcehub.com
 
-**CTA button:** Book Now → `https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56`
+**CTA button:** Book Now → `https://app.gohighlevel.com/widget/booking/talk`
 
 ---
 
