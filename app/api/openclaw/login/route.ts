@@ -1,5 +1,5 @@
 const OPENCLAW_TOKEN = "hgIa8rM0e2xzJODyAg1rsOCPRBWKsl3K";
-const OPENCLAW_BASE = "http://2.24.198.207:56006";
+const OPENCLAW_BASE = "https://hubgateway.aioutsourcehub.com";
 
 export async function GET() {
   try {
