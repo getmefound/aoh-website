@@ -62,6 +62,8 @@ Manager must route by risk:
 
 Manager cannot mark work Done until the required proof exists. The detailed routing rules live in `docs/MANAGER_ROUTING_SKILL_PACK.md`.
 
+Manager also has a GHL overview layer. Manager is not GHL Expert, but must understand the GHL map well enough to supervise subaccounts, snapshots, custom values, workflows, calendars, pipelines, Reputation/GBP connection, webhooks, and report/heatmap proof. The detailed supervision checklist lives in `docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md`.
+
 ### Scout
 
 Owns research. Scout finds current platform docs, saved training, videos, edge cases, and examples.
@@ -159,3 +161,4 @@ If the sweep fails, fix the exposure before deploy. If a token was already visib
 - HighLevel Reputation Management docs: https://help.gohighlevel.com/support/solutions/48000449583
 - Google review API capabilities: https://developers.google.com/my-business/content/review-data
 - Manager routing and model/tool selection: `docs/MANAGER_ROUTING_SKILL_PACK.md`
+- Manager GHL supervision overview: `docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md`

@@ -56,6 +56,7 @@ It documents:
 Manager routing doc:
 
 - `docs/MANAGER_ROUTING_SKILL_PACK.md`
+- `docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md`
 
 This defines how Manager chooses the right agent, model/tool tier, reviewer, proof requirement, and Mike escalation path. It also defines the Antigravity + VS Code parallel operating rule:
 
@@ -63,6 +64,8 @@ This defines how Manager chooses the right agent, model/tool tier, reviewer, pro
 - VS Code/Codex remains the trusted control room until Antigravity proves reliable.
 - Antigravity starts on low-risk docs, SOPs, checklists, research, and drafts.
 - Auditor reviews Antigravity output before production, GHL workflows, outbound sends, billing, or security work.
+
+The GHL overview pack gives Manager enough HighLevel supervision knowledge to route and audit GHL work without becoming GHL Expert. It covers subaccounts, snapshots, custom values/fields, workflows, calendars, pipelines, Reputation/GBP connection, webhooks, report/heatmap proof, and launch gates.
 
 ## Review Automation Agent Skills
 
