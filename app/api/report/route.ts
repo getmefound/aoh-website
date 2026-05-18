@@ -13,12 +13,25 @@ const GHL_REPORT_FIELDS = {
   reportTypeRequested: "GfL56AsuzoA6UECd9OM2",
   auditReportId: "JKPbbyPcfOj7txgfLmf7",
   ppRunId: "geldiMOzEdDWrKq0S4v5",
+  productOrderCompanyName: "Ujpd3zNVGEtmiIR73OZ3",
+  emailMarketingAuditReport: "4kgAtEFQyKya1hKVWaLo",
+  cityMarketingAuditReport: "i1xZWM6PuWNBDuVqR0Dt",
+  stateMarketingAuditReport: "mOpqct6qm8DYJIIIWEl0",
+  websiteMarketingAuditReport: "iE0EbTGkRwLJMHLsr0Yj",
   leadSource: "LIILv8zU5JGSYxmRsbsB",
   auditUrl: "MtlBT8xoZZOWoK58XnpR",
   websiteSource: "PyUyFjg6Ug24wZQHz58P",
   campaignSource: "kBW9m7V0hTehnb9N3WlK",
   offerLane: "xRNb2vJGyf7lXGFscSfh",
 } as const;
+
+function parseCityState(value: string): { city: string; state: string } {
+  const [city = "", ...rest] = value.split(",");
+  return {
+    city: city.trim(),
+    state: rest.join(",").trim(),
+  };
+}
 
 async function verifyTurnstile(token: string, ip: string | null): Promise<boolean> {
   const secret = process.env.TURNSTILE_SECRET_KEY;
@@ -64,6 +77,8 @@ export async function POST(req: NextRequest) {
     secondaryReport,
     token,
     businessName,
+    businessWebsite,
+    businessLocation,
   } = body as {
     email?: unknown;
     website?: unknown;
@@ -74,6 +89,8 @@ export async function POST(req: NextRequest) {
     secondaryReport?: unknown;
     token?: unknown;
     businessName?: unknown;
+    businessWebsite?: unknown;
+    businessLocation?: unknown;
   };
 
   if (typeof website === "string" && website.trim().length > 0) {
@@ -92,6 +109,10 @@ export async function POST(req: NextRequest) {
     (typeof businessName === "string" && businessName.trim()) ||
     tokenPayload?.businessName?.trim() ||
     "";
+  const effectiveBusinessWebsite =
+    typeof businessWebsite === "string" ? businessWebsite.trim() : "";
+  const effectiveBusinessLocation =
+    typeof businessLocation === "string" ? businessLocation.trim() : "";
 
   if (!effectiveEmail) {
     return NextResponse.json({ ok: false, error: "Enter a valid email." }, { status: 400 });
@@ -102,6 +123,18 @@ export async function POST(req: NextRequest) {
   }
   if (!effectiveBusinessName) {
     return NextResponse.json({ ok: false, error: "Enter your business name." }, { status: 400 });
+  }
+  if (!tokenPayload && !effectiveBusinessWebsite) {
+    return NextResponse.json(
+      { ok: false, error: "Enter your website or Google Business Profile link." },
+      { status: 400 },
+    );
+  }
+  if (!tokenPayload && !effectiveBusinessLocation) {
+    return NextResponse.json(
+      { ok: false, error: "Enter your city and state." },
+      { status: 400 },
+    );
   }
 
   const normalizedEmail = effectiveEmail;
@@ -188,6 +221,8 @@ export async function POST(req: NextRequest) {
     source: reportLane === "website_free_report" ? "aioutsourcehub.com:homepage" : "aioutsourcehub.com:campaign",
     reportLane,
     auditUrl: reportUrl.toString(),
+    businessWebsite: effectiveBusinessWebsite,
+    businessLocation: effectiveBusinessLocation,
     customField: {
       campaign: normalizedCampaign,
       visualVariant: normalizedVisual ?? "",
@@ -198,6 +233,8 @@ export async function POST(req: NextRequest) {
       runId,
       auditUrl: reportUrl.toString(),
       businessName: effectiveBusinessName,
+      businessWebsite: effectiveBusinessWebsite,
+      businessLocation: effectiveBusinessLocation,
     },
   });
   const strictInternalTest =
@@ -239,6 +276,8 @@ type GHLPayload = {
   source: string;
   reportLane: "website_free_report" | "campaign_report";
   auditUrl: string;
+  businessWebsite: string;
+  businessLocation: string;
   customField: {
     campaign: "reviews" | "ai" | "organic";
     visualVariant: "reviews" | "ai" | "";
@@ -249,6 +288,8 @@ type GHLPayload = {
     runId: string;
     auditUrl: string;
     businessName: string;
+    businessWebsite: string;
+    businessLocation: string;
   };
 };
 
@@ -329,6 +370,7 @@ async function forwardToGHLViaApi(payload: GHLPayload): Promise<GHLForwardResult
   ].filter(Boolean);
 
   try {
+    const { city, state } = parseCityState(payload.businessLocation);
     const upsertRes = await fetch(`${GHL_API_BASE}/contacts/upsert`, {
       method: "POST",
       headers: ghlApiHeaders(token),
@@ -337,10 +379,16 @@ async function forwardToGHLViaApi(payload: GHLPayload): Promise<GHLForwardResult
         email: payload.email,
         name: payload.businessName,
         companyName: payload.businessName,
+        website: payload.businessWebsite,
         source: payload.source,
         customFields: [
           { id: GHL_REPORT_FIELDS.auditReportId, field_value: payload.runId },
           { id: GHL_REPORT_FIELDS.ppRunId, field_value: payload.runId },
+          { id: GHL_REPORT_FIELDS.productOrderCompanyName, field_value: payload.businessName },
+          { id: GHL_REPORT_FIELDS.emailMarketingAuditReport, field_value: payload.email },
+          { id: GHL_REPORT_FIELDS.websiteMarketingAuditReport, field_value: payload.businessWebsite },
+          { id: GHL_REPORT_FIELDS.cityMarketingAuditReport, field_value: city || payload.businessLocation },
+          { id: GHL_REPORT_FIELDS.stateMarketingAuditReport, field_value: state },
           { id: GHL_REPORT_FIELDS.auditUrl, field_value: payload.auditUrl },
           { id: GHL_REPORT_FIELDS.reportTypeRequested, field_value: payload.reportType },
           { id: GHL_REPORT_FIELDS.leadSource, field_value: payload.source },

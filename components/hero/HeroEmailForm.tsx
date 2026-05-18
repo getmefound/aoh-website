@@ -134,6 +134,8 @@ function HeroInner() {
 
   const [email, setEmail] = useState(tokenEmail || searchParams.get("email") || "");
   const [businessName, setBusinessName] = useState(tokenBusiness);
+  const [businessWebsite, setBusinessWebsite] = useState("");
+  const [businessLocation, setBusinessLocation] = useState("");
   const [secondaryReport, setSecondaryReport] = useState(true);
   const [reportType, setReportType] = useState<ReportType>(
     variant === "ai" ? "ai_visibility" : "marketing",
@@ -184,6 +186,14 @@ function HeroInner() {
         setError("Enter your business name.");
         return;
       }
+      if (!businessWebsite.trim()) {
+        setError("Enter your website or Google Business Profile link.");
+        return;
+      }
+      if (!businessLocation.trim()) {
+        setError("Enter your city and state.");
+        return;
+      }
     }
 
     setPending(true);
@@ -194,6 +204,8 @@ function HeroInner() {
         body: JSON.stringify({
           email: email.trim(),
           businessName: businessName.trim(),
+          businessWebsite: businessWebsite.trim(),
+          businessLocation: businessLocation.trim(),
           website: honeypotValue,
           turnstileToken: turnstileTokenRef.current,
           campaign: variant === "default" ? "organic" : variant,
@@ -314,7 +326,7 @@ function HeroInner() {
             <div className="rounded-2xl border border-[var(--color-hero-border)] bg-[var(--color-hero-bg)] p-6 md:p-8 text-[var(--color-hero-text)]">
               <form
                 onSubmit={handleSubmit}
-                className="grid grid-cols-1 gap-3 md:grid-cols-[1fr_1fr]"
+                className="grid grid-cols-1 gap-3 md:grid-cols-2"
                 aria-label="Request free reports"
                 noValidate
               >
@@ -329,6 +341,28 @@ function HeroInner() {
                       placeholder="Business name"
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
+                      className="rounded-md border border-[var(--color-hero-border)] bg-white/5 px-4 py-3 text-base text-[var(--color-hero-text)] placeholder:text-[var(--color-hero-subtext)] outline-none transition focus:border-[var(--color-accent)] focus:bg-white/10"
+                    />
+                    <label htmlFor="hero-business-website" className="sr-only">Website or Google Business Profile link</label>
+                    <input
+                      id="hero-business-website"
+                      type="text"
+                      required
+                      autoComplete="url"
+                      placeholder="Website or Google profile"
+                      value={businessWebsite}
+                      onChange={(e) => setBusinessWebsite(e.target.value)}
+                      className="rounded-md border border-[var(--color-hero-border)] bg-white/5 px-4 py-3 text-base text-[var(--color-hero-text)] placeholder:text-[var(--color-hero-subtext)] outline-none transition focus:border-[var(--color-accent)] focus:bg-white/10"
+                    />
+                    <label htmlFor="hero-business-location" className="sr-only">City and state</label>
+                    <input
+                      id="hero-business-location"
+                      type="text"
+                      required
+                      autoComplete="address-level2"
+                      placeholder="City, state"
+                      value={businessLocation}
+                      onChange={(e) => setBusinessLocation(e.target.value)}
                       className="rounded-md border border-[var(--color-hero-border)] bg-white/5 px-4 py-3 text-base text-[var(--color-hero-text)] placeholder:text-[var(--color-hero-subtext)] outline-none transition focus:border-[var(--color-accent)] focus:bg-white/10"
                     />
                     <label htmlFor="hero-email" className="sr-only">Business email</label>
