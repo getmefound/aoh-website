@@ -24,6 +24,7 @@ Read these before doing anything:
 4. `docs/REVIEW_AUTOMATION_AGENT_SKILLS.md`
 5. `docs/AOH_OPERATIONS_INDEX.md`
 6. `docs/PP_GHL_WIRING.md`
+7. `docs/AOH_REPORT_FLOW_MAP.md`
 
 ## Operating Rule
 
@@ -55,6 +56,8 @@ Default model rule:
 - premium model only for production code, live workflow design, security/billing, final outbound approval, or when a cheap model is blocked
 
 If the task touches HighLevel workflows, calendars, webhooks, contacts, opportunities, or report generation, route to **GHL Expert** automatically.
+
+If the task touches report flow, Manager must first identify the lane using `docs/AOH_REPORT_FLOW_MAP.md`: public homepage free report, campaign marketing audit/report, or GHL-to-website callback.
 
 If the task is about "is this working?", "verify", "test", "safe to launch?", "credits", "billing", or "secrets", route to **Auditor** or require Auditor review.
 
@@ -132,6 +135,7 @@ Open and read these files:
 - docs/REVIEW_AUTOMATION_AGENT_SKILLS.md
 - docs/AOH_OPERATIONS_INDEX.md
 - docs/PP_GHL_WIRING.md
+- docs/AOH_REPORT_FLOW_MAP.md
 
 Do not edit files.
 Do not run deploy commands.
@@ -156,6 +160,7 @@ Rules:
 - Do not enable HighLevel AI features or anything that spends AI credits.
 - Do not deploy, push, edit secrets, send outbound email, bulk import contacts, or change live workflows unless Mike explicitly approves.
 - If the task touches HighLevel workflows, calendars, webhooks, contacts, opportunities, report generation, Reputation, or GHL settings, assign GHL Expert.
+- If the task touches report flow, identify the lane first using docs/AOH_REPORT_FLOW_MAP.md: public homepage free report, campaign marketing audit/report, or GHL-to-website callback.
 - If the task is verification, QA, launch safety, security, billing, credentials, or "is this working?", assign Auditor or require Auditor review.
 - If the task is website code, Vercel, GitHub, API routes, or deploys, assign Codex/Website. Antigravity may inspect/draft only.
 - If the task is prospect research, assign Scout.

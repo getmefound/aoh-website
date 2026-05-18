@@ -256,6 +256,14 @@ Webhooks move data between HighLevel and the website/other systems.
 
 For AOH report/heatmap flow, Manager should know:
 
+- AOH has multiple report lanes. Read `docs/AOH_REPORT_FLOW_MAP.md` before
+  assigning report-flow work.
+- Public homepage free report intake is not automatically the same as a
+  campaign workflow named "Marketing Audit Report Ordered" or a trigger named
+  "Marketing Audit Request Form".
+- `GHL_WEBHOOK_URL` is website-to-GHL intake.
+- `https://aioutsourcehub.com/api/report/callback` is GHL-to-website callback
+  after a report is generated.
 - the website can receive report requests
 - GHL must generate report/heatmap
 - GHL must callback the website with the correct `runId`
@@ -264,6 +272,8 @@ For AOH report/heatmap flow, Manager should know:
 Proof Manager requires:
 
 - test report request created
+- correct report lane identified
+- website-to-GHL intake endpoint verified
 - GHL workflow generated a report URL
 - callback hit `/api/report/callback`
 - `/api/report/status?runId=...` moved to the expected stage

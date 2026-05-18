@@ -2,6 +2,19 @@
 
 This document is the exact wiring for AOH's PP flow now that GHL report URLs are exposed via workflow output (not API).
 
+Read first:
+
+- `docs/AOH_REPORT_FLOW_MAP.md`
+
+Important distinction:
+
+- `GHL_WEBHOOK_URL` is the website-to-GHL receiving endpoint for the public
+  homepage report route unless Manager explicitly assigns a different lane.
+- `https://aioutsourcehub.com/api/report/callback` is the GHL-to-website
+  callback after a report is generated.
+- A GHL trigger named "Marketing Audit Request Form" may be campaign-specific.
+  Do not assume it receives public homepage visitor submissions without proof.
+
 ## Current site flow (already implemented)
 
 1. Visitor submits report form (`/api/report`).
@@ -14,7 +27,7 @@ This document is the exact wiring for AOH's PP flow now that GHL report URLs are
 
 ## Required env vars (Vercel)
 
-- `GHL_WEBHOOK_URL` (already used)
+- `GHL_WEBHOOK_URL` (website-to-GHL intake endpoint for the assigned report lane)
 - `REPORT_CALLBACK_TOKEN` (new; any long random string)
 
 ## GHL workflow actions
