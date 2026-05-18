@@ -28,13 +28,16 @@ Website entrypoint:
 
 Website expectation:
 
-- The website forwards the submission to `process.env.GHL_WEBHOOK_URL`.
-- If `GHL_WEBHOOK_URL` is missing, the homepage can accept a request but GHL may
-  not receive it.
+- The website forwards the submission to
+  `process.env.GHL_WEBSITE_REPORT_WEBHOOK_URL`.
+- If that is not set, the website falls back to legacy `GHL_WEBHOOK_URL`.
+- If both are missing, the homepage can accept a request but GHL may not receive
+  it.
 
 Current operational blocker:
 
-- Vercel production is missing the correct `GHL_WEBHOOK_URL` value.
+- Vercel production is missing the correct `GHL_WEBSITE_REPORT_WEBHOOK_URL`
+  value.
 - The weekly smoke test fails until the correct receiving endpoint is added.
 
 What GHL Expert must find:
@@ -59,6 +62,13 @@ Purpose:
 - Internal or outbound campaign flow requests/generates a marketing audit for a
   prospect/contact.
 
+Website/token entrypoint:
+
+- `POST /api/report` with a signed campaign token.
+- The website forwards campaign-token submissions to
+  `process.env.GHL_CAMPAIGN_REPORT_WEBHOOK_URL`.
+- If that is not set, the website falls back to legacy `GHL_WEBHOOK_URL`.
+
 Likely GHL workflow names:
 
 - `Marketing Audit Report Ordered`
@@ -69,8 +79,8 @@ Important distinction:
 
 - A trigger named "Marketing Audit Request Form" may belong to campaign
   execution, not the public website homepage.
-- Do not use this lane for `GHL_WEBHOOK_URL` unless GHL Expert verifies it is
-  intentionally the receiver for public homepage submissions too.
+- Do not use this lane for `GHL_WEBSITE_REPORT_WEBHOOK_URL` unless GHL Expert
+  verifies it is intentionally the receiver for public homepage submissions too.
 
 ## Callback Back To Website
 

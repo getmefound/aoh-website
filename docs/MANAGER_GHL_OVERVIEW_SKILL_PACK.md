@@ -261,7 +261,9 @@ For AOH report/heatmap flow, Manager should know:
 - Public homepage free report intake is not automatically the same as a
   campaign workflow named "Marketing Audit Report Ordered" or a trigger named
   "Marketing Audit Request Form".
-- `GHL_WEBHOOK_URL` is website-to-GHL intake.
+- `GHL_WEBSITE_REPORT_WEBHOOK_URL` is public homepage website-to-GHL intake.
+- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` is campaign/token website-to-GHL intake.
+- `GHL_WEBHOOK_URL` is only a legacy fallback.
 - `https://aioutsourcehub.com/api/report/callback` is GHL-to-website callback
   after a report is generated.
 - the website can receive report requests

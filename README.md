@@ -26,7 +26,9 @@ The marketing site for **AI Outsource Hub** — a done-for-you AI services agenc
 One server route — `app/api/report/route.ts` — handles the homepage lead form + token links. Validates requests, verifies Cloudflare Turnstile (or signed token), forwards to a GHL webhook, and applies server-side rate/dedupe controls. Env vars:
 
 - `TURNSTILE_SECRET_KEY`
-- `GHL_WEBHOOK_URL`
+- `GHL_WEBSITE_REPORT_WEBHOOK_URL` (preferred for public homepage free report intake)
+- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` (optional for campaign/token report intake)
+- `GHL_WEBHOOK_URL` (legacy fallback if lane-specific envs are not set)
 - `REPORT_LINK_SECRET` (required for `/r/{token}` outbound links)
 - `REPORT_TEST_BYPASS_TOKEN` (private weekly smoke test token; set in Vercel and GitHub Actions)
 - Optional durable limits: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`
@@ -35,12 +37,15 @@ One server route — `app/api/report/route.ts` — handles the homepage lead for
 
 ## Lead capture routes + env
 
-- `/api/report` -> homepage form -> `GHL_WEBHOOK_URL`
+- `/api/report` -> homepage form -> `GHL_WEBSITE_REPORT_WEBHOOK_URL` or fallback `GHL_WEBHOOK_URL`
+- `/api/report` with signed campaign token -> `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` or fallback `GHL_WEBHOOK_URL`
 - `/api/contact` -> contact form -> `GHL_CONTACT_WEBHOOK_URL` (falls back to `GHL_WEBHOOK_URL`)
 - `/api/newsletter` -> newsletter form -> `GHL_NEWSLETTER_WEBHOOK_URL` (falls back to `GHL_WEBHOOK_URL`)
 
 Required/optional envs:
 - `TURNSTILE_SECRET_KEY` (used by report/contact anti-bot validation)
+- `GHL_WEBSITE_REPORT_WEBHOOK_URL` (public homepage report intake)
+- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` (optional campaign report intake)
 - `GHL_WEBHOOK_URL` (base fallback webhook)
 - `GHL_CONTACT_WEBHOOK_URL` (optional contact-specific webhook)
 - `GHL_NEWSLETTER_WEBHOOK_URL` (optional newsletter-specific webhook)

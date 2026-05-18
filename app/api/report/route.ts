@@ -144,6 +144,7 @@ export async function POST(req: NextRequest) {
         ? tokenPayload.reportType
       : "marketing";
   const normalizedSecondaryReport = Boolean(secondaryReport);
+  const reportLane = tokenPayload ? "campaign_report" : "website_free_report";
 
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "aioutsourcehub.com";
   const proto = req.headers.get("x-forwarded-proto") ?? "https";
@@ -171,14 +172,16 @@ export async function POST(req: NextRequest) {
     visualVariant: normalizedVisual,
     reportType: normalizedReportType,
     runId,
-    source: "aioutsourcehub.com",
+    source: reportLane === "website_free_report" ? "aioutsourcehub.com:homepage" : "aioutsourcehub.com:campaign",
+    reportLane,
     auditUrl: reportUrl.toString(),
     customField: {
       campaign: normalizedCampaign,
       visualVariant: normalizedVisual ?? "",
       reportType: normalizedReportType,
       secondaryReport: normalizedSecondaryReport,
-      source: "aioutsourcehub.com",
+      source: reportLane === "website_free_report" ? "aioutsourcehub.com:homepage" : "aioutsourcehub.com:campaign",
+      reportLane,
       runId,
       auditUrl: reportUrl.toString(),
       businessName: effectiveBusinessName,
@@ -221,6 +224,7 @@ type GHLPayload = {
   reportType: "marketing" | "ai_visibility";
   runId: string;
   source: string;
+  reportLane: "website_free_report" | "campaign_report";
   auditUrl: string;
   customField: {
     campaign: "reviews" | "ai" | "organic";
@@ -228,6 +232,7 @@ type GHLPayload = {
     reportType: "marketing" | "ai_visibility";
     secondaryReport: boolean;
     source: string;
+    reportLane: "website_free_report" | "campaign_report";
     runId: string;
     auditUrl: string;
     businessName: string;
@@ -242,8 +247,21 @@ type GHLForwardResult = {
 };
 
 async function forwardToGHL(payload: GHLPayload): Promise<GHLForwardResult> {
-  const url = process.env.GHL_WEBHOOK_URL;
-  if (!url) return { ok: false, configured: false, error: "GHL_WEBHOOK_URL is not set." };
+  const url =
+    payload.reportLane === "website_free_report"
+      ? process.env.GHL_WEBSITE_REPORT_WEBHOOK_URL?.trim() || process.env.GHL_WEBHOOK_URL?.trim()
+      : process.env.GHL_CAMPAIGN_REPORT_WEBHOOK_URL?.trim() || process.env.GHL_WEBHOOK_URL?.trim();
+  if (!url) {
+    const primary =
+      payload.reportLane === "website_free_report"
+        ? "GHL_WEBSITE_REPORT_WEBHOOK_URL"
+        : "GHL_CAMPAIGN_REPORT_WEBHOOK_URL";
+    return {
+      ok: false,
+      configured: false,
+      error: `${primary} or fallback GHL_WEBHOOK_URL is not set.`,
+    };
+  }
 
   try {
     const res = await fetch(url, {
@@ -272,7 +290,11 @@ function maybeSimulateReportLifecycle(input: {
   host: string;
   proto: string;
 }): void {
-  const hasWebhook = Boolean(process.env.GHL_WEBHOOK_URL?.trim());
+  const hasWebhook = Boolean(
+    process.env.GHL_WEBSITE_REPORT_WEBHOOK_URL?.trim() ||
+      process.env.GHL_CAMPAIGN_REPORT_WEBHOOK_URL?.trim() ||
+      process.env.GHL_WEBHOOK_URL?.trim(),
+  );
   const isProd = process.env.NODE_ENV === "production";
   if (hasWebhook || isProd) return;
 

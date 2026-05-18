@@ -8,8 +8,11 @@ Read first:
 
 Important distinction:
 
-- `GHL_WEBHOOK_URL` is the website-to-GHL receiving endpoint for the public
-  homepage report route unless Manager explicitly assigns a different lane.
+- `GHL_WEBSITE_REPORT_WEBHOOK_URL` is the website-to-GHL receiving endpoint for
+  the public homepage report route.
+- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` is the website-to-GHL receiving endpoint for
+  campaign/token report routes.
+- `GHL_WEBHOOK_URL` is only a legacy fallback.
 - `https://aioutsourcehub.com/api/report/callback` is the GHL-to-website
   callback after a report is generated.
 - A GHL trigger named "Marketing Audit Request Form" may be campaign-specific.
@@ -27,7 +30,9 @@ Important distinction:
 
 ## Required env vars (Vercel)
 
-- `GHL_WEBHOOK_URL` (website-to-GHL intake endpoint for the assigned report lane)
+- `GHL_WEBSITE_REPORT_WEBHOOK_URL` (public homepage report intake)
+- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` (optional campaign report intake)
+- `GHL_WEBHOOK_URL` (legacy fallback)
 - `REPORT_CALLBACK_TOKEN` (new; any long random string)
 
 ## GHL workflow actions
