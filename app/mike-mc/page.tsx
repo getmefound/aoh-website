@@ -50,17 +50,17 @@ const DISCOVERY_BOOKING_HREF = "https://link.hub360ai.com/widget/booking/1Xq9XMN
 const MOCK = {
   warmCalls: [
     {
-      name: "Cherrydale Lawn",
+      name: "Sample Lawn Co",
       reason: 'replied "interested in pricing"',
       tone: "hot" as const,
     },
     {
-      name: "Bill, Southington Lawn",
+      name: "Sample HVAC Co",
       reason: "clicked /pricing 3× in 48h",
       tone: "warm" as const,
     },
     {
-      name: "Hartford Insurance Brokers",
+      name: "Sample Med Spa",
       reason: "ran /#calculator + viewed AI Visibility",
       tone: "warm" as const,
     },
@@ -198,23 +198,11 @@ function SchedulerCard({ data }: { data: ControlData }) {
       badge: { tone: "accent", label: "live" },
     });
   } else {
-    realRows.push(
-      {
-        primary: "11:00am · Cherrydale Lawn demo",
-        secondary: "ran /#calculator · clicked /pricing 3× · hot",
-        badge: { tone: "hot", label: "in 2h 15m" },
-      },
-      {
-        primary: "3:30pm · Kip review · internal",
-        secondary: "weekly 1:1 · 30 min",
-        badge: { tone: "default", label: "in 6h 45m" },
-      },
-      {
-        primary: "Focus time today",
-        secondary: "4.5h of unbroken blocks remaining",
-        badge: { tone: "accent", label: "good" },
-      },
-    );
+    realRows.push({
+      primary: "Discovery - Round Robin",
+      secondary: "Calendar data unavailable - check GHL calendar API/token",
+      badge: { tone: "warn", label: "check" },
+    });
   }
 
   return (
@@ -228,13 +216,13 @@ function SchedulerCard({ data }: { data: ControlData }) {
           ? events.length > 0
             ? `Most recent discovery event ${fmtTime(events[0].startTimeIso)}`
             : `${calendar?.name ?? "Discovery calendar"} connected`
-          : "9:00am today — confirmed Cherrydale demo for 11:00am",
+          : "Discovery calendar data unavailable",
         doingNow: events
           ? `${events.length} events on the calendar today`
-          : "Manual via Google Cal + GHL",
+          : "Check GHL calendar API/token",
         upNext: "When agent ships (slot 5b): defends focus blocks + auto-briefs",
       }}
-      ownedTitle={events ? "AOH Discovery calendar - GHL live" : "Today's agenda - MOCK (needs GHL_PIT_TOKEN)"}
+      ownedTitle={events ? "AOH Discovery calendar - GHL live" : "AOH Discovery calendar - needs GHL check"}
       ownedRows={realRows}
       ownedFooter={
         <div className="flex gap-2">

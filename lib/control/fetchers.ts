@@ -116,6 +116,7 @@ export async function getRecentCommits(
 
 const GHL_BASE = "https://services.leadconnectorhq.com";
 const GHL_VERSION = "2021-07-28";
+const DISCOVERY_CALENDAR_ID = "1Xq9XMNFjvxgxQj9kNLY";
 
 function ghlHeaders(): Record<string, string> | null {
   const key = process.env.GHL_PIT_TOKEN;
@@ -284,16 +285,16 @@ function pickPipelineByName(pipelines: Pipeline[] | null, needle: string) {
 }
 
 function pickDiscoveryCalendar(calendars: Calendar[] | null) {
-  if (!calendars) return null;
-  const configuredId = process.env.GHL_DISCOVERY_CALENDAR_ID;
-  if (configuredId) {
-    const configured = calendars.find((calendar) => calendar.id === configuredId);
-    if (configured) return configured;
+  const configuredId = process.env.GHL_DISCOVERY_CALENDAR_ID ?? DISCOVERY_CALENDAR_ID;
+  if (!calendars) {
+    return { id: configuredId, name: "Discovery - Round Robin" };
   }
+  const configured = calendars.find((calendar) => calendar.id === configuredId);
+  if (configured) return configured;
   return (
     calendars.find((calendar) =>
       /discovery.*round robin|see if aoh fits/i.test(calendar.name),
-    ) ?? null
+    ) ?? { id: configuredId, name: "Discovery - Round Robin" }
   );
 }
 
