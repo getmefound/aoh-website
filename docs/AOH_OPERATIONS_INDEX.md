@@ -58,6 +58,7 @@ Manager routing doc:
 - `ANTIGRAVITY_START_HERE.md`
 - `docs/MANAGER_ROUTING_SKILL_PACK.md`
 - `docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md`
+- `docs/AOH_REACH_CAMPAIGN_OFFERS.md`
 
 This defines how Manager chooses the right agent, model/tool tier, reviewer, proof requirement, and Mike escalation path. It also defines the Antigravity + VS Code parallel operating rule:
 
@@ -110,6 +111,14 @@ For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the 
 - Direct personalized report links are a controlled test variant only.
 - Full report generation should wait for a warm signal unless Mike explicitly approves a test segment.
 - Website visitors remain form-first through the homepage report form.
+- Reviews should lead the first controlled campaign because it has the simplest
+  pain and lowest skepticism. The approved draft structure is: `$1` first month,
+  possible second `$1` month only as a testimonial/case-study condition after a
+  happy result. Do not broadly headline `$1 for first 2 months`.
+- AI Visibility should stay premium: offer a free snapshot/report after a warm
+  reply, not a deep discount.
+- The third warmed/burner domain is for a small beta/testimonial lane only, with
+  `beta` as the reply keyword.
 - Website visitor reports are live-tested in production: marketing intake,
   AI visibility intake, and one combined delivery workflow are published and
   passed a smoke test.

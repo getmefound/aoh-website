@@ -291,8 +291,8 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     owner: "Sender + Coach",
     status: "partial",
     description:
-      "Draft first-touch/follow-up copy exists, but it still needs final GHL merge-field validation, real footer values, unsubscribe proof, and Auditor approval before any Send Email node is added.",
-    verification: "Sender and Coach drafts reviewed; not approved for live GHL send nodes.",
+      "Draft first-touch/follow-up copy exists. The approved strategy now separates three lanes: Reviews $1 first month, AI Visibility free snapshot/report, and a tiny beta/testimonial lane. Each lane still needs final GHL merge-field validation, real footer values, unsubscribe proof, daily cap, and Auditor approval before any scaled send.",
+    verification: "Sender, Coach, and Auditor pressure-tested the offer structure on 2026-05-18; not approved for scaled live send nodes until reply router QA passes.",
   },
   {
     title: "Live GHL report + heatmap workflow",
@@ -307,8 +307,8 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     owner: "GHL Expert + Website",
     status: "partial",
     description:
-      "Need a reliable Campaign Reply Router: `send` replies trigger report generation/delivery, `book` replies trigger AOH Talk booking handoff, unclear replies become tasks, and unsubscribe/not-interested replies stop safely.",
-    verification: "Website/report delivery flow is live. Live API shows first-touch workflows published and warm-lead/tagging workflows still draft; reply classification and campaign-specific routing still need final build/QA before scaled sends.",
+      "Need a reliable Campaign Reply Router: `send` replies trigger the correct lane's report generation/delivery, `book` replies trigger AOH Talk booking handoff, `beta` replies enter the small testimonial lane, unclear replies become tasks, and unsubscribe/not-interested replies stop safely.",
+    verification: "Website/report delivery flow is live. Live API shows first-touch workflows published and warm-lead/tagging workflows still draft; reply classification, duplicate prevention, suppression handling, and campaign-specific routing still need final build/QA before scaled sends.",
   },
   {
     title: "AOH Client Template Lab template check",
@@ -325,6 +325,14 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     description:
       "Need the cheap prefilter so you do not pay to deeply scan every GBP in an area/niche.",
     verification: "Defined above, not automated.",
+  },
+  {
+    title: "Controlled launch caps and first-hour watch",
+    owner: "Auditor + Manager",
+    status: "missing",
+    description:
+      "Tomorrow must be treated as a controlled launch, not a scale day. Mission Control needs lane status, domain/mailbox, daily cap, offer version, CTA route, suppression count, duplicate prevention status, failures, and first-hour watch owner.",
+    verification: "Offer plan is documented in docs/AOH_REACH_CAMPAIGN_OFFERS.md; live MC telemetry and first-hour watch are not fully automated yet.",
   },
 ];
 

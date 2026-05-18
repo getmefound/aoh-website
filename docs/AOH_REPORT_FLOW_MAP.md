@@ -196,6 +196,11 @@ Proof required:
 
 Campaign Reply Router target behavior:
 
+- campaign lanes:
+  - Reviews: `$1` first month, optional second `$1` month only as a
+    testimonial/case-study condition after a happy result
+  - AI Visibility: free snapshot/report after a warm reply, no deep discount
+  - Beta/testimonial: small third-domain test lane using reply `beta`
 - `send` reply:
   - classify as warm report request
   - add/report-request tags for the campaign lane
