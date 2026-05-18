@@ -1,0 +1,22 @@
+name: Weekly report smoke test
+
+on:
+  schedule:
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+jobs:
+  report-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Run homepage report smoke test
+        env:
+          REPORT_SMOKE_BASE_URL: https://aioutsourcehub.com
+          REPORT_TEST_BYPASS_TOKEN: ${{ secrets.REPORT_TEST_BYPASS_TOKEN }}
+        run: node tools/smoke-report.mjs

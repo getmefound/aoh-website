@@ -28,6 +28,7 @@ One server route — `app/api/report/route.ts` — handles the homepage lead for
 - `TURNSTILE_SECRET_KEY`
 - `GHL_WEBHOOK_URL`
 - `REPORT_LINK_SECRET` (required for `/r/{token}` outbound links)
+- `REPORT_TEST_BYPASS_TOKEN` (private weekly smoke test token; set in Vercel and GitHub Actions)
 - Optional durable limits: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`
 
 (Set in Vercel project settings; `.env.local` for local dev). Everything else is fully static and server-rendered.
@@ -63,6 +64,17 @@ Linting:
 
 ```bash
 npm run lint
+```
+
+Weekly report smoke test:
+
+- GitHub Actions runs `.github/workflows/weekly-report-smoke.yml` every Monday.
+- It posts an internal test lead to `/api/report` and fails if the website route or GHL webhook handoff breaks.
+- Required GitHub secret: `REPORT_TEST_BYPASS_TOKEN`, matching the Vercel production env var.
+
+```bash
+$env:REPORT_TEST_BYPASS_TOKEN="..."
+npm run smoke:report
 ```
 
 ## Page architecture

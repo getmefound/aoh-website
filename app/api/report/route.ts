@@ -163,7 +163,7 @@ export async function POST(req: NextRequest) {
   reportUrl.searchParams.set("business", effectiveBusinessName);
   reportUrl.searchParams.set("email", normalizedEmail);
 
-  await forwardToGHL({
+  const ghlForward = await forwardToGHL({
     email: normalizedEmail,
     businessName: effectiveBusinessName,
     timestamp: new Date().toISOString(),
@@ -184,6 +184,19 @@ export async function POST(req: NextRequest) {
       businessName: effectiveBusinessName,
     },
   });
+  const strictInternalTest =
+    bypass && req.headers.get("x-report-test-strict")?.trim() === "1";
+  if (strictInternalTest && !ghlForward.ok) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "GHL webhook failed during report smoke test.",
+        runId,
+        ghlForward,
+      },
+      { status: 502 },
+    );
+  }
   maybeSimulateReportLifecycle({
     runId,
     reportPath,
@@ -191,7 +204,12 @@ export async function POST(req: NextRequest) {
     proto,
   });
 
-  return NextResponse.json({ ok: true, auditUrl: reportUrl.toString(), runId });
+  return NextResponse.json({
+    ok: true,
+    auditUrl: reportUrl.toString(),
+    runId,
+    ...(bypass ? { ghlForward } : {}),
+  });
 }
 
 type GHLPayload = {
@@ -216,9 +234,16 @@ type GHLPayload = {
   };
 };
 
-async function forwardToGHL(payload: GHLPayload): Promise<void> {
+type GHLForwardResult = {
+  ok: boolean;
+  configured: boolean;
+  status?: number;
+  error?: string;
+};
+
+async function forwardToGHL(payload: GHLPayload): Promise<GHLForwardResult> {
   const url = process.env.GHL_WEBHOOK_URL;
-  if (!url) return;
+  if (!url) return { ok: false, configured: false, error: "GHL_WEBHOOK_URL is not set." };
 
   try {
     const res = await fetch(url, {
@@ -228,9 +253,16 @@ async function forwardToGHL(payload: GHLPayload): Promise<void> {
     });
     if (!res.ok) {
       console.error("GHL webhook responded", res.status, await res.text().catch(() => ""));
+      return { ok: false, configured: true, status: res.status };
     }
+    return { ok: true, configured: true, status: res.status };
   } catch (err) {
     console.error("GHL webhook failed", err);
+    return {
+      ok: false,
+      configured: true,
+      error: err instanceof Error ? err.message : "Unknown GHL webhook error.",
+    };
   }
 }
 
