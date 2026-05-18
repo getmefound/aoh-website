@@ -116,6 +116,12 @@ export default async function ControlPage() {
             Job Costs
           </a>
           <a
+            href="/mike-mc/team"
+            className="rounded-md border border-zinc-700/70 bg-zinc-900/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-300 transition hover:bg-zinc-800 hover:text-zinc-100"
+          >
+            Team
+          </a>
+          <a
             href={OPENCLAW_HREF}
             target="_blank"
             rel="noopener noreferrer"
