@@ -2,7 +2,7 @@
 
 ## Safe stop state
 
-Stop point: Mike paused for the night while building the `/talk` Discovery calendar.
+Stop point: Mike paused for the night while building the `/aoh-talk` Discovery calendar.
 
 Do not publish, send, enroll contacts, or enable HighLevel AI. The system is intentionally paused in a safe state.
 
@@ -17,7 +17,7 @@ Do not publish, send, enroll contacts, or enable HighLevel AI. The system is int
   - `{{custom_values.aoh_support_email}}` = `support@aioutsourcehub.com`
   - `{{custom_values.aoh_support_phone}}` = `877-521-2224`
   - `{{custom_values.aoh_logo_url}}` = `[PENDING LOGO URL]`
-  - `{{custom_values.aoh_discovery_calendar_link}}` = `[PENDING /talk LINK VERIFICATION]`
+  - `{{custom_values.aoh_discovery_calendar_link}}` = `[PENDING /aoh-talk LINK VERIFICATION]`
   - `{{custom_values.aoh_physical_mailing_address}}` = `[PENDING MIKE ADDRESS]`
 - Created and verified 9 Reach custom fields in GHL:
   - `{{contact.run_id}}` - Single line
@@ -45,15 +45,15 @@ Do not publish, send, enroll contacts, or enable HighLevel AI. The system is int
   - Draft workflow skeleton exists
   - Live sending remains blocked
 - Updated all public booking links in the website/repo from the old Hub360 URL to:
-  - `https://app.gohighlevel.com/widget/booking/talk`
+  - `https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
 - Verified `npm run build` after website changes.
 - Pushed latest commits to GitHub.
 
 ## Current blockers
 
-- `/talk` calendar itself is not fully completed/verified yet.
+- `/aoh-talk` calendar itself is not fully completed/verified yet.
 - `aoh_logo_url` still has placeholder value.
-- `aoh_discovery_calendar_link` still has placeholder value until `/talk` URL is verified live.
+- `aoh_discovery_calendar_link` still has placeholder value until `/aoh-talk` URL is verified live.
 - `aoh_physical_mailing_address` still has placeholder value. No real outbound email can launch until this is real.
 - Reach workflow must remain Draft. Do not publish.
 - No Send Email nodes yet.
@@ -73,8 +73,8 @@ Calendar:
 - Minimum notice: 4 hours
 - Team member: Mike Egidio only for now
 - Distribution: round robin by availability
-- Slug: `talk`
-- Public URL target: `https://app.gohighlevel.com/widget/booking/talk`
+- Slug: `aoh-talk`
+- Public URL target: `https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
 
 Recommended calendar description:
 
@@ -141,11 +141,11 @@ Redirect:
 
 ## Tomorrow pickup order
 
-1. Finish creating/configuring the `/talk` GHL calendar.
+1. Finish creating/configuring the `/aoh-talk` GHL calendar.
 2. Verify the public booking URL loads:
-   - `https://app.gohighlevel.com/widget/booking/talk`
+   - `https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
 3. Update GHL custom value:
-   - `aoh_discovery_calendar_link = https://app.gohighlevel.com/widget/booking/talk`
+   - `aoh_discovery_calendar_link = https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
 4. Update GHL custom value:
    - `aoh_logo_url = https://aioutsourcehub.com/logos/aoh-wordmark-dark-h480.png`
 5. Decide/provide a compliant business mailing address for:

@@ -12,7 +12,7 @@ Create one central HighLevel booking calendar for visitors who want to see wheth
 
 Public booking URL:
 
-- `app.gohighlevel.com/widget/booking/talk`
+- `link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
 
 ## Calendar
 
@@ -25,7 +25,7 @@ Public booking URL:
 - Minimum notice: 4 hours
 - Team members: Mike Egidio only for now
 - Distribution: Round robin by availability
-- Booking URL slug: `talk`
+- Booking URL slug: `aoh-talk`
 
 ## Booking Page Copy
 

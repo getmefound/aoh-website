@@ -179,7 +179,7 @@ Manager should know:
 - reminders are usually workflow-driven
 - appointment-booked triggers need QA
 
-For AOH `/talk` Discovery calendar, Manager requires proof:
+For AOH `/aoh-talk` Discovery calendar, Manager requires proof:
 
 - booking link works
 - Mike is assigned for now

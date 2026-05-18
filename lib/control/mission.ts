@@ -324,7 +324,7 @@ export const BOARD_COLUMNS: BoardStatus[] = [
 
 export const BOARD_TASKS: BoardTask[] = [
   {
-    title: "Build AOH /talk Discovery Round Robin calendar",
+    title: "Build AOH /aoh-talk Discovery Round Robin calendar",
     client: "AOH",
     service: "Internal Sales Intake",
     agent: "GHL Expert",
@@ -337,7 +337,7 @@ export const BOARD_TASKS: BoardTask[] = [
       "Book one test call for each bottleneck answer",
       "Confirm correct tags and pipeline stages",
       "Confirm confirmation email and SMS reminders",
-      "Confirm booking URL is /talk and shows no token/secrets",
+      "Confirm booking URL is /aoh-talk and shows no token/secrets",
     ],
   },
   {

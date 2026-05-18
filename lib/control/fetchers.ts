@@ -133,6 +133,13 @@ export type Pipeline = {
   stages: { id: string; name: string; position: number }[];
 };
 
+export type Calendar = {
+  id: string;
+  name: string;
+  calendarType?: string;
+  isActive?: boolean;
+};
+
 export async function getPipelines(): Promise<Pipeline[] | null> {
   const headers = ghlHeaders();
   const locationId = process.env.GHL_LOCATION_ID;
@@ -146,6 +153,24 @@ export async function getPipelines(): Promise<Pipeline[] | null> {
     if (!res.ok) return null;
     const data = (await res.json()) as { pipelines?: Pipeline[] };
     return data.pipelines ?? [];
+  } catch {
+    return null;
+  }
+}
+
+export async function getCalendars(): Promise<Calendar[] | null> {
+  const headers = ghlHeaders();
+  const locationId = process.env.GHL_LOCATION_ID;
+  if (!headers || !locationId) return null;
+
+  try {
+    const res = await fetch(`${GHL_BASE}/calendars/?locationId=${locationId}`, {
+      headers,
+      ...REVAL,
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { calendars?: Calendar[] };
+    return data.calendars ?? [];
   } catch {
     return null;
   }
@@ -187,6 +212,7 @@ export async function searchOpportunities(
 export type CalEvent = {
   id: string;
   title: string;
+  calendarId?: string;
   startTimeIso: string;
   endTimeIso: string;
   contactId?: string;
@@ -195,22 +221,25 @@ export type CalEvent = {
 export async function getCalendarEventsRange(
   startTimeIso: string,
   endTimeIso: string,
+  calendarId: string,
 ): Promise<CalEvent[] | null> {
   const headers = ghlHeaders();
   const locationId = process.env.GHL_LOCATION_ID;
-  if (!headers || !locationId) return null;
+  if (!headers || !locationId || !calendarId) return null;
 
   try {
     const url = new URL(`${GHL_BASE}/calendars/events`);
     url.searchParams.set("locationId", locationId);
-    url.searchParams.set("startTime", startTimeIso);
-    url.searchParams.set("endTime", endTimeIso);
+    url.searchParams.set("calendarId", calendarId);
+    url.searchParams.set("startTime", String(new Date(startTimeIso).getTime()));
+    url.searchParams.set("endTime", String(new Date(endTimeIso).getTime()));
     const res = await fetch(url, { headers, ...REVAL });
     if (!res.ok) return null;
     const data = (await res.json()) as {
       events?: Array<{
         id: string;
         title?: string;
+        calendarId?: string;
         startTime: string;
         endTime: string;
         contactId?: string;
@@ -220,6 +249,7 @@ export async function getCalendarEventsRange(
       data.events?.map((e) => ({
         id: e.id,
         title: e.title ?? "untitled",
+        calendarId: e.calendarId,
         startTimeIso: e.startTime,
         endTimeIso: e.endTime,
         contactId: e.contactId,
@@ -240,6 +270,7 @@ export type ControlData = {
   commitsTooling: GitCommit[] | null;
   pipelines: Pipeline[] | null;
   todaysEvents: CalEvent[] | null;
+  discoveryCalendar: Calendar | null;
   reviewsOutreach: { pipeline: Pipeline | null; opportunities: Opportunity[] | null };
   aiVisOutreach: { pipeline: Pipeline | null; opportunities: Opportunity[] | null };
 };
@@ -252,23 +283,83 @@ function pickPipelineByName(pipelines: Pipeline[] | null, needle: string) {
   );
 }
 
+function pickDiscoveryCalendar(calendars: Calendar[] | null) {
+  if (!calendars) return null;
+  const configuredId = process.env.GHL_DISCOVERY_CALENDAR_ID;
+  if (configuredId) {
+    const configured = calendars.find((calendar) => calendar.id === configuredId);
+    if (configured) return configured;
+  }
+  return (
+    calendars.find((calendar) =>
+      /discovery.*round robin|see if aoh fits/i.test(calendar.name),
+    ) ?? null
+  );
+}
+
+function getUtcTimeForNewYorkDay(
+  date: Date,
+  hour: number,
+  minute: number,
+  second: number,
+  millisecond: number,
+) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  const value = (type: string) => Number(parts.find((part) => part.type === type)?.value);
+  const utcGuess = Date.UTC(
+    value("year"),
+    value("month") - 1,
+    value("day"),
+    hour,
+    minute,
+    second,
+    millisecond,
+  );
+  const zonedParts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date(utcGuess));
+  const zonedValue = (type: string) =>
+    Number(zonedParts.find((part) => part.type === type)?.value);
+  const zonedAsUtc = Date.UTC(
+    zonedValue("year"),
+    zonedValue("month") - 1,
+    zonedValue("day"),
+    zonedValue("hour"),
+    zonedValue("minute"),
+    zonedValue("second"),
+    millisecond,
+  );
+  return new Date(utcGuess - (zonedAsUtc - utcGuess));
+}
+
 export async function getControlData(): Promise<ControlData> {
-  const [deploy, commitsWebsite, commitsTooling, pipelines] = await Promise.all([
+  const [deploy, commitsWebsite, commitsTooling, pipelines, calendars] = await Promise.all([
     getLatestDeploy(),
     getRecentCommits("aoh-website", 3),
     getRecentCommits("aoh-tooling", 3),
     getPipelines(),
+    getCalendars(),
   ]);
 
   const reviewsPipeline = pickPipelineByName(pipelines, "review");
   const aiVisPipeline = pickPipelineByName(pipelines, "ai visibility");
+  const discoveryCalendar = pickDiscoveryCalendar(calendars);
 
-  // Date range = today (00:00 → 23:59 UTC). For prod we'd use America/New_York.
   const now = new Date();
-  const startOfDay = new Date(now);
-  startOfDay.setUTCHours(0, 0, 0, 0);
-  const endOfDay = new Date(now);
-  endOfDay.setUTCHours(23, 59, 59, 999);
+  const startOfDay = getUtcTimeForNewYorkDay(now, 0, 0, 0, 0);
+  const endOfDay = getUtcTimeForNewYorkDay(now, 23, 59, 59, 999);
 
   const [reviewsOpps, aiVisOpps, todaysEvents] = await Promise.all([
     reviewsPipeline
@@ -277,7 +368,13 @@ export async function getControlData(): Promise<ControlData> {
     aiVisPipeline
       ? searchOpportunities(aiVisPipeline.id, 100)
       : Promise.resolve(null),
-    getCalendarEventsRange(startOfDay.toISOString(), endOfDay.toISOString()),
+    discoveryCalendar
+      ? getCalendarEventsRange(
+          startOfDay.toISOString(),
+          endOfDay.toISOString(),
+          discoveryCalendar.id,
+        )
+      : Promise.resolve(null),
   ]);
 
   return {
@@ -286,6 +383,7 @@ export async function getControlData(): Promise<ControlData> {
     commitsTooling,
     pipelines,
     todaysEvents,
+    discoveryCalendar,
     reviewsOutreach: { pipeline: reviewsPipeline, opportunities: reviewsOpps },
     aiVisOutreach: { pipeline: aiVisPipeline, opportunities: aiVisOpps },
   };

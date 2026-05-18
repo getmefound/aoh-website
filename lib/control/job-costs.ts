@@ -73,7 +73,7 @@ export const REACH_COMMERCIAL_DEMO: ReachCommercialItem[] = [
   {
     title: "Turn replies into booked calls",
     description:
-      "Agents sort replies, handle objections, and move interested prospects to the /talk calendar so the business owner only sees real opportunities.",
+      "Agents sort replies, handle objections, and move interested prospects to the /aoh-talk calendar so the business owner only sees real opportunities.",
   },
   {
     title: "Monitor cost and improve weekly",
@@ -204,12 +204,12 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
     verification: "Role is defined; automated reply triage is not yet connected.",
   },
   {
-    title: "Book interested prospects on /talk",
+    title: "Book interested prospects on /aoh-talk",
     owner: "Booker + Scheduler",
     status: "partial",
     description:
       "Warm replies should be guided to the Discovery Round Robin calendar and tagged by interest so the right pipeline/stage updates.",
-    verification: "/talk calendar spec is documented; actual GHL calendar/workflow QA still needs to pass.",
+    verification: "/aoh-talk calendar spec is documented; actual GHL calendar/workflow QA still needs to pass.",
   },
   {
     title: "If they buy, confirm Stripe-to-GHL handoff",
@@ -361,7 +361,7 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
       },
       {
         title: "Turn interest into a call",
-        description: "Booker nudges warm replies toward the /talk calendar and makes sure no lead sits unanswered.",
+        description: "Booker nudges warm replies toward the /aoh-talk calendar and makes sure no lead sits unanswered.",
         owner: "Booker",
       },
     ],
