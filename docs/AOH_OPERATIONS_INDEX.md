@@ -110,6 +110,12 @@ For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the 
 - Direct personalized report links are a controlled test variant only.
 - Full report generation should wait for a warm signal unless Mike explicitly approves a test segment.
 - Website visitors remain form-first through the homepage report form.
+- Website visitor reports are live-tested in production: marketing intake,
+  AI visibility intake, and one combined delivery workflow are published and
+  passed a smoke test.
+- The remaining campaign blocker is reply routing: `send` replies must trigger
+  report generation/delivery, and `book` replies must trigger the AOH Talk
+  booking handoff.
 
 - **Scout**: `cheap-prefilter`
   - Pre-score prospects before deep GBP scanning to control acquisition cost
@@ -127,9 +133,13 @@ For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the 
 
 - **GHL Expert**: `report-generation-workflow`
   - Trigger and monitor GHL workflow to generate reports after website requests or warm campaign replies
-  - Blocks the "Live GHL report + heatmap workflow" blocker
+  - Website visitor report generation/delivery is verified
+  - Blocks the remaining campaign reply-routing workflow until `send` and
+    `book` replies are tested
 
-All 5 REACH_TOMORROW_BLOCKERS now have agent skill coverage. See `lib/control/job-costs.ts` REACH_TOMORROW_BLOCKERS for current status of each blocker.
+All REACH_TOMORROW_BLOCKERS have agent skill coverage, but they are not all
+green. See `lib/control/job-costs.ts` REACH_TOMORROW_BLOCKERS for current
+status of each blocker.
 
 ## GHL Expert Knowledge Packs
 
