@@ -76,6 +76,12 @@ export default function JobsPage() {
           >
             Back to MC
           </Link>
+          <Link
+            href="/mike-mc/campaigns"
+            className="rounded-md border border-zinc-700/70 bg-zinc-900/70 px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-zinc-300 transition hover:bg-zinc-800 hover:text-zinc-100"
+          >
+            Campaigns
+          </Link>
           <Pill tone="warn">estimated until telemetry</Pill>
         </div>
       </header>

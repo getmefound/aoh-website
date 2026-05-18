@@ -116,6 +116,12 @@ export default async function ControlPage() {
             Job Costs
           </a>
           <a
+            href="/mike-mc/campaigns"
+            className="rounded-md border border-zinc-700/70 bg-zinc-900/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-300 transition hover:bg-zinc-800 hover:text-zinc-100"
+          >
+            Campaigns
+          </a>
+          <a
             href="/mike-mc/team"
             className="rounded-md border border-zinc-700/70 bg-zinc-900/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-300 transition hover:bg-zinc-800 hover:text-zinc-100"
           >
@@ -183,8 +189,8 @@ function TeamTrackerSection() {
   const focusTasks = BOARD_TASKS.filter(
     (task) =>
       task.title.includes("Campaign Reply Router") ||
-      task.title.includes("Build Sender") ||
-      task.title.includes("Reporter orchestration"),
+      task.title.includes("controlled Reach offer") ||
+      task.title.includes("first-hour campaign watch"),
   );
 
   return (
@@ -203,6 +209,14 @@ function TeamTrackerSection() {
           </p>
         </div>
         <Pill tone="warn">send blocked until QA</Pill>
+      </div>
+      <div className="mb-4">
+        <a
+          href="/mike-mc/campaigns"
+          className="inline-flex rounded-md border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-sky-300 transition hover:bg-sky-500/20"
+        >
+          Open campaign launch room
+        </a>
       </div>
       <div className="grid gap-3 md:grid-cols-3">
         {focusTasks.map((task) => (
