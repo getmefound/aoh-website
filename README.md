@@ -76,6 +76,7 @@ Weekly report smoke test:
 - GitHub Actions runs `.github/workflows/weekly-report-smoke.yml` every Monday.
 - It posts an internal test lead to `/api/report` and fails if the website route or GHL webhook handoff breaks.
 - Required GitHub secret: `REPORT_TEST_BYPASS_TOKEN`, matching the Vercel production env var.
+- Manual GHL verification still matters weekly: confirm the test contact receives the website/report tags, both report workflows run, `Website Leads` gets an opportunity, callbacks succeed, and generated links open.
 
 ```bash
 $env:REPORT_TEST_BYPASS_TOKEN="..."

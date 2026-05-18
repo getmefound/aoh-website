@@ -494,6 +494,12 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     ],
     internalTasks: [
       {
+        title: "Run website report smoke test",
+        description:
+          "Auditor submits one homepage report request, then confirms GHL tags, both report workflows, Website Leads opportunity creation, callbacks, and usable report links.",
+        owner: "Auditor",
+      },
+      {
         title: "Catch broken automations",
         description: "GHL Expert checks workflow errors, missed handoffs, calendar sync, and stuck pipeline movement.",
         owner: "GHL Expert",
@@ -510,9 +516,11 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
       },
     ],
     agentRoles: [
-      { agent: "GHL Expert", role: "Checks workflow errors, calendar sync, pipeline movement, and webhook health." },
+      { agent: "GHL Expert", role: "Checks workflow errors, calendar sync, report tags, Website Leads pipeline movement, and webhook health." },
       { agent: "Manager", role: "Turns any failure into a visible Mission Control task or blocker." },
-      { agent: "Auditor", role: "Reviews recurring failures and decides whether the system is drifting." },
+      { agent: "Auditor", role: "Runs the homepage report smoke test, reviews recurring failures, and decides whether the system is drifting." },
+      { agent: "Reporter", role: "Confirms generated marketing and AI visibility report links are usable." },
+      { agent: "Website/Codex", role: "Fixes /api/report, Vercel env, or callback issues when the handoff breaks." },
     ],
     cadence: "Daily",
     status: "worth-it",
@@ -529,7 +537,7 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
       { label: "Workflow/status summary", amountUsd: 0.1 },
       { label: "Alert routing", amountUsd: 0.04 },
     ],
-    checks: ["Workflow errors", "Calendar sync", "Pipeline movement", "Webhook health"],
+    checks: ["Homepage report smoke test", "Report tags", "Workflow errors", "Website Leads pipeline", "Callbacks", "Report links", "Calendar sync"],
   },
   {
     slug: "secret-exposure-sweep",

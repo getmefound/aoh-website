@@ -57,9 +57,9 @@ Website expectation:
 
 Current operational blocker:
 
-- Vercel production is missing the correct `GHL_WEBSITE_REPORT_WEBHOOK_URL`
-  value.
-- The weekly smoke test fails until the correct receiving endpoint is added.
+- The no-premium Contact Tag flow is live-ready after GHL publication.
+- Vercel has `GHL_PIT_TOKEN` and `GHL_LOCATION_ID`, so a report webhook URL is
+  not required for the homepage lane.
 
 What GHL Expert must find:
 
@@ -81,6 +81,47 @@ Proof required:
 - for Contact Tag: proof the website added `aoh_website_report_requested`
 - test homepage report request reaches GHL
 - Auditor confirms no secret/token is exposed
+
+Current live workflow design:
+
+- Website API writes the contact and tags.
+- `Website Visitor Free Marketing Report Intake` starts from
+  `aoh_generate_marketing_report`.
+- `AI Visibility Report Ordered` starts from
+  `aoh_generate_ai_visibility_report`.
+- Both workflows create/update an opportunity in the `Website Leads` pipeline at
+  `Website Report Requested`.
+- Marketing callback sends `event = report_ready` with `auditUrl`.
+- AI visibility/map callback sends `event = heatmap_ready` with `heatmapUrl`.
+
+Manager green-light checklist:
+
+- contact exists/updates in HighLevel
+- expected tags exist:
+  - `aoh_website_report_requested`
+  - `aoh_report_requested`
+  - `aoh_generate_marketing_report`
+  - `aoh_generate_ai_visibility_report`
+  - `aoh_secondary_report_requested` when both reports are requested
+- both workflows start
+- `Website Leads` opportunity exists at `Website Report Requested`
+- spreadsheet row action succeeds
+- update contact field action succeeds
+- marketing callback succeeds
+- AI visibility/heatmap callback succeeds
+- report URLs are present on the contact
+- no red workflow errors remain
+
+Weekly team routine:
+
+- Manager owns final signoff and blocker routing.
+- Auditor runs one homepage smoke test and checks for red errors, exposed
+  secrets, duplicate contacts, and stale old-test runs.
+- GHL Expert checks tags, workflows, callbacks, and the `Website Leads`
+  pipeline.
+- Reporter opens the generated report links and confirms they are usable.
+- Website/Codex fixes `/api/report`, Vercel env, or callback issues if the
+  handoff breaks.
 
 ## Lane 2: Campaign Reply-First Report Request
 

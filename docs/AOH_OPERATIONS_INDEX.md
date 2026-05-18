@@ -70,6 +70,14 @@ The GHL overview pack gives Manager enough HighLevel supervision knowledge to ro
 
 HighLevel location rule: agents must not default customer-facing work to `AOH Client Template Lab`. The template lab is for reusable setup, snapshots, draft patterns, fields, values, and tags. Live report, campaign, calendar, booking, and visitor flows must first prove the active AOH/Hub360AI production location from GitHub/docs, Vercel/Mission Control env, Obsidian notes, VPS docs when relevant, and the HighLevel UI.
 
+Website report smoke-test ownership:
+
+- Manager confirms final green light.
+- Auditor runs the weekly homepage request test and watches for workflow errors.
+- GHL Expert verifies tags, callbacks, workflow runs, and `Website Leads`.
+- Reporter opens generated report links.
+- Website/Codex fixes `/api/report`, Vercel env, or callback issues.
+
 ## Review Automation Agent Skills
 
 Main doc:
