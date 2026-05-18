@@ -44,6 +44,8 @@ const DISCOVERY_BOOKING_HREF = "https://link.hub360ai.com/widget/booking/1Xq9XMN
  *
  * Env vars required (set in Vercel project settings):
  *   VERCEL_TOKEN  GITHUB_PAT  GHL_PIT_TOKEN  GHL_LOCATION_ID
+ *   GOOGLE_CALENDAR_CLIENT_ID  GOOGLE_CALENDAR_CLIENT_SECRET
+ *   GOOGLE_CALENDAR_REFRESH_TOKEN  GOOGLE_CALENDAR_IDS
  * (VERCEL_PROJECT_ID has a hardcoded fallback)
  */
 
@@ -172,35 +174,50 @@ export default async function ControlPage() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function SchedulerCard({ data }: { data: ControlData }) {
-  const events = data.todaysEvents;
+  const ghlEvents = data.todaysEvents;
+  const googleEvents = data.googleEvents;
   const calendar = data.discoveryCalendar;
   const realRows: OwnedRow[] = [];
+  const googleLive = googleEvents !== null;
+  const ghlLive = ghlEvents !== null;
+  const schedulerLive = googleLive || ghlLive;
 
-  if (events) {
-    const upcoming = events
+  if (googleEvents && googleEvents.length > 0) {
+    const upcoming = googleEvents
       .filter((e) => new Date(e.startTimeIso) > new Date())
-      .slice(0, 3);
+      .slice(0, 4);
     const next = upcoming[0];
 
     for (const e of upcoming) {
       realRows.push({
         primary: `${fmtTime(e.startTimeIso)} · ${e.title}`,
-        secondary: `${timeUntil(e.startTimeIso)} · GHL calendar`,
+        secondary: `${timeUntil(e.startTimeIso)} · ${e.calendarName}`,
         badge: { tone: e === next ? "hot" : "default", label: timeUntil(e.startTimeIso) },
       });
     }
+  } else if (googleEvents && googleEvents.length === 0) {
+    realRows.push({
+      primary: "Google Calendar",
+      secondary: "Connected - no remaining events today",
+      badge: { tone: "accent", label: "live" },
+    });
+  }
+
+  if (ghlEvents) {
     realRows.push({
       primary: calendar?.name ?? "Discovery calendar",
       secondary:
-        events.length > 0
-          ? `${events.length} discovery bookings today`
+        ghlEvents.length > 0
+          ? `${ghlEvents.length} discovery bookings today`
           : "Connected to GHL - no discovery calls on today's calendar",
       badge: { tone: "accent", label: "live" },
     });
-  } else {
+  }
+
+  if (!schedulerLive) {
     realRows.push({
-      primary: "Discovery - Round Robin",
-      secondary: "Calendar data unavailable - check GHL calendar API/token",
+      primary: "Google Calendar",
+      secondary: "Not wired - add Google Calendar OAuth env vars in Vercel",
       badge: { tone: "warn", label: "check" },
     });
   }
@@ -209,20 +226,24 @@ function SchedulerCard({ data }: { data: ControlData }) {
     <AgentCard
       name="Scheduler"
       role="Time defender · books demos · briefs you before calls"
-      status={events ? "live" : "manual"}
-      cadence={events ? "live - AOH Discovery bookings" : "manual today - Google Cal not wired"}
+      status={schedulerLive ? "live" : "manual"}
+      cadence={googleLive ? "live - Google Calendar + GHL" : "manual today - Google Cal not wired"}
       activity={{
-        lastDone: events
-          ? events.length > 0
-            ? `Most recent discovery event ${fmtTime(events[0].startTimeIso)}`
-            : `${calendar?.name ?? "Discovery calendar"} connected`
-          : "Discovery calendar data unavailable",
-        doingNow: events
-          ? `${events.length} discovery bookings in GHL today`
-          : "Check GHL calendar API/token",
-        upNext: "Next: wire Google Calendar if this should show Mike's full day",
+        lastDone: googleLive
+          ? googleEvents.length > 0
+            ? `Google Calendar synced ${googleEvents.length} event${googleEvents.length === 1 ? "" : "s"} today`
+            : "Google Calendar connected"
+          : ghlLive
+            ? `${calendar?.name ?? "Discovery calendar"} connected`
+            : "Google Calendar not wired",
+        doingNow: googleLive
+          ? `${googleEvents.length} Google event${googleEvents.length === 1 ? "" : "s"} - ${ghlEvents?.length ?? 0} GHL discovery booking${ghlEvents?.length === 1 ? "" : "s"}`
+          : "Needs Google Calendar OAuth env vars",
+        upNext: googleLive
+          ? "Use this feed for full-day agenda and pre-meeting briefs"
+          : "Add Google Calendar OAuth credentials in Vercel",
       }}
-      ownedTitle={events ? "AOH Discovery calendar - GHL live" : "AOH Discovery calendar - needs GHL check"}
+      ownedTitle={googleLive ? "Today's agenda - Google Calendar live" : "Today's agenda - needs Google Calendar"}
       ownedRows={realRows}
       ownedFooter={
         <div className="flex gap-2">
