@@ -338,8 +338,10 @@ export const BOARD_TASKS: BoardTask[] = [
     reviewChecks: [
       "Reply `send` triggers report request and exactly one delivery",
       "Reply `book` sends the AOH Talk booking link without unintended report generation",
+      "Reply `beta` routes to the beta/testimonial lane without default report generation",
       "Unclear replies create a Sorter review task and do not spend on reports",
       "Unsubscribe/STOP replies suppress follow-up and do not generate reports",
+      "Duplicate guard blocks repeat report generation for the same contact",
       "Auditor verifies GHL execution logs before scaled sending",
     ],
   },

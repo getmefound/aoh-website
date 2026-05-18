@@ -308,7 +308,7 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     status: "partial",
     description:
       "Need a reliable Campaign Reply Router: `send` replies trigger the correct lane's report generation/delivery, `book` replies trigger AOH Talk booking handoff, `beta` replies enter the small testimonial lane, unclear replies become tasks, and unsubscribe/not-interested replies stop safely.",
-    verification: "Website/report delivery flow is live. Live API shows first-touch workflows published and warm-lead/tagging workflows still draft; reply classification, duplicate prevention, suppression handling, and campaign-specific routing still need final build/QA before scaled sends.",
+    verification: "Website/report delivery flow is live. Live MC diagnostics see production GHL location tRbczwt6oJsXK4tjuzOI and the Reach - Reviews / Reach - AI pipelines. docs/AOH_CAMPAIGN_REPLY_ROUTER.md now defines the exact router blueprint. GHL UI build and QA still need to pass before scaled sends.",
   },
   {
     title: "AOH Client Template Lab template check",

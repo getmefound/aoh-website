@@ -137,6 +137,8 @@ No scaled campaign send until all of these are true:
   `https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
 - the `book` path is explicitly approved for whether it also queues a report or
   waits for the meeting.
+- `beta` reply routes to the beta/testimonial lane and does not generate a full
+  report by default.
 - unclear positive replies create a Sorter/human task and do not spend on full
   reports.
 - STOP, unsubscribe, remove me, wrong person, and not interested replies are
