@@ -37,11 +37,11 @@ export default function AgentTeamPage() {
             AOH - Mission Control
           </p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
-            Agent Team
+            Leadership Team
           </h1>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-zinc-400">
-            Internal company-style roster for the agents that run AOH work. The famous-name references are
-            inspiration only, not affiliation, endorsement, or real identities.
+            Internal company-style roster for the agent roles that run AOH work. Names and portraits are
+            inspiration labels for internal use only, not affiliation, endorsement, or real identities.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -90,35 +90,26 @@ export default function AgentTeamPage() {
 function AgentProfileCard({ agent }: { agent: AgentTeamMember }) {
   return (
     <article className={`overflow-hidden rounded-2xl border bg-gradient-to-br ${COLOR_CLASS[agent.color]} shadow-2xl shadow-black/30`}>
-      <header className="border-b border-white/10 p-5">
-        <div className="flex items-start gap-4">
-          <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black/35 font-mono text-xl font-bold text-zinc-50">
-            {initials(agent.agent)}
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="mb-2 flex flex-wrap items-center gap-2">
-              <Pill tone={STATUS_TONE[agent.status]}>{agent.status}</Pill>
-              <Pill tone="muted">{agent.codename}</Pill>
-            </div>
-            <h2 className="text-xl font-semibold tracking-tight text-zinc-50">{agent.agent}</h2>
-            <p className="mt-1 text-sm text-zinc-400">{agent.title}</p>
-          </div>
+      <header className="border-b border-white/10 p-5 text-center">
+        <Portrait agent={agent} />
+        <div className="mt-4 flex justify-center gap-2">
+          <Pill tone={STATUS_TONE[agent.status]}>{agent.status}</Pill>
+          <Pill tone="muted">{agent.agent}</Pill>
         </div>
+        <h2 className="mt-4 text-2xl font-semibold tracking-tight text-zinc-50">{agent.displayName}</h2>
+        <p className="mt-1 text-sm font-medium text-zinc-300">{agent.title}</p>
       </header>
 
       <div className="space-y-4 p-5">
-        <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">Responsibility</p>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-300">{agent.responsibility}</p>
-        </div>
+        <p className="text-sm leading-relaxed text-zinc-300">{agent.responsibility}</p>
 
         <div className="rounded-xl border border-zinc-800/70 bg-black/25 p-4">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">Archetype</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">How they think</p>
           <p className="mt-2 text-sm font-semibold text-zinc-100">{agent.archetype}</p>
           <p className="mt-1 text-sm leading-relaxed text-zinc-500">{agent.archetypeNote}</p>
         </div>
 
-        <TagBlock label="Owns" items={agent.owns} />
+        <TagBlock label="Responsible for" items={agent.owns} />
         <TagBlock label="Done means" items={agent.proof} muted />
 
         <div className="rounded-xl border border-zinc-800/70 bg-zinc-950/60 p-4">
@@ -127,6 +118,30 @@ function AgentProfileCard({ agent }: { agent: AgentTeamMember }) {
         </div>
       </div>
     </article>
+  );
+}
+
+function Portrait({ agent }: { agent: AgentTeamMember }) {
+  const glow = {
+    emerald: "bg-emerald-300/20 text-emerald-100",
+    sky: "bg-sky-300/20 text-sky-100",
+    amber: "bg-amber-300/20 text-amber-100",
+    rose: "bg-rose-300/20 text-rose-100",
+    violet: "bg-violet-300/20 text-violet-100",
+    zinc: "bg-zinc-300/10 text-zinc-100",
+  }[agent.color];
+
+  return (
+    <div className="mx-auto h-36 w-36 overflow-hidden rounded-full border border-white/10 bg-zinc-950 shadow-2xl shadow-black/40">
+      <div className={`relative flex h-full w-full items-center justify-center ${glow}`}>
+        <div className="absolute left-1/2 top-6 h-14 w-14 -translate-x-1/2 rounded-full bg-current opacity-80" />
+        <div className="absolute bottom-0 left-1/2 h-20 w-28 -translate-x-1/2 rounded-t-full bg-current opacity-70" />
+        <div className="absolute inset-x-8 top-8 h-4 rounded-full bg-zinc-950/60" />
+        <div className="relative z-10 mt-10 font-mono text-3xl font-bold tracking-tight text-zinc-950/80">
+          {initials(agent.displayName)}
+        </div>
+      </div>
+    </div>
   );
 }
 

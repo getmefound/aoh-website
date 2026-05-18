@@ -1,5 +1,6 @@
 export type AgentTeamMember = {
   agent: string;
+  displayName: string;
   codename: string;
   title: string;
   status: "active" | "building" | "planned" | "review";
@@ -15,13 +16,14 @@ export type AgentTeamMember = {
 export const AGENT_TEAM: AgentTeamMember[] = [
   {
     agent: "Manager",
+    displayName: "Elon Musk",
     codename: "Control",
-    title: "Fleet Orchestrator",
+    title: "Manager",
     status: "active",
-    archetype: "Bill Gates systems lens",
-    archetypeNote: "Turns messy work into operating systems, checklists, and proof gates.",
+    archetype: "First-principles operator",
+    archetypeNote: "Pushes work down to the actual constraint, then assigns the next concrete move.",
     responsibility:
-      "Chooses the right agent, assigns the reviewer, tracks blockers, and decides when work is ready for Mike.",
+      "Runs the team, chooses who owns each task, assigns the reviewer, tracks blockers, and keeps Mike out of technical busywork until approval is needed.",
     owns: ["Mission Control", "task routing", "model tier choice", "go/no-go calls"],
     proof: ["owner assigned", "reviewer assigned", "blocker visible", "proof before done"],
     currentFocus: "Campaign Reply Router is P0 until send/book paths pass.",
@@ -29,11 +31,12 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "GHL Expert",
+    displayName: "Bill Gates",
     codename: "Switchboard",
-    title: "HighLevel Workflow Engineer",
+    title: "Systems Architect",
     status: "active",
-    archetype: "Elon Musk first-principles lens",
-    archetypeNote: "Breaks a workflow down to the trigger, payload, action, and proof.",
+    archetype: "Systems builder",
+    archetypeNote: "Turns HighLevel into repeatable workflows, fields, stages, and proof checks.",
     responsibility:
       "Builds and verifies HighLevel workflows, calendars, pipelines, tags, callbacks, and report delivery.",
     owns: ["GHL workflows", "Website Leads pipeline", "AOH Talk calendar", "report callbacks"],
@@ -43,8 +46,9 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Auditor",
+    displayName: "Charlie Munger",
     codename: "Lock",
-    title: "Launch Safety Reviewer",
+    title: "Auditor",
     status: "review",
     archetype: "Charlie Munger inversion lens",
     archetypeNote: "Starts with what could fail, then blocks the expensive mistakes.",
@@ -57,8 +61,9 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Sender",
+    displayName: "Steve Jobs",
     codename: "Signal",
-    title: "Outbound Campaign Operator",
+    title: "Campaign Voice",
     status: "building",
     archetype: "Steve Jobs product-taste lens",
     archetypeNote: "Keeps the message simple, specific, and hard to confuse.",
@@ -71,6 +76,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Sorter",
+    displayName: "Marie Curie",
     codename: "Triage",
     title: "Reply Classifier",
     status: "planned",
@@ -85,6 +91,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Scout",
+    displayName: "Nikola Tesla",
     codename: "Radar",
     title: "Prospect Researcher",
     status: "planned",
@@ -99,6 +106,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Booker",
+    displayName: "Oprah Winfrey",
     codename: "Calendar",
     title: "Appointment Handoff",
     status: "planned",
@@ -113,6 +121,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Profile",
+    displayName: "Serena Williams",
     codename: "Presence",
     title: "Local Visibility Specialist",
     status: "building",
@@ -127,6 +136,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Coach",
+    displayName: "Tony Robbins",
     codename: "Playbook",
     title: "Knowledge and Sales Clarity",
     status: "building",
@@ -141,6 +151,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Reporter",
+    displayName: "Warren Buffett",
     codename: "Proof",
     title: "Report Delivery and QA",
     status: "active",
@@ -155,6 +166,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Press",
+    displayName: "MrBeast",
     codename: "Publish",
     title: "Content Publisher",
     status: "planned",
@@ -169,6 +181,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
   },
   {
     agent: "Scheduler",
+    displayName: "Tim Cook",
     codename: "Time",
     title: "Calendar Defender",
     status: "active",
