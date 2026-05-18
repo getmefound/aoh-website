@@ -63,16 +63,19 @@ Current operational blocker:
 
 What GHL Expert must find:
 
-- The exact GHL receiving endpoint for public homepage report submissions.
-- This may be an Inbound Webhook trigger URL, a GHL form endpoint, or another
-  intentional receiving route.
+- The exact GHL receiving mechanism for public homepage report submissions.
+- Preferred no-premium option while proving the flow: website API creates or
+  updates the GHL contact, writes report fields, and adds
+  `aoh_website_report_requested`; GHL starts from a `Contact Tag` trigger.
+- Paid/premium option: an Inbound Webhook trigger URL.
+- Other possible option: a GHL form endpoint.
 - Do not guess from workflow names. Verify the actual receiving mechanism.
 
 Proof required:
 
 - GHL workflow/form/trigger name
-- receiving URL copied from the GHL UI or proven source
-- whether it is an Inbound Webhook, GHL form, or other receiver
+- whether it uses Contact Tag, Inbound Webhook, GHL form, or other receiver
+- for Contact Tag: proof the website added `aoh_website_report_requested`
 - test homepage report request reaches GHL
 - Auditor confirms no secret/token is exposed
 

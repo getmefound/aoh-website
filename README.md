@@ -37,7 +37,7 @@ One server route — `app/api/report/route.ts` — handles the homepage lead for
 
 ## Lead capture routes + env
 
-- `/api/report` -> homepage form -> `GHL_WEBSITE_REPORT_WEBHOOK_URL` or fallback `GHL_WEBHOOK_URL`
+- `/api/report` -> homepage form -> `GHL_WEBSITE_REPORT_WEBHOOK_URL` or fallback `GHL_WEBHOOK_URL`; if no webhook is configured, it uses `GHL_PIT_TOKEN` + `GHL_LOCATION_ID` to create/update the GHL contact and add the `aoh_website_report_requested` tag.
 - warm campaign report requests -> `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` or fallback `GHL_WEBHOOK_URL`
 - `/api/contact` -> contact form -> `GHL_CONTACT_WEBHOOK_URL` (falls back to `GHL_WEBHOOK_URL`)
 - `/api/newsletter` -> newsletter form -> `GHL_NEWSLETTER_WEBHOOK_URL` (falls back to `GHL_WEBHOOK_URL`)

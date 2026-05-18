@@ -19,6 +19,10 @@ Important distinction:
   warm campaign report requests after a prospect replies `send` or `book`, or
   after a manually approved campaign test.
 - `GHL_WEBHOOK_URL` is only a legacy fallback.
+- If no report webhook URL is configured, `/api/report` can use
+  `GHL_PIT_TOKEN` + `GHL_LOCATION_ID` to create/update the GHL contact and add
+  the `aoh_website_report_requested` tag. This avoids HighLevel's premium
+  Inbound Webhook trigger for the website visitor lane.
 - `https://aioutsourcehub.com/api/report/callback` is the GHL-to-website
   callback after a report is generated.
 - A GHL trigger named "Marketing Audit Request Form" may be campaign-specific.
@@ -29,12 +33,19 @@ Important distinction:
 ## Current public website flow (already implemented)
 
 1. Visitor submits report form (`/api/report`).
-2. Site creates `runId` + redirects user to `/report/ai-visibility?runId=...`.
-3. Report page polls `/api/report/status?runId=...` and shows:
+2. Site creates `runId` + redirects user to the matching report page.
+3. If a report webhook URL exists, the site posts the request to that webhook.
+4. If no report webhook URL exists, the site creates/updates the GHL contact,
+   writes existing report custom fields, and adds:
+   - `aoh_website_report_requested`
+   - `aoh_report_requested`
+   - `aoh_generate_marketing_report` or `aoh_generate_ai_visibility_report`
+   - `aoh_secondary_report_requested` when both reports were requested
+5. Report page polls `/api/report/status?runId=...` and shows:
    - submitted
    - report_ready
    - heatmap_ready
-4. GHL workflow should POST callbacks to `/api/report/callback` to mark readiness.
+6. GHL workflow should POST callbacks to `/api/report/callback` to mark readiness.
 
 ## Current campaign flow (active operating plan)
 
@@ -52,6 +63,29 @@ Important distinction:
 - `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` (optional campaign report intake)
 - `GHL_WEBHOOK_URL` (legacy fallback)
 - `REPORT_CALLBACK_TOKEN` (new; any long random string)
+- `GHL_PIT_TOKEN` + `GHL_LOCATION_ID` (required if using API tag handoff
+  instead of a report webhook URL)
+
+## Website lane no-premium trigger option
+
+Recommended while proving the flow:
+
+1. Website `/api/report` creates/updates the GHL contact through the
+   LeadConnector Contacts API.
+2. Website writes these existing custom fields:
+   - `Audit Report ID` (`contact.audit_report_id`) = `runId`
+   - `Audit Report URL` (`contact.audit_url`) = website report URL
+   - `Report Type Requested` (`contact.report_type_requested`)
+   - `Lead Source` (`contact.lead_source`)
+   - `website_source` (`contact.website_source`)
+   - `campaign_source` (`contact.campaign_source`)
+   - `Offer Lane` (`contact.offer_lane`)
+3. Website adds the `aoh_website_report_requested` tag.
+4. GHL workflow trigger is `Contact Tag` added:
+   - `aoh_website_report_requested`
+
+This replaces the need for a premium Inbound Webhook trigger for homepage
+visitor requests.
 
 ## GHL workflow actions
 
