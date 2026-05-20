@@ -23,6 +23,7 @@ Slack is the human command surface. Mission Control and the ledger remain the so
 | Production listener secrets | Wired | Production has the Slack signing secret and bot token configured in Vercel. |
 | Slack posting | Env-gated | `npm run agent:slack` posts only if `SLACK_MISSION_CONTROL_WEBHOOK_URL` or `SLACK_WEBHOOK_URL` is set. |
 | Slack HTTP listener | Wired in code | `/api/agent/slack` verifies Slack requests and routes `Manager, ...` commands. Normal channel commands answer in the channel; threaded commands answer in the thread. |
+| Slack polling fallback | Wired | `/api/agent/slack?poll=1` lets Vercel Cron scan `#04-aoh-ops` once per minute and catch commands if Slack Events are not delivering. |
 | `#04-aoh-ops` bot membership | Needs one manual Slack invite | The bot user is `openclaw`. Invite it once in `#04-aoh-ops` so Slack can deliver messages and the bot can post replies. |
 
 ## Slack Channels
@@ -195,6 +196,8 @@ Required environment variables:
 | `AOH_OWNER_FORMAL_NAME` | Formal address for Mike. Default: `Mr. Egidio`. |
 | `GHL_READINESS_CACHE_TTL_MS` | Optional GHL readiness cache duration. Default: `300000` ms, or 5 minutes. |
 | `SLACK_LISTENER_TEST_TOKEN` | Optional local-only bypass token for testing the endpoint without a real Slack signature. |
+| `CRON_SECRET` | Protects the Vercel Cron polling fallback. Vercel sends it as an Authorization bearer token. |
+| `SLACK_AGENT_POLL_LOOKBACK_SECONDS` | Optional polling window. Default: `1800` seconds. |
 | `GHL_PIT_TOKEN` | Lets GHL Expert run read-only readiness checks. |
 | `GHL_LOCATION_ID` | Active AOH / hub360ai location for read-only GHL checks. |
 
@@ -205,6 +208,12 @@ Slack app configuration:
 - Add bot scopes needed to read channel messages and post replies, such as `channels:history` and `chat:write`.
 - Invite bot user `openclaw` into `#04-aoh-ops`, or add `channels:join` / `chat:write.public` and reinstall if automatic channel access is preferred.
 - Keep the app limited to AOH internal channels.
+
+Fallback polling:
+
+- Vercel Cron calls `/api/agent/slack?poll=1` every minute.
+- The route checks `CRON_SECRET`, reads recent `#04-aoh-ops` messages, and posts Manager responses for commands that do not already have a later bot reply.
+- This is a backup for Slack Event Subscription gaps. Slack Events should still be configured for instant responses.
 
 Optional slash-command style:
 

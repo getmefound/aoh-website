@@ -11,6 +11,7 @@ const DOMAINS_PATH = "docs/client-ops-ledger/sending-domain-readiness.csv";
 const DAILY_BRIEF_PATH = "docs/client-ops-ledger/daily-brief-current.md";
 const GHL_API_BASE = "https://services.leadconnectorhq.com";
 const GHL_API_VERSION = "2021-07-28";
+const DEFAULT_AGENT_CHANNEL_ID = "C0ATTA4NBR8";
 const OWNER_SLACK_USER_ID = process.env.AOH_OWNER_SLACK_USER_ID?.trim() || "U0ATPQYFA85";
 const OWNER_FIRST_NAME = process.env.AOH_OWNER_FIRST_NAME?.trim() || "Mike";
 const OWNER_FORMAL_NAME = process.env.AOH_OWNER_FORMAL_NAME?.trim() || "Mr. Egidio";
@@ -19,6 +20,14 @@ const GHL_READINESS_CACHE_TTL_MS = Number.isFinite(configuredGhlCacheTtlMs) ? co
 
 type CsvRow = Record<string, string>;
 type GhlResult = { ok: boolean; lines: string[]; cacheAgeSeconds?: number };
+type SlackMessage = {
+  user?: string;
+  bot_id?: string;
+  subtype?: string;
+  text?: string;
+  ts?: string;
+  thread_ts?: string;
+};
 
 type LaneKey = "reviews" | "ai" | "relay";
 type AgentKey =
@@ -50,6 +59,7 @@ type UserContext = {
 };
 
 let ghlReadinessCache: { fetchedAt: number; result: GhlResult } | null = null;
+let slackBotUserIdCache: string | null = null;
 
 const LANES: Record<
   LaneKey,
@@ -293,6 +303,19 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ ok: false, error: "Unsupported Slack payload." }, { status: 415 });
+}
+
+export async function GET(req: NextRequest) {
+  const url = new URL(req.url);
+  if (url.searchParams.get("poll") !== "1") {
+    return NextResponse.json({ ok: true, endpoint: "slack-agent" });
+  }
+
+  const auth = verifyCronRequest(req);
+  if (!auth.ok) return NextResponse.json({ ok: false, error: auth.error }, { status: auth.status });
+
+  const result = await pollSlackCommands();
+  return NextResponse.json(result, { status: result.ok ? 200 : 500 });
 }
 
 async function handleJsonEvent(req: NextRequest, rawBody: string) {
@@ -767,6 +790,91 @@ async function postSlackMessage({ channel, text, threadTs }: { channel: string; 
   }
 }
 
+async function pollSlackCommands() {
+  const token = process.env.SLACK_BOT_TOKEN?.trim();
+  if (!token) return { ok: false, error: "SLACK_BOT_TOKEN is not configured.", processed: 0 };
+
+  const channel = firstAllowedChannel();
+  const lookbackSeconds = boundedNumber(process.env.SLACK_AGENT_POLL_LOOKBACK_SECONDS, 60, 7200, 1800);
+  const oldest = String(Math.floor(Date.now() / 1000) - lookbackSeconds);
+  const history = await getSlackHistory({ token, channel, oldest, limit: 50 });
+  const botUserId = await getSlackBotUserId(token);
+  const messages = history.messages ?? [];
+  const commands = messages
+    .filter((message) => isPollableSlackCommand(message, botUserId))
+    .filter((message) => !hasLaterBotReply(messages, message, botUserId))
+    .sort((a, b) => Number(a.ts ?? 0) - Number(b.ts ?? 0));
+
+  let processed = 0;
+  for (const message of commands) {
+    const text = message.text?.trim() ?? "";
+    const actor = buildUserContext({ userId: message.user ?? "", commandText: text });
+    const response = await buildAgentResponse(text, actor);
+    await postSlackMessage({ channel, text: response });
+    processed++;
+  }
+
+  return {
+    ok: true,
+    channel,
+    scanned: messages.length,
+    processed,
+  };
+}
+
+async function getSlackHistory({
+  token,
+  channel,
+  oldest,
+  limit,
+}: {
+  token: string;
+  channel: string;
+  oldest: string;
+  limit: number;
+}): Promise<{ ok: boolean; messages?: SlackMessage[]; error?: string }> {
+  const url = new URL("https://slack.com/api/conversations.history");
+  url.searchParams.set("channel", channel);
+  url.searchParams.set("oldest", oldest);
+  url.searchParams.set("limit", String(limit));
+  const result = await getSlackApi<{ ok?: boolean; messages?: SlackMessage[]; error?: string }>(url, token);
+  if (!result.ok) throw new Error(`Slack history failed: ${result.error ?? "unknown_error"}`);
+  return { ok: true, messages: result.messages ?? [] };
+}
+
+async function getSlackBotUserId(token: string) {
+  if (process.env.SLACK_BOT_USER_ID?.trim()) return process.env.SLACK_BOT_USER_ID.trim();
+  if (slackBotUserIdCache) return slackBotUserIdCache;
+  const url = new URL("https://slack.com/api/auth.test");
+  const result = await getSlackApi<{ ok?: boolean; user_id?: string; error?: string }>(url, token);
+  if (!result.ok || !result.user_id) throw new Error(`Slack auth.test failed: ${result.error ?? "missing_user_id"}`);
+  slackBotUserIdCache = result.user_id;
+  return result.user_id;
+}
+
+async function getSlackApi<T>(url: URL, token: string): Promise<T> {
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  });
+  return (await response.json()) as T;
+}
+
+function isPollableSlackCommand(message: SlackMessage, botUserId: string) {
+  const text = message.text?.trim() ?? "";
+  if (!text || !message.ts) return false;
+  if (message.subtype || message.bot_id || message.user === botUserId) return false;
+  return isSupportedCommand(text);
+}
+
+function hasLaterBotReply(messages: SlackMessage[], command: SlackMessage, botUserId: string) {
+  const commandTs = Number(command.ts ?? 0);
+  return messages.some((message) => {
+    const messageTs = Number(message.ts ?? 0);
+    return messageTs > commandTs && (message.user === botUserId || Boolean(message.bot_id));
+  });
+}
+
 async function postSlackResponseUrl(responseUrl: string, text: string) {
   if (!responseUrl) return false;
   const response = await fetch(responseUrl, {
@@ -876,12 +984,28 @@ function verifySlackRequest(req: NextRequest, rawBody: string): { ok: true } | {
   return { ok: true };
 }
 
+function verifyCronRequest(req: NextRequest): { ok: true } | { ok: false; status: number; error: string } {
+  const cronSecret = process.env.CRON_SECRET?.trim();
+  const authHeader = req.headers.get("authorization") ?? "";
+  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
+    return { ok: false, status: 401, error: "Unauthorized." };
+  }
+  return { ok: true };
+}
+
 function isAllowedChannel(channel: string) {
-  const allowed = (process.env.SLACK_AGENT_ALLOWED_CHANNEL_IDS ?? "C0ATTA4NBR8")
+  return allowedChannels().includes(channel);
+}
+
+function firstAllowedChannel() {
+  return allowedChannels()[0] ?? DEFAULT_AGENT_CHANNEL_ID;
+}
+
+function allowedChannels() {
+  return (process.env.SLACK_AGENT_ALLOWED_CHANNEL_IDS ?? DEFAULT_AGENT_CHANNEL_ID)
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
-  return allowed.includes(channel);
 }
 
 function isSupportedCommand(text: string) {
@@ -1069,6 +1193,12 @@ function normalizeCommand(command: string) {
 
 function wantsFreshCheck(normalized: string) {
   return /\b(fresh|live|force|rerun|recheck|no cache)\b/.test(normalized);
+}
+
+function boundedNumber(raw: string | undefined, min: number, max: number, fallback: number) {
+  const value = Number(raw);
+  if (!Number.isFinite(value)) return fallback;
+  return Math.min(max, Math.max(min, value));
 }
 
 function buildUserContext({

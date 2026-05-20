@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/api/agent/slack?poll=1",
+      "schedule": "* * * * *"
+    }
+  ]
+}
