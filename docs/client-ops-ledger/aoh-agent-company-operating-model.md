@@ -26,7 +26,8 @@ AOH should replicate a practical company hierarchy:
 Mike / President
   -> Secretary / Chief of Staff
       -> Manager
-          -> Specialist agents
+          -> Department leads
+              -> Specialist agents
               -> Delivery jobs
                   -> Client records and reports
 ```
@@ -40,14 +41,40 @@ The system should make Mike's day simpler, not make Mike manage every agent dire
 | President | Mike. Reviews recommendations, approves client-facing or risky actions, makes business decisions. |
 | Secretary / Chief of Staff | Prepares the morning brief, filters noise, groups recommendations, and gives Mike a clean approval queue. |
 | Manager | Scans the company, finds work that may need doing, asks specialist agents to investigate, and creates recommendations. |
+| Sales Manager | Owns the revenue pipeline, campaign strategy, prospecting priorities, reply follow-up, and booked-call handoffs. |
+| Client Success Manager | Owns onboarding health, client check-ins, retention risk, reporting cadence, and making sure sold clients are not ignored. |
 | GHL Expert | Scans GHL/hub360ai client accounts, workflows, reviews, contacts, opportunities, tags, and account health. |
 | Local Visibility Manager | Checks Google Business Profile access, local visibility, AI visibility work, citations, review links, and profile health. |
-| Reviews Agent | Checks review requests, review counts, reporting cadence, replies, and review automation health. |
-| Relay Agent | Checks voice agent call logs, missed calls, routing, fallback behavior, and client issues. |
+| Reviews Manager | Checks review requests, review counts, reporting cadence, replies, and review automation health. |
+| Relay Manager | Checks voice agent call logs, missed calls, routing, fallback behavior, and client issues. |
+| Engagement Scout | Finds social conversations worth entering and drafts comments or DM suggestions for approval. |
+| Scout | Finds prospects, weak profiles, niches, review gaps, and fit signals before deeper research or outreach. |
+| Sender | Prepares outreach campaigns, follow-ups, merge-field checks, and deliverability guardrails. |
+| Sorter | Classifies replies, catches hot leads, handles opt-outs, and routes unclear messages for review. |
+| Booker | Turns real buying intent into booked calls and clean handoffs. |
 | Studio | Creates approved content assets. |
+| Editor | Chooses angles, priorities, brand voice, and what content is worth making. |
 | Press | Publishes approved content and verifies scheduled/published status. |
 | Hub | Answers account questions by reading the ledger, GHL, Drive, and client profile notes. |
 | Systems Director | Looks after IT stack health, security, access, backups, tool decisions, costs, repeated failures, and cross-agent risk patterns. |
+
+## Department Structure
+
+Use this as the practical org chart inside Mission Control:
+
+| Department | Lead | Direct reports / owned roles |
+|---|---|---|
+| Executive Office | Chief of Staff | Scheduler |
+| Company Operations | General Manager | Coach |
+| Systems and IT | Systems Director | GHL Expert |
+| Sales Department | Sales Manager | Scout, Sender, Sorter, Booker, Engagement Scout |
+| Client Success | Client Success Manager | Hub, Reporter |
+| Client Delivery | Local Visibility Manager | Reviews Manager, Relay Manager |
+| Marketing Department | Editor | Studio, Press |
+
+Sales Manager is the sales-side supervisor. Engagement Scout is not a manager; it is a sales specialist that finds social conversations worth entering and drafts comments or DM suggestions for approval.
+
+Client Success Manager owns the health of sold clients. Local Visibility Manager, Reviews Manager, and Relay Manager own their delivery lanes and should surface risks through Client Success and Manager.
 
 ## Daily Operating Flow
 
@@ -68,10 +95,13 @@ Manager does not do everything itself. Manager asks specialist agents to investi
 
 Examples:
 
+- Sales Manager scans the revenue pipeline and asks Scout, Sender, Sorter, Booker, or Engagement Scout to investigate.
+- Client Success Manager scans onboarding, reporting, client health, retention risk, and account follow-up.
 - GHL Expert scans all client GHL accounts.
 - Local Visibility Manager checks Google profile, local visibility, and AI visibility client work.
-- Reviews Agent checks review delivery.
-- Relay Agent checks voice/call delivery.
+- Reviews Manager checks review delivery.
+- Relay Manager checks voice/call delivery.
+- Engagement Scout scans social conversations and drafts comments or DMs, but does not post without approval.
 - Systems Director checks stack health, security, cost, risk, and failure patterns.
 
 Then Manager creates recommendations.
@@ -207,6 +237,7 @@ Agents need approval before:
 - changing live GHL workflows
 - starting outreach drips
 - publishing public content
+- posting social comments or sending DMs
 - making claims about results
 - contacting prospects or clients as AOH
 
@@ -228,10 +259,13 @@ HighLevel AI features must remain OFF unless Mike explicitly authorizes them man
 ### Phase 2 - Manager and Specialist Scans
 
 - [ ] Build Manager daily scan.
+- [ ] Build Sales Manager revenue pipeline scan.
+- [ ] Build Client Success Manager client health scan.
 - [ ] Build GHL Expert daily scan.
 - [ ] Build Local Visibility Manager scan.
-- [ ] Build Reviews Agent scan.
-- [ ] Build Relay Agent scan.
+- [ ] Build Reviews Manager scan.
+- [ ] Build Relay Manager scan.
+- [ ] Build Engagement Scout social opportunity scan.
 - [ ] Build Systems Director exception and tech-stack scan.
 - [ ] Have Manager convert findings into recommendations.
 - [ ] Have Secretary convert recommendations into the daily brief.

@@ -55,11 +55,35 @@ const ROLES: OrgRole[] = [
     tone: "systems",
   },
   {
+    title: "Sales Manager",
+    status: "building",
+    summary: "Owns the revenue pipeline from campaign choice to booked calls, including when to pause, change, or scale outreach.",
+    owns: ["campaign strategy", "sales pipeline", "reply follow-up", "booked-call handoff"],
+    reportsTo: "General Manager",
+    tone: "revenue",
+  },
+  {
+    title: "Client Success Manager",
+    status: "planned",
+    summary: "Owns whether clients are onboarded, happy, reported to, renewed, and not quietly ignored after the sale.",
+    owns: ["onboarding health", "client check-ins", "renewals", "retention risks"],
+    reportsTo: "General Manager",
+    tone: "ops",
+  },
+  {
+    title: "Hub",
+    status: "planned",
+    summary: "Answers account questions by reading the ledger, GHL, Drive, client notes, and delivery history.",
+    owns: ["client Q&A", "account lookups", "status answers"],
+    reportsTo: "Client Success Manager",
+    tone: "ops",
+  },
+  {
     title: "GHL Expert",
     status: "live",
     summary: "Owns hub360ai/GHL setup, workflows, pipelines, tags, callbacks, reports, and automation health.",
     owns: ["GHL workflows", "pipelines", "calendars", "report delivery"],
-    reportsTo: "General Manager",
+    reportsTo: "Systems Director",
     tone: "systems",
   },
   {
@@ -67,7 +91,23 @@ const ROLES: OrgRole[] = [
     status: "building",
     summary: "Owns Google Business Profile access, profile health, citations, review links, and local/AI visibility signals.",
     owns: ["Google profile", "local visibility", "citations", "AI visibility checks"],
-    reportsTo: "General Manager",
+    reportsTo: "Client Success Manager",
+    tone: "delivery",
+  },
+  {
+    title: "Reviews Manager",
+    status: "planned",
+    summary: "Owns review automation delivery, review request health, replies, reporting cadence, and review-volume warnings.",
+    owns: ["review requests", "review reports", "reply health", "review velocity"],
+    reportsTo: "Client Success Manager",
+    tone: "delivery",
+  },
+  {
+    title: "Relay Manager",
+    status: "planned",
+    summary: "Owns voice-agent delivery, missed-call recovery, call summaries, routing quality, and escalation issues.",
+    owns: ["voice delivery", "call logs", "missed calls", "routing QA"],
+    reportsTo: "Client Success Manager",
     tone: "delivery",
   },
   {
@@ -83,7 +123,7 @@ const ROLES: OrgRole[] = [
     status: "live",
     summary: "Finds prospects, weak profiles, review gaps, niche signals, and cheap prefilter evidence.",
     owns: ["prospect research", "fit scoring", "source notes"],
-    reportsTo: "General Manager",
+    reportsTo: "Sales Manager",
     tone: "revenue",
   },
   {
@@ -91,7 +131,7 @@ const ROLES: OrgRole[] = [
     status: "planned",
     summary: "Prepares outreach, watches deliverability, validates merge fields, and keeps campaigns reply-first.",
     owns: ["email campaigns", "follow-ups", "deliverability"],
-    reportsTo: "General Manager",
+    reportsTo: "Sales Manager",
     tone: "revenue",
   },
   {
@@ -99,7 +139,7 @@ const ROLES: OrgRole[] = [
     status: "planned",
     summary: "Classifies replies, catches hot leads, handles opt-outs, and routes unclear items for review.",
     owns: ["reply triage", "hot lead routing", "suppression"],
-    reportsTo: "General Manager",
+    reportsTo: "Sales Manager",
     tone: "revenue",
   },
   {
@@ -107,7 +147,15 @@ const ROLES: OrgRole[] = [
     status: "planned",
     summary: "Turns buying intent into booked calls and keeps handoffs clean.",
     owns: ["booking links", "show-rate follow-up", "meeting handoff"],
-    reportsTo: "General Manager",
+    reportsTo: "Sales Manager",
+    tone: "revenue",
+  },
+  {
+    title: "Engagement Scout",
+    status: "planned",
+    summary: "Finds social conversations worth entering and drafts comments or DM suggestions for approval.",
+    owns: ["social listening", "comment drafts", "DM opportunities", "engagement log"],
+    reportsTo: "Sales Manager",
     tone: "revenue",
   },
   {
@@ -139,7 +187,7 @@ const ROLES: OrgRole[] = [
     status: "live",
     summary: "Confirms report links open, match the right contact, and tell a useful story.",
     owns: ["report QA", "delivery proof", "monthly reporting"],
-    reportsTo: "General Manager",
+    reportsTo: "Client Success Manager",
     tone: "delivery",
   },
   {
@@ -152,12 +200,49 @@ const ROLES: OrgRole[] = [
   },
 ];
 
-const GROUPS = [
-  { title: "Executive Office", roles: ["President", "Chief of Staff", "Scheduler"] },
-  { title: "Operations", roles: ["General Manager", "Coach"] },
-  { title: "Systems and IT", roles: ["Systems Director", "GHL Expert"] },
-  { title: "Client Delivery", roles: ["Local Visibility Manager", "Studio", "Editor", "Press", "Reporter"] },
-  { title: "Revenue", roles: ["Scout", "Sender", "Sorter", "Booker"] },
+const DEPARTMENTS = [
+  {
+    title: "Executive Office",
+    lead: "Chief of Staff",
+    support: ["Scheduler"],
+    note: "Briefs Mike and protects the approval queue.",
+  },
+  {
+    title: "Company Operations",
+    lead: "General Manager",
+    support: ["Coach"],
+    note: "Turns company priorities into assigned agent work.",
+  },
+  {
+    title: "Systems and IT",
+    lead: "Systems Director",
+    support: ["GHL Expert"],
+    note: "Keeps tools, access, costs, automations, and risk under control.",
+  },
+  {
+    title: "Sales Department",
+    lead: "Sales Manager",
+    support: ["Scout", "Sender", "Sorter", "Booker", "Engagement Scout"],
+    note: "Owns prospecting, outreach, replies, social opportunities, and booked calls.",
+  },
+  {
+    title: "Client Success",
+    lead: "Client Success Manager",
+    support: ["Hub", "Reporter"],
+    note: "Keeps clients onboarded, informed, retained, and visible in the ledger.",
+  },
+  {
+    title: "Client Delivery",
+    lead: "Local Visibility Manager",
+    support: ["Reviews Manager", "Relay Manager"],
+    note: "Owns the recurring client work AOH sells and monitors.",
+  },
+  {
+    title: "Marketing Department",
+    lead: "Editor",
+    support: ["Studio", "Press"],
+    note: "Plans, creates, and publishes approved AOH and client content.",
+  },
 ];
 
 const STATUS_TONE: Record<OrgRole["status"], "accent" | "warm" | "muted" | "warn"> = {
@@ -215,18 +300,26 @@ export default function OrgChartPage() {
           <ConnectorLabel text="routes approved work" />
           <OrgNode role={findRole("General Manager")} />
         </div>
-        <OrgNode role={findRole("Systems Director")} large />
+        <div className="flex flex-col justify-center gap-4">
+          <ConnectorLabel text="daily company scan" />
+          <OrgNode role={findRole("Sales Manager")} />
+          <OrgNode role={findRole("Client Success Manager")} />
+        </div>
       </section>
 
-      <section className="grid grid-cols-1 gap-5 xl:grid-cols-5">
-        {GROUPS.map((group) => (
-          <div key={group.title} className="border-t border-zinc-800/70 pt-4">
-            <h2 className="mb-4 font-mono text-sm font-bold uppercase tracking-wider text-zinc-100">
-              {group.title}
-            </h2>
-            <div className="space-y-3">
-              {group.roles.map((title) => (
-                <OrgNode key={title} role={findRole(title)} compact={group.roles.length > 3} />
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
+        {DEPARTMENTS.map((department) => (
+          <div key={department.title} className="border-t border-zinc-800/70 pt-4">
+            <div className="mb-4 min-h-16">
+              <h2 className="font-mono text-sm font-bold uppercase tracking-wider text-zinc-100">
+                {department.title}
+              </h2>
+              <p className="mt-1 text-sm leading-relaxed text-zinc-500">{department.note}</p>
+            </div>
+            <OrgNode role={findRole(department.lead)} />
+            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {department.support.map((title) => (
+                <OrgNode key={title} role={findRole(title)} compact />
               ))}
             </div>
           </div>
@@ -238,7 +331,7 @@ export default function OrgChartPage() {
 
 function OrgNode({ role, large = false, compact = false }: { role: OrgRole; large?: boolean; compact?: boolean }) {
   return (
-    <article className={`rounded-2xl border p-4 ${TONE_CLASS[role.tone]} ${large ? "min-h-56" : ""}`}>
+    <article className={`rounded-lg border p-4 ${TONE_CLASS[role.tone]} ${large ? "min-h-56" : ""}`}>
       <div className="mb-3 flex items-start justify-between gap-3">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
