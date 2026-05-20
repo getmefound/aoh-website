@@ -461,6 +461,12 @@ async function buildReachColdEmailCampaignResponse(actor: UserContext, { forceFr
   const recommendation = readRecommendation();
   const ghlResult = await runGhlReadinessCheck({ forceFresh: forceFreshGhl });
   const cacheNote = typeof ghlResult.cacheAgeSeconds === "number" ? ` (cached ${ghlResult.cacheAgeSeconds}s ago)` : "";
+  const relayImportCompleted = summaries.some(
+    (summary) => summary.laneKey === "relay" && summary.status.includes("import_only_completed"),
+  );
+  const nextApprovalText = relayImportCompleted
+    ? "No import approval is needed for Relay right now. Relay import-only is complete. Do not approve start-drip until `ready_for_drip=yes`."
+    : "Recommended next approval, if Mike wants to move today:\n\n```text\napprove relay import only\n```";
 
   return `*Reach Cold Email Campaign - ${today()}*
 
@@ -482,20 +488,16 @@ What still needs approval or review:
 
 - Sales Manager must decide what to do with QA-flagged rows before live outreach.
 - GHL Expert must visually confirm sender/from domains, domain warmup status, workflow email sender nodes, and HighLevel AI toggles OFF.
-- Mike must approve import-only before contacts are imported.
+- Mike must approve import-only before any new contacts are imported.
 - Mike must approve start-drip separately, and only after the lane is marked \`ready_for_drip=yes\`.
 
-Recommended next approval, if Mike wants to move today:
-
-\`\`\`text
-approve relay import only
-\`\`\`
+${nextApprovalText}
 
 Do not start drip yet.
 
 Safety:
 
-- No contacts were imported.
+- ${relayImportCompleted ? "Relay import-only already imported/tagged the 2 QA OK contacts. This check imported no new contacts." : "No contacts were imported."}
 - No drip was started.
 - No GHL workflows or settings were changed.
 - No HighLevel AI features were enabled or toggled.
@@ -585,6 +587,12 @@ function buildReachDecisionResponse(actor: UserContext) {
         "/manager GHL Expert, check Reach readiness fresh",
         "/manager approve relay import only",
       ];
+  const statusLine = relayImportCompleted
+    ? "- Relay import-only already completed for the 2 QA OK contacts. This check did not start drip."
+    : "- The team preflight ran. No live action ran.";
+  const bestMove = relayImportCompleted
+    ? "1. Do not start Relay drip yet.\n2. Keep checking readiness until `ready_for_drip=yes`.\n3. Continue Reviews/AI QA only if you want another import-only lane."
+    : "1. Have Sales Manager review the QA flags.\n2. Have GHL Expert run/confirm fresh readiness.\n3. If those clear, approve the smallest clean lane for import-only first.";
 
   return `*Manager plain-English readout - ${today()}*
 
@@ -592,7 +600,7 @@ ${address(actor)}, short version: we are not ready to send emails yet.
 
 What this means:
 
-- The team preflight ran. No live action ran.
+${statusLine}
 - ${summaries.length} Reach lanes are staged; ${waiting} still need Sales Manager QA and visual GHL review.
 - ${importReady} lanes are marked import-ready, but import-only does not send emails.
 - ${dripReady} lanes are marked drip-ready, so do not start drip yet.
@@ -600,9 +608,7 @@ What this means:
 
 Current best move:
 
-1. Have Sales Manager review the QA flags.
-2. Have GHL Expert run/confirm fresh readiness.
-3. If those clear, approve the smallest clean lane for import-only first.
+${bestMove}
 
 Recommended next commands:
 
@@ -614,7 +620,7 @@ Do not approve start-drip yet.
 
 Safety:
 
-- No contacts were imported.
+- ${relayImportCompleted ? "Relay import-only already imported/tagged the 2 QA OK contacts. This check imported no new contacts." : "No contacts were imported."}
 - No drip was started.
 - No GHL workflows or settings were changed.
 - No HighLevel AI features were enabled or toggled.
