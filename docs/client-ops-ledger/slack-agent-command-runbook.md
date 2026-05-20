@@ -20,8 +20,10 @@ Slack is the human command surface. Mission Control and the ledger remain the so
 | Sales Manager QA command | Wired | `Sales Manager, review Reach QA` summarizes current QA risk counts. |
 | Mike identity and tone | Wired | Agents recognize Mike by Slack user ID, answer first-name by default, and switch to formal when asked. |
 | Approval command parsing | Wired with gates | Approval commands generate the exact live command, but live execution stays blocked while agent gates are unresolved. |
+| Production listener secrets | Wired | Production has the Slack signing secret and bot token configured in Vercel. |
 | Slack posting | Env-gated | `npm run agent:slack` posts only if `SLACK_MISSION_CONTROL_WEBHOOK_URL` or `SLACK_WEBHOOK_URL` is set. |
-| Slack HTTP listener | Wired in code | `/api/agent/slack` verifies Slack requests and routes `Manager, ...` commands. Requires Slack app env/config before it answers on its own. |
+| Slack HTTP listener | Wired in code | `/api/agent/slack` verifies Slack requests and routes `Manager, ...` commands. Normal channel commands answer in the channel; threaded commands answer in the thread. |
+| `#04-aoh-ops` bot membership | Needs one manual Slack invite | The bot user is `openclaw`. Invite it once in `#04-aoh-ops` so Slack can deliver messages and the bot can post replies. |
 
 ## Slack Channels
 
@@ -150,6 +152,29 @@ SLACK_MISSION_CONTROL_WEBHOOK_URL=...
 4. The command center answers with status, blockers, or the exact next command.
 5. Live GHL execution only happens after the separate live-action guard is intentionally opened.
 
+## One-Time Slack Step For Mike
+
+The production listener is wired, but Slack will not let the bot answer in `#04-aoh-ops` until the bot is a member of that channel.
+
+In Slack:
+
+```text
+/invite @openclaw
+```
+
+Type that in the message box inside `#04-aoh-ops`, then press Enter.
+
+After that, use normal agent commands in the same channel:
+
+```text
+manager what is status of Reach Cold Email Campaign
+Manager, run Reach Cold Email Campaign
+Sales Manager, review Reach QA
+GHL Expert, check Reach readiness
+```
+
+If Slack says `openclaw` cannot be invited, update the Slack app scopes with either `channels:join` or `chat:write.public`, reinstall the app, and try again.
+
 ## Slack Listener Setup
 
 The code endpoint is:
@@ -178,6 +203,7 @@ Slack app configuration:
 - Set the Events API Request URL to `https://aioutsourcehub.com/api/agent/slack`.
 - Subscribe to channel message events for `#04-aoh-ops` if Mike wants to type plain `Manager, ...` messages.
 - Add bot scopes needed to read channel messages and post replies, such as `channels:history` and `chat:write`.
+- Invite bot user `openclaw` into `#04-aoh-ops`, or add `channels:join` / `chat:write.public` and reinstall if automatic channel access is preferred.
 - Keep the app limited to AOH internal channels.
 
 Optional slash-command style:

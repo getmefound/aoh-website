@@ -317,7 +317,7 @@ async function handleJsonEvent(req: NextRequest, rawBody: string) {
 
   const text = typeof event.text === "string" ? event.text.trim() : "";
   const channel = typeof event.channel === "string" ? event.channel : "";
-  const threadTs = typeof event.thread_ts === "string" ? event.thread_ts : typeof event.ts === "string" ? event.ts : undefined;
+  const threadTs = typeof event.thread_ts === "string" ? event.thread_ts : undefined;
   const actor = buildUserContext({
     userId: typeof event.user === "string" ? event.user : "",
     commandText: text,
@@ -746,9 +746,9 @@ async function getGhlJson(path: string, token: string) {
 
 async function postSlackMessage({ channel, text, threadTs }: { channel: string; text: string; threadTs?: string }) {
   const token = process.env.SLACK_BOT_TOKEN?.trim();
-  if (!token) return;
+  if (!token) throw new Error("SLACK_BOT_TOKEN is not configured.");
 
-  await fetch("https://slack.com/api/chat.postMessage", {
+  const response = await fetch("https://slack.com/api/chat.postMessage", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -761,6 +761,10 @@ async function postSlackMessage({ channel, text, threadTs }: { channel: string; 
     }),
     cache: "no-store",
   });
+  const result = (await response.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+  if (!response.ok || !result?.ok) {
+    throw new Error(`Slack post failed: ${result?.error ?? response.statusText}`);
+  }
 }
 
 async function postSlackResponseUrl(responseUrl: string, text: string) {
