@@ -27,7 +27,7 @@ Use these as inspiration-label candidates only. Public figures are not affiliate
 
 | Role | Option 1 | Option 2 | Option 3 | Option 4 |
 |---|---|---|---|---|
-| Sales Manager | Chet Holmes | Brian Tracy | Mary Kay Ash | David Ogilvy |
+| Sales Manager | Zig Ziglar | Chet Holmes | Brian Tracy | Mary Kay Ash |
 | Scout | Daniel Kahneman | Malcolm Gladwell | Jane Goodall | Nate Silver |
 | Sender | David Ogilvy | Claude Hopkins | Eugene Schwartz | Ann Handley |
 | Sorter | Sherlock Holmes | Barbara Minto | Nate Silver | Annie Duke |
@@ -66,7 +66,7 @@ This is the set I would try first if you want the chart to feel less random-cele
 | President | Mike Egidio |
 | General Manager | Elon Musk |
 | Systems Director | Grace Hopper |
-| Sales Manager | Chet Holmes |
+| Sales Manager | Zig Ziglar |
 | Client Success Manager | Danny Meyer |
 | Hub | Marc Benioff |
 | GHL Expert | Satya Nadella |
@@ -78,7 +78,7 @@ This is the set I would try first if you want the chart to feel less random-cele
 | Sender | David Ogilvy |
 | Sorter | Annie Duke |
 | Booker | Barbara Corcoran |
-| Engagement Scout | Guy Kawasaki |
+| Engagement Scout | Gary Vaynerchuk |
 | Editor | James Patterson |
 | Press | Ted Turner |
 | Reporter | Edward Tufte |

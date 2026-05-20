@@ -137,8 +137,8 @@ const AGENTS: Record<
   },
   "sales-manager": {
     title: "Sales Manager",
-    persona: "Gary Vaynerchuk",
-    aliases: ["sales manager", "sales", "gary v", "gary"],
+    persona: "Zig Ziglar",
+    aliases: ["sales manager", "sales", "zig ziglar", "zig"],
     reportsTo: "General Manager",
     job: "Owns campaign strategy, pipeline quality, reply follow-up, and booked-call handoffs.",
     canDo: ["review Reach QA", "recommend lane priority", "call out list quality risk"],
@@ -183,8 +183,8 @@ const AGENTS: Record<
   },
   "engagement-scout": {
     title: "Engagement Scout",
-    persona: "TBD",
-    aliases: ["engagement scout", "engagement"],
+    persona: "Gary Vaynerchuk",
+    aliases: ["engagement scout", "engagement", "gary vaynerchuk", "gary v", "gary"],
     reportsTo: "Sales Manager",
     job: "Finds social conversations worth entering and drafts comments or DM suggestions.",
     canDo: ["suggest engagement opportunities", "draft comment ideas", "flag social follow-ups"],

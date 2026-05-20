@@ -82,7 +82,7 @@ Mission Control may use business or field-associated public figures as inspirati
 | President | Mike Egidio | Approves direction, client-facing risk, pricing, tool changes, and final go/no-go calls. |
 | General Manager | Elon Musk | Runs the agent company day to day, prepares the morning brief, turns recommendations into a clean approval queue, assigns owners, tracks blockers, and escalates to Mike. |
 | Systems Director | Bill Gates | Owns IT, tool stack health, access, security, backups, costs, and tool decisions. |
-| Sales Manager | Gary Vaynerchuk | Owns campaign strategy, revenue pipeline, reply follow-up, and booked-call handoffs. |
+| Sales Manager | Zig Ziglar | Owns campaign strategy, revenue pipeline, reply follow-up, and booked-call handoffs. |
 | Client Success Manager | TBD | Owns onboarding health, client check-ins, renewals, retention risk, and reporting cadence. |
 | Hub | TBD | Answers account questions from the ledger, GHL, Drive, client notes, and delivery history. |
 | GHL Expert | Paul Allen | Owns hub360ai/GHL workflows, pipelines, calendars, callbacks, reports, and automation health. |
@@ -94,7 +94,7 @@ Mission Control may use business or field-associated public figures as inspirati
 | Sender | TBD | Prepares outreach, watches deliverability, validates merge fields, and keeps campaigns reply-first. |
 | Sorter | TBD | Classifies replies, catches hot leads, handles opt-outs, and routes unclear items for review. |
 | Booker | TBD | Turns buying intent into booked calls and clean meeting handoffs. |
-| Engagement Scout | TBD | Finds social conversations worth entering and drafts comments or DM suggestions for approval. |
+| Engagement Scout | Gary Vaynerchuk | Finds social conversations worth entering and drafts comments or DM suggestions for approval. |
 | Editor | James Patterson | Chooses angles, priorities, brand voice, and what content is worth making. |
 | Press | Ted Turner | Publishes approved content and records proof that it went out correctly. |
 | Reporter | TBD | Confirms report links open, match the right contact, and tell a useful story. |

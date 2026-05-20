@@ -54,13 +54,13 @@ const ROLES: OrgRole[] = [
   },
   {
     title: "Sales Manager",
-    persona: "Gary Vaynerchuk",
+    persona: "Zig Ziglar",
     status: "building",
     summary: "Owns the revenue pipeline from campaign choice to booked calls, including when to pause, change, or scale outreach.",
     owns: ["campaign strategy", "sales pipeline", "reply follow-up", "booked-call handoff"],
     reportsTo: "General Manager",
     tone: "revenue",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Gary_Vaynerchuk_public_domain.jpg/330px-Gary_Vaynerchuk_public_domain.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Zig_Ziglar_BnW.png/330px-Zig_Ziglar_BnW.png",
   },
   {
     title: "Client Success Manager",
@@ -174,7 +174,7 @@ const ROLES: OrgRole[] = [
   },
   {
     title: "Engagement Scout",
-    persona: "TBD",
+    persona: "Gary Vaynerchuk",
     status: "planned",
     summary: "Finds social conversations worth entering and drafts comments or DM suggestions for approval.",
     owns: ["social listening", "comment drafts", "DM opportunities", "engagement log"],
@@ -298,10 +298,6 @@ const TBD_OPTIONS = [
   {
     role: "Booker",
     options: ["Barbara Corcoran", "Mary Kay Ash", "Sara Blakely", "Daymond John"],
-  },
-  {
-    role: "Engagement Scout",
-    options: ["Guy Kawasaki", "Mark Cuban", "Alexis Ohanian", "Casey Neistat"],
   },
   {
     role: "Reporter",
