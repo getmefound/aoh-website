@@ -18,7 +18,7 @@ For Mike's plain daily workflow, use `mike-daily-agent-quickstart.md` first. Thi
 | Direct agent addressing | Wired | Mike can address agents by role, such as `Coach, ...`, `Scheduler, ...`, `Reporter, ...`, or `Press, ...`. |
 | Fast Slack response mode | Wired | Normal commands answer from the ledger/brief quickly; slower GHL/Reach checks acknowledge first and post follow-up results in the background. |
 | Slack-ready command router | Wired | `npm run agent:command -- --command "Manager, status"` returns the same kind of message a Slack bot should post. |
-| GHL Expert readiness command | Wired | `GHL Expert, check Reach readiness` runs the read-only GHL checker. |
+| GHL Expert readiness command | Wired | `GHL Expert, check Reach readiness` runs the read-only GHL checker. Visual sender/warmup/workflow/AI-toggle requests now return a separate visual checklist instead of treating the API check as enough. |
 | Sales Manager QA command | Wired | `Sales Manager, review Reach QA` summarizes current QA risk counts. `Sales Manager, resolve Relay QA flags and recommend import only` shows row-level keep/hold recommendations. |
 | Mike identity and tone | Wired | Agents recognize Mike by Slack user ID, answer first-name by default, and switch to formal when asked. |
 | Approval command parsing | Wired with gates | Approval commands generate the exact live command, but live execution stays blocked while agent gates are unresolved. |
@@ -50,6 +50,7 @@ Elon, what is the status of Reach Cold Email Campaign
 Manager, run Reach Cold Email Campaign
 Manager, brief
 GHL Expert, check Reach readiness
+GHL Expert, visually confirm Relay sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
 Sales Manager, review Reach QA
 Sales Manager, resolve Relay QA flags and recommend import only
 Coach, review this copy
@@ -346,6 +347,12 @@ When a QA CSV exists, import-only approval uses the QA CSV with `--only-ok` so f
 
 ```bash
 npm run reach:launch -- --lane relay --csv tmp-reach-relay-2026-05-20-next-qa.csv --limit 2 --commit --only-ok
+```
+
+If Mike has personally checked the GHL screens, he can include that in the approval command to clear the visual blocker:
+
+```text
+approve relay import only; I visually confirmed Relay sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
 ```
 
 Live execution requires all of the following:

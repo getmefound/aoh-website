@@ -92,6 +92,10 @@ function routeCommand(command, args) {
     return buildReachColdEmailCampaignResponse();
   }
 
+  if (mentionsGhlVisualReadiness(normalized)) {
+    return buildGhlVisualChecklistResponse(findLaneKey(normalized));
+  }
+
   if (mentionsGhlReadiness(normalized)) {
     return buildGhlCheckResponse();
   }
@@ -404,6 +408,50 @@ ${brief.text}
   };
 }
 
+function buildGhlVisualChecklistResponse(laneKey) {
+  const data = loadData();
+  const lanes = laneKey ? [laneKey] : Object.keys(LANES);
+  const domainLines = lanes.map((key) => {
+    const lane = LANES[key];
+    const domain = data.domains.find((item) => String(item.lane ?? "").toLowerCase() === key) ?? {};
+    return `- ${lane.label}: expected domain \`${domain.dedicated_subdomain || "TBD"}\`; import ${domain.ready_for_import || "unknown"}; drip ${domain.ready_for_drip || "unknown"}`;
+  });
+  const approvalLane = laneKey || "relay";
+
+  return {
+    kind: "agent-ghl-visual-checklist",
+    text: `*GHL Expert visual checklist - ${today()}*
+
+The API check is not enough for visual confirmation.
+
+What the API already checks:
+
+- Pipelines exist.
+- Cold workflows exist.
+- Reply workflows exist.
+
+What still needs a real GHL screen check:
+
+- Sender/from domain matches the lane.
+- Dedicated sending domain warmup/status looks safe.
+- Workflow email sender nodes use the right sender/from domain.
+- Conversation AI, AI Employee, Content AI, Auto-Review Replies, and other HighLevel AI toggles are OFF.
+
+Lane/domain target:
+
+${domainLines.join("\n")}
+
+If Mike personally confirms those screens, use the combined approval so Manager has the confirmation in the same command:
+
+\`\`\`text
+approve ${approvalLane} import only; I visually confirmed ${LANES[approvalLane].label} sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
+\`\`\`
+
+Until that visual confirmation is included, import-only remains blocked. Start-drip is still not approved.
+`,
+  };
+}
+
 function buildQaResponse(normalized = "") {
   const data = loadData();
   const summaries = getReachJobs(data.jobs).map((job) => laneSummary(job, data.domains));
@@ -567,7 +615,13 @@ function buildApprovalResponse(approval, args) {
   });
   const actionLabel = approval.action === "start" ? "start drip" : "import only";
   const command = `npm run reach:launch -- --lane ${approval.laneKey} --csv ${approvalSource.sourceFile || "CSV_PATH"} --limit ${approvalSource.limit} --commit${approvalSource.onlyOk ? " --only-ok" : ""}${approval.action === "start" ? " --start-drip" : ""}`;
-  const blockers = approvalBlockers({ action: approval.action, job, domain, approvalSource });
+  const blockers = approvalBlockers({
+    action: approval.action,
+    job,
+    domain,
+    approvalSource,
+    visualConfirmed: approval.visualConfirmed,
+  });
   let execution = "Live execution was not attempted.";
   let recorded = "";
 
@@ -597,6 +651,7 @@ ${command}
 \`\`\`
 
 ${approvalSource.note ? `Source handling:\n\n- ${approvalSource.note}\n` : ""}
+${approval.visualConfirmed ? "Visual GHL gate:\n\n- Mike confirmed the visual sender-domain/warmup/workflow/AI-toggle check in this approval command.\n" : ""}
 
 Execution:
 
@@ -618,20 +673,27 @@ function parseApproval(normalized) {
   const laneKey = findLaneKey(normalized);
   if (!laneKey) return null;
 
+  const visualConfirmed = hasGhlVisualConfirmation(normalized);
+
   if (normalized.includes("start") || normalized.includes("drip")) {
-    return { laneKey, action: "start" };
+    return { laneKey, action: "start", visualConfirmed };
   }
   if (normalized.includes("import")) {
-    return { laneKey, action: "import" };
+    return { laneKey, action: "import", visualConfirmed };
   }
   return null;
 }
 
 function findLaneKey(normalized) {
-  return Object.entries(LANES).find(([, lane]) => lane.aliases.some((alias) => containsAlias(normalized, alias)))?.[0] ?? null;
+  const matches = Object.entries(LANES).flatMap(([key, lane]) =>
+    lane.aliases
+      .filter((alias) => containsAlias(normalized, alias))
+      .map((alias) => ({ key, length: alias.length })),
+  );
+  return matches.sort((a, b) => b.length - a.length)[0]?.key ?? null;
 }
 
-function approvalBlockers({ action, job, domain, approvalSource }) {
+function approvalBlockers({ action, job, domain, approvalSource, visualConfirmed }) {
   const blockers = [];
   if (!job) blockers.push("No matching job is present in the agent job queue.");
   if (!approvalSource.sourceFile) blockers.push("The job has no source CSV.");
@@ -648,7 +710,7 @@ function approvalBlockers({ action, job, domain, approvalSource }) {
     blockers.push("Domain readiness says ready_for_drip is not yes.");
   }
   const status = String(job?.status ?? "");
-  if (status.includes("waiting_sales_and_visual_ghl_review")) {
+  if (status.includes("waiting_sales_and_visual_ghl_review") && !visualConfirmed) {
     blockers.push(
       approvalSource.onlyOk
         ? "GHL Expert visual sender-domain/warmup/AI-toggle review is still waiting. Sales QA can be handled with OK-only rows."
@@ -957,6 +1019,22 @@ function mentionsGhlReadiness(normalized) {
   return (
     normalized.includes("ghl") &&
     (normalized.includes("check") || normalized.includes("readiness") || normalized.includes("ready"))
+  );
+}
+
+function mentionsGhlVisualReadiness(normalized) {
+  return (
+    normalized.includes("ghl") &&
+    /\b(visual|visually|sender domain|from domain|warmup|warm up|sender nodes|workflow sender|ai toggles|highlevel ai|conversation ai|ai employee|content ai|auto review)\b/.test(
+      normalized,
+    )
+  );
+}
+
+function hasGhlVisualConfirmation(normalized) {
+  return (
+    /\b(i|mike)\s+(visually\s+)?(confirmed|checked|verified)\b/.test(normalized) ||
+    /\bvisual\s+(check\s+)?(complete|confirmed|done|verified)\b/.test(normalized)
   );
 }
 
