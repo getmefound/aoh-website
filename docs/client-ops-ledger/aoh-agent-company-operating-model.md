@@ -325,7 +325,8 @@ HighLevel AI features must remain OFF unless Mike explicitly authorizes them man
 - [ ] Create a `recommended_jobs` queue.
 - [ ] Create job lifecycle statuses.
 - [x] Add local Slack-ready approval commands through `scripts/agent-command-center.mjs`.
-- [ ] Connect the command router to the real Slack bot or OpenClaw backend.
+- [x] Add `/api/agent/slack` as the Slack HTTP listener endpoint.
+- [ ] Configure Slack app Event Subscription URL, signing secret, and bot token so the listener can answer without Codex bridging.
 - [ ] Convert approved recommendations into jobs.
 - [ ] Write completed jobs back to Client Ops Ledger and client profile notes.
 

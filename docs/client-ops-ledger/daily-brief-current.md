@@ -130,4 +130,6 @@ Default command channel: `#04-aoh-ops`.
 
 Default daily campaign command: `Manager, run Reach Cold Email Campaign`.
 
+Slack HTTP listener endpoint: `/api/agent/slack`.
+
 The command center will not import contacts or start a drip unless a separate live execution guard is intentionally opened.

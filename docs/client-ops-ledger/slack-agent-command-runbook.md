@@ -17,7 +17,7 @@ Slack is the human command surface. Mission Control and the ledger remain the so
 | Sales Manager QA command | Wired | `Sales Manager, review Reach QA` summarizes current QA risk counts. |
 | Approval command parsing | Wired with gates | Approval commands generate the exact live command, but live execution stays blocked while agent gates are unresolved. |
 | Slack posting | Env-gated | `npm run agent:slack` posts only if `SLACK_MISSION_CONTROL_WEBHOOK_URL` or `SLACK_WEBHOOK_URL` is set. |
-| Full Slack bot backend | Pending | The same command router can be called by a Slack bot or OpenClaw once that backend is connected. |
+| Slack HTTP listener | Wired in code | `/api/agent/slack` verifies Slack requests and routes `Manager, ...` commands. Requires Slack app env/config before it answers on its own. |
 
 ## Slack Channels
 
@@ -81,9 +81,40 @@ SLACK_MISSION_CONTROL_WEBHOOK_URL=...
 
 1. Manager posts the daily brief in the Mission Control channel.
 2. Mike replies with a command such as `approve relay import only` or `GHL Expert, check Reach readiness`.
-3. The Slack bot or OpenClaw backend sends that text into `scripts/agent-command-center.mjs`.
+3. Slack sends the message to `/api/agent/slack`.
 4. The command center answers with status, blockers, or the exact next command.
 5. Live GHL execution only happens after the separate live-action guard is intentionally opened.
+
+## Slack Listener Setup
+
+The code endpoint is:
+
+```text
+https://aioutsourcehub.com/api/agent/slack
+```
+
+Required environment variables:
+
+| Variable | Purpose |
+|---|---|
+| `SLACK_SIGNING_SECRET` | Verifies inbound Slack requests. Required. |
+| `SLACK_BOT_TOKEN` | Lets the listener post replies back in Slack. Required for normal message events. |
+| `SLACK_AGENT_ALLOWED_CHANNEL_IDS` | Comma-separated channel IDs allowed to trigger the listener. Default includes `C0ATTA4NBR8` for `#04-aoh-ops`. |
+| `GHL_PIT_TOKEN` | Lets GHL Expert run read-only readiness checks. |
+| `GHL_LOCATION_ID` | Active AOH / hub360ai location for read-only GHL checks. |
+
+Slack app configuration:
+
+- Set the Events API Request URL to `https://aioutsourcehub.com/api/agent/slack`.
+- Subscribe to channel message events for `#04-aoh-ops` if Mike wants to type plain `Manager, ...` messages.
+- Add bot scopes needed to read channel messages and post replies, such as `channels:history` and `chat:write`.
+- Keep the app limited to AOH internal channels.
+
+Optional slash-command style:
+
+- Create a command such as `/manager`.
+- Point the slash command Request URL to the same endpoint.
+- Then Mike can type `/manager run Reach Cold Email Campaign`.
 
 ## Reach Cold Email Campaign Default
 
