@@ -235,6 +235,8 @@ The matching app manifest lives at:
 docs/client-ops-ledger/slack-app-manifest.yml
 ```
 
+If `/manager` says the app did not respond and Vercel logs show no POST to `/api/agent/slack`, Slack is not pointing the command to the HTTP endpoint. Use the app manifest above or turn Socket Mode off, then set the slash-command Request URL.
+
 Fallback polling:
 
 - Vercel Cron calls `/api/agent/slack?poll=1` every minute.
