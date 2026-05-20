@@ -253,6 +253,7 @@ Slash-command style:
 /manager deploy Reach Cold Email Campaign
 /manager explain the Reach result in plain English
 /manager are we ready to send?
+/manager I want to send warmup emails today. What has to happen first?
 /manager list agents
 /manager Sales Manager, review Reach QA
 /manager GHL Expert, check Reach readiness

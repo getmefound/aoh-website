@@ -1269,7 +1269,7 @@ function mentionsGenericCampaignDeploy(normalized: string) {
 
 function mentionsReachDecisionQuestion(normalized: string) {
   const asksForDecision =
-    /\b(what does this mean|what does it mean|explain|plain english|translate|what happened|what ran|what next|what now|what should|what do i do|next step|next steps|should i|can i|are we ready|ready to send|ready to deploy|ready to launch|can we send|can we start|send emails|start drip)\b/.test(
+    /\b(what does this mean|what does it mean|explain|plain english|translate|what happened|what ran|what next|what now|what should|what do i do|what has to happen|what needs to happen|happen first|before i send|before we send|i want to send|want to send|next step|next steps|should i|can i|are we ready|ready to send|ready to deploy|ready to launch|can we send|can we start|send emails|send warmup|warmup emails|warm up emails|start drip)\b/.test(
       normalized,
     );
   if (!asksForDecision) return false;
@@ -1278,8 +1278,11 @@ function mentionsReachDecisionQuestion(normalized: string) {
     normalized.includes("reach") ||
     normalized.includes("campaign") ||
     normalized.includes("email") ||
+    normalized.includes("warmup") ||
+    normalized.includes("warm up") ||
     normalized.includes("drip") ||
     normalized.includes("what does this mean") ||
+    normalized.includes("happen first") ||
     normalized.includes("what next") ||
     normalized.includes("what should") ||
     normalized.includes("what do i do") ||

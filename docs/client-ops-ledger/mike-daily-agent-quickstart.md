@@ -68,6 +68,7 @@ When the result is too technical, ask Manager directly:
 /manager explain the Reach result in plain English
 /manager what should I do next?
 /manager are we ready to send?
+/manager I want to send warmup emails today. What has to happen first?
 ```
 
 Manager should answer with a plain-English readout, the current blocker, and the next safe commands.
