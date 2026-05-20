@@ -358,8 +358,8 @@ export default function OrgChartPage() {
         </div>
       </header>
 
-      <section className="border border-slate-400 bg-[#eef2f7] p-3 text-[#111] shadow-[0_18px_40px_rgba(15,23,42,0.22)] md:p-5">
-        <div className="mb-4 flex items-center justify-between rounded-t-md border border-[#2b579a] bg-gradient-to-b from-[#5f8dd3] to-[#1f4f9a] px-3 py-2 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]">
+      <section className="border border-[#394b63] bg-[#172233] p-3 text-slate-100 shadow-[0_18px_40px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)] md:p-5">
+        <div className="mb-4 flex items-center justify-between rounded-t-md border border-[#5f7fa8] bg-gradient-to-b from-[#5476a8] via-[#2b4f7d] to-[#142c4c] px-3 py-2 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_2px_7px_rgba(0,0,0,0.28)]">
           <h2 className="font-mono text-sm font-bold uppercase tracking-wider">
             AI Outsource Hub - Agent Company Hierarchy
           </h2>
@@ -380,7 +380,7 @@ export default function OrgChartPage() {
             ))}
           </div>
         </div>
-        <p className="mt-4 border-t border-[#808080] pt-2 font-mono text-[10px] uppercase tracking-wide text-[#333]">
+        <p className="mt-4 border-t border-[#31445e] pt-2 font-mono text-[10px] uppercase tracking-wide text-slate-400">
           Portraits load from public Wikimedia/Wikipedia image paths where available. Persona labels are inspiration only.
         </p>
       </section>
@@ -404,12 +404,12 @@ export default function OrgChartPage() {
 
 function DepartmentBox({ department }: { department: { title: string; lead: string; support: string[] } }) {
   return (
-    <section className="border border-slate-400 bg-white p-2 shadow-[0_2px_7px_rgba(15,23,42,0.16)]">
-      <div className="mb-2 rounded-t-sm bg-gradient-to-b from-[#4f7fc7] to-[#224f94] px-2 py-1 font-mono text-xs font-bold uppercase tracking-wide text-white">
+    <section className="border border-[#465b73] bg-[#223149] p-2 shadow-[0_2px_9px_rgba(0,0,0,0.32),inset_0_1px_0_rgba(255,255,255,0.06)]">
+      <div className="mb-2 rounded-t-sm border border-[#5b789d] bg-gradient-to-b from-[#476b99] to-[#203b61] px-2 py-1 font-mono text-xs font-bold uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
         {department.title}
       </div>
       <OrgBox role={findRole(department.lead)} compact />
-      <div className="mx-auto h-4 w-px bg-[#606060]" />
+      <div className="mx-auto h-4 w-px bg-[#5b6f88]" />
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {department.support.map((title) => (
           <OrgBox key={title} role={findRole(title)} compact />
@@ -421,7 +421,7 @@ function DepartmentBox({ department }: { department: { title: string; lead: stri
 
 function OrgBox({ role, size = "normal", compact = false }: { role: OrgRole; size?: "normal" | "large"; compact?: boolean }) {
   return (
-    <article className="border border-slate-400 bg-[#f8fafc] shadow-[0_2px_5px_rgba(15,23,42,0.13)]">
+    <article className="border border-[#56677d] bg-gradient-to-b from-[#d7dde6] to-[#aeb8c7] shadow-[0_2px_7px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.7)]">
       <div className={`${TITLE_BAR_CLASS[role.tone]} flex items-center justify-between gap-2 px-2 py-1 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]`}>
         <span className="truncate font-mono text-[11px] font-bold uppercase tracking-wide">{role.title}</span>
         <span className="rounded-none border border-white/50 px-1 font-mono text-[9px] uppercase">{role.status}</span>
@@ -429,21 +429,21 @@ function OrgBox({ role, size = "normal", compact = false }: { role: OrgRole; siz
       <div className={`grid gap-3 p-3 ${size === "large" ? "sm:grid-cols-[96px_1fr]" : "grid-cols-[72px_1fr]"}`}>
         <PersonPhoto role={role} large={size === "large"} />
         <div className="min-w-0">
-          <h3 className={`${size === "large" ? "text-xl" : "text-base"} font-serif font-bold leading-tight text-[#111]`}>
+          <h3 className={`${size === "large" ? "text-xl" : "text-base"} font-serif font-bold leading-tight text-[#111827]`}>
             {role.persona}
           </h3>
-          <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wide text-[#444]">
+          <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wide text-[#3b4a5c]">
             inspiration persona
           </p>
-          {!compact && <p className="mt-2 text-sm leading-snug text-[#222]">{role.summary}</p>}
+          {!compact && <p className="mt-2 text-sm leading-snug text-[#1f2937]">{role.summary}</p>}
           {role.reportsTo && (
-            <p className="mt-2 font-mono text-[10px] uppercase tracking-wide text-[#555]">
+            <p className="mt-2 font-mono text-[10px] uppercase tracking-wide text-[#465568]">
               reports to {role.reportsTo}
             </p>
           )}
           <div className="mt-2 flex flex-wrap gap-1">
             {role.owns.slice(0, compact ? 2 : 4).map((item) => (
-              <span key={item} className="border border-slate-300 bg-white px-1.5 py-0.5 text-[10px] text-[#222]">
+              <span key={item} className="border border-[#7d8a9a] bg-[#eef2f7] px-1.5 py-0.5 text-[10px] text-[#1f2937] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
                 {item}
               </span>
             ))}
@@ -461,7 +461,7 @@ function PersonPhoto({ role, large = false }: { role: OrgRole; large?: boolean }
   return (
     <div
       aria-label={isTbd ? `${role.title} persona pending` : `${role.persona} portrait`}
-      className={`${size} flex items-center justify-center border border-slate-400 bg-slate-200 bg-cover bg-center font-mono text-xs font-bold text-slate-500 shadow-[0_1px_3px_rgba(15,23,42,0.2)]`}
+      className={`${size} flex items-center justify-center border border-[#5f6f83] bg-[#7f8fa3] bg-cover bg-center font-mono text-xs font-bold text-slate-200 shadow-[0_1px_4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.25)]`}
       role="img"
       style={{
         backgroundImage: isTbd ? undefined : `url("${role.image}")`,
@@ -476,7 +476,7 @@ function PersonPhoto({ role, large = false }: { role: OrgRole; large?: boolean }
 function Connector() {
   return (
     <div className="flex h-8 w-full items-center justify-center">
-      <div className="h-full w-px bg-[#606060]" />
+      <div className="h-full w-px bg-[#5b6f88]" />
     </div>
   );
 }
