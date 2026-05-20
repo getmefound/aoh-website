@@ -249,6 +249,7 @@ Slash-command style:
 ```text
 /manager what is status of Reach Cold Email Campaign
 /manager run Reach Cold Email Campaign
+/manager deploy campaign
 /manager list agents
 /manager Sales Manager, review Reach QA
 /manager GHL Expert, check Reach readiness
@@ -275,6 +276,14 @@ means:
 - do not start drip
 - do not change GHL settings
 - do not enable or toggle HighLevel AI features
+
+This shortcut means the same safe routine:
+
+```text
+/manager deploy campaign
+```
+
+It runs through Manager, Sales Manager QA, and GHL Expert readiness first. It does not import contacts or start a drip by itself.
 
 Use batch names only when Mike explicitly wants a historical or special run.
 

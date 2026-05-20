@@ -46,7 +46,10 @@ This checks the campaign prep and returns blockers or next approvals. It does no
 
 ```text
 /manager run Reach Cold Email Campaign
+/manager deploy campaign
 ```
+
+`Deploy campaign` means Manager runs the team gates first. It does not live-send by itself.
 
 If Manager says agent review is still needed, ask:
 

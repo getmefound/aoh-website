@@ -671,6 +671,10 @@ function mentionsReachColdEmailCampaign(normalized) {
   return (
     normalized.includes("run reach cold email campaign") ||
     normalized.includes("start reach cold email campaign") ||
+    normalized.includes("deploy reach cold email campaign") ||
+    normalized.includes("deploy cold email campaign") ||
+    normalized.includes("deploy campaign") ||
+    normalized.includes("launch campaign") ||
     normalized.includes("reach cold email campaign")
   );
 }
@@ -679,7 +683,7 @@ function mentionsReachCampaignStatus(normalized) {
   return (
     mentionsReachColdEmailCampaign(normalized) &&
     mentionsBrief(normalized) &&
-    !/\b(run|start|launch|execute|fresh|live|recheck|rerun)\b/.test(normalized)
+    !/\b(run|start|deploy|launch|execute|fresh|live|recheck|rerun)\b/.test(normalized)
   );
 }
 
