@@ -40,6 +40,7 @@ Mike should be able to talk in plain text.
 ```text
 Manager, status
 Manager, list agents
+Elon, what is the status of Reach Cold Email Campaign
 Manager, run Reach Cold Email Campaign
 Manager, brief
 GHL Expert, check Reach readiness
@@ -92,6 +93,7 @@ Fast commands answer from the current ledger, daily brief, and saved job state:
 ```text
 Manager, status
 Manager, list agents
+Elon, what is the status of Reach Cold Email Campaign
 Coach, review this copy
 Sales Manager, review Reach QA
 Reporter, verify report delivery status

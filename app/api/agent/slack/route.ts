@@ -382,6 +382,8 @@ ${address(actor)}, all campaign live actions are blocked.
   const approval = parseApproval(normalized);
   if (approval) return buildApprovalResponse(approval, actor);
 
+  if (mentionsReachCampaignStatus(normalized)) return buildReachCampaignStatusResponse(actor);
+
   if (mentionsReachColdEmailCampaign(normalized)) {
     return buildReachColdEmailCampaignResponse(actor, { forceFreshGhl: wantsFreshCheck(normalized) });
   }
@@ -497,6 +499,34 @@ GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
 approve relay import only
 pause all campaign live actions
+\`\`\``;
+}
+
+function buildReachCampaignStatusResponse(actor: UserContext) {
+  const summaries = laneSummaries();
+  const waiting = reachJobs().filter((job) => String(job.status ?? "").startsWith("waiting")).length;
+
+  return `*Reach Cold Email Campaign status - ${today()}*
+
+${address(actor)}, here is the current Reach status.
+
+Current position:
+
+- ${summaries.length} Reach lanes are staged.
+- ${waiting} lanes are still waiting on Sales Manager QA and visual GHL review.
+- No live GHL import or start-drip is running from this listener.
+- This was a status check only; no fresh GHL API check was run.
+
+Reach queue:
+
+${summaries.map(renderLaneBullet).join("\n")}
+
+Next useful commands:
+
+\`\`\`text
+Sales Manager, review Reach QA
+GHL Expert, check Reach readiness
+Manager, run Reach Cold Email Campaign
 \`\`\``;
 }
 
@@ -866,6 +896,7 @@ function isSupportedCommand(text: string) {
 
 function shouldRunAsync(command: string) {
   const normalized = normalizeCommand(command);
+  if (mentionsReachCampaignStatus(normalized)) return false;
   return mentionsReachColdEmailCampaign(normalized) || mentionsGhlReadiness(normalized);
 }
 
@@ -1014,6 +1045,10 @@ function mentionsAgentList(normalized: string) {
 
 function mentionsReachColdEmailCampaign(normalized: string) {
   return normalized.includes("run reach cold email campaign") || normalized.includes("start reach cold email campaign") || normalized.includes("reach cold email campaign");
+}
+
+function mentionsReachCampaignStatus(normalized: string) {
+  return mentionsReachColdEmailCampaign(normalized) && mentionsBrief(normalized) && !/\b(run|start|launch|execute|fresh|live|recheck|rerun)\b/.test(normalized);
 }
 
 function mentionsGhlReadiness(normalized: string) {

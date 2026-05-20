@@ -76,6 +76,10 @@ function routeCommand(command, args) {
     return buildApprovalResponse(approval, args);
   }
 
+  if (mentionsReachCampaignStatus(normalized)) {
+    return buildReachCampaignStatusResponse();
+  }
+
   if (mentionsReachColdEmailCampaign(normalized)) {
     return buildReachColdEmailCampaignResponse();
   }
@@ -258,6 +262,38 @@ Safety:
 Plain-English recommendation:
 
 ${dailySignals.recommendation || "Relay is the cleanest small lane right now. Use import-only first; wait on start-drip until domain readiness is confirmed."}
+`,
+  };
+}
+
+function buildReachCampaignStatusResponse() {
+  const data = loadData();
+  const reachJobs = getReachJobs(data.jobs);
+  const summaries = reachJobs.map((job) => laneSummary(job, data.domains));
+  const waiting = reachJobs.filter((job) => String(job.status ?? "").startsWith("waiting")).length;
+
+  return {
+    kind: "agent-reach-cold-email-status",
+    text: `*Reach Cold Email Campaign status - ${today()}*
+
+Current position:
+
+- ${reachJobs.length} Reach lanes are staged.
+- ${waiting} lanes are still waiting on Sales Manager QA and visual GHL review.
+- No live GHL import or start-drip is running from this command center.
+- This was a status check only; no fresh GHL API check was run.
+
+Reach queue:
+
+${summaries.map(renderLaneBullet).join("\n")}
+
+Next useful commands:
+
+\`\`\`text
+Sales Manager, review Reach QA
+GHL Expert, check Reach readiness
+Manager, run Reach Cold Email Campaign
+\`\`\`
 `,
   };
 }
@@ -636,6 +672,14 @@ function mentionsReachColdEmailCampaign(normalized) {
     normalized.includes("run reach cold email campaign") ||
     normalized.includes("start reach cold email campaign") ||
     normalized.includes("reach cold email campaign")
+  );
+}
+
+function mentionsReachCampaignStatus(normalized) {
+  return (
+    mentionsReachColdEmailCampaign(normalized) &&
+    mentionsBrief(normalized) &&
+    !/\b(run|start|launch|execute|fresh|live|recheck|rerun)\b/.test(normalized)
   );
 }
 
