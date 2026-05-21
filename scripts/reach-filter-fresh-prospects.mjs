@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const LANES = {
@@ -75,12 +75,15 @@ function main() {
 function readLaneHistory(laneKey, lane) {
   const imported = new Set();
   const started = new Set();
-  const files = [
+  const knownFiles = [
     `tmp-reach-${laneKey}-live-import-ghl-results.json`,
     `tmp-reach-${laneKey}-verified-import-ghl-results.json`,
     `tmp-reach-${laneKey}-started-ghl-results.json`,
     `tmp-reach-${laneKey}-retry-started-ghl-results.json`,
   ];
+  const discoveredFiles = readdirSync(".")
+    .filter((file) => file.startsWith(`tmp-reach-`) && file.endsWith("-ghl-results.json"));
+  const files = [...new Set([...knownFiles, ...discoveredFiles])];
 
   for (const file of files) {
     const absolute = resolve(file);

@@ -7,6 +7,7 @@ import { resolve } from "node:path";
 const OUTBOX_DIR = "docs/client-ops-ledger/outbox";
 const JOBS_PATH = "docs/client-ops-ledger/agent-jobs.csv";
 const DOMAINS_PATH = "docs/client-ops-ledger/sending-domain-readiness.csv";
+const WARMUP_CONFIG_PATH = "docs/client-ops-ledger/reach-warmup-autopilot.json";
 const DAILY_BRIEF_PATH = "docs/client-ops-ledger/daily-brief-current.md";
 
 const LANES = {
@@ -80,6 +81,10 @@ function routeCommand(command, args) {
     return buildCampaignClarificationResponse();
   }
 
+  if (mentionsWarmupAutopilot(normalized)) {
+    return buildWarmupAutopilotResponse(normalized);
+  }
+
   if (mentionsReachCampaignStatus(normalized)) {
     return buildReachCampaignStatusResponse();
   }
@@ -127,6 +132,7 @@ Supported commands:
 - \`Manager, status\`
 - \`Manager, list agents\`
 - \`Manager, run Reach Cold Email Campaign\`
+- \`Manager, show Reach warmup autopilot\`
 - \`Manager, explain the Reach result\`
 - \`Manager, are we ready to send?\`
 - \`Manager, brief\`
@@ -314,6 +320,54 @@ Safety:
 Recommendation:
 
 ${dailySignals.recommendation || "Relay is the cleanest small lane right now. Import-only first; wait on start-drip until readiness is confirmed."}`,
+  };
+}
+
+function buildWarmupAutopilotResponse(normalized) {
+  const config = readJsonIfExists(WARMUP_CONFIG_PATH);
+  const data = loadData();
+  const requestedLane = findLaneKey(normalized);
+  const lanes = requestedLane ? [requestedLane] : Object.keys(LANES);
+  const dayNumber = warmupDay(config?.planned_start_date, today());
+  const quota = quotaForWarmupDay(config, dayNumber);
+  const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
+
+  return {
+    kind: "reach-warmup-autopilot",
+    text: `*Reach Warmup Autopilot - ${today()}*
+
+The warmup is now an agent-guarded autopilot instead of a row-by-row Mike decision.
+
+Current warmup day: ${dayNumber}
+Current quota: ${quotaText}
+Mode: ${config?.mode || "not configured"}
+
+Lane readiness:
+
+${lanes
+  .map((laneKey) => {
+    const lane = LANES[laneKey];
+    const domain = data.domains.find((row) => row.lane?.toLowerCase() === laneKey) ?? {};
+    return `- ${lane.label}: domain \`${domain.dedicated_subdomain || "TBD"}\`; import ${domain.ready_for_import || "unknown"}; drip ${domain.ready_for_drip || "unknown"}; allowed ${domain.allowed_daily_send_volume || "TBD"}`;
+  })
+  .join("\n")}
+
+Repo commands:
+
+\`\`\`bash
+npm run reach:warmup -- --lane ${requestedLane ?? "all"}
+npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute import
+npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
+\`\`\`
+
+Guardrails:
+
+- Refill bad/risky emails automatically.
+- Expand search when the first niche/area is too small.
+- Stop at max attempts and scrape caps.
+- Do not reuse imported/started contacts.
+- Do not start drip unless \`ready_for_drip=yes\`.
+- Keep HighLevel AI features OFF.`,
   };
 }
 
@@ -816,6 +870,35 @@ function loadData() {
   };
 }
 
+function readJsonIfExists(path) {
+  const absolute = resolve(path);
+  if (!existsSync(absolute)) return null;
+  try {
+    return JSON.parse(readFileSync(absolute, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function quotaForWarmupDay(config, dayNumber) {
+  const ladder = Array.isArray(config?.daily_quota_ladder) ? config.daily_quota_ladder : [];
+  return ladder.find((item) => dayNumber >= Number(item.from_day) && dayNumber <= Number(item.to_day)) ?? null;
+}
+
+function warmupDay(startDate, date) {
+  const start = parseDateOnly(startDate);
+  const current = parseDateOnly(date);
+  if (!start || !current) return 1;
+  return Math.max(1, Math.floor((current.getTime() - start.getTime()) / 86_400_000) + 1);
+}
+
+function parseDateOnly(value) {
+  const text = String(value ?? "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return null;
+  const date = new Date(`${text}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
 function getReachJobs(jobs) {
   const order = ["reviews", "ai", "relay"];
   return jobs
@@ -1019,6 +1102,20 @@ function mentionsReachCampaignStatus(normalized) {
   );
 }
 
+function mentionsWarmupAutopilot(normalized) {
+  return (
+    normalized.includes("warmup autopilot") ||
+    normalized.includes("warm up autopilot") ||
+    normalized.includes("warmup runner") ||
+    normalized.includes("warmup guardrail") ||
+    normalized.includes("warmup quota") ||
+    normalized.includes("run warmup") ||
+    normalized.includes("run warm up") ||
+    normalized.includes("send warmup") ||
+    normalized.includes("send warm up")
+  );
+}
+
 function mentionsGenericCampaignDeploy(normalized) {
   if (mentionsReachColdEmailCampaign(normalized)) return false;
   return /\b(run|start|deploy|launch)\s+(the\s+|a\s+)?campaign\b/.test(normalized);
@@ -1169,7 +1266,20 @@ function trimOutput(value) {
 }
 
 function today() {
-  return new Date().toISOString().slice(0, 10);
+  return easternDate();
+}
+
+function easternDate() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const year = parts.find((part) => part.type === "year")?.value ?? "1970";
+  const month = parts.find((part) => part.type === "month")?.value ?? "01";
+  const day = parts.find((part) => part.type === "day")?.value ?? "01";
+  return `${year}-${month}-${day}`;
 }
 
 function parseArgs(argv) {

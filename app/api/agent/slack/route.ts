@@ -8,6 +8,7 @@ export const runtime = "nodejs";
 
 const JOBS_PATH = "docs/client-ops-ledger/agent-jobs.csv";
 const DOMAINS_PATH = "docs/client-ops-ledger/sending-domain-readiness.csv";
+const WARMUP_CONFIG_PATH = "docs/client-ops-ledger/reach-warmup-autopilot.json";
 const DAILY_BRIEF_PATH = "docs/client-ops-ledger/daily-brief-current.md";
 const GHL_API_BASE = "https://services.leadconnectorhq.com";
 const GHL_API_VERSION = "2021-07-28";
@@ -113,7 +114,7 @@ const AGENTS: Record<
     aliases: ["general manager", "manager", "gm", "elon"],
     reportsTo: "President",
     job: "Runs the agent company day to day, prepares the brief, filters noise, owns the approval queue, assigns owners, tracks blockers, and escalates to Mike.",
-    canDo: ["prepare the daily brief", "run Reach Cold Email Campaign", "route work to agents", "show status", "explain blockers"],
+    canDo: ["prepare the daily brief", "run Reach Cold Email Campaign", "explain warmup autopilot", "route work to agents", "show status", "explain blockers"],
     nextStep: "Ask: `Manager, run Reach Cold Email Campaign` or `Manager, status`.",
   },
   scheduler: {
@@ -407,6 +408,8 @@ ${address(actor)}, all campaign live actions are blocked.
 
   if (mentionsGenericCampaignDeploy(normalized)) return buildCampaignClarificationResponse(actor);
 
+  if (mentionsWarmupAutopilot(normalized)) return buildWarmupAutopilotResponse(actor, normalized);
+
   if (mentionsReachCampaignStatus(normalized)) return buildReachCampaignStatusResponse(actor);
 
   if (mentionsReachDecisionQuestion(normalized)) return buildReachDecisionResponse(actor);
@@ -444,6 +447,7 @@ Supported examples:
 \`\`\`text
 Manager, status
 Manager, run Reach Cold Email Campaign
+Manager, show Reach warmup autopilot
 Manager, explain the Reach result
 Manager, are we ready to send?
 Manager, list agents
@@ -628,6 +632,56 @@ Safety:
 Recommendation:
 
 ${recommendation}`;
+}
+
+function buildWarmupAutopilotResponse(actor: UserContext, normalized: string) {
+  const config = warmupConfig();
+  const domains = domainRows();
+  const requestedLane = findLaneKey(normalized);
+  const lanes = requestedLane ? [requestedLane] : (Object.keys(LANES) as LaneKey[]);
+  const dayNumber = warmupDay(config?.planned_start_date, today());
+  const quota = quotaForWarmupDay(config, dayNumber);
+  const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
+
+  return `*Reach Warmup Autopilot - ${today()}*
+
+${address(actor)}, yes. The warmup should run as an agent-guarded autopilot, not as a row-by-row Mike decision.
+
+Current warmup day: ${dayNumber}
+Current quota: ${quotaText}
+Mode: ${config?.mode || "not configured"}
+
+Lane readiness:
+
+${lanes
+  .map((laneKey) => {
+    const lane = LANES[laneKey];
+    const domain = domains.find((row) => row.lane?.toLowerCase() === laneKey) ?? {};
+    return `- ${lane.label}: domain \`${domain.dedicated_subdomain || "TBD"}\`; import ${domain.ready_for_import || "unknown"}; drip ${domain.ready_for_drip || "unknown"}; allowed ${domain.allowed_daily_send_volume || "TBD"}`;
+  })
+  .join("\n")}
+
+What autopilot does:
+
+- Follows the 10-20 / 40-50 / 80-100 warmup ladder.
+- If a bad or risky email is found, it removes it and keeps searching.
+- If the first niche/area is too small, it expands to the next configured search.
+- It stops at max refill attempts and scrape caps, so it cannot run forever.
+- It will not reuse contacts already imported or started.
+
+Commands wired in the repo:
+
+\`\`\`bash
+npm run reach:warmup -- --lane ${requestedLane ?? "all"}
+npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute import
+npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
+\`\`\`
+
+Important:
+
+- Start-drip stays blocked unless \`ready_for_drip=yes\`.
+- HighLevel AI features stay OFF.
+- The Slack listener reports the plan; the long scrape/verify/refill runner is the repo command above.`;
 }
 
 function buildCampaignClarificationResponse(actor: UserContext) {
@@ -1295,6 +1349,7 @@ function isSupportedCommand(text: string) {
   const normalized = normalizeCommand(text);
   return (
     mentionsGenericCampaignDeploy(normalized) ||
+    mentionsWarmupAutopilot(normalized) ||
     mentionsReachDecisionQuestion(normalized) ||
     mentionsReachColdEmailCampaign(normalized) ||
     mentionsAgentList(normalized) ||
@@ -1312,6 +1367,7 @@ function shouldRunAsync(command: string) {
   const normalized = normalizeCommand(command);
   if (mentionsReachCampaignStatus(normalized)) return false;
   if (mentionsGenericCampaignDeploy(normalized)) return false;
+  if (mentionsWarmupAutopilot(normalized)) return false;
   return mentionsReachColdEmailCampaign(normalized) || mentionsGhlReadiness(normalized);
 }
 
@@ -1381,6 +1437,35 @@ function reachJobs() {
 
 function domainRows() {
   return readCsv(DOMAINS_PATH);
+}
+
+function warmupConfig(): any | null {
+  const raw = readText(WARMUP_CONFIG_PATH);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function quotaForWarmupDay(config: any | null, dayNumber: number): any | null {
+  const ladder = Array.isArray(config?.daily_quota_ladder) ? config.daily_quota_ladder : [];
+  return ladder.find((item: any) => dayNumber >= Number(item.from_day) && dayNumber <= Number(item.to_day)) ?? null;
+}
+
+function warmupDay(startDate: string | undefined, date: string) {
+  const start = parseDateOnly(startDate);
+  const current = parseDateOnly(date);
+  if (!start || !current) return 1;
+  return Math.max(1, Math.floor((current.getTime() - start.getTime()) / 86_400_000) + 1);
+}
+
+function parseDateOnly(value: string | undefined) {
+  const text = String(value ?? "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return null;
+  const date = new Date(`${text}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
 function readRecommendation() {
@@ -1523,6 +1608,20 @@ function mentionsReachColdEmailCampaign(normalized: string) {
 
 function mentionsReachCampaignStatus(normalized: string) {
   return mentionsReachColdEmailCampaign(normalized) && mentionsBrief(normalized) && !/\b(run|start|deploy|launch|execute|fresh|live|recheck|rerun)\b/.test(normalized);
+}
+
+function mentionsWarmupAutopilot(normalized: string) {
+  return (
+    normalized.includes("warmup autopilot") ||
+    normalized.includes("warm up autopilot") ||
+    normalized.includes("warmup runner") ||
+    normalized.includes("warmup guardrail") ||
+    normalized.includes("warmup quota") ||
+    normalized.includes("run warmup") ||
+    normalized.includes("run warm up") ||
+    normalized.includes("send warmup") ||
+    normalized.includes("send warm up")
+  );
 }
 
 function mentionsGenericCampaignDeploy(normalized: string) {
@@ -1680,5 +1779,18 @@ function yesNo(value: boolean) {
 }
 
 function today() {
-  return new Date().toISOString().slice(0, 10);
+  return easternDate();
+}
+
+function easternDate() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const year = parts.find((part) => part.type === "year")?.value ?? "1970";
+  const month = parts.find((part) => part.type === "month")?.value ?? "01";
+  const day = parts.find((part) => part.type === "day")?.value ?? "01";
+  return `${year}-${month}-${day}`;
 }

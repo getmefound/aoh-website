@@ -297,6 +297,48 @@ This specific shortcut means the same safe routine:
 
 It runs through Manager, Sales Manager QA, and GHL Expert readiness first. It does not import contacts or start a drip by itself.
 
+## Reach Warmup Autopilot
+
+Mike wants daily warmup to run under guardrails instead of asking him to decide
+each small row-level issue.
+
+Autopilot source of truth:
+
+```text
+docs/client-ops-ledger/reach-warmup-autopilot.json
+```
+
+Autopilot runner:
+
+```bash
+npm run reach:warmup -- --lane all
+```
+
+What it does:
+
+- follows the 10-20 / 40-50 / 80-100 warmup ladder
+- finds enough QA OK contacts for the day
+- replaces bad/risky emails automatically
+- expands to the next search when the first niche/area is too small
+- stops at max attempts and scrape caps so it cannot loop forever
+- writes reports to `docs/client-ops-ledger/outbox`
+
+Import-only:
+
+```bash
+npm run reach:warmup -- --lane relay --execute import
+```
+
+Start drip:
+
+```bash
+npm run reach:warmup -- --lane relay --execute start
+```
+
+Start-drip is still blocked unless `ready_for_drip=yes`. This keeps the decision
+out of Mike's hands day to day while still requiring the agent/GHL readiness
+ledger to be safe before the sender tag is added.
+
 Manager should also answer interpretation questions after a campaign result:
 
 ```text

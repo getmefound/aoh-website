@@ -95,6 +95,75 @@ Do not increase a domain when:
 - replies are mostly negative
 - workflow logs show duplicates, broken merge fields, or wrong sender domain
 
+## Warmup Autopilot
+
+Mike has pre-approved an agent-guarded warmup mode for the three dedicated
+Reach domains, as long as the daily ladder and safety gates are respected.
+
+Goal:
+
+- keep each dedicated domain moving through its warmup volume every day
+- replace bad/risky emails automatically instead of asking Mike
+- expand the search when the first niche/area is too small
+- stop before loops, duplicate contacts, bad emails, or unsafe GHL state
+
+Config:
+
+- `docs/client-ops-ledger/reach-warmup-autopilot.json`
+
+Runner:
+
+```powershell
+npm run reach:warmup -- --lane all
+```
+
+What the runner does:
+
+1. Reads the daily quota from the warmup ladder.
+2. Scrapes a bounded batch from the lane search plan.
+3. Removes contacts already imported or already started.
+4. Verifies emails.
+5. Runs QA and keeps only `qa_recommendation=ok`.
+6. If too few OK rows remain, it tries the next search expansion.
+7. Stops when the quota is met or max attempts/scrape caps are reached.
+8. Writes a selected QA CSV and an outbox report.
+
+Import-only:
+
+```powershell
+npm run reach:warmup -- --lane relay --execute import
+```
+
+Start drip:
+
+```powershell
+npm run reach:warmup -- --lane relay --execute start
+```
+
+Start-drip guardrails:
+
+- config `autopilot_start_enabled` must be `true`
+- lane must be `ready_for_import=yes`
+- lane must be `ready_for_drip=yes`
+- selected rows must be within the daily warmup quota
+- no same-lane start-drip run can already exist for that date
+- selected contacts cannot already appear in prior GHL start result files
+- HighLevel AI features remain OFF
+
+If an email is bad or risky:
+
+- invalid/catchall/unknown emails are removed unless config says otherwise
+- personal domains are held out by QA
+- duplicate business contacts are held out by QA
+- the runner keeps searching until enough OK rows are found or the hard caps stop it
+
+This is not an unlimited loop. Current defaults:
+
+- max 5 refill attempts per lane per day
+- max 100 scraped rows per attempt
+- max 500 scraped rows per lane per day
+- max 100 start-drip contacts per lane per day
+
 ## Workflow Names
 
 Cold drip workflows:

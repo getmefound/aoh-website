@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     "/api/agent/slack": [
       "./docs/client-ops-ledger/agent-jobs.csv",
       "./docs/client-ops-ledger/sending-domain-readiness.csv",
+      "./docs/client-ops-ledger/reach-warmup-autopilot.json",
       "./docs/client-ops-ledger/daily-brief-current.md",
       "./docs/client-ops-ledger/outbox/reach-*-quality-*.md",
       "./tmp-reach-*.csv",

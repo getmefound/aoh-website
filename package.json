@@ -16,6 +16,7 @@
     "reach:prep": "node scripts/reach-prep-batch.mjs",
     "reach:quality": "node scripts/reach-quality-review.mjs",
     "reach:ghl-check": "node scripts/reach-ghl-expert-check.mjs",
+    "reach:warmup": "node scripts/reach-warmup-autopilot.mjs",
     "agent:brief": "node scripts/agent-command-center.mjs",
     "agent:command": "node scripts/agent-command-center.mjs",
     "agent:slack": "node scripts/agent-command-center.mjs --post-slack",

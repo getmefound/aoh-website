@@ -1,0 +1,98 @@
+{
+  "enabled": true,
+  "mode": "agent_guarded_autopilot",
+  "planned_start_date": "2026-05-20",
+  "autopilot_start_enabled": true,
+  "daily_quota_ladder": [
+    {
+      "name": "days_1_3",
+      "from_day": 1,
+      "to_day": 3,
+      "min": 10,
+      "target": 20,
+      "max": 20
+    },
+    {
+      "name": "days_4_6",
+      "from_day": 4,
+      "to_day": 6,
+      "min": 40,
+      "target": 50,
+      "max": 50
+    },
+    {
+      "name": "days_7_9",
+      "from_day": 7,
+      "to_day": 9,
+      "min": 80,
+      "target": 100,
+      "max": 100
+    }
+  ],
+  "after_day_9": {
+    "mode": "hold_for_deliverability_review",
+    "reason": "Check warmup status, bounces, spam placement, replies, unsubscribes, complaints, duplicate prevention, and sender-domain health before increasing."
+  },
+  "guardrails": {
+    "max_refill_attempts_per_lane": 5,
+    "max_scrape_limit_per_attempt": 100,
+    "max_total_scraped_per_lane_per_day": 500,
+    "max_daily_start_drip_per_lane": 100,
+    "allow_personal_email_domains": false,
+    "allow_duplicate_business_contacts": false,
+    "allow_unknown_email_verification": false,
+    "allow_catchall_email_verification": false,
+    "require_ready_for_import": true,
+    "require_ready_for_drip_for_start": true,
+    "require_no_prior_start_today": true,
+    "require_ghl_ai_features_off": true,
+    "highlevel_ai_policy": "Never enable Conversation AI, AI Employee, Content AI, Auto-Review Replies, or any other HighLevel AI feature without explicit manual authorization from Mike."
+  },
+  "lanes": {
+    "reviews": {
+      "enabled": true,
+      "label": "Reviews",
+      "from_domain": "mail.aioutsourcehubs.com",
+      "searches": [
+        { "industry": "pet boarding", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "pet groomer", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "dog daycare", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "med spa", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "dental office", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "home services", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "pet boarding", "area": "Westchester County NY", "state": "New York" },
+        { "industry": "pet groomer", "area": "Massachusetts", "state": "Massachusetts" }
+      ]
+    },
+    "ai": {
+      "enabled": true,
+      "label": "AI Visibility",
+      "from_domain": "mail.getaioutsourcehub.com",
+      "searches": [
+        { "industry": "senior living", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "assisted living", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "med spa", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "chiropractor", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "law firm", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "dental office", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "senior living", "area": "Westchester County NY", "state": "New York" },
+        { "industry": "assisted living", "area": "Massachusetts", "state": "Massachusetts" }
+      ]
+    },
+    "relay": {
+      "enabled": true,
+      "label": "Relay",
+      "from_domain": "mail.myaioutsourcehub.com",
+      "searches": [
+        { "industry": "veterinary", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "emergency veterinary", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "HVAC contractor", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "plumber", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "electrician", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "roofing contractor", "area": "Connecticut", "state": "Connecticut" },
+        { "industry": "veterinary", "area": "Westchester County NY", "state": "New York" },
+        { "industry": "HVAC contractor", "area": "Massachusetts", "state": "Massachusetts" }
+      ]
+    }
+  }
+}
