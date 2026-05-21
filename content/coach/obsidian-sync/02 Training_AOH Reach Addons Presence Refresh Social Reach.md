@@ -54,7 +54,7 @@ Founding client launch special:
 
 Suggested price:
 
-- $997 one time launch special
+- limited-time launch special: ~~$997~~ $499 one time
 - later standard: $750-$1,250 for 5 posts + 1 blog
 - later stronger package: $1,500-$2,500
 

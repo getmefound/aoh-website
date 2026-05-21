@@ -1,5 +1,5 @@
 # Obsidian Sync Manifest
-Synced: 2026-05-21 13:46:04
+Synced: 2026-05-21 14:04:28
 VaultRoot: C:\Users\micha\Obsidian\Oracle\04 AI Outsource Hub
 
 ## Copied

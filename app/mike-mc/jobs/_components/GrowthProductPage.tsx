@@ -195,20 +195,27 @@ function SpecialOfferCard({ offer }: { offer: NonNullable<GrowthProduct["special
   return (
     <section className="mb-8 rounded-2xl border border-emerald-500/35 bg-gradient-to-br from-emerald-500/15 via-emerald-500/5 to-zinc-950 p-5 shadow-2xl shadow-black/25 md:p-6">
       <div className="grid gap-5 xl:grid-cols-[0.8fr_1.2fr]">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-300">
-            {offer.label}
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            Make the offer bigger while we are proving it.
-          </h2>
-          <p className="mt-3 text-base leading-relaxed text-zinc-300">
-            {offer.note}
-          </p>
-          <div className="mt-4 inline-flex rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 font-mono text-lg font-bold text-emerald-200">
-            {offer.price}
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-300">
+              {offer.label}
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+              Make the offer bigger while we are proving it.
+            </h2>
+            <p className="mt-3 text-base leading-relaxed text-zinc-300">
+              {offer.note}
+            </p>
+            <div className="mt-4 inline-flex items-end gap-3 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-3">
+              {offer.regularPrice ? (
+                <span className="font-mono text-base font-bold text-zinc-500 line-through decoration-rose-400 decoration-2">
+                  {offer.regularPrice}
+                </span>
+              ) : null}
+              <span className="font-mono text-2xl font-bold text-emerald-200">
+                {offer.price}
+              </span>
+            </div>
           </div>
-        </div>
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded-xl border border-zinc-800/70 bg-black/25 p-4">
             <p className="font-mono text-xs uppercase tracking-wider text-zinc-500">

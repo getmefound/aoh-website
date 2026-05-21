@@ -11,7 +11,7 @@ const sourceClaims = product?.sourceClaims ?? [];
 export const metadata: Metadata = {
   title: "Presence Refresh Launch Special - AI Outsource Hub",
   description:
-    "A one-time content refresh before Reach campaigns send new attention to your business.",
+    "A $499 limited-time content refresh before Reach campaigns send prospects to check your business.",
   robots: { index: false, follow: false },
 };
 
@@ -19,8 +19,8 @@ export default function PresenceRefreshLandingPage() {
   if (!product || !offer) return null;
 
   return (
-    <main id="main-content" tabIndex={-1} className="bg-[#f7f4ec] text-slate-950 focus:outline-none">
-      <section className="relative isolate min-h-[78svh] overflow-hidden bg-slate-950 text-white">
+    <main id="main-content" tabIndex={-1} className="bg-[var(--color-bg-page)] text-slate-950 focus:outline-none">
+      <section className="relative isolate overflow-hidden bg-[var(--color-hero-bg)] text-white md:min-h-[78svh]">
         <Image
           src="/social/ai-gen/cost-of-dormant-profile.jpg"
           alt="A quiet business desk ready for a new campaign"
@@ -31,74 +31,89 @@ export default function PresenceRefreshLandingPage() {
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,12,22,0.86),rgba(7,12,22,0.55),rgba(7,12,22,0.2))]" />
 
-        <div className="relative mx-auto flex min-h-[78svh] max-w-6xl flex-col px-5 py-5 md:px-6">
+        <div className="relative mx-auto flex max-w-6xl flex-col px-5 py-8 md:min-h-[78svh] md:px-6">
           <div className="flex flex-1 items-center">
-            <div className="max-w-3xl py-8 md:py-12">
+            <div className="max-w-3xl py-6 md:py-12">
               <p className="mb-4 inline-flex rounded-md border border-emerald-300/35 bg-emerald-300/15 px-3 py-1 font-mono text-xs uppercase tracking-[0.18em] text-emerald-100">
                 {offer.label}
               </p>
-              <h1 className="max-w-3xl text-3xl font-semibold leading-[1.04] tracking-tight md:text-6xl">
-                Make your business look active before new prospects check you out.
+              <h1 className="max-w-3xl text-2xl font-semibold leading-[1.05] tracking-tight sm:text-3xl md:text-6xl">
+                Your next prospect will check you out first. Make sure they see momentum.
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-200 md:text-xl md:leading-8">
-                AI Outsource Hub refreshes stale social pages and your website before Reach campaigns
-                send fresh attention your way.
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-200 sm:text-base md:text-xl md:leading-8">
+                Turn stale social pages and outdated website content into sales-ready proof before
+                Cold Email Reach or Social Reach sends prospects your way.
               </p>
 
-              <div className="mt-7 grid grid-cols-2 items-end gap-3 md:flex md:flex-wrap">
-                <div className="rounded-lg border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-sm">
+              <div className="mt-5 grid grid-cols-2 items-stretch gap-3 md:mt-7 md:grid-cols-[0.75fr_1.1fr_1fr]">
+                <div className="order-2 rounded-lg border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-sm md:order-none">
                   <p className="font-mono text-xs uppercase tracking-[0.18em] text-slate-300">
-                    Normal starter
+                    Normally
                   </p>
-                  <p className="mt-1 text-lg font-semibold text-slate-400 line-through decoration-rose-300 decoration-2">
-                    5 social posts + 1 blog
+                  <p className="mt-1 text-2xl font-semibold text-slate-400 line-through decoration-rose-300 decoration-2">
+                    {offer.regularPrice}
                   </p>
                 </div>
-                <div className="col-span-2 rounded-lg border border-emerald-300/35 bg-emerald-300/20 px-4 py-3 backdrop-blur-sm md:col-auto">
+                <div className="order-1 col-span-2 rounded-lg border border-emerald-300/45 bg-[var(--color-accent)]/70 px-4 py-3 shadow-lg shadow-emerald-950/30 backdrop-blur-sm md:order-none md:col-auto">
                   <p className="font-mono text-xs uppercase tracking-[0.18em] text-emerald-100">
-                    Launch special
+                    Launch price
                   </p>
-                  <p className="mt-1 text-2xl font-semibold text-white">
-                    10 social posts + 5 blog posts
+                  <p className="mt-1 text-3xl font-semibold text-white md:text-4xl">
+                    {offer.price}
                   </p>
                 </div>
-                <div className="rounded-lg border border-amber-200/35 bg-amber-200/20 px-4 py-3 backdrop-blur-sm">
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-amber-100">
-                    One time
+                <div className="order-3 rounded-lg border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-sm md:order-none">
+                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-slate-300">
+                    Includes
                   </p>
-                  <p className="mt-1 text-2xl font-semibold text-white">{offer.price}</p>
+                  <p className="mt-1 text-xl font-semibold text-white">
+                    10 posts + 5 blogs
+                  </p>
                 </div>
               </div>
-              <p className="mt-5 max-w-2xl text-sm leading-6 text-slate-200">
-                Includes Morning Brief proof, source-backed positioning, and Reach campaign handoff.
-              </p>
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center md:mt-5">
+                <a
+                  href={BOOKING_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex justify-center rounded-lg bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-950/30 transition hover:bg-[var(--color-accent-hover)]"
+                >
+                  Book My $499 Refresh Call
+                </a>
+                <p className="text-sm leading-6 text-slate-200">
+                  10 social posts + 5 blog posts + proof report. Approval before anything goes live.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-6xl gap-4 px-5 py-5 md:grid-cols-4 md:px-6">
-          {[
-            ["Audit", "We find stale pages, missing proof, and easy trust gaps."],
-            ["Fill", "We create the 10-post and 5-blog launch pack."],
-            ["Publish", "You approve first. We publish or hand over clean drafts."],
-            ["Report", "Morning Brief shows what changed and what to do next."],
-          ].map(([title, text]) => (
-            <div key={title} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-emerald-700">
-                {title}
-              </p>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
-            </div>
-          ))}
+        <div className="mx-auto grid max-w-6xl gap-4 px-5 py-5 md:grid-cols-2 md:px-6">
+          <div className="rounded-lg border border-rose-100 bg-rose-50 p-5">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-rose-700">
+              Before
+            </p>
+            <p className="mt-2 text-base font-semibold text-slate-950">
+              Stale feed, outdated blog, weak proof, and prospects landing on last year&apos;s posts.
+            </p>
+          </div>
+          <div className="rounded-lg border border-emerald-200 bg-[var(--color-accent-soft)] p-5">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-emerald-800">
+              After
+            </p>
+            <p className="mt-2 text-base font-semibold text-slate-950">
+              10 current social posts, 5 useful articles, proof brief, and Reach-ready links.
+            </p>
+          </div>
         </div>
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-700">
-            The point
+            Why this matters before outreach
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
             This is the setup before the lead push.
@@ -113,7 +128,7 @@ export default function PresenceRefreshLandingPage() {
           {[
             {
               title: "Social pages look alive",
-              copy: "Recent posts answer common buyer questions, show the business is operating, and give prospects proof to skim.",
+              copy: "Recent posts answer common buyer questions and show the business is still moving.",
             },
             {
               title: "Website has useful proof",
@@ -121,7 +136,7 @@ export default function PresenceRefreshLandingPage() {
             },
             {
               title: "Reach has better handoff",
-              copy: "Every campaign has fresh links to point to, instead of sending prospects to an empty or stale presence.",
+              copy: "Every campaign has current links to point to, instead of sending prospects to an empty or stale presence.",
             },
             {
               title: "Owner gets the Morning Brief",
@@ -144,7 +159,7 @@ export default function PresenceRefreshLandingPage() {
           <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-800">
-                What is standard vs custom
+                What you get for $499
               </p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
                 Built for quick delivery first, custom work second.
@@ -156,7 +171,7 @@ export default function PresenceRefreshLandingPage() {
               rel="noopener noreferrer"
               className="inline-flex rounded-lg bg-emerald-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700"
             >
-              Talk through my refresh
+              Book My $499 Refresh Call
             </a>
           </div>
 
@@ -183,6 +198,14 @@ export default function PresenceRefreshLandingPage() {
                   </li>
                 ))}
               </ul>
+              <a
+                href={BOOKING_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex w-full justify-center rounded-lg bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[var(--color-accent-hover)]"
+              >
+                Claim the $499 launch price
+              </a>
             </article>
 
             <article className="rounded-lg border border-amber-200 bg-white p-6 shadow-sm">
@@ -303,8 +326,7 @@ export default function PresenceRefreshLandingPage() {
               10 social posts, 5 blog posts, and Morning Brief proof for {offer.price}.
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
-              We are using this bigger offer while the agent team proves the process. After that,
-              the package moves to normal pricing.
+              Founding-client price: {offer.price}. Standard package value: {offer.regularPrice}.
             </p>
           </div>
           <div className="flex flex-col gap-3 md:items-end">
@@ -314,7 +336,7 @@ export default function PresenceRefreshLandingPage() {
               rel="noopener noreferrer"
               className="inline-flex rounded-lg bg-emerald-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-400"
             >
-              Book a free call
+              Book My $499 Refresh Call
             </a>
           </div>
         </div>

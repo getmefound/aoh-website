@@ -27,7 +27,7 @@ Founding client launch special:
 - 10 social posts
 - 5 useful blog posts
 - Morning Brief bonus showing what changed, proof links, open approvals, and the next Reach move
-- Recommended price: $997 one time while AOH is proving the process
+- Limited-time founding price: $499 one time, with $997 crossed out as the standard package value
 
 After proof is strong, move this toward $1,500-$2,500 depending on channels, blog depth, publishing access, and whether AOH connects the work into Reach or GHL.
 
@@ -82,7 +82,7 @@ Recommended first pricing:
 
 | Package | Price |
 |---|---:|
-| Founding client launch special: 10 social posts + 5 blogs + Morning Brief bonus | $997 one time |
+| Founding client launch special: 10 social posts + 5 blogs + Morning Brief bonus | ~~$997~~ $499 one time |
 | Later standard refresh: 5 social posts + 1 blog | $750-$1,250 one time |
 | Stronger refresh after proof: deeper blogs, more channels, AOH publishing | $1,500-$2,500 one time |
 

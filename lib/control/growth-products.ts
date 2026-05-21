@@ -16,6 +16,7 @@ export type GrowthProductSpecialOffer = {
   standardItems: string[];
   specialLabel: string;
   specialItems: string[];
+  regularPrice?: string;
   price: string;
   bonus: string;
   note: string;
@@ -156,17 +157,18 @@ export const GROWTH_PRODUCTS: GrowthProduct[] = [
     sellAs:
       "A setup product before Reach: we make sure prospects do not see a stale business when they look you up.",
     pricingDirection:
-      "Launch special: $997 one time for 10 social posts, 5 blog posts, and the Morning Brief bonus. After proof is strong, move this toward $1,500-$2,500 depending on channels, blog depth, and publishing access.",
+      "Limited-time launch special: $499 one time, crossed against the $997 package value, for 10 social posts, 5 blog posts, and the Morning Brief bonus. After proof is strong, move this toward $1,500-$2,500 depending on channels, blog depth, and publishing access.",
     specialOffer: {
-      label: "Founding client special",
+      label: "Limited-time founding client special",
       standardLabel: "Normal starter pack",
       standardItems: ["5 social posts", "1 blog post"],
       specialLabel: "Launch special",
       specialItems: ["10 social posts", "5 blog posts"],
-      price: "$997 one time",
+      regularPrice: "$997",
+      price: "$499 one time",
       bonus: "Morning Brief included: what changed, proof links, and the next Reach move.",
       note:
-        "Use AOH as client zero first, then sell this as the fast credibility setup before Cold Email Reach or Social Reach.",
+        "Use AOH as client zero first, then sell this limited-time price as the fast credibility setup before Cold Email Reach or Social Reach.",
     },
     nextBuild: [
       "Run AOH first so Mike has a real before/after to show clients.",
