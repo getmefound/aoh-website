@@ -701,12 +701,15 @@ async function buildColdReachStartResponse(actor: UserContext, normalized: strin
   const dayNumber = warmupDay(config?.planned_start_date, today());
   const quota = quotaForWarmupDay(config, dayNumber);
   const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
+  const allowScrapeSpend = hasOutscraperSpendApproval(normalized);
+  const spendApprovalRequired = config?.guardrails?.require_outscraper_spend_approval === true;
   const queued = await queueReachWarmupWorkflow({
     lane: requestedLane ?? "all",
     actor,
     channel: context.channel,
     threadTs: context.threadTs,
     responseUrl: context.responseUrl,
+    allowScrapeSpend,
   });
 
   return `*Manager accepted: Reach Cold Email Campaign - ${today()}*
@@ -717,6 +720,7 @@ Default mode: *Warmup Autopilot*
 Current warmup day: ${dayNumber}
 Current quota: ${quotaText}
 Runner: ${queued.ok ? `queued in GitHub Actions (\`${queued.runLabel}\`)` : `not queued yet (${queued.error})`}
+Outscraper spend guard: ${spendApprovalRequired ? (allowScrapeSpend ? "approved for this run" : "ON - no new paid scraping unless you explicitly approve Outscraper spend") : "standard caps only"}
 
 What I will own:
 
@@ -726,6 +730,7 @@ What I will own:
 - Import only QA OK contacts when the lane is import-ready.
 - Start drip only when the lane is marked \`ready_for_drip=yes\`.
 - Stop at the configured attempt and scrape caps so this cannot loop forever.
+- If budget protection is ON, skip new Outscraper calls unless spend was explicitly approved.
 
 Current lanes:
 
@@ -1299,12 +1304,14 @@ async function queueReachWarmupWorkflow({
   channel,
   threadTs,
   responseUrl,
+  allowScrapeSpend = false,
 }: {
   lane: LaneKey | "all";
   actor: UserContext;
   channel?: string;
   threadTs?: string;
   responseUrl?: string;
+  allowScrapeSpend?: boolean;
 }): Promise<{ ok: true; runLabel: string } | { ok: false; error: string }> {
   const token = process.env.GITHUB_REACH_RUNNER_TOKEN?.trim();
   if (!token) return { ok: false, error: "GITHUB_REACH_RUNNER_TOKEN is not configured" };
@@ -1334,6 +1341,7 @@ async function queueReachWarmupWorkflow({
         slack_thread_ts: threadTs || "",
         slack_response_url: responseUrl || "",
         requested_by: actor.name || OWNER_FIRST_NAME,
+        allow_scrape_spend: allowScrapeSpend ? "true" : "false",
       },
     }),
     cache: "no-store",
@@ -1540,6 +1548,12 @@ function findLaneKey(normalized: string): LaneKey | null {
       .map((alias) => ({ key, length: alias.length })),
   );
   return matches.sort((a, b) => b.length - a.length)[0]?.key ?? null;
+}
+
+function hasOutscraperSpendApproval(normalized: string) {
+  const hasApprovalWord = /\b(approve|approved|allow|allowed|ok|okay|yes|authorize|authorized)\b/.test(normalized);
+  const hasSpendTarget = /\b(outscraper|scraper|scraping|scrape spend|paid scrape|credits?)\b/.test(normalized);
+  return hasApprovalWord && hasSpendTarget;
 }
 
 function laneSummaries() {

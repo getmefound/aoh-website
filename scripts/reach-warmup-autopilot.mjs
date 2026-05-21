@@ -100,6 +100,44 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
   const pool = [];
   const attempts = [];
   const history = readLaneHistory(laneKey, lane);
+  const earlyBlockers = earlyLiveActionBlockers({ laneKey, execute: laneExecute, guardrails, date });
+  if (earlyBlockers.length) {
+    return writeLaneReport({
+      laneKey,
+      lane,
+      date,
+      execute: laneExecute,
+      requestedExecute: execute,
+      dayNumber,
+      quota: { ...quota, target, min, max },
+      status: "held",
+      selectedRows: [],
+      selectedCsv: "",
+      attempts: [],
+      blockers: earlyBlockers,
+      actionResults: [],
+    });
+  }
+
+  const scrapeSpendBlocker = scrapeSpendBlockerFor({ args, guardrails });
+  if (scrapeSpendBlocker) {
+    return writeLaneReport({
+      laneKey,
+      lane,
+      date,
+      execute: laneExecute,
+      requestedExecute: execute,
+      dayNumber,
+      quota: { ...quota, target, min, max },
+      status: "held",
+      selectedRows: [],
+      selectedCsv: "",
+      attempts: [],
+      blockers: [scrapeSpendBlocker],
+      actionResults: [],
+    });
+  }
+
   const seen = new Set([...history.imported, ...history.started]);
   let totalScraped = 0;
 
@@ -252,6 +290,30 @@ function resolveLaneExecute({ laneKey, domains, config, execute }) {
   return "none";
 }
 
+function earlyLiveActionBlockers({ laneKey, execute, guardrails, date }) {
+  const blockers = [];
+  if (execute === "import" && guardrails.require_no_prior_import_today && hasImportToday(laneKey, date)) {
+    blockers.push("Import-only warmup already executed for this lane/date; skipped before scraping to protect Outscraper credits.");
+  }
+  if (execute === "start" && guardrails.require_no_prior_start_today && hasStartToday(laneKey, date)) {
+    blockers.push("Start-drip warmup already executed for this lane/date; skipped before scraping to protect Outscraper credits.");
+  }
+  return blockers;
+}
+
+function scrapeSpendBlockerFor({ args, guardrails }) {
+  if (guardrails.require_outscraper_spend_approval !== true) return "";
+  if (hasScrapeSpendApproval(args, guardrails)) return "";
+  const envName = String(guardrails.outscraper_spend_approval_env ?? "REACH_ALLOW_OUTSCRAPER_SPEND");
+  return `Outscraper balance protection is ON; skipped new scraping before any paid Outscraper call. Approve spend with --allow-scrape-spend or ${envName}=yes.`;
+}
+
+function hasScrapeSpendApproval(args, guardrails) {
+  if (args["allow-scrape-spend"] || args.allowScrapeSpend) return true;
+  const envName = String(guardrails.outscraper_spend_approval_env ?? "REACH_ALLOW_OUTSCRAPER_SPEND");
+  return /^(1|true|yes|y|approved)$/i.test(String(process.env[envName] ?? "").trim());
+}
+
 function liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute, config, date, history }) {
   const guardrails = config.guardrails ?? {};
   const blockers = [];
@@ -372,6 +434,7 @@ ${reports
 
 - The runner keeps refilling bad or risky emails until it reaches the daily quota or hits max attempts/scrape caps.
 - It will not loop forever.
+- It will not call Outscraper when balance protection is on unless spend is explicitly approved.
 - It will not reuse contacts already imported or started in prior GHL result files.
 - It will not start drip unless the lane is marked ready_for_drip=yes.
 - HighLevel AI features must stay OFF.
@@ -597,6 +660,7 @@ Options:
   --max-attempts 5
   --scrape-limit 60
   --scrape-timeout-ms 120000
+  --allow-scrape-spend
   --provider neverbounce|hunter
   --skip-verify
   --config docs/client-ops-ledger/reach-warmup-autopilot.json

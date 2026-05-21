@@ -39,6 +39,10 @@ on:
         description: "Requester name"
         required: false
         default: "Mike"
+      allow_scrape_spend:
+        description: "Explicitly allow paid Outscraper calls for this run"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -65,6 +69,7 @@ jobs:
       REQUESTED_BY: ${{ inputs.requested_by }}
       REACH_LANE: ${{ inputs.lane }}
       REACH_EXECUTE: ${{ inputs.execute }}
+      REACH_ALLOW_OUTSCRAPER_SPEND: ${{ inputs.allow_scrape_spend }}
       TZ: America/New_York
 
     steps:
@@ -89,7 +94,11 @@ jobs:
           set -o pipefail
           RUN_DATE="$(date +%F)"
           echo "run_date=$RUN_DATE" >> "$GITHUB_OUTPUT"
-          npm run reach:warmup -- --lane "$REACH_LANE" --execute "$REACH_EXECUTE" 2>&1 | tee "reach-warmup-$RUN_DATE.log"
+          EXTRA_ARGS=()
+          if [[ "$REACH_ALLOW_OUTSCRAPER_SPEND" =~ ^(1|true|yes|y|approved)$ ]]; then
+            EXTRA_ARGS+=(--allow-scrape-spend)
+          fi
+          npm run reach:warmup -- --lane "$REACH_LANE" --execute "$REACH_EXECUTE" "${EXTRA_ARGS[@]}" 2>&1 | tee "reach-warmup-$RUN_DATE.log"
 
       - name: Commit warmup ledger
         if: always()

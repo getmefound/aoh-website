@@ -336,6 +336,9 @@ function buildWarmupAutopilotResponse(normalized) {
   const dayNumber = warmupDay(config?.planned_start_date, today());
   const quota = quotaForWarmupDay(config, dayNumber);
   const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
+  const spendGuardText = config?.guardrails?.require_outscraper_spend_approval
+    ? "ON - new Outscraper calls require explicit spend approval"
+    : "standard caps only";
 
   return {
     kind: "reach-warmup-autopilot",
@@ -346,6 +349,7 @@ The warmup is now an agent-guarded autopilot instead of a row-by-row Mike decisi
 Current warmup day: ${dayNumber}
 Current quota: ${quotaText}
 Mode: ${config?.mode || "not configured"}
+Outscraper spend guard: ${spendGuardText}
 
 Lane readiness:
 
@@ -370,6 +374,7 @@ Guardrails:
 - Refill bad/risky emails automatically.
 - Expand search when the first niche/area is too small.
 - Stop at max attempts and scrape caps.
+- Skip new Outscraper calls unless spend is approved when budget protection is ON.
 - Do not reuse imported/started contacts.
 - Do not start drip unless \`ready_for_drip=yes\`.
 - Keep HighLevel AI features OFF.`,
@@ -384,6 +389,9 @@ function buildColdReachStartResponse(normalized) {
   const dayNumber = warmupDay(config?.planned_start_date, today());
   const quota = quotaForWarmupDay(config, dayNumber);
   const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
+  const spendGuardText = config?.guardrails?.require_outscraper_spend_approval
+    ? "ON - new Outscraper calls require explicit spend approval"
+    : "standard caps only";
 
   return {
     kind: "reach-cold-start",
@@ -394,6 +402,7 @@ I know "cold reach campaign" as *Internal Job: Reach Cold Email Campaign*.
 Default mode: *Warmup Autopilot*
 Current warmup day: ${dayNumber}
 Current quota: ${quotaText}
+Outscraper spend guard: ${spendGuardText}
 
 What Manager owns:
 
@@ -403,6 +412,7 @@ What Manager owns:
 - Import only QA OK contacts when the lane is import-ready.
 - Start drip only when the lane is marked \`ready_for_drip=yes\`.
 - Stop at the configured attempt and scrape caps so this cannot loop forever.
+- Skip new Outscraper calls unless spend is approved when budget protection is ON.
 
 Current lanes:
 

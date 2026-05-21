@@ -339,7 +339,19 @@ What it does:
 - replaces bad/risky emails automatically
 - expands to the next search when the first niche/area is too small
 - stops at max attempts and scrape caps so it cannot loop forever
+- skips new paid Outscraper calls when budget protection is ON unless Mike explicitly approves spend
 - writes reports to `docs/client-ops-ledger/outbox`
+
+Budget protection is currently ON because Outscraper balance is low. Repeating
+`/manager start cold reach campaign` will not keep buying more Outscraper data
+by accident. To deliberately spend credits for a run, the command must include
+clear approval such as:
+
+```text
+/manager start cold reach campaign; approve Outscraper spend
+```
+
+Without that approval, the worker writes a held report before any paid scrape.
 
 Import-only:
 
