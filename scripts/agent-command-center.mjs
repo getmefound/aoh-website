@@ -405,6 +405,16 @@ Knowledge note:
 }
 
 function buildModelRoutingResult() {
+  const geminiStatus = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY
+    ? "Gemini key is available in this runtime."
+    : "Gemini key is not available in this local runtime. Vercel Production has `GEMINI_API_KEY` as of 2026-05-21.";
+  const openAiStatus = process.env.OPENAI_API_KEY
+    ? "OpenAI key is available in this runtime."
+    : "OpenAI key is not available in this runtime.";
+  const anthropicStatus = process.env.ANTHROPIC_API_KEY
+    ? "Anthropic/Claude key is available in this runtime."
+    : "Anthropic/Claude key is not available in this runtime.";
+
   return {
     kind: "agent-model-routing",
     text: `*Model routing - ${today()}*
@@ -412,15 +422,17 @@ function buildModelRoutingResult() {
 Mike, here is the simple owner version.
 
 - *No LLM*: CSV parsing, dedupe, counts, API checks, imports, scheduled jobs.
-- *Cheap model*: bulk summaries, obvious fit checks, simple reply labels, first-pass news scan. Gemini Flash is the preferred cheap lane once a Gemini key is configured.
+- *Cheap model*: bulk summaries, obvious fit checks, simple reply labels, first-pass news scan. Gemini Flash is the preferred cheap lane now that the Production key is configured.
 - *Standard model*: campaign angles, reply triage, sales judgment, and morning brief synthesis.
 - *Strong model*: production code, complex GHL risk, approval packets, sensitive client-facing decisions.
 - *Human*: spend changes, drip starts, live prospect/client action, and any HighLevel AI feature.
 
-Current production key check:
+Current runtime key check:
 
-- Vercel has GHL, Slack, Outscraper, cron, and OpenClaw keys.
-- I did not find OpenAI, Gemini, or Anthropic provider keys in the current Vercel env list.
+- ${geminiStatus}
+- ${openAiStatus}
+- ${anthropicStatus}
+- Vercel also has GHL, Slack, Outscraper, cron, and OpenClaw keys.
 
 Claude:
 

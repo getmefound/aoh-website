@@ -50,7 +50,7 @@ Current working map as of 2026-05-21:
 
 Provider notes:
 
-- Gemini Flash is the first choice for cheap/high-volume agent work once `GEMINI_API_KEY` or `GOOGLE_GENERATIVE_AI_API_KEY` is configured.
+- Gemini Flash is the first choice for cheap/high-volume agent work. `GEMINI_API_KEY` is configured in Vercel Production as of 2026-05-21.
 - OpenAI is the default fallback and strong-work provider once `OPENAI_API_KEY` is configured.
 - Claude is useful as a second strong reviewer for complex writing, strategy, coding review, and when OpenAI output needs an independent check. It is optional for v1, not required to run the morning brief or Reach autopilot.
 - The current production Vercel environment should list provider keys before any live model-backed agents are expected to run. Do not paste API keys into Slack or docs.
@@ -82,7 +82,14 @@ GOOGLE_GENERATIVE_AI_API_KEY
 ANTHROPIC_API_KEY
 ```
 
-If none of those are present, model-backed agents are not yet running in production. Scripted agents and deterministic jobs can still run.
+Current project status as of 2026-05-21:
+
+- `GEMINI_API_KEY` is present in Vercel Production.
+- `OPENAI_API_KEY` was not present in the latest Vercel env list.
+- `ANTHROPIC_API_KEY` was not present in the latest Vercel env list.
+- `APIKeys_05_21_26_openclaw_agents` was an accidental generic variable name and should not be used by code.
+
+Scripted agents and deterministic jobs can run without model-provider keys.
 
 ## Escalation Rules
 

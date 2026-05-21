@@ -35,7 +35,7 @@ Most Reach and Morning Brief work currently runs through scripts, ledgers, CSVs,
 
 | Provider | Best use |
 |---|---|
-| Gemini Flash | Cheap/high-volume work once `GEMINI_API_KEY` or `GOOGLE_GENERATIVE_AI_API_KEY` is configured. |
+| Gemini Flash | Cheap/high-volume work. `GEMINI_API_KEY` is configured in Vercel Production as of 2026-05-21. |
 | OpenAI | Default fallback and strong-work provider once `OPENAI_API_KEY` is configured. |
 | Claude | Optional second strong reviewer for strategy, writing, code review, and tricky GHL decisions. |
 
@@ -43,20 +43,26 @@ Do not hard-code a permanent winner. Systems Director refreshes this when pricin
 
 ## Current key status
 
-As of 2026-05-21, the AOH website/Vercel project had GHL, Slack, Outscraper, cron, GitHub, and OpenClaw keys.
+As of 2026-05-21, the AOH website/Vercel project has GHL, Slack, Outscraper, cron, GitHub, OpenClaw, and Gemini keys.
 
-The same check did **not** show these model-provider keys in the website/Vercel project:
+The same check did **not** show these provider keys in the website/Vercel project:
 
 ```text
 OPENAI_API_KEY
-GEMINI_API_KEY
-GOOGLE_GENERATIVE_AI_API_KEY
 ANTHROPIC_API_KEY
 ```
 
 This does not mean Mike has no accounts. It means this app is not yet wired to use those providers in production.
 
-Important: a paid Gemini app plan is not the same as a server API key. Server agents need an API key added to the app environment.
+Important: a paid Gemini app plan is not the same as a server API key. Server agents need an API key added to the app environment. That part is now done for Gemini.
+
+Ignore/delete the accidental generic variable name:
+
+```text
+APIKeys_05_21_26_openclaw_agents
+```
+
+Code should use `GEMINI_API_KEY`, not the generic name.
 
 ## Claude decision
 
