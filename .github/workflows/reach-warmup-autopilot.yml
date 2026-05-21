@@ -1,6 +1,9 @@
 name: Reach Warmup Autopilot
 
 on:
+  schedule:
+    # Daily 9:00 AM Eastern during daylight time. GitHub cron is UTC.
+    - cron: "0 13 * * *"
   workflow_dispatch:
     inputs:
       lane:
@@ -57,13 +60,13 @@ jobs:
       NEVERBOUNCE_API_KEY: ${{ secrets.NEVERBOUNCE_API_KEY }}
       HUNTER_API_KEY: ${{ secrets.HUNTER_API_KEY }}
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      SLACK_CHANNEL: ${{ inputs.slack_channel }}
-      SLACK_THREAD_TS: ${{ inputs.slack_thread_ts }}
-      SLACK_RESPONSE_URL: ${{ inputs.slack_response_url }}
-      REQUESTED_BY: ${{ inputs.requested_by }}
-      REACH_LANE: ${{ inputs.lane }}
-      REACH_EXECUTE: ${{ inputs.execute }}
-      REACH_ALLOW_OUTSCRAPER_SPEND: ${{ inputs.allow_scrape_spend }}
+      SLACK_CHANNEL: ${{ github.event.inputs.slack_channel || vars.REACH_SLACK_CHANNEL || '' }}
+      SLACK_THREAD_TS: ${{ github.event.inputs.slack_thread_ts || '' }}
+      SLACK_RESPONSE_URL: ${{ github.event.inputs.slack_response_url || '' }}
+      REQUESTED_BY: ${{ github.event.inputs.requested_by || 'scheduled-autopilot' }}
+      REACH_LANE: ${{ github.event.inputs.lane || 'all' }}
+      REACH_EXECUTE: ${{ github.event.inputs.execute || 'auto' }}
+      REACH_ALLOW_OUTSCRAPER_SPEND: ${{ github.event.inputs.allow_scrape_spend || vars.REACH_ALLOW_OUTSCRAPER_SPEND || 'false' }}
       TZ: America/New_York
 
     steps:

@@ -3,7 +3,7 @@
 Status: controlled pilot launch source of truth
 Owner: Manager
 Specialists: Scout, Sender, GHL Expert, Auditor
-Last updated: 2026-05-19
+Last updated: 2026-05-21
 
 ## Purpose
 
@@ -107,6 +107,35 @@ Goal:
 - expand the search when the first niche/area is too small
 - stop before loops, duplicate contacts, bad emails, or unsafe GHL state
 
+## Business Discovery First
+
+The cheapest lead path is now business discovery first:
+
+1. Find businesses from Google Maps without contact enrichment.
+2. Score business fit by lane.
+3. Crawl high-fit business websites for public business-domain emails.
+4. Send candidate CSVs through fresh filtering, verification, QA, and warmup.
+5. Import or start drip only through the existing guarded launcher.
+
+Primary docs:
+
+- `docs/client-ops-ledger/reach-business-discovery-first.md`
+- `docs/client-ops-ledger/reach-discovery-first.json`
+
+Command:
+
+```powershell
+npm run reach:discover -- --lane all --allow-spend --max-spend 5
+```
+
+Plan-only:
+
+```powershell
+npm run reach:discover -- --lane all --plan-only
+```
+
+Discovery does not touch GHL and does not send email.
+
 Config:
 
 - `docs/client-ops-ledger/reach-warmup-autopilot.json`
@@ -125,8 +154,9 @@ What the runner does:
 4. Verifies emails.
 5. Runs QA and keeps only `qa_recommendation=ok`.
 6. If too few OK rows remain, it tries the next search expansion.
-7. Stops when the quota is met or max attempts/scrape caps are reached.
-8. Writes a selected QA CSV and an outbox report.
+7. Re-verifies the final selected live-action CSV before import or start tags.
+8. Stops when the quota is met or max attempts/scrape caps are reached.
+9. Writes a selected QA CSV and an outbox report.
 
 Import-only:
 
@@ -146,6 +176,7 @@ Start-drip guardrails:
 - lane must be `ready_for_import=yes`
 - lane must be `ready_for_drip=yes`
 - selected rows must be within the daily warmup quota
+- final selected rows must pass the configured live verification provider
 - no same-lane start-drip run can already exist for that date
 - selected contacts cannot already appear in prior GHL start result files
 - HighLevel AI features remain OFF

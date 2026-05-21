@@ -4,6 +4,7 @@ import { ControlShell, Pill } from "@/components/control/ControlPrimitives";
 import {
   REACH_COMMERCIAL_DEMO,
   REACH_INTERNAL_FLOW,
+  REACH_OPTIONAL_AGENT_FLOW,
   REACH_TOMORROW_BLOCKERS,
   SCHEDULED_JOB_COSTS,
   costPerBookedCall,
@@ -93,9 +94,11 @@ export default function JobsPage() {
         <Metric label="Won revenue" value={formatUsd(wonRevenue)} tone={wonRevenue > totalToDate ? "accent" : "muted"} />
       </section>
 
+      <JobIndexSection />
       {reachJob ? <ReachWorkflowHero job={reachJob} /> : null}
+      <CommercialReachFlowSection />
+      <OptionalCustomAgentSection />
       <ReachReviewGateSection />
-      <ReachInternalFlowSection />
       <TomorrowReadinessSection />
 
       <section className="mb-8 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5">
@@ -122,29 +125,99 @@ export default function JobsPage() {
   );
 }
 
+function JobIndexSection() {
+  const links = [
+    {
+      title: "Commercial Reach",
+      label: "core job",
+      tone: "accent" as const,
+      href: "#commercial-reach",
+      detail: "The business-facing product: discover, verify, email, sort replies, and book calls.",
+    },
+    {
+      title: "Reach steps",
+      label: "plain steps",
+      tone: "warm" as const,
+      href: "#commercial-reach-steps",
+      detail: "The operational sequence you can explain without dragging a prospect into internal tooling.",
+    },
+    {
+      title: "Custom agents / CRM",
+      label: "optional",
+      tone: "muted" as const,
+      href: "#custom-agent-layer",
+      detail: "Only for clients that need agents connected to CRM, POS, CSV, webhooks, or customer events.",
+    },
+    {
+      title: "Internal Reach room",
+      label: "live room",
+      tone: "warn" as const,
+      href: "/mike-mc/jobs/reach-cold-email-campaign",
+      detail: "The current warmup/import/send-gate room for the cold email campaign.",
+    },
+  ];
+
+  return (
+    <section className="mb-8 rounded-2xl border border-zinc-800/70 bg-zinc-900/40 p-5 md:p-6">
+      <div className="mb-4 flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+            Job index
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+            Fast links for explaining the work
+          </h2>
+          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
+            Use this as the table of contents when you are showing a business what agents do.
+            Reach stays simple unless a client actually needs the custom CRM/agent layer.
+          </p>
+        </div>
+        <Pill tone="accent">front-page index source</Pill>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {links.map((item) => (
+          <Link
+            key={item.title}
+            href={item.href}
+            className="rounded-xl border border-zinc-800/70 bg-zinc-950/70 p-4 transition hover:border-zinc-700 hover:bg-zinc-900/80"
+          >
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <h3 className="text-base font-semibold text-zinc-100">{item.title}</h3>
+              <Pill tone={item.tone}>{item.label}</Pill>
+            </div>
+            <p className="text-sm leading-relaxed text-zinc-400">{item.detail}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ReachWorkflowHero({ job }: { job: ScheduledJobCost }) {
   return (
-    <section className="mb-8 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 via-zinc-950 to-zinc-950 p-5 shadow-2xl shadow-black/30 md:p-6">
+    <section id="commercial-reach" className="scroll-mt-8 mb-8 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 via-zinc-950 to-zinc-950 p-5 shadow-2xl shadow-black/30 md:p-6">
       <div className="grid gap-6 xl:grid-cols-[0.7fr_1.3fr]">
         <div>
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <Pill tone="accent">Reach product</Pill>
-            <Pill tone="muted">commercial demo view</Pill>
+            <Pill tone="muted">standard offer</Pill>
           </div>
           <h2 className="text-2xl font-semibold tracking-tight text-zinc-50 md:text-3xl">
-            What Reach can do commercially
+            Commercial Reach: what a business is buying
           </h2>
           <p className="mt-3 max-w-none text-base leading-relaxed text-zinc-300">
             {job.reachPart ?? job.overview}
           </p>
           <p className="mt-4 max-w-none text-base leading-relaxed text-zinc-500">
-            For a sales demo, keep this section high-level: Reach finds the right local businesses,
-            creates a report-led reason to reply, sends a dynamic email using prospect and competitor
-            data, and routes interested people to a report or call. The longer internal build/run flow is below.
+            For a sales demo, keep the story here: Reach finds businesses that look like good fits,
+            verifies the contact path, starts useful conversations, sorts replies, and moves real
+            interest toward a report or booked call. CRM connections and custom agents are an add-on,
+            not the default promise.
           </p>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-5">
+        <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-3">
           {REACH_COMMERCIAL_DEMO.map((item, index) => (
             <div key={item.title} className="rounded-xl border border-emerald-500/20 bg-black/25 p-4">
               <p className="font-mono text-xs uppercase tracking-wider text-emerald-300">
@@ -196,21 +269,21 @@ function ReachReviewGateSection() {
   );
 }
 
-function ReachInternalFlowSection() {
+function CommercialReachFlowSection() {
   return (
-    <section className="mb-8 rounded-2xl border border-zinc-800/70 bg-gradient-to-br from-zinc-900/70 to-zinc-950 p-5 shadow-xl shadow-black/25 md:p-6">
+    <section id="commercial-reach-steps" className="scroll-mt-8 mb-8 rounded-2xl border border-zinc-800/70 bg-gradient-to-br from-zinc-900/70 to-zinc-950 p-5 shadow-xl shadow-black/25 md:p-6">
       <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
-            Internal flow - detailed build/run truth
+            Commercial Reach - standard job
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            Reach from list to client upkeep
+            Step-by-step: discovery to booked call
           </h2>
           <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
-            This is the full internal chain behind the commercial Reach promise. Green means I can
-            verify the website-side piece exists. Amber means partly wired or documented but still
-            needs live GHL/prospecting verification. Red means not built yet.
+            This is the version to explain to most businesses. It does not assume their CRM is connected
+            or that custom agents are running inside their company yet. Green is verified, amber is partly
+            wired or still needs live proof, gray is manual, and red is not ready.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -223,6 +296,35 @@ function ReachInternalFlowSection() {
 
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {REACH_INTERNAL_FLOW.map((step, index) => (
+          <InternalStepCard key={step.title} step={step} index={index + 1} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function OptionalCustomAgentSection() {
+  return (
+    <section id="custom-agent-layer" className="scroll-mt-8 mb-8 rounded-2xl border border-violet-500/20 bg-violet-500/5 p-5 md:p-6">
+      <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-violet-300">
+            Optional add-on
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+            Custom agents and CRM connections
+          </h2>
+          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
+            This starts after a business needs AOH agents connected to its CRM, POS, CSV,
+            webhook, intake form, or job system. Not every business needs this layer, so it stays
+            separate from the standard Commercial Reach promise.
+          </p>
+        </div>
+        <Pill tone="muted">scope before build</Pill>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {REACH_OPTIONAL_AGENT_FLOW.map((step, index) => (
           <InternalStepCard key={step.title} step={step} index={index + 1} />
         ))}
       </div>
@@ -489,33 +591,6 @@ function JobCostCard({
         </div>
       </div>
     </article>
-  );
-}
-
-function WorkflowStep({
-  index,
-  title,
-  description,
-  owner,
-}: {
-  index: number;
-  title: string;
-  description: string;
-  owner: string;
-}) {
-  return (
-    <div className="rounded-xl border border-emerald-500/20 bg-black/25 p-3">
-      <div className="flex items-center justify-between gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-emerald-300">
-          Step {index}
-        </span>
-        <span className="rounded-md border border-zinc-800 bg-zinc-950/80 px-2 py-0.5 font-mono text-xs uppercase tracking-wider text-zinc-500">
-          {owner}
-        </span>
-      </div>
-      <p className="mt-3 text-base font-semibold text-zinc-100">{title}</p>
-      <p className="mt-1 text-sm leading-relaxed text-zinc-400">{description}</p>
-    </div>
   );
 }
 

@@ -1,65 +1,44 @@
 {
   "enabled": true,
-  "mode": "agent_guarded_autopilot",
-  "planned_start_date": "2026-05-20",
-  "autopilot_start_enabled": true,
-  "daily_quota_ladder": [
-    {
-      "name": "days_1_3",
-      "from_day": 1,
-      "to_day": 3,
-      "min": 10,
-      "target": 20,
-      "max": 20
-    },
-    {
-      "name": "days_4_6",
-      "from_day": 4,
-      "to_day": 6,
-      "min": 40,
-      "target": 50,
-      "max": 50
-    },
-    {
-      "name": "days_7_9",
-      "from_day": 7,
-      "to_day": 9,
-      "min": 80,
-      "target": 100,
-      "max": 100
-    }
-  ],
-  "after_day_9": {
-    "mode": "hold_for_deliverability_review",
-    "reason": "Check warmup status, bounces, spam placement, replies, unsubscribes, complaints, duplicate prevention, and sender-domain health before increasing."
+  "mode": "business_discovery_first",
+  "budget": {
+    "outscraper_balance_usd": 53.29,
+    "max_daily_outscraper_spend_usd": 5,
+    "reserve_balance_usd": 10
+  },
+  "pricing_assumptions": {
+    "outscraper_maps_per_1000": 3,
+    "outscraper_contacts_per_1000": 3,
+    "ghl_email_validation_per_1000": 2.5,
+    "lc_email_send_per_1000": 0.675
   },
   "guardrails": {
-    "max_refill_attempts_per_lane": 3,
-    "max_scrape_limit_per_attempt": 20,
-    "max_total_scraped_per_run": 60,
-    "max_total_scraped_per_lane_per_day": 60,
-    "require_outscraper_spend_approval": true,
-    "outscraper_spend_approval_env": "REACH_ALLOW_OUTSCRAPER_SPEND",
-    "outscraper_low_balance_note": "Budget protection is ON while Outscraper balance is low. Do not make new Outscraper calls unless Mike explicitly approves spend or balance is replenished.",
-    "max_daily_start_drip_per_lane": 100,
-    "allow_personal_email_domains": false,
-    "allow_duplicate_business_contacts": false,
-    "allow_unknown_email_verification": false,
-    "allow_catchall_email_verification": false,
-    "verify_selected_before_live_action": true,
-    "verify_selected_provider": "neverbounce",
-    "require_ready_for_import": true,
-    "require_ready_for_drip_for_start": true,
-    "require_no_prior_import_today": true,
-    "require_no_prior_start_today": true,
-    "require_ghl_ai_features_off": true,
-    "highlevel_ai_policy": "Never enable Conversation AI, AI Employee, Content AI, Auto-Review Replies, or any other HighLevel AI feature without explicit manual authorization from Mike."
+    "require_spend_approval": true,
+    "spend_approval_env": "REACH_DISCOVERY_ALLOW_SPEND",
+    "discovery_limit_per_search": 20,
+    "max_discovered_businesses_per_lane": 120,
+    "max_discovered_businesses_per_run": 300,
+    "min_fit_score": 65,
+    "crawl_top_per_lane": 60,
+    "crawl_timeout_ms": 8000,
+    "reject_personal_email_domains": true,
+    "prefer_website_domain_email": true,
+    "no_ghl_import": true,
+    "no_start_tags": true,
+    "no_highlevel_ai": true
+  },
+  "send_windows_eastern": {
+    "primary": "Tuesday-Thursday 9:15-10:45 AM ET",
+    "secondary": "Tuesday-Thursday 1:15-2:45 PM ET",
+    "makeup": "Monday 10:30-11:30 AM ET only when needed",
+    "avoid": "Friday afternoon, weekends, and exact top-of-hour batches"
   },
   "lanes": {
     "reviews": {
       "enabled": true,
       "label": "Reviews",
-      "from_domain": "mail.aioutsourcehubs.com",
+      "min_fit_score": 65,
+      "keywords": ["pet boarding", "pet groomer", "dog daycare", "med spa", "dental", "home services"],
       "searches": [
         { "industry": "pet boarding", "area": "Connecticut", "state": "Connecticut" },
         { "industry": "pet groomer", "area": "Connecticut", "state": "Connecticut" },
@@ -74,7 +53,8 @@
     "ai": {
       "enabled": true,
       "label": "AI Visibility",
-      "from_domain": "mail.getaioutsourcehub.com",
+      "min_fit_score": 65,
+      "keywords": ["senior living", "assisted living", "med spa", "chiropractor", "law firm", "dental"],
       "searches": [
         { "industry": "senior living", "area": "Connecticut", "state": "Connecticut" },
         { "industry": "assisted living", "area": "Connecticut", "state": "Connecticut" },
@@ -89,7 +69,8 @@
     "relay": {
       "enabled": true,
       "label": "Relay",
-      "from_domain": "mail.myaioutsourcehub.com",
+      "min_fit_score": 65,
+      "keywords": ["veterinary", "emergency veterinary", "hvac", "plumber", "electrician", "roofing"],
       "searches": [
         { "industry": "veterinary", "area": "Connecticut", "state": "Connecticut" },
         { "industry": "emergency veterinary", "area": "Connecticut", "state": "Connecticut" },

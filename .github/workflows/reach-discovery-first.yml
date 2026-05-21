@@ -1,0 +1,152 @@
+name: Reach Business Discovery First
+
+on:
+  schedule:
+    # Daily 7:30 AM Eastern during daylight time. GitHub cron is UTC.
+    - cron: "30 11 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      lane:
+        description: "Lane to run: all, reviews, ai, relay, or comma list"
+        required: true
+        default: "all"
+      limit:
+        description: "Outscraper business records per search"
+        required: false
+        default: "20"
+      max_spend:
+        description: "Daily Outscraper discovery cap in dollars"
+        required: false
+        default: "5"
+      crawl_limit:
+        description: "Top scored websites to crawl per lane"
+        required: false
+        default: "60"
+      allow_spend:
+        description: "Explicitly allow paid Outscraper discovery for this run"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reach-discovery-first
+  cancel-in-progress: false
+
+jobs:
+  discovery:
+    name: Run business discovery first
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      OUTSCRAPER_API_KEY: ${{ secrets.OUTSCRAPER_API_KEY }}
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_CHANNEL: ${{ vars.REACH_SLACK_CHANNEL || '' }}
+      REACH_DISCOVERY_LANE: ${{ github.event.inputs.lane || 'all' }}
+      REACH_DISCOVERY_LIMIT: ${{ github.event.inputs.limit || vars.REACH_DISCOVERY_LIMIT || '20' }}
+      REACH_DISCOVERY_MAX_SPEND: ${{ github.event.inputs.max_spend || vars.REACH_DISCOVERY_MAX_SPEND || '5' }}
+      REACH_DISCOVERY_CRAWL_LIMIT: ${{ github.event.inputs.crawl_limit || vars.REACH_DISCOVERY_CRAWL_LIMIT || '60' }}
+      REACH_DISCOVERY_ALLOW_SPEND: ${{ github.event.inputs.allow_spend || vars.REACH_DISCOVERY_ALLOW_SPEND || 'false' }}
+      TZ: America/New_York
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run discovery-first
+        id: discovery
+        shell: bash
+        run: |
+          set -o pipefail
+          RUN_DATE="$(date +%F)"
+          echo "run_date=$RUN_DATE" >> "$GITHUB_OUTPUT"
+          EXTRA_ARGS=()
+          if [[ "$REACH_DISCOVERY_ALLOW_SPEND" =~ ^(1|true|yes|y|approved)$ ]]; then
+            EXTRA_ARGS+=(--allow-spend)
+          else
+            EXTRA_ARGS+=(--plan-only)
+          fi
+          npm run reach:discover -- \
+            --lane "$REACH_DISCOVERY_LANE" \
+            --limit "$REACH_DISCOVERY_LIMIT" \
+            --max-spend "$REACH_DISCOVERY_MAX_SPEND" \
+            --crawl-limit "$REACH_DISCOVERY_CRAWL_LIMIT" \
+            "${EXTRA_ARGS[@]}" 2>&1 | tee "reach-discovery-$RUN_DATE.log"
+
+      - name: Commit discovery ledger
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "AOH Manager"
+          git config user.email "actions@github.com"
+          git add -f docs/client-ops-ledger/outbox/reach-discovery-* tmp-reach-discovery-* "reach-discovery-${{ steps.discovery.outputs.run_date }}.log" || true
+          if git diff --cached --quiet; then
+            echo "No discovery ledger changes to commit."
+          else
+            git commit -m "Record Reach business discovery run"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Post Slack result
+        if: always()
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+
+          async function main() {
+            const token = process.env.SLACK_BOT_TOKEN;
+            const channel = process.env.SLACK_CHANNEL || "C0ATTA4NBR8";
+            const date = process.env.TZ ? new Intl.DateTimeFormat("en-CA", {
+              timeZone: process.env.TZ,
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }).format(new Date()) : new Date().toISOString().slice(0, 10);
+            const summaryPath = `docs/client-ops-ledger/outbox/reach-discovery-summary-${date}.md`;
+            const logPath = `reach-discovery-${date}.log`;
+            let text = `Reach Business Discovery finished for ${date}.`;
+
+            if (fs.existsSync(summaryPath)) {
+              text = fs.readFileSync(summaryPath, "utf8");
+            } else if (fs.existsSync(logPath)) {
+              text = fs.readFileSync(logPath, "utf8");
+            }
+
+            text = `*Manager follow-up: Reach Business Discovery*\n\n${text}`.slice(0, 3900);
+            if (!token) {
+              console.log("SLACK_BOT_TOKEN not set; skipping Slack post.");
+              console.log(text);
+              return;
+            }
+
+            const res = await fetch("https://slack.com/api/chat.postMessage", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ channel, text }),
+            });
+            const body = await res.json();
+            if (!body.ok) throw new Error(JSON.stringify(body));
+          }
+
+          main().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE

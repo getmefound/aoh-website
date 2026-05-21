@@ -51,6 +51,17 @@ const FIELD_IDS = {
   leadSource: "LIILv8zU5JGSYxmRsbsB",
 };
 
+const PERSONAL_EMAIL_DOMAINS = new Set([
+  "gmail.com",
+  "yahoo.com",
+  "aol.com",
+  "hotmail.com",
+  "outlook.com",
+  "icloud.com",
+  "comcast.net",
+  "optonline.net",
+]);
+
 main().catch((error) => {
   console.error(error instanceof Error ? error.message : error);
   process.exit(1);
@@ -298,11 +309,18 @@ function cf(id, value) {
 }
 
 function firstEmail(input) {
-  const direct = pick(input, ["email", "email_1", "email1", "work_email"]);
-  if (isEmail(direct)) return direct;
   const candidates = [];
+  const direct = pick(input, ["email", "email_1", "email1", "work_email"]);
+  if (isEmail(direct)) candidates.push(direct);
   collectEmails(input, candidates);
-  return candidates.find(isEmail) ?? "";
+  const unique = dedupeEmails(candidates);
+  const websiteDomain = rootDomainFromUrl(pick(input, ["site", "website", "domain"]));
+  if (websiteDomain) {
+    const matchingDomain = unique.find((email) => emailRootDomain(email) === websiteDomain);
+    if (matchingDomain) return matchingDomain;
+  }
+  const businessDomain = unique.find((email) => !PERSONAL_EMAIL_DOMAINS.has(emailDomain(email)));
+  return businessDomain ?? unique[0] ?? "";
 }
 
 function collectEmails(value, out) {
@@ -326,6 +344,45 @@ function collectEmails(value, out) {
 
 function isEmail(value) {
   return typeof value === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+function dedupeEmails(values) {
+  const seen = new Set();
+  const emails = [];
+  for (const value of values) {
+    const email = String(value ?? "").trim().toLowerCase();
+    if (!isEmail(email) || seen.has(email)) continue;
+    seen.add(email);
+    emails.push(email);
+  }
+  return emails;
+}
+
+function emailDomain(email) {
+  return String(email).split("@")[1]?.toLowerCase() ?? "";
+}
+
+function emailRootDomain(email) {
+  return rootDomain(emailDomain(email));
+}
+
+function rootDomainFromUrl(value) {
+  const text = cleanUrl(value);
+  if (!text) return "";
+  try {
+    return rootDomain(new URL(text).hostname);
+  } catch {
+    return rootDomain(text);
+  }
+}
+
+function rootDomain(hostname) {
+  const host = String(hostname ?? "")
+    .toLowerCase()
+    .replace(/^www\./, "")
+    .replace(/\/.*$/, "");
+  const parts = host.split(".").filter(Boolean);
+  return parts.length >= 2 ? parts.slice(-2).join(".") : host;
 }
 
 function pick(record, keys) {

@@ -56,232 +56,160 @@ export type ReachInternalStep = {
 
 export const REACH_COMMERCIAL_DEMO: ReachCommercialItem[] = [
   {
-    title: "Target the right local businesses",
+    title: "Define the market and offer",
     description:
-      "Reach can focus by area, niche, service type, review gap, visibility weakness, competitor pressure, and buying fit instead of blasting a generic list.",
+      "Pick one lane, one local market, and one clear reason to talk: reviews, AI visibility, Relay, or another approved AOH offer.",
   },
   {
-    title: "Send a dynamic reply-first email",
+    title: "Discover businesses first",
     description:
-      "The email should plug in client data, local competitors, review/visibility signals, and a low-friction CTA asking the prospect to reply `send` for the report or `book` for the calendar link.",
+      "Find candidate businesses cheaply before paying for deeper enrichment. Agents look for fit signals instead of blasting every map result.",
   },
   {
-    title: "Use reports as the reason to reply",
+    title: "Verify a real contact path",
     description:
-      "Instead of asking for a meeting immediately, Reach offers to send the prospect a specific report after they raise their hand. Full report spend waits for reply intent unless Mike approves a direct-link test.",
+      "Use public business emails when possible, reject risky personal emails, and validate contacts before import or sending.",
   },
   {
-    title: "Turn replies into booked calls",
+    title: "Send a useful first message",
     description:
-      "Agents sort replies, handle objections, and move interested prospects to the /aoh-talk calendar so the business owner only sees real opportunities.",
+      "The outreach is reply-first and specific to the business. The goal is a real response, not a giant generic campaign.",
   },
   {
-    title: "Monitor cost and improve weekly",
+    title: "Sort replies into next actions",
     description:
-      "The system tracks spend, replies, booked calls, and close signals so campaigns are adjusted before money is wasted.",
+      "Agents separate interested, not interested, bad fit, unsubscribe, report request, and book-a-call replies.",
+  },
+  {
+    title: "Book and improve",
+    description:
+      "Warm replies go to the calendar or report handoff, while cost, bounce, reply, and booked-call data improve the next run.",
   },
 ];
 
 export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
   {
-    title: "Choose campaign lane: Reviews, AI Visibility, or general Reach",
+    title: "Pick the lane, market, and daily cap",
     owner: "Coach + Manager",
     status: "manual",
     description:
-      "Pick the offer, niche, area, and promise before any list is built. This is where Mike decides whether the campaign sells Review Automation, AI Visibility, or Reach itself.",
-    verification: "Operationally defined, but not yet turned into a required campaign setup form.",
+      "Start with one offer, one geography, one target niche, and a spend/sending limit. This keeps the job explainable and prevents agents from wandering into random lead lists.",
+    verification: "Defined in runbooks and Mission Control, but not yet enforced through a required campaign setup form.",
   },
   {
-    title: "Enter area and niche once, then reuse it",
+    title: "Run business discovery first",
     owner: "Scout",
     status: "partial",
     description:
-      "AI Visibility and review campaigns can use the same core inputs: city/area, niche/category, business name, website, and top competitors when known.",
-    verification: "AI Visibility page accepts business/city inputs; full campaign intake storage is not built yet.",
+      "Scout collects candidate businesses with the cheap discovery pass before deeper scraping, verification, or imports happen.",
+    verification: "scripts/reach-discovery-first.mjs and docs/client-ops-ledger/reach-business-discovery-first.md exist; production scheduling/state still needs live telemetry.",
   },
   {
-    title: "Build a cheap prefilter list first",
-    owner: "Scout",
-    status: "missing",
-    description:
-      "To control cost, Scout should not deeply scan every GBP. First filter by obvious signals: niche, location, review count, stale recent reviews, weak Local Visibility Manager, no website, or visible competitor gap.",
-    verification: "Not automated yet. This is the cost guardrail that needs to be built before scale.",
-  },
-  {
-    title: "Score likely review opportunities",
-    owner: "Local Visibility Manager + Scout",
-    status: "manual",
-    description:
-      "Review prospects should be filtered for pain: low review count, old last review, competitor with fresher reviews, unanswered reviews, or weak GBP completeness.",
-    verification: "Local Visibility Manager skill pack defines checks; live automated scoring is not built.",
-  },
-  {
-    title: "Score likely AI Visibility opportunities",
-    owner: "Local Visibility Manager + Scout",
+    title: "Score and shortlist businesses",
+    owner: "Scout + Local Visibility Manager",
     status: "partial",
     description:
-      "AI Visibility uses similar area/niche inputs, then looks for citation/NAP gaps, weak content, poor profile completeness, stale reviews, and competitor visibility signals.",
-    verification: "AI Visibility report page exists and can build/fallback a report; broad prospect discovery is not automated.",
+      "Agents look for likely pain: review gap, stale reviews, weak local visibility, incomplete profile, no useful website, or competitor pressure.",
+    verification: "Scoring rules are documented and partially scripted; live scoring still needs more automated evidence before scale.",
   },
   {
-    title: "Enrich selected prospects",
-    owner: "Enricher",
-    status: "missing",
+    title: "Find and verify business emails",
+    owner: "Enricher + Sender",
+    status: "partial",
     description:
-      "Only shortlisted prospects should be enriched with owner/contact email, phone, website, business details, and notes for personalization.",
-    verification: "No enrichment provider/tool is wired in this repo yet.",
+      "Only shortlisted businesses move to contact discovery. Business-domain emails are preferred, personal/free-mail rows are held unless Sales Manager clears them, and verification happens before sending.",
+    verification: "The Relay batch proved risky rows can be held out. Live NoBounce/NeverBounce/GHL validation telemetry is not yet shown directly in Mission Control.",
   },
   {
-    title: "Prepare GHL prospect records",
+    title: "Create clean prospect records",
     owner: "GHL Expert",
     status: "partial",
     description:
-      "Template-lab Reach fields, AOH custom values, and routing tags have been verified, but live campaign records must be confirmed in the active AOH/Hub360AI production location before launch.",
-    verification: "Template lab audit verified 9 Reach custom fields, 6 AOH custom values, and 4 Reach tags in hVTckp5FcGL9Ja3GvC3R. Do not treat that template location as the live campaign/report workspace.",
+      "Clean contacts can be imported/tagged into the right lane with source, offer, and safety status. Import-only never means start sending.",
+    verification: "Read-only GHL readiness passed and Relay import-only completed for 2 clean contacts; other lanes still need visual review.",
   },
   {
-    title: "Website report handoff endpoints",
-    owner: "Website + GHL Expert",
-    status: "verified",
-    description:
-      "The site can accept a report request, create a run ID, create/update the GHL contact, write report fields, add generator tags, expose report status, and receive report/map callbacks.",
-    verification: "Verified 2026-05-18 by build, production deploy, GHL API handoff, and callback/status smoke tests.",
-  },
-  {
-    title: "Create marketing report and heatmap",
-    owner: "GHL Expert",
-    status: "verified",
-    description:
-      "After a warm campaign reply or website form request, the GHL workflow must generate the marketing audit report, run the map visibility report where available, store the URLs, and call the website callback when ready.",
-    verification: "Website visitor marketing intake, AI visibility intake, and combined delivery workflows are published in the active production location. Delivery workflow test executed wait -> branch -> send email -> update opportunity -> add tag -> finish.",
-  },
-  {
-    title: "Create AI Visibility report",
-    owner: "Local Visibility Manager + GHL Expert",
-    status: "partial",
-    description:
-      "AI Visibility can use the same area/niche/business information, then show Local Visibility Manager/review/competitor visibility issues and a baseline explanation.",
-    verification: "The AI Visibility report route exists. Direct live Local Visibility Manager scan coverage is limited and can fall back to baseline estimates.",
-  },
-  {
-    title: "Generate warm-reply report delivery",
-    owner: "GHL Expert + Website",
-    status: "partial",
-    description:
-      "Campaign prospects should receive report delivery only after a warm signal such as reply `send`, reply `book`, or a manually approved test segment. Direct report links remain a test variant, not the default.",
-    verification: "Website visitor combined report delivery workflow is live and tested. Campaign reply classification still needs its own live automation before scaling outbound sends.",
-  },
-  {
-    title: "Draft workflow skeleton",
-    owner: "GHL Expert + Systems Director",
-    status: "partial",
-    description:
-      "The Reach Campaign - Draft Skeleton workflow exists in Draft mode with a reach_enrolled tag trigger, safety gate, route branches, waits, and note placeholders. It must stay unpublished.",
-    verification: "Mike visually confirmed Draft mode, no Send Email nodes, no enrolled contacts, and Systems Director approved the draft structure with blockers.",
-  },
-  {
-    title: "Write/send dynamic outreach email",
+    title: "Send reply-first outreach",
     owner: "Sender + Coach",
     status: "missing",
     description:
-      "The email must merge prospect name, business, area, niche, competitor/report signals, and a reply-first CTA such as `reply send` or `reply book`. It should not read like a generic cold email, and Send Email nodes remain blocked.",
-    verification: "Draft copy exists from Sender/Coach, but real GHL email nodes are blocked until address, logo, calendar, unsubscribe, and Systems Director QA pass.",
+      "Sender uses a specific business reason and asks for a small next action such as send the report, show details, or book a short call.",
+    verification: "Copy and runbooks exist, but live Send Email/start-drip remains blocked until reply routing, unsubscribe, sender-domain, and Systems Director QA pass.",
   },
   {
-    title: "Track replies, report requests, and booked calls",
-    owner: "GHL Expert + Sorter",
+    title: "Route replies and report requests",
+    owner: "Sorter + GHL Expert",
     status: "partial",
     description:
-      "GHL should track replies, `send` requests, `book` requests, report delivery, opportunity stages, booked calls, and no-response follow-up windows.",
-    verification: "Mission Control can read some GHL pipeline data; campaign tracking workflow is not fully verified.",
+      "Replies become clear next actions: interested, send report, book call, objection, bad fit, unsubscribe, or needs-human review.",
+    verification: "Website report delivery workflows are live. Campaign reply router blueprint exists but still needs live UI build and QA.",
   },
   {
-    title: "Sort replies and route hot leads",
-    owner: "Sorter",
-    status: "manual",
-    description:
-      "Sorter separates interested, objection, unsubscribe, bad fit, and needs-human replies so hot leads are not buried.",
-    verification: "Role is defined; automated reply triage is not yet connected.",
-  },
-  {
-    title: "Book interested prospects on /aoh-talk",
+    title: "Book interested prospects",
     owner: "Booker + Scheduler",
     status: "verified",
     description:
-      "Warm replies should be guided to the Discovery Round Robin calendar and tagged by interest so the right pipeline/stage updates.",
-    verification: "AOH Talk booking URL loads and production custom value aoh_discovery_calendar_link is set to https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY.",
+      "Warm replies get moved to the AOH Talk calendar or a human handoff so the owner is not sorting cold email noise.",
+    verification: "AOH Talk booking URL loads and production custom value aoh_discovery_calendar_link is set.",
   },
   {
-    title: "If they buy, confirm Stripe-to-GHL handoff",
-    owner: "GHL Expert + Systems Director",
+    title: "Review cost and improve the next run",
+    owner: "Systems Director + Manager",
+    status: "partial",
+    description:
+      "Mission Control watches discovery spend, verified contacts, sends, replies, booked calls, and lane quality so weak lists or copy get changed before scaling.",
+    verification: "The ledger shows cost estimates and blockers; live vendor billing, bounce, and booked-call telemetry still need deeper wiring.",
+  },
+];
+
+export const REACH_OPTIONAL_AGENT_FLOW: ReachInternalStep[] = [
+  {
+    title: "Confirm the custom automation need",
+    owner: "Coach + Manager",
     status: "manual",
     description:
-      "After purchase, confirm the correct GHL subaccount exists, the client is tagged, the service pipeline is created, and onboarding begins.",
-    verification: "Not verified in this session against a live purchase/subaccount.",
+      "Use this layer only when the business needs AOH agents connected to its CRM, POS, intake form, webhook, or job system. Not every Reach client needs it.",
+    verification: "Must be scoped during sales/onboarding before any client system is connected.",
   },
   {
-    title: "Client completes intake form",
+    title: "Collect access and intake",
     owner: "Manager + GHL Expert",
     status: "manual",
     description:
-      "The client supplies the facts that cannot be known at purchase time: business name, website, phone, address or service area, logo, owner contact, preferred wording, and customer/POS path when needed.",
-    verification: "Intake package still needs final client-facing screenshots/video and completion tracking.",
+      "The client supplies business facts, CRM/POS access path, customer data rules, service areas, message preferences, and approval contacts.",
+    verification: "Client-facing intake and access proof must exist before build work starts.",
   },
   {
-    title: "Client grants GBP access",
-    owner: "Local Visibility Manager + GHL Expert",
+    title: "Connect CRM, POS, CSV, or webhook source",
+    owner: "GHL Expert + Systems Director",
     status: "manual",
     description:
-      "The client either connects Google Business Profile inside GHL or invites AOH as manager, depending on the service path. Review Automation cannot launch until the correct GBP is connected or access is confirmed.",
-    verification: "GBP access path is defined, but live client-zero verification is still needed.",
+      "Agents map the system that will trigger work: closed jobs, missed calls, new customers, completed appointments, review requests, or follow-up stages.",
+    verification: "No custom client CRM/POS connector should go live without a test contact, rollback path, and written scope.",
   },
   {
-    title: "Create client subaccount from template snapshot",
-    owner: "GHL Expert",
+    title: "Build custom agent instructions",
+    owner: "Systems Director + Coach",
     status: "manual",
     description:
-      "GHL Expert loads the approved snapshot from AOH Client Template Lab into the new client subaccount after the required intake/access gates are clear.",
-    verification: "Template lab ID hVTckp5FcGL9Ja3GvC3R is tracked; live snapshot load into a new client subaccount has not been verified here.",
+      "Define what the agent can do, what it must never do, when it asks a human, and how it should sound for that business.",
+    verification: "Instructions must be reviewed before any automated client communication or data write.",
   },
   {
-    title: "Populate client custom values",
-    owner: "GHL Expert",
-    status: "partial",
-    description:
-      "GHL Expert fills the client subaccount values from intake and GBP access: client business name, review link, logo, phone, physical address/service area, website, owner contact, and any service-specific settings.",
-    verification: "Template/lab placeholders are being defined; real client values must come from completed intake and access proof.",
-  },
-  {
-    title: "Systems Director client launch QA",
-    owner: "Systems Director",
+    title: "Trigger delivery jobs from real events",
+    owner: "GHL Expert + Custom Agent",
     status: "manual",
     description:
-      "Systems Director confirms custom values are populated, GBP/Reputation is connected correctly, links route to the right business, unsubscribe works, test contact messages render cleanly, and no placeholders remain.",
-    verification: "QA checklist exists conceptually; live execution still needed before any real client launch.",
+      "Once connected, events can start review requests, missed-call follow-up, lead triage, report delivery, or customer nurture jobs.",
+    verification: "Each event trigger needs sample data, a dry run, and a visible Mission Control status before launch.",
   },
   {
-    title: "Launch review requests",
-    owner: "GHL Expert + Sorter",
+    title: "QA and monitor the client agent",
+    owner: "Auditor + Manager",
     status: "manual",
     description:
-      "Sorter cleans/imports the customer list, GHL Expert maps fields and sends a test, then launches the approved review request workflow.",
-    verification: "SOP is defined; no live client launch test was verified in this turn.",
-  },
-  {
-    title: "Systems Director launch QA",
-    owner: "Systems Director",
-    status: "manual",
-    description:
-      "Systems Director confirms GBP is correct, reviews sync into Reputation, custom values are populated, messages work, links are correct, and blockers are assigned.",
-    verification: "QA checklist exists; live execution still needed.",
-  },
-  {
-    title: "Client upkeep after completion",
-    owner: "Manager + Systems Director + Local Visibility Manager + GHL Expert",
-    status: "manual",
-    description:
-      "After launch, agents monitor review velocity, workflow errors, unanswered reviews, Local Visibility Manager drift, report delivery, and client risk. This becomes the 50+ client upkeep system.",
-    verification: "Scheduled work exists in Mission Control; multi-client automated monitoring still needs to be expanded.",
+      "Auditor checks links, permissions, unsubscribe behavior, wrong-business risk, logs, and HighLevel AI features. Those AI features stay off unless Mike manually authorizes them.",
+    verification: "Launch requires written QA and ongoing monitoring because custom agents touch client systems.",
   },
 ];
 
@@ -339,27 +267,27 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
 export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
   {
     slug: "reviews-outreach",
-    name: "Reviews Outreach - Reach lead engine",
+    name: "Commercial Reach - Reviews lane",
     service: "Reach",
     owner: "Scout + Sender + Sorter + Booker",
     overview:
-      "Reach is the outbound growth machine. It finds likely buyers, enriches their contact details, sends a clean first-touch message, sorts replies, and moves interested people toward a booked call.",
+      "Commercial Reach is the standard outbound job AOH can sell to most businesses: find likely buyers, verify a safe way to contact them, send a useful first message, sort replies, and turn real interest into calls.",
     reachPart:
-      "This is the core Reach workflow: find the right businesses, start conversations, separate real buying signals from noise, and hand warm replies to booking.",
+      "This is standard Reach. Custom agents and CRM/POS connections are a separate add-on after the client needs event-based automation.",
     salesAgentTasks: [
       {
-        title: "Build the prospect list",
-        description: "Scout finds businesses that look like they need review automation or local visibility help.",
+        title: "Run discovery first",
+        description: "Scout finds and scores local businesses before AOH pays for deeper enrichment or starts any email workflow.",
         owner: "Scout",
       },
       {
-        title: "Prepare usable contact records",
-        description: "Enricher turns a business name into a useful lead record with website, phone, email, and context.",
-        owner: "Enricher",
+        title: "Verify contact quality",
+        description: "Enricher and Sender prefer business-domain emails, reject risky personal emails, and validate before send approval.",
+        owner: "Enricher + Sender",
       },
       {
-        title: "Send the first conversation starter",
-        description: "Sender writes and sends outreach in AOH's voice so the message feels specific, not like a blast.",
+        title: "Send the first useful message",
+        description: "Sender writes a specific, reply-first note tied to the lane instead of a generic cold email blast.",
         owner: "Sender",
       },
       {
@@ -380,6 +308,11 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
         owner: "Systems Director",
       },
       {
+        title: "Keep custom agents separate",
+        description: "Manager marks CRM, POS, webhook, or custom-agent work as an add-on path so the basic Reach job stays simple to explain.",
+        owner: "Manager",
+      },
+      {
         title: "Keep the workflow visible",
         description: "Manager makes sure the job status, blockers, and next actions stay visible in Mission Control.",
         owner: "Manager",
@@ -391,9 +324,9 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
       },
     ],
     agentRoles: [
-      { agent: "Scout", role: "Finds the right local businesses and checks whether they look like a fit." },
-      { agent: "Enricher", role: "Adds usable email, phone, website, and business details before outreach." },
-      { agent: "Sender", role: "Prepares and sends the outreach sequence without making it sound templated." },
+      { agent: "Scout", role: "Runs business discovery first and shortlists businesses that look worth contacting." },
+      { agent: "Enricher", role: "Finds usable business contact data and keeps risky emails out of the send path." },
+      { agent: "Sender", role: "Prepares reply-first outreach without making it sound templated." },
       { agent: "Sorter", role: "Reads replies, separates real interest from noise, and flags hot leads." },
       { agent: "Booker", role: "Moves interested replies toward a call on the calendar." },
       { agent: "Systems Director", role: "Checks cost, booked-call rate, and whether the list/copy should change." },
@@ -407,7 +340,7 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     estimatedPipelineValueUsd: 299,
     lastRun: "Today 7:00am",
     nextRun: "Tomorrow 7:00am",
-    notes: "First job to watch. If booked calls stay at 0 after a week, change list/source/copy before scaling.",
+    notes: "This is the clean business-facing job: discovery, verification, outreach, reply sorting, booking, and improvement. Do not bundle CRM/custom-agent setup into this unless the prospect buys that add-on.",
     costBreakdown: [
       { label: "Scout research", amountUsd: 0.42 },
       { label: "Contact enrichment", amountUsd: 0.9 },
@@ -416,9 +349,9 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
       { label: "Booking/admin checks", amountUsd: 0.25 },
     ],
     checks: [
-      "Prospects found",
-      "Contacts enriched",
-      "Messages sent",
+      "Discovery first",
+      "Contacts verified",
+      "Send gate passed",
       "Replies sorted",
       "Booked calls",
     ],

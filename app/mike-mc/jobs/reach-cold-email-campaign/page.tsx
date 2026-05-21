@@ -68,6 +68,8 @@ export default function ReachColdEmailCampaignPage() {
         ))}
       </section>
 
+      <CommercialBoundarySection />
+
       <section className="mb-8 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 md:p-6">
         <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <div>
@@ -91,7 +93,7 @@ export default function ReachColdEmailCampaignPage() {
               {job.currentBlocker}
             </p>
             <p className="mt-3 text-sm leading-relaxed text-zinc-500">
-              Import-only means "put the clean contacts in GHL and tag them." It does not mean "start emailing."
+              Import-only means &quot;put the clean contacts in GHL and tag them.&quot; It does not mean &quot;start emailing.&quot;
             </p>
           </div>
         </div>
@@ -104,6 +106,61 @@ export default function ReachColdEmailCampaignPage() {
       <ProcessFactsSection />
       <NextMoveSection />
     </ControlShell>
+  );
+}
+
+function CommercialBoundarySection() {
+  return (
+    <section className="mb-8 rounded-2xl border border-zinc-800/70 bg-zinc-900/40 p-5 md:p-6">
+      <div className="mb-4 flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+            Scope boundary
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+            Commercial Reach first, custom agents only when needed
+          </h2>
+          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
+            This room tracks the cold email campaign path: discovery, verification, import-only,
+            send readiness, reply routing, and booking. CRM/POS connections and custom agents are
+            separate client-scoped work after a business actually needs that deeper automation.
+          </p>
+        </div>
+        <Link
+          href="/mike-mc/jobs#custom-agent-layer"
+          className="inline-flex rounded-md border border-zinc-700/70 bg-zinc-900/70 px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-zinc-300 transition hover:bg-zinc-800 hover:text-zinc-100"
+        >
+          View custom layer
+        </Link>
+      </div>
+
+      <div className="grid gap-3 lg:grid-cols-3">
+        <article className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
+          <p className="font-mono text-xs uppercase tracking-wider text-emerald-300">
+            Commercial Reach
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-300">
+            Find likely businesses, verify safe contacts, send useful outreach, sort replies, and book real interest.
+          </p>
+        </article>
+        <article className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
+          <p className="font-mono text-xs uppercase tracking-wider text-amber-300">
+            This job room
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-300">
+            Shows lane QA, import-only status, drip readiness, and the exact stop sign before any email sends.
+          </p>
+        </article>
+        <article className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
+          <p className="font-mono text-xs uppercase tracking-wider text-zinc-400">
+            Optional custom agents
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+            Added only when a client wants agents connected to CRM, POS, CSV, webhooks, or customer-event workflows.
+          </p>
+        </article>
+      </div>
+    </section>
   );
 }
 

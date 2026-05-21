@@ -24,6 +24,7 @@ The ledger is intentionally spreadsheet-first. Mike should be able to open it, s
 | `mike-daily-agent-quickstart.md` | Plain-English daily guide for Mike to talk to agents, run Reach checks, and issue safe approvals in Slack. |
 | `agent-model-routing-policy.md` | Cost-control policy for choosing no LLM, cheap, standard, strong, or human decision tiers. |
 | `reach-campaign-agent-runbook.md` | Safe agent workflow for Reach email campaign prep, approval, import, drip start, and logging. |
+| `mission-control-job-flow-index.md` | Mission Control job index links and the split between Commercial Reach and optional custom agent/CRM work. |
 | `slack-agent-command-runbook.md` | How Mike talks to Manager, GHL Expert, Sales Manager, and approval gates through Slack-ready commands. |
 | `agent-jobs-template.csv` | Starter job queue format for agent work, budgets, approvals, and next actions. |
 | `agent-jobs.csv` | Current working job queue for agent work. |

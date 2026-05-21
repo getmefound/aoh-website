@@ -114,25 +114,25 @@ export const REACH_STEPS: ReachStep[] = [
   {
     order: 2,
     agent: "Scout",
-    title: "Build the prospect batches",
+    title: "Run discovery-first batches",
     status: "Done for this batch",
     tone: "accent",
     whatHappened:
-      "The current small Reviews, AI Visibility, and Relay lists already exist. Status checks are not scraping Google Maps again.",
+      "The current small Reviews, AI Visibility, and Relay lists already exist. Future refills should start with business discovery before deeper enrichment spend.",
     leftToDo:
-      "Only rerun Google Maps/Outscraper when Mike asks for a fresh list or a new batch.",
+      "Only run paid Outscraper/Google Maps discovery when the daily cap and lane are clear, then suppress already-used contacts.",
     evidence: "Current source files are the tmp-reach CSV batches from 2026-05-20.",
   },
   {
     order: 3,
     agent: "Sender + verifier",
-    title: "Check email quality",
+    title: "Verify email quality before import",
     status: "Done for this batch",
     tone: "accent",
     whatHappened:
-      "The QA files separated OK rows from review flags such as personal email domains and duplicate contacts.",
+      "The QA files separated OK rows from review flags such as personal email domains, duplicate contacts, and questionable business ownership.",
     leftToDo:
-      "Do not use flagged rows unless Sales Manager explicitly clears them.",
+      "Do not use flagged rows unless Sales Manager explicitly clears them. Pre-send verification must happen before any start-drip approval.",
     evidence: "Relay kept 2 OK contacts and held 2 Cornell personal-email duplicate rows.",
   },
   {

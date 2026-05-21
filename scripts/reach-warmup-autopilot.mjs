@@ -226,7 +226,7 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
     });
   }
 
-  const selectedRows = pool.slice(0, target);
+  let selectedRows = pool.slice(0, target);
   const blockers = [];
   if (selectedRows.length < min) blockers.push(`Only ${selectedRows.length} OK rows found; minimum is ${min}.`);
   if (selectedRows.length < min && scrapeSpendBlocker) blockers.push(scrapeSpendBlocker);
@@ -235,8 +235,16 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
   }
   if (laneExecute !== "none") blockers.push(...liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute: laneExecute, config, date, history }));
 
-  const selectedCsv = `tmp-reach-warmup-${laneKey}-${date}-selected-qa.csv`;
+  let selectedCsv = `tmp-reach-warmup-${laneKey}-${date}-selected-qa.csv`;
   writeCsv(selectedCsv, selectedRows);
+
+  let verification = null;
+  if (laneExecute !== "none" && blockers.length === 0 && shouldVerifySelectedBeforeLive(config)) {
+    verification = verifySelectedBeforeLiveAction({ laneKey, date, selectedCsv, selectedRows, config });
+    selectedCsv = verification.verifiedCsv;
+    selectedRows = readCsv(selectedCsv);
+    blockers.push(...liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute: laneExecute, config, date, history }));
+  }
 
   const actionResults = [];
   if (laneExecute !== "none" && blockers.length === 0) {
@@ -272,6 +280,7 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
     selectedCsv,
     attempts,
     blockers,
+    verification,
     actionResults,
   });
 }
@@ -435,6 +444,42 @@ function addCachedInventoryRows({ laneKey, pool, seen, target }) {
   };
 }
 
+function shouldVerifySelectedBeforeLive(config) {
+  return config.guardrails?.verify_selected_before_live_action !== false;
+}
+
+function verifySelectedBeforeLiveAction({ laneKey, date, selectedCsv, selectedRows, config }) {
+  const provider = String(config.guardrails?.verify_selected_provider ?? "neverbounce").toLowerCase();
+  if (!["neverbounce", "hunter"].includes(provider)) die("guardrails.verify_selected_provider must be neverbounce or hunter.");
+
+  const verifiedCsv = selectedCsv.replace(/\.csv$/i, `-${provider}.csv`);
+  const report = selectedCsv.replace(/\.csv$/i, `-${provider}-report.json`);
+  run("node", [
+    "scripts/verify-reach-emails.mjs",
+    "--provider",
+    provider,
+    "--csv",
+    selectedCsv,
+    "--out",
+    verifiedCsv,
+    "--report",
+    report,
+  ]);
+
+  const verifiedRows = readCsv(verifiedCsv);
+  return {
+    provider,
+    sourceCsv: selectedCsv,
+    verifiedCsv,
+    report,
+    inputCount: selectedRows.length,
+    keptCount: verifiedRows.length,
+    removedCount: Math.max(0, selectedRows.length - verifiedRows.length),
+    date,
+    lane: laneKey,
+  };
+}
+
 function loadCachedQaInventory(laneKey) {
   const files = inventoryCandidateFiles(laneKey);
   const byEmail = new Map();
@@ -529,7 +574,7 @@ function hasImportToday(laneKey, date) {
   });
 }
 
-function writeLaneReport({ laneKey, lane, date, execute, dayNumber, quota, status, selectedRows, selectedCsv, attempts, blockers, actionResults }) {
+function writeLaneReport({ laneKey, lane, date, execute, dayNumber, quota, status, selectedRows, selectedCsv, attempts, blockers, verification, actionResults }) {
   const jsonPath = resolve(OUTBOX, `reach-warmup-${laneKey}-${date}.json`);
   const mdPath = resolve(OUTBOX, `reach-warmup-${laneKey}-${date}.md`);
   const report = {
@@ -544,6 +589,7 @@ function writeLaneReport({ laneKey, lane, date, execute, dayNumber, quota, statu
     selectedCsv: selectedCsv ?? "",
     blockers,
     attempts,
+    verification,
     actionResults,
   };
   writeFileSync(jsonPath, JSON.stringify(report, null, 2));
@@ -578,6 +624,14 @@ ${report.blockers.length ? report.blockers.map((item) => `- ${item}`).join("\n")
 |---:|---|---:|---:|---:|---:|---:|---|
 ${report.attempts.map((item) => `| ${item.attempt} | ${cell(`${item.industry}, ${item.area}`)} | ${item.scrapeLimit} | ${item.qaRows} | ${item.okRows} | ${item.added} | ${item.poolSize} | ${cell(item.error || "")} |`).join("\n") || "| none | | | | | | | |"}
 
+## Live Verification
+
+${report.verification ? `- Provider: ${report.verification.provider}
+- Input rows: ${report.verification.inputCount}
+- Kept rows: ${report.verification.keptCount}
+- Removed rows: ${report.verification.removedCount}
+- Report: ${report.verification.report}` : "- No live verification executed."}
+
 ## Live Action Results
 
 ${report.actionResults.length ? report.actionResults.map((item) => `- ${item.action}: ${item.resultFile}`).join("\n") : "- No live action executed."}
@@ -606,6 +660,7 @@ ${reports
 - It will not call Outscraper when balance protection is on unless spend is explicitly approved.
 - It will not exceed the run-level Outscraper scrape cap across all lanes.
 - It will not reuse contacts already imported or started in prior GHL result files.
+- It re-verifies the selected live-action CSV before import or start tags.
 - In start mode, it reuses prior imported contacts instead of scraping new contacts.
 - It will not start drip unless the lane is marked ready_for_drip=yes.
 - HighLevel AI features must stay OFF.

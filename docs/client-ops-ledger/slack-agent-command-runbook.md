@@ -327,6 +327,53 @@ reject individual warmup rows. Start-drip still stays blocked until
 Mike wants daily warmup to run under guardrails instead of asking him to decide
 each small row-level issue.
 
+## Reach Business Discovery First
+
+Business discovery is the cheaper pre-send lane. It finds and scores businesses
+before the system pays for heavier enrichment or asks GHL to send anything.
+
+Source of truth:
+
+```text
+docs/client-ops-ledger/reach-business-discovery-first.md
+docs/client-ops-ledger/reach-discovery-first.json
+```
+
+Runner:
+
+```bash
+npm run reach:discover -- --lane all --plan-only
+npm run reach:discover -- --lane all --allow-spend --max-spend 5
+```
+
+What it does:
+
+- scrapes business listings without contact enrichment
+- scores business fit by lane
+- crawls high-fit websites for public business-domain emails
+- writes candidate CSVs for verification, QA, and warmup
+- does not import contacts
+- does not add start tags
+- does not send email
+- does not enable HighLevel AI features
+
+GitHub Actions has a scheduled `Reach Business Discovery First` workflow. It
+runs plan-only unless `REACH_DISCOVERY_ALLOW_SPEND=yes` is set as a repo
+variable or the manual workflow input approves spend.
+
+Slack command language can stay plain:
+
+```text
+/manager start cold reach campaign
+/manager are we ready to send?
+Scout, build the next discovery-first list for reviews
+Sender, prep the discovery candidates for verification
+```
+
+The current recommended send window for East Coast cold email is Tuesday through
+Thursday, `9:15-10:45 AM ET`, with `1:15-2:45 PM ET` as the secondary test
+window. Avoid Friday afternoon, weekends, and exact top-of-hour batches.
+
 Autopilot source of truth:
 
 ```text

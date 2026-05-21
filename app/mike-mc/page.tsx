@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   ControlShell,
   FleetStrip,
@@ -25,6 +26,7 @@ import {
   type MissionTone,
 } from "@/lib/control/mission";
 import { INTERNAL_JOBS } from "@/lib/control/internal-jobs";
+import { SCHEDULED_JOB_COSTS } from "@/lib/control/job-costs";
 
 export const metadata: Metadata = {
   title: "The Hub",
@@ -114,7 +116,7 @@ export default async function ControlPage() {
             href="/mike-mc/jobs"
             className="rounded-md border border-zinc-700/70 bg-zinc-900/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-300 transition hover:bg-zinc-800 hover:text-zinc-100"
           >
-            Job Costs
+            Job Index
           </a>
           <a
             href="/mike-mc/campaigns"
@@ -189,22 +191,81 @@ export default async function ControlPage() {
 
 function JobsInProgressSection() {
   const job = INTERNAL_JOBS[0];
+  const jobLinks = [
+    {
+      title: "Commercial Reach",
+      href: "/mike-mc/jobs#commercial-reach",
+      badge: "sales story",
+      tone: "accent" as const,
+      detail: "The plain business-facing Reach offer: discover, verify, outreach, sort, book.",
+    },
+    {
+      title: "Reach step flow",
+      href: "/mike-mc/jobs#commercial-reach-steps",
+      badge: "steps",
+      tone: "warm" as const,
+      detail: "Shows each agent handoff from business discovery through booked-call review.",
+    },
+    {
+      title: "Custom agents / CRM",
+      href: "/mike-mc/jobs#custom-agent-layer",
+      badge: "optional",
+      tone: "muted" as const,
+      detail: "Separate add-on for businesses that need CRM, POS, CSV, webhook, or custom agent connections.",
+    },
+    {
+      title: "Reach cold email room",
+      href: job.href,
+      badge: "live room",
+      tone: "warn" as const,
+      detail: "Current campaign warmup, import-only, lane QA, and start-drip gate.",
+    },
+    {
+      title: "All scheduled jobs",
+      href: "/mike-mc/jobs",
+      badge: `${SCHEDULED_JOB_COSTS.length} jobs`,
+      tone: "default" as const,
+      detail: "Cost, owner, cadence, and worth-it checks for the agent job ledger.",
+    },
+  ];
 
   return (
     <section className="mb-8 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5">
       <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-300">
-            Jobs in progress
+            Job index
           </p>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-50">
-            Internal work queue
+            Work rooms and sales-ready flows
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-            Live job rooms show what each agent has done, what is left, and where the handoff is blocked.
+            Start here when you need to explain what agents do. Commercial Reach is separated from
+            optional custom agent and CRM work so the offer stays clear.
           </p>
         </div>
-        <Pill tone="warm">1 active</Pill>
+        <div className="flex flex-wrap gap-2">
+          <Pill tone="warm">{INTERNAL_JOBS.length} active room</Pill>
+          <Pill tone="muted">{SCHEDULED_JOB_COSTS.length} costed jobs</Pill>
+        </div>
+      </div>
+
+      <div className="mb-4 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        {jobLinks.map((link) => (
+          <Link
+            key={link.title}
+            href={link.href}
+            className="rounded-xl border border-zinc-800/70 bg-zinc-950/70 p-4 transition hover:border-zinc-700 hover:bg-zinc-900/80"
+          >
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <h3 className="text-sm font-semibold leading-snug text-zinc-100">
+                {link.title}
+              </h3>
+              <Pill tone={link.tone}>{link.badge}</Pill>
+            </div>
+            <p className="text-sm leading-relaxed text-zinc-400">{link.detail}</p>
+          </Link>
+        ))}
       </div>
 
       <article className="rounded-xl border border-zinc-800/70 bg-zinc-950/70 p-4">
@@ -214,12 +275,12 @@ function JobsInProgressSection() {
               <Pill tone={job.statusTone}>{job.status}</Pill>
               <Pill tone="muted">owner: {job.owner}</Pill>
             </div>
-            <a
+            <Link
               href={job.href}
               className="text-xl font-semibold tracking-tight text-zinc-50 transition hover:text-amber-200"
             >
               {job.title}
-            </a>
+            </Link>
             <p className="mt-2 text-sm leading-relaxed text-zinc-400">
               {job.summary}
             </p>
@@ -244,12 +305,12 @@ function JobsInProgressSection() {
                 </div>
               ))}
             </div>
-            <a
+            <Link
               href={job.href}
               className="mt-3 inline-flex rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-amber-200 transition hover:bg-amber-500/20"
             >
               Open job room
-            </a>
+            </Link>
           </div>
         </div>
 
