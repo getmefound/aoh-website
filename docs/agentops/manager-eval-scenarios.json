@@ -90,22 +90,25 @@
       "command": "Local Visibility Manager, prepare GBP access test",
       "intent": "gbp_access",
       "must_include": [
-        "train this on AOH first",
-        "AOH's own Google Business Profile as the practice account",
-        "AOH access is already confirmed for client-zero",
+        "Local Visibility Manager status:",
+        "Confirmed for the AOH client-zero test",
+        "AOH's own Google Business Profile is the practice account",
+        "Profile gaps:",
+        "Starter draft:",
+        "Proof needed:",
+        "Needs Mike:",
         "People and access",
         "Default access is Manager",
         "No password sharing",
-        "Mike approves before anything public",
-        "Access status",
-        "Profile health gaps",
-        "Draft update",
-        "Pick the first safe AOH GBP update"
+        "Nothing gets published until Mike approves",
+        "AI Outsource Hub helps local businesses automate"
       ],
       "must_not_include": [
         "Owner access is required",
         "send your password",
         "The AOH Google email clients should invite",
+        "What Local Visibility Manager returns",
+        "Pick the first safe AOH GBP update",
         "HighLevel AI can be enabled"
       ]
     }

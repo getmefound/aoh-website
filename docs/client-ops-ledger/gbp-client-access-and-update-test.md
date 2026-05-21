@@ -77,9 +77,9 @@ Then AOH accepts the invite from that Google account.
 
 When asked to prepare the test, Local Visibility Manager should return:
 
-- Access: invited, accepted, blocked, or not started
-- Profile health: top gaps only
-- Draft update: one safe post, service update, photo need, or description improvement
+- Access: confirmed, blocked, or needs owner action
+- Profile health: top gaps only, or "not fully inspected from Slack yet"
+- Starter draft: one safe post, service update, photo need, or description improvement
 - Proof needed: screenshot/video list for the future client instructions
 - Approval needed: the exact public change Mike must approve
 - Handoff: whether GHL Expert is needed for HighLevel connection work

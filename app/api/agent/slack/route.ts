@@ -735,34 +735,44 @@ Reference: \`docs/client-ops-ledger/agent-model-routing-policy.md\``;
 function buildGbpAccessTestResponse(actor: UserContext) {
   return `*GBP access test - ${today()}*
 
-${address(actor)}, yes - train this on AOH first. Local Visibility Manager owns it.
+${address(actor)}, Local Visibility Manager status:
 
-Client-zero test:
+Access:
 
-- Use AOH's own Google Business Profile as the practice account.
-- AOH access is already confirmed for client-zero.
+- Confirmed for the AOH client-zero test.
+- AOH's own Google Business Profile is the practice account.
+
+Profile gaps:
+
+- Not fully inspected from Slack yet.
+- First visual check should cover hours, services, categories, photos, posts, review link, and unanswered reviews.
+
+Starter draft:
+
+AI Outsource Hub helps local businesses automate the follow-up work that usually falls through the cracks: review requests, lead outreach, missed-call response, and client updates. The goal is simple: help owners stay visible, respond faster, and grow without adding more admin work.
+
+Proof needed:
+
+- Screenshot of People and access showing AOH access.
+- Screenshot of the profile edit area before any public change.
+- Screenshot of the final draft before publishing.
+
+Needs Mike:
+
+- Approve this draft, revise it, or tell Local Visibility Manager which safer AOH update to draft instead.
+- Nothing gets published until Mike approves.
+
+Client rule for later:
+
 - For clients, use the business-domain Google login as the invite email for now.
 - The business owner adds that email under Business Profile settings -> People and access.
 - Default access is Manager, not Owner.
 - No password sharing.
-- Mike approves before anything public is posted.
-
-What Local Visibility Manager returns:
-
-- Access status.
-- Profile health gaps.
-- Draft update.
-- Proof or screenshots needed for future clients.
-- What Mike must approve.
 
 Handoff:
 
 - Manager tracks blockers and puts them in the brief.
 - GHL Expert helps only if GBP needs to connect into HighLevel/reputation workflows.
-
-Need from Mike now:
-
-- Pick the first safe AOH GBP update you want tested.
 
 Reference: \`docs/client-ops-ledger/gbp-client-access-and-update-test.md\`
 Training loop: \`docs/agentops/local-visibility-manager-gbp-training-loop.md\``;

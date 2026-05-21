@@ -47,16 +47,19 @@ Local Visibility Manager run:
 Local Visibility Manager - GBP client-zero status
 
 Access:
-- ...
+- Confirmed for AOH client-zero, blocked, or needs owner action
 
 Profile gaps:
-- ...
+- Top gaps or "not fully inspected from Slack yet"
 
-Draft update:
-- ...
+Starter draft:
+- One safe AOH update ready for Mike to approve or revise
+
+Proof needed:
+- Screenshots or checks needed before publishing
 
 Needs Mike:
-- ...
+- Approve, revise, or pick a different update
 
 Next handoff:
 - ...
