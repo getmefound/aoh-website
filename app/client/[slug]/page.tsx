@@ -48,56 +48,38 @@ export default async function ClientHubPage({ params }: PageProps) {
   return (
     <main id="main-content" tabIndex={-1} className="min-h-screen w-full min-w-0 overflow-x-hidden bg-[#f7f8f4] text-slate-950 focus:outline-none">
       <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-5 px-6 py-5 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div className="flex min-w-0 items-center gap-4">
+        <div className="mx-auto grid max-w-7xl gap-3 px-6 py-3 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="flex min-w-0 items-center gap-3">
             <LogoMark client={client} />
             <div className="min-w-0">
               <div className="mb-2 flex flex-wrap items-center gap-2">
-              <span className="rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-emerald-800">
-                {client.plan}
-              </span>
-              <span className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600">
-                {client.statusLabel}
-              </span>
+                <span className="rounded-md border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-800">
+                  {client.plan}
+                </span>
+                <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-600">
+                  {client.statusLabel}
+                </span>
               </div>
-              <h1 className="text-3xl font-semibold leading-tight tracking-tight text-slate-950 md:text-4xl">
+              <h1 className="text-xl font-semibold leading-tight tracking-tight text-slate-950 md:text-2xl">
                 {client.businessName}
               </h1>
             </div>
           </div>
 
-          <aside className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-800">
+          <aside className="flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-amber-800">
               Needed from you
             </p>
-            <p className="mt-1 text-2xl font-semibold text-slate-950">
+            <p className="text-base font-semibold text-slate-950">
               {clientNeeds.length} item{clientNeeds.length === 1 ? "" : "s"}
             </p>
             <a
               href="#needed"
-              className="mt-3 inline-flex rounded-lg bg-amber-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-800"
+              className="inline-flex rounded-md bg-amber-900 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-amber-800"
             >
               View
             </a>
           </aside>
-        </div>
-      </section>
-
-      <section className="border-b border-slate-200 bg-[#eef3ea]">
-        <div className="mx-auto flex max-w-7xl flex-wrap gap-3 px-6 py-4">
-          {[
-            ["Review Automation", "#reviews"],
-            ["What is needed", "#needed"],
-            ["AI Visibility", "#ai-visibility"],
-          ].map(([label, href]) => (
-            <a
-              key={href}
-              href={href}
-              className="flex-shrink-0 rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-emerald-300 hover:text-emerald-800"
-            >
-              {label}
-            </a>
-          ))}
         </div>
       </section>
 
