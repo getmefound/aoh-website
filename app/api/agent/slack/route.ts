@@ -455,6 +455,8 @@ ${address(actor)}, all campaign live actions are blocked.
 - Continue read-only checks and local prep only.`;
   }
 
+  if (mentionsGbpPostApproval(normalized)) return buildGbpPostApprovalResponse(actor);
+
   const approval = parseApproval(normalized);
   if (approval) return buildApprovalResponse(approval, actor);
 
@@ -776,6 +778,41 @@ Handoff:
 
 Reference: \`docs/client-ops-ledger/gbp-client-access-and-update-test.md\`
 Training loop: \`docs/agentops/local-visibility-manager-gbp-training-loop.md\``;
+}
+
+function buildGbpPostApprovalResponse(actor: UserContext) {
+  return `*GBP post approval - ${today()}*
+
+${address(actor)}, approval is recorded for the AOH Google Business Profile draft only.
+
+This is *not* a Reach drip approval.
+
+Final post:
+
+AI Outsource Hub helps local businesses automate the follow-up work that usually falls through the cracks: review requests, lead outreach, missed-call response, and client updates. The goal is simple: help owners stay visible, respond faster, and grow without adding more admin work.
+
+Final steps:
+
+- Open AOH's Google Business Profile.
+- Choose the post/update option.
+- Paste the approved draft.
+- Capture the final preview screenshot.
+- Wait for Mike to say exactly: \`publish GBP post\`.
+
+Proof checklist:
+
+- People and access screenshot already shows AOH control.
+- Screenshot before publishing.
+- Screenshot after Google accepts/submits the post.
+- Note whether Google says the post is pending review.
+
+Safety:
+
+- Do not publish from Slack.
+- Do not start any Reach drip.
+- Do not enable any HighLevel AI feature.
+
+Reference: \`docs/client-ops-ledger/gbp-client-access-and-update-test.md\``;
 }
 
 function buildReachRunTodayResponse(actor: UserContext) {
@@ -1856,12 +1893,14 @@ function shouldRunAsync(command: string) {
 }
 
 function parseApproval(normalized: string): { laneKey: LaneKey; action: "import" | "start"; visualConfirmed: boolean } | null {
-  if (!normalized.includes("approve")) return null;
+  if (!/\b(approve|approved|authorize|authorized|allow|allowed)\b/.test(normalized)) return null;
+  const hasReachApprovalAction = /\b(import only|import|start drip|start-drip|drip)\b/.test(normalized);
+  if (!hasReachApprovalAction) return null;
   const laneKey = findLaneKey(normalized);
   if (!laneKey) return null;
   const visualConfirmed = hasGhlVisualConfirmation(normalized);
-  if (normalized.includes("start") || normalized.includes("drip")) return { laneKey, action: "start", visualConfirmed };
-  if (normalized.includes("import")) return { laneKey, action: "import", visualConfirmed };
+  if (/\b(start drip|start-drip|drip)\b/.test(normalized)) return { laneKey, action: "start", visualConfirmed };
+  if (/\b(import only|import)\b/.test(normalized)) return { laneKey, action: "import", visualConfirmed };
   return null;
 }
 
@@ -2107,7 +2146,18 @@ function mentionsGbpAccessTest(normalized: string) {
     normalized.includes("google business") ||
     normalized.includes("business profile");
   if (!mentionsGbp) return false;
-  return /\b(access|invite|manager|owner|profile update|update|handoff|test|client zero|client-zero)\b/.test(normalized);
+  return /\b(access|invite|manager|owner|profile update|update|handoff|test|client zero|client-zero|draft|post|proof|publish|approve|approved)\b/.test(normalized);
+}
+
+function mentionsGbpPostApproval(normalized: string) {
+  const mentionsGbp =
+    /\b(gbp|gmb)\b/.test(normalized) ||
+    normalized.includes("google business") ||
+    normalized.includes("business profile") ||
+    normalized.includes("local visibility manager");
+  if (!mentionsGbp) return false;
+  const approvesDraft = /\b(approve|approved|yes|ok|okay)\b/.test(normalized) && /\b(draft|post|update|publish|proof|checklist)\b/.test(normalized);
+  return approvesDraft || /\bpublish gbp post\b/.test(normalized);
 }
 
 function mentionsAgentList(normalized: string) {

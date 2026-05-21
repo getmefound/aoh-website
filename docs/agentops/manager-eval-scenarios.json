@@ -111,6 +111,28 @@
         "Pick the first safe AOH GBP update",
         "HighLevel AI can be enabled"
       ]
+    },
+    {
+      "id": "gbp_draft_approval_not_reach_drip",
+      "command": "Local Visibility Manager, I approve the starter draft. Prepare the final GBP post steps and proof checklist, but do not publish until I say publish.",
+      "intent": "gbp_post_approval",
+      "must_include": [
+        "GBP post approval",
+        "approval is recorded for the AOH Google Business Profile draft only",
+        "This is *not* a Reach drip approval",
+        "Final post:",
+        "Proof checklist:",
+        "Wait for Mike to say exactly: `publish GBP post`",
+        "Do not publish from Slack",
+        "Do not start any Reach drip"
+      ],
+      "must_not_include": [
+        "Manager heard approval",
+        "AI Visibility / start drip",
+        "eligible for guarded execution",
+        "npm run reach:launch",
+        "--start-drip"
+      ]
     }
   ]
 }
