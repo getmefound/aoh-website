@@ -4,10 +4,12 @@ import { ControlShell, Pill } from "@/components/control/ControlPrimitives";
 import {
   REACH_INTERNAL_JOB,
   REACH_PROCESS_FACTS,
+  REACH_TEAM_TRAINING,
   REACH_WARMUP_AUTOPILOT,
   type ControlTone,
   type ReachLane,
   type ReachStep,
+  type ReachTeamTraining,
 } from "@/lib/control/internal-jobs";
 
 export const metadata: Metadata = {
@@ -100,6 +102,7 @@ export default function ReachColdEmailCampaignPage() {
 
       <LaneStatusSection lanes={job.lanes} />
       <WarmupAutopilotSection />
+      <TeamTrainingSection />
       <ProcessSection steps={job.steps} />
       <RelayRowsSection />
       <ProcessFactsSection />
@@ -159,6 +162,62 @@ function CommercialBoundarySection() {
         </article>
       </div>
     </section>
+  );
+}
+
+function TeamTrainingSection() {
+  return (
+    <section className="mb-8 rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-5 md:p-6">
+      <div className="mb-5 flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-300">
+            Team training
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+            Agents own the recurring work
+          </h2>
+          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
+            Codex should train and fix the system. The operating team should run the daily job,
+            spot blockers, and bring Mike only the decisions that matter.
+          </p>
+        </div>
+        <Pill tone="accent">handoff active</Pill>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {REACH_TEAM_TRAINING.map((item) => (
+          <TrainingCard key={item.agent} item={item} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function TrainingCard({ item }: { item: ReachTeamTraining }) {
+  return (
+    <article className="rounded-xl border border-zinc-800/70 bg-zinc-950/75 p-4">
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <h3 className="text-base font-semibold leading-snug text-zinc-100">
+          {item.agent}
+        </h3>
+        <Pill tone={item.tone}>{item.status}</Pill>
+      </div>
+      <p className="font-mono text-xs uppercase tracking-wider text-emerald-300">
+        Owns
+      </p>
+      <p className="mt-1 text-sm leading-relaxed text-zinc-300">{item.owns}</p>
+      <p className="mt-3 font-mono text-xs uppercase tracking-wider text-zinc-500">
+        Does
+      </p>
+      <p className="mt-1 text-sm leading-relaxed text-zinc-400">{item.trainedToDo}</p>
+      <p className="mt-3 font-mono text-xs uppercase tracking-wider text-zinc-500">
+        Escalates
+      </p>
+      <p className="mt-1 text-sm leading-relaxed text-zinc-400">{item.escalates}</p>
+      <p className="mt-3 border-t border-zinc-800/60 pt-3 font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+        {item.proof}
+      </p>
+    </article>
   );
 }
 

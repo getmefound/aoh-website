@@ -4,7 +4,7 @@
 
 This runbook defines how agents prepare and run AOH Reach email campaigns without freewheeling through GHL, credits, or live outreach.
 
-Do not use this runbook to launch a campaign without approval. It exists to make the agent process safe, cheap, repeatable, and auditable.
+Do not use this runbook to launch a campaign outside the approved Reach autopilot or a clear manual approval. It exists to make the agent process safe, cheap, repeatable, and auditable.
 
 ## Campaign Lanes
 
@@ -20,8 +20,8 @@ Tag behavior:
 
 - Import-only runs add the campaign tag and the import-only tag.
 - Drip-start runs add the campaign tag and the live start tag.
-- The live start tag is the trigger-sensitive tag. Treat it as a separate approval gate.
-- Approval for import-only does not approve the live start tag.
+- The live start tag is trigger-sensitive. Normal auto may add it only when `ready_for_drip=yes` and guardrails pass.
+- Manual import-only approval does not approve a manual live start tag.
 
 ## Agent Responsibilities
 
@@ -37,7 +37,7 @@ Tag behavior:
 | Sorter | Classifies replies after launch |
 | Booker | Handles booking-ready replies |
 | Reporter | Summarizes results and proof after the campaign step |
-| Mike | Approves import, drip start, risky changes, and budget increases |
+| Mike | Approves exceptions, manual overrides, risky changes, and budget increases |
 
 ## Job Lifecycle
 

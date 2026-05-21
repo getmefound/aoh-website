@@ -14,6 +14,7 @@ For Mike's plain daily workflow, use `mike-daily-agent-quickstart.md` first. Thi
 |---|---|---|
 | Manager status brief | Wired | `npm run agent:brief` reads the current job queue, domain readiness, QA counts, and daily brief. |
 | Reach Cold Email Campaign command | Wired | `Manager, run Reach Cold Email Campaign` runs today's safe QA/readiness routine and reports approval needs. |
+| Reach team training command | Wired | `Manager, train Reach team` reminds each agent what it owns for discovery, QA, GHL readiness, sending, cost, replies, and booking. |
 | Agent directory | Wired | `Manager, list agents` shows the agent team and example commands. |
 | Direct agent addressing | Wired | Mike can address agents by role, such as `Coach, ...`, `Scheduler, ...`, `Reporter, ...`, or `Press, ...`. |
 | Fast Slack response mode | Wired | Normal commands answer from the ledger/brief quickly; slower GHL/Reach checks acknowledge first and post follow-up results in the background. |
@@ -48,6 +49,7 @@ Manager, status
 Manager, list agents
 Elon, what is the status of Reach Cold Email Campaign
 Manager, run Reach Cold Email Campaign
+Manager, train Reach team
 Manager, brief
 GHL Expert, check Reach readiness
 GHL Expert, visually confirm Relay sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
@@ -134,6 +136,7 @@ Route a command:
 ```bash
 npm run agent:command -- --command "Manager, status"
 npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
+npm run agent:command -- --command "Manager, train Reach team"
 npm run agent:command -- --command "GHL Expert, check Reach readiness"
 npm run agent:command -- --command "approve relay import only"
 ```
@@ -322,6 +325,29 @@ Manager owns the handoff and row cleanup. Mike should not need to approve or
 reject individual warmup rows. The scheduled auto-run can start lanes after
 `ready_for_drip=yes` and the guardrails pass; no second Mike approval is needed
 for that normal auto path. HighLevel AI features stay OFF.
+
+## Reach Team Training
+
+The team, not Codex, should own daily Reach operations.
+
+| Agent | Owns |
+|---|---|
+| Manager | Daily control, plain-English status, blocker assignment, and Mike-facing decisions. |
+| Scout | Business discovery, better niches, rotating weak searches, and avoiding repeated poor scrape spend. |
+| Sender + verifier | Email verification, QA-selected CSVs, and keeping bad/unknown/catchall rows out. |
+| Sales Manager | List quality, offer fit, row-level keep/hold judgment, and lane priority. |
+| GHL Expert | Sender domains, workflow sender nodes, tags, warmup status, and HighLevel AI toggles OFF. |
+| Systems Director | Cron health, GitHub workflow health, credentials, caps, cost risk, and same-day rerun safety. |
+| Sorter | Reply classification once replies arrive. |
+| Booker | Booking interested replies and handing calls to the calendar. |
+
+Use:
+
+```text
+Manager, train Reach team
+```
+
+That command should remind the team that Codex trains and repairs the system, while agents run the recurring work inside guardrails.
 
 ## Reach Warmup Autopilot
 

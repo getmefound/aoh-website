@@ -104,7 +104,7 @@ If you personally checked the Relay GHL screens, use the combined approval so Ma
 /manager approve relay import only; I visually confirmed Relay sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
 ```
 
-Start-drip approval is separate and should only happen after GHL Expert confirms the lane is ready for drip:
+Manual start-drip approval is only for overrides. Normal auto starts after GHL Expert keeps the lane marked `ready_for_drip=yes` and guardrails pass:
 
 ```text
 /manager approve relay start drip
@@ -152,7 +152,7 @@ Plain channel messages have a one-minute polling fallback. Slash commands are th
 
 The agents can recommend, prepare, summarize, and check readiness.
 
-They must not do these without explicit approval:
+They must not do these outside the approved Reach autopilot or a clear manual approval:
 
 - import contacts into GHL
 - start a drip
@@ -161,7 +161,7 @@ They must not do these without explicit approval:
 - change GHL workflows or settings
 - enable or toggle any HighLevel AI feature
 
-Import-only approval does not approve start-drip. Start-drip must be approved separately.
+Import-only approval does not approve a manual start-drip. Normal auto start is governed by `ready_for_drip=yes` and the guardrails.
 
 ## Cost Rule
 

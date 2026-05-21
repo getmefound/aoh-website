@@ -64,6 +64,16 @@ export type ReachWarmupAutopilot = {
   visibility: string[];
 };
 
+export type ReachTeamTraining = {
+  agent: string;
+  owns: string;
+  trainedToDo: string;
+  escalates: string;
+  proof: string;
+  status: string;
+  tone: ControlTone;
+};
+
 export const REACH_JOB_HREF = "/mike-mc/jobs/reach-cold-email-campaign";
 
 export const REACH_LANES: ReachLane[] = [
@@ -132,7 +142,7 @@ export const REACH_STEPS: ReachStep[] = [
     whatHappened:
       "The QA files separated OK rows from review flags such as personal email domains, duplicate contacts, and questionable business ownership.",
     leftToDo:
-      "Do not use flagged rows unless Sales Manager explicitly clears them. Pre-send verification must happen before any start-drip approval.",
+      "Do not use flagged rows unless Sales Manager explicitly clears them. Pre-send verification must happen before auto or manual start.",
     evidence: "Relay kept 2 OK contacts and held 2 Cornell personal-email duplicate rows.",
   },
   {
@@ -168,7 +178,7 @@ export const REACH_STEPS: ReachStep[] = [
     whatHappened:
       "Relay was visually confirmed for sender domain, warmup status, sender nodes, and HighLevel AI toggles OFF.",
     leftToDo:
-      "Reviews and AI Visibility still need visual GHL review before import. Drip still needs its own readiness proof.",
+      "Keep readiness switches accurate. Auto can start a lane only after drip readiness is proven.",
     evidence: "Mike included the Relay visual confirmation in the approval command.",
   },
   {
@@ -180,8 +190,8 @@ export const REACH_STEPS: ReachStep[] = [
     whatHappened:
       "Manager accepted import-only approval for Relay after QA and visual confirmation cleared.",
     leftToDo:
-      "Do not treat import approval as send approval. Start-drip needs a separate approval later.",
-    evidence: "The approved command was import-only, not start-drip.",
+      "Do not use manual approvals for normal daily auto. Mike only needs exceptions, cap increases, or a manual override.",
+    evidence: "Normal auto start requires ready_for_drip=yes and guardrails passing.",
   },
   {
     order: 8,
@@ -291,6 +301,97 @@ export const REACH_WARMUP_AUTOPILOT: ReachWarmupAutopilot = {
     "True live progress in production MC needs the runner connected to shared state or a deployed job trigger.",
   ],
 };
+
+export const REACH_TEAM_TRAINING: ReachTeamTraining[] = [
+  {
+    agent: "Manager",
+    owns: "Daily control of the Reach job.",
+    trainedToDo:
+      "Read the warmup summary, explain the business answer, assign the blocker, and keep Mike out of row-by-row work.",
+    escalates:
+      "Only asks Mike for exceptions: higher spend caps, risky manual overrides, or a true stop/start business decision.",
+    proof: "Command: Manager, run Reach Cold Email Campaign",
+    status: "trained",
+    tone: "accent",
+  },
+  {
+    agent: "Scout",
+    owns: "Finding enough businesses before deeper email work.",
+    trainedToDo:
+      "Use discovery-first, rotate weak niches, avoid repeating the same poor searches, and stay inside Outscraper caps.",
+    escalates:
+      "Tells Manager when a lane cannot reach the minimum clean count inside the daily cap.",
+    proof: "Workflow: Reach Business Discovery First",
+    status: "trained",
+    tone: "accent",
+  },
+  {
+    agent: "Sender + verifier",
+    owns: "Email quality before GHL action.",
+    trainedToDo:
+      "Verify emails before import/start, remove bad/unknown/catchall/personal-risk rows, and keep selected CSVs clean.",
+    escalates:
+      "Stops the lane when verification quality is too low or the batch falls below the minimum.",
+    proof: "NeverBounce verification reports and QA CSVs",
+    status: "trained",
+    tone: "accent",
+  },
+  {
+    agent: "Sales Manager",
+    owns: "List quality and offer fit.",
+    trainedToDo:
+      "Decide whether the businesses are worth contacting and keep questionable rows out of live outreach.",
+    escalates:
+      "Flags weak niches, bad-fit industries, or rows that need human judgment.",
+    proof: "Command: Sales Manager, review Reach QA",
+    status: "trained",
+    tone: "warm",
+  },
+  {
+    agent: "GHL Expert",
+    owns: "GHL readiness and send safety.",
+    trainedToDo:
+      "Confirm sender domain, workflow sender nodes, tags, warmup status, and HighLevel AI toggles OFF.",
+    escalates:
+      "Keeps ready_for_drip=no until the sending setup is proven safe.",
+    proof: "Command: GHL Expert, check Reach readiness",
+    status: "trained",
+    tone: "warm",
+  },
+  {
+    agent: "Systems Director",
+    owns: "Cron, caps, access, and cost risk.",
+    trainedToDo:
+      "Watch workflow health, API availability, scrape caps, same-day reruns, and ledger preservation.",
+    escalates:
+      "Warns Manager before cap increases, new paid tools, or repeated workflow failures.",
+    proof: "GitHub workflow results and cost guardrails",
+    status: "training now",
+    tone: "warm",
+  },
+  {
+    agent: "Sorter",
+    owns: "Reply classification.",
+    trainedToDo:
+      "Separate interested, book call, send info, bad fit, unsubscribe, and unclear replies.",
+    escalates:
+      "Routes warm replies to Booker and unsubscribe/risk replies to Manager.",
+    proof: "Reply router blueprint",
+    status: "next",
+    tone: "muted",
+  },
+  {
+    agent: "Booker",
+    owns: "Turning interested replies into calls.",
+    trainedToDo:
+      "Move real interest toward the calendar with clean handoff notes.",
+    escalates:
+      "Asks Scheduler when booking links, availability, or meeting context are unclear.",
+    proof: "AOH Talk booking link",
+    status: "next",
+    tone: "muted",
+  },
+];
 
 export const REACH_INTERNAL_JOB: InternalJob = {
   slug: "reach-cold-email-campaign",

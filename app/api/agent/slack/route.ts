@@ -30,6 +30,26 @@ type SlackMessage = {
   thread_ts?: string;
 };
 
+type WarmupQuota = {
+  name?: string;
+  from_day?: number | string;
+  to_day?: number | string;
+  min?: number;
+  target?: number;
+  max?: number;
+};
+
+type WarmupConfig = {
+  planned_start_date?: string;
+  daily_quota_ladder?: WarmupQuota[];
+  guardrails?: {
+    require_outscraper_spend_approval?: boolean;
+    max_total_scraped_per_run?: number | string;
+  };
+  mode?: string;
+  autopilot_start_enabled?: boolean;
+};
+
 type LaneKey = "reviews" | "ai" | "relay";
 type LaneInput = LaneKey | "all" | string;
 type AgentKey =
@@ -413,6 +433,8 @@ ${address(actor)}, all campaign live actions are blocked.
   const approval = parseApproval(normalized);
   if (approval) return buildApprovalResponse(approval, actor);
 
+  if (mentionsTeamTraining(normalized)) return buildReachTeamTrainingResponse(actor);
+
   if (mentionsColdReachStart(normalized)) return buildColdReachStartResponse(actor, normalized, context);
 
   if (mentionsGenericCampaignDeploy(normalized)) return buildCampaignClarificationResponse(actor);
@@ -456,6 +478,7 @@ Supported examples:
 \`\`\`text
 Manager, status
 Manager, start cold reach campaign
+Manager, train Reach team
 Manager, run Reach Cold Email Campaign
 Manager, show Reach warmup autopilot
 Manager, explain the Reach result
@@ -805,6 +828,7 @@ Examples:
 
 \`\`\`text
 General Manager, run Reach Cold Email Campaign
+Manager, train Reach team
 Manager, brief
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
@@ -814,6 +838,44 @@ Press, what is ready to publish
 \`\`\`
 
 Safety remains the same: scheduled auto can run approved warmup lanes; manual risky actions and HighLevel AI still need approval.`;
+}
+
+function buildReachTeamTrainingResponse(actor: UserContext) {
+  return `*Reach team training - ${today()}*
+
+${address(actor)}, yes. The team should handle the recurring work.
+
+Codex role:
+
+- Train and repair the system.
+- Improve guardrails, costs, workflows, and Mission Control.
+- Step in when automation breaks or a new job type needs setup.
+
+Agent ownership:
+
+- Manager: daily control, plain-English status, blocker assignment, and Mike-facing decisions.
+- Scout: business discovery, better niches, rotating weak searches, and avoiding repeated poor scrape spend.
+- Sender + verifier: email verification and clean selected CSVs before GHL action.
+- Sales Manager: list quality, offer fit, row-level keep/hold judgment, and lane priority.
+- GHL Expert: sender domains, workflow sender nodes, tags, warmup status, and HighLevel AI toggles OFF.
+- Systems Director: cron health, GitHub workflows, credentials, caps, costs, and same-day rerun safety.
+- Sorter: classify replies when replies arrive.
+- Booker: move interested replies toward the calendar.
+
+Training status:
+
+- Reviews and AI Visibility are running under auto.
+- Relay is waiting because it has 5 OK contacts and needs 10.
+- The next auto run rotates Relay into the next searches instead of repeating the same first searches.
+- Same-day reruns preserve executed reports instead of overwriting the ledger.
+
+Next team command:
+
+\`\`\`text
+Manager, run Reach Cold Email Campaign
+\`\`\`
+
+Reference: \`docs/client-ops-ledger/reach-agent-team-training.md\``;
 }
 
 function buildAgentRoleResponse(agentKey: AgentKey, actor: UserContext) {
@@ -1616,19 +1678,19 @@ function domainRows() {
   return readCsv(DOMAINS_PATH);
 }
 
-function warmupConfig(): any | null {
+function warmupConfig(): WarmupConfig | null {
   const raw = readText(WARMUP_CONFIG_PATH);
   if (!raw) return null;
   try {
-    return JSON.parse(raw);
+    return JSON.parse(raw) as WarmupConfig;
   } catch {
     return null;
   }
 }
 
-function quotaForWarmupDay(config: any | null, dayNumber: number): any | null {
+function quotaForWarmupDay(config: WarmupConfig | null, dayNumber: number): WarmupQuota | null {
   const ladder = Array.isArray(config?.daily_quota_ladder) ? config.daily_quota_ladder : [];
-  return ladder.find((item: any) => dayNumber >= Number(item.from_day) && dayNumber <= Number(item.to_day)) ?? null;
+  return ladder.find((item) => dayNumber >= Number(item.from_day) && dayNumber <= Number(item.to_day)) ?? null;
 }
 
 function warmupDay(startDate: string | undefined, date: string) {
@@ -1818,6 +1880,19 @@ function mentionsWarmupAutopilot(normalized: string) {
     normalized.includes("run warm up") ||
     normalized.includes("send warmup") ||
     normalized.includes("send warm up")
+  );
+}
+
+function mentionsTeamTraining(normalized: string) {
+  const asksTraining = /\b(train|training|teach|handoff|hand off|handle|handling)\b/.test(normalized);
+  if (!asksTraining) return false;
+  return (
+    normalized.includes("team") ||
+    normalized.includes("agent") ||
+    normalized.includes("agents") ||
+    normalized.includes("reach") ||
+    normalized.includes("campaign") ||
+    normalized.includes("cold email")
   );
 }
 

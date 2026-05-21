@@ -77,6 +77,10 @@ function routeCommand(command, args) {
     return buildApprovalResponse(approval, args);
   }
 
+  if (mentionsTeamTraining(normalized)) {
+    return buildReachTeamTrainingResponse();
+  }
+
   if (mentionsColdReachStart(normalized)) {
     return buildColdReachStartResponse(normalized);
   }
@@ -136,6 +140,7 @@ Supported commands:
 - \`Manager, status\`
 - \`Manager, list agents\`
 - \`Manager, start cold reach campaign\`
+- \`Manager, train Reach team\`
 - \`Manager, run Reach Cold Email Campaign\`
 - \`Manager, show Reach warmup autopilot\`
 - \`Manager, explain the Reach result\`
@@ -178,6 +183,7 @@ Examples:
 \`\`\`text
 Manager, status
 Manager, run Reach Cold Email Campaign
+Manager, train Reach team
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
 Coach, review this copy
@@ -185,6 +191,47 @@ Reporter, verify report delivery status
 Press, what is ready to publish
 \`\`\`
 `,
+  };
+}
+
+function buildReachTeamTrainingResponse() {
+  return {
+    kind: "reach-team-training",
+    text: `*Reach team training - ${today()}*
+
+Yes. The team should handle the recurring work.
+
+Codex role:
+
+- Train and repair the system.
+- Improve guardrails, costs, workflows, and Mission Control.
+- Step in when automation breaks or a new job type needs setup.
+
+Agent ownership:
+
+- Manager: daily control, plain-English status, blocker assignment, and Mike-facing decisions.
+- Scout: business discovery, better niches, rotating weak searches, and avoiding repeated poor scrape spend.
+- Sender + verifier: email verification and clean selected CSVs before GHL action.
+- Sales Manager: list quality, offer fit, row-level keep/hold judgment, and lane priority.
+- GHL Expert: sender domains, workflow sender nodes, tags, warmup status, and HighLevel AI toggles OFF.
+- Systems Director: cron health, GitHub workflows, credentials, caps, costs, and same-day rerun safety.
+- Sorter: classify replies when replies arrive.
+- Booker: move interested replies toward the calendar.
+
+Training status:
+
+- Reviews and AI Visibility are running under auto.
+- Relay is waiting because it has 5 OK contacts and needs 10.
+- The next auto run rotates Relay into the next searches instead of repeating the same first searches.
+- Same-day reruns preserve executed reports instead of overwriting the ledger.
+
+Next team command:
+
+\`\`\`text
+Manager, run Reach Cold Email Campaign
+\`\`\`
+
+Reference: \`docs/client-ops-ledger/reach-agent-team-training.md\``,
   };
 }
 
@@ -214,7 +261,7 @@ function buildBriefResult() {
 Current position:
 
 - ${reachJobs.length} Reach prep jobs are in the queue; ${waiting} are waiting on agent review.
-- No live GHL import or start-drip is running from this command center.
+- The scheduled auto runner owns normal import/start work inside guardrails; this command center explains and routes blockers.
 - GHL Expert API metadata has passed for all three lanes; visual sender/domain/warmup and HighLevel AI OFF checks still remain.
 - Default Slack command channel is \`#04-aoh-ops\`.
 - Slack webhook posting is ${webhookReady ? "configured" : "not configured in env yet"}; this brief is written locally either way.
@@ -228,7 +275,7 @@ Agent gates before live action:
 - Sales Manager: review personal email and duplicate-contact QA flags.
 - GHL Expert: visually confirm sender/from domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF.
 - Manager: regenerate/confirm the approval packet for the final CSV.
-- Mike: approve import-only and start-drip as separate commands.
+- Mike: approve only exceptions, cap increases, or manual overrides. Normal auto can start after readiness is proven.
 
 Mike can say:
 
@@ -238,7 +285,7 @@ ${nextCommands.join("\n")}
 
 Recommendation:
 
-${dailySignals.recommendation || "Do not start all three live drips at once. Import only after review, and start drip only after the lane domain is ready."}
+${dailySignals.recommendation || "Keep auto on. Let agents handle routine refills and readiness; bring Mike only exceptions or true business decisions."}
 `,
   };
 }
@@ -1214,6 +1261,19 @@ function mentionsWarmupAutopilot(normalized) {
     normalized.includes("run warm up") ||
     normalized.includes("send warmup") ||
     normalized.includes("send warm up")
+  );
+}
+
+function mentionsTeamTraining(normalized) {
+  const asksTraining = /\b(train|training|teach|handoff|handle|handling)\b/.test(normalized);
+  if (!asksTraining) return false;
+  return (
+    normalized.includes("team") ||
+    normalized.includes("agent") ||
+    normalized.includes("agents") ||
+    normalized.includes("reach") ||
+    normalized.includes("campaign") ||
+    normalized.includes("cold email")
   );
 }
 
