@@ -37,6 +37,11 @@ const checks = [
     pattern: /[?&#](?:token|api_key|apikey|secret|password|auth)=([A-Za-z0-9._~+/=-]{12,})/gi,
   },
   {
+    name: "credentialed URL",
+    severity: "critical",
+    pattern: /\bhttps?:\/\/[^\s/@:]+:[^\s/@]+@[^\s"'`<>]+/gi,
+  },
+  {
     name: "public env var with secret-like name",
     severity: "high",
     pattern: /\bNEXT_PUBLIC_[A-Z0-9_]*(?:TOKEN|SECRET|PASSWORD|API_KEY|PRIVATE_KEY)[A-Z0-9_]*\b/g,

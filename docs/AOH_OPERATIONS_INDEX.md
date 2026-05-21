@@ -343,13 +343,18 @@ Current security note:
 
 - `mc.aioutsourcehub.com` is separated from the public website, but subdomain separation is not full access control.
 - The OpenClaw gateway token belongs in Vercel as `OPENCLAW_TOKEN`, not in source code.
+- The Mission Control OpenClaw button now requires Basic Auth before `/api/openclaw/login` will submit the gateway token.
+- Required env vars:
+  - `OPENCLAW_LOGIN_USER` defaults to `mike` if unset.
+  - `OPENCLAW_LOGIN_PASSWORD` must be set in Vercel Production; if missing, the OpenClaw login route fails closed.
+- The old `NEXT_PUBLIC_OPENCLAW_URL` env var was removed from Vercel Production and Development because public env vars should never contain gateway credentials.
 - The exposed OpenClaw gateway token was rotated on 2026-05-17 in the VPS OpenClaw env/config and in Vercel `OPENCLAW_TOKEN`.
 - Stale OpenClaw config backups on the VPS were scrubbed of the exposed token value.
 - The Hostinger OpenClaw wrapper on the VPS is intentionally patched so login redirects to `/__aoh-token-bootstrap` instead of `/#token=...`.
 - The bootstrap page stores the dashboard token in browser storage for `wss://hubgateway.aioutsourcehub.com`, then redirects to `/`.
 - The wrapper patch is persisted by `/docker/openclaw-dntw/docker-compose.yml`, which bind-mounts `/docker/openclaw-dntw/server.mjs` over `/hostinger/server.mjs`.
 - A current copy of the core AOH operations docs is stored on the VPS at `/root/aoh-docs`.
-- Next security step: add real auth/password protection in front of Mission Control.
+- Next security step: add real auth/password protection in front of all Mission Control pages, not only OpenClaw login.
 
 ## Auditor Security Sweep
 

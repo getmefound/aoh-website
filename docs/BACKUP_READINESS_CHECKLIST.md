@@ -16,6 +16,7 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 | VPS operations docs copy | VPS `/root/aoh-docs` | Medium; synced 2026-05-17 |
 | Mission Control | Vercel at `mc.aioutsourcehub.com` | Medium until auth is added |
 | OpenClaw gateway token | Vercel env var `OPENCLAW_TOKEN` + VPS `/docker/openclaw-dntw/.env` | Medium; rotated 2026-05-17, keep in password manager |
+| OpenClaw login password | Vercel env vars `OPENCLAW_LOGIN_USER` + `OPENCLAW_LOGIN_PASSWORD` | Medium; route fails closed if password is missing |
 | OpenClaw login wrapper patch | VPS `/docker/openclaw-dntw/server.mjs` mounted by compose | Medium; bootstraps dashboard auth without browser URL token exposure |
 | Passwords/secrets | Password manager | Unknown until Mike confirms |
 | Local `.env.*` files | Laptop only unless recreated | Low by design |
@@ -33,6 +34,7 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 - `npm run audit:security` passes before operator/security-sensitive deploys.
 - OpenClaw gateway token is stored in Vercel env vars and not in source code.
 - OpenClaw gateway token in Vercel matches the VPS `OPENCLAW_GATEWAY_TOKEN`.
+- `/api/openclaw/login` requires Basic Auth and returns locked/unauthorized before showing the OpenClaw form.
 - OpenClaw login redirects through `/__aoh-token-bootstrap` and does not show `#token=` in the browser URL.
 
 ## Red Flags

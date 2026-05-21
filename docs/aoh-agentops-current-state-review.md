@@ -388,6 +388,8 @@ They contain secret-like categories such as GHL/HighLevel keys, Vercel/GitHub ke
 
 Recommended fix: put this route behind an owner-only check before using it as a public Mission Control button, or replace it with a server-to-server/session-based handoff that does not reveal the token to the browser.
 
+Follow-up applied 2026-05-21: `/api/openclaw/login` now requires Basic Auth before it renders the OpenClaw login form. `OPENCLAW_LOGIN_PASSWORD` must be configured in Vercel Production or the route fails closed.
+
 ### Slack App Permissions
 
 The Slack manifest includes broad read/write scopes for channels, groups, DMs, files, pins, reactions, and assistant features. That may be acceptable for an internal agent team, but it should be reviewed before client/team expansion.
@@ -410,4 +412,3 @@ Build the foundation in this order:
 6. Later, refactor Slack route and local command center to share one routing table instead of duplicating logic.
 
 This keeps the current stack intact and gives Manager a training loop that is versioned, repeatable, and testable.
-
