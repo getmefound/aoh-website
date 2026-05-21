@@ -197,6 +197,23 @@ npm run agent:eval
 npm run agent:eval -- --scenario owner_run_today
 ```
 
+Pull recent Slack questions as eval candidates:
+
+```bash
+npm run agent:slack-candidates
+npm run agent:slack-candidates -- --hours 24
+```
+
+This does not auto-train Manager. It saves candidates to the gitignored outbox so Codex can review, sanitize, and promote the useful ones into the permanent eval file.
+
+If local `SLACK_BOT_TOKEN` is not present, use GitHub instead:
+
+```text
+Actions -> Manager Slack Training Candidates -> Run workflow
+```
+
+The workflow uploads the raw Slack candidate files as an artifact. It does not commit private Slack text to the repo.
+
 Eval sources:
 
 - `docs/aoh-agentops-current-state-review.md`

@@ -1,0 +1,52 @@
+name: Manager Slack Training Candidates
+
+on:
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: "Slack lookback window in hours"
+        required: false
+        default: "24"
+      limit:
+        description: "Max Slack messages to inspect"
+        required: false
+        default: "150"
+      channel:
+        description: "Slack channel ID; blank uses SLACK_AGENT_ALLOWED_CHANNEL_IDS or default ops channel"
+        required: false
+        default: ""
+
+jobs:
+  slack-candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_AGENT_ALLOWED_CHANNEL_IDS: ${{ vars.SLACK_AGENT_ALLOWED_CHANNEL_IDS || vars.REACH_SLACK_CHANNEL || '' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Pull Slack candidates
+        shell: bash
+        run: |
+          ARGS=(--hours "${{ github.event.inputs.hours }}" --limit "${{ github.event.inputs.limit }}")
+          if [[ -n "${{ github.event.inputs.channel }}" ]]; then
+            ARGS+=(--channel "${{ github.event.inputs.channel }}")
+          fi
+          npm run agent:slack-candidates -- "${ARGS[@]}"
+
+      - name: Upload candidate artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manager-slack-training-candidates
+          path: docs/client-ops-ledger/outbox/manager-slack-training-candidates-*
+          if-no-files-found: error
+

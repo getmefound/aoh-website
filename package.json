@@ -25,6 +25,7 @@
     "agent:brief": "node scripts/agent-command-center.mjs",
     "agent:command": "node scripts/agent-command-center.mjs",
     "agent:eval": "node scripts/manager-agent-eval.mjs",
+    "agent:slack-candidates": "node scripts/manager-slack-training-candidates.mjs",
     "agent:slack": "node scripts/agent-command-center.mjs --post-slack",
     "audit:security": "node scripts/auditor-security-sweep.mjs"
   },

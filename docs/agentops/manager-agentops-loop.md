@@ -72,6 +72,23 @@ List scenarios:
 npm run agent:eval -- --list
 ```
 
+Pull recent Slack Manager questions as training candidates:
+
+```bash
+npm run agent:slack-candidates
+npm run agent:slack-candidates -- --hours 24
+```
+
+This writes raw candidate files to `docs/client-ops-ledger/outbox`, which is intentionally gitignored. Review and sanitize them before adding permanent examples to `docs/agentops/manager-eval-scenarios.json`.
+
+If the local machine does not have `SLACK_BOT_TOKEN`, run the GitHub Action:
+
+```text
+Actions -> Manager Slack Training Candidates -> Run workflow
+```
+
+That uploads the raw candidate files as a workflow artifact instead of committing private Slack text.
+
 ## Pass/Fail Meaning
 
 An eval pass means Manager's current local command response still matches the minimum owner, routing, and safety expectations for that scenario.
@@ -95,3 +112,10 @@ Use this loop before changing Manager behavior:
 4. Run `npm run agent:eval` again.
 5. Commit the scenario and the fix together.
 
+Use this loop for real Slack questions:
+
+1. Run `npm run agent:slack-candidates`.
+2. Review the outbox summary.
+3. Promote only useful, sanitized questions into `docs/agentops/manager-eval-scenarios.json`.
+4. Run `npm run agent:eval`.
+5. Fix Manager if needed, then commit the eval and fix together.

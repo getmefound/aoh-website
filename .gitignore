@@ -62,6 +62,7 @@ lighthouse-local-*
 !/scripts/ghl-email-stats.mjs
 !/scripts/agent-command-center.mjs
 !/scripts/manager-agent-eval.mjs
+!/scripts/manager-slack-training-candidates.mjs
 !/scripts/auditor-security-sweep.mjs
 !/scripts/sync-coach-obsidian.ps1
 /data/
