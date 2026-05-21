@@ -105,6 +105,34 @@ AOH recommendation:
 
 Standard should be easy to buy. Custom should cost more because it needs private access, setup, QA, and monitoring.
 
+## 2026 Market Positioning Notes
+
+The reporting market is selling four things:
+
+1. Branded live dashboards.
+2. Scheduled email/PDF reports.
+3. Client portals or share links.
+4. AI summaries, alerts, and "what changed" explanations.
+
+AOH should not lead with "dashboard." That makes us sound like software. Lead with:
+
+> Daily owner decision brief.
+
+Then show the live page as the place to look back, verify numbers, and see the custom pieces.
+
+Positioning:
+
+- Standard / Commercial = daily push + live owner page + archive.
+- Custom = private system connectors and custom agents.
+- Best sales demo = sit with the owner, open `/mike-mc/morning-brief`, show the brief, then click Custom only if they ask for deeper systems.
+
+Design direction:
+
+- White, polished, client-room friendly.
+- Show current owner numbers first.
+- Keep proof files lower on the page.
+- Avoid making the owner read logs, workflow names, or raw source files unless they ask.
+
 ## What The Agents Should Do
 
 | Agent | Job |

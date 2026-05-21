@@ -78,6 +78,16 @@ AOH recommended packaging:
 - Standard / Commercial Brief: $149-$299/month, with $0-$500 setup.
 - Custom Layer: $399-$1,500+/month, with $750-$3,000 setup.
 
+## Sales Positioning
+
+Most reporting tools sell branded dashboards, scheduled reports, client portals, and AI summaries.
+
+AOH should sell the daily owner decision brief first:
+
+> Every morning, you know what happened, what needs attention, and where money may be leaking.
+
+The live page is the proof and archive. The custom layer is only for clients who want private systems connected.
+
 ## Sources
 
 - HighLevel Email Statistics API: https://marketplace.gohighlevel.com/docs/ghl/emails/get-campaign-stats-under-campaigns-v-2
