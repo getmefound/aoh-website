@@ -461,7 +461,9 @@ Mike, yes - train this on AOH first. Local Visibility Manager owns it.
 Client-zero test:
 
 - Use AOH's own Google Business Profile as the practice account.
-- The business owner adds the AOH Google email under Business Profile settings -> People and access.
+- AOH access is already confirmed for client-zero.
+- For clients, use the business-domain Google login as the invite email for now.
+- The business owner adds that email under Business Profile settings -> People and access.
 - Default access is Manager, not Owner.
 - No password sharing.
 - Mike approves before anything public is posted.
@@ -479,10 +481,9 @@ Handoff:
 - Manager tracks blockers and puts them in the brief.
 - GHL Expert helps only if GBP needs to connect into HighLevel/reputation workflows.
 
-Need from Mike:
+Need from Mike now:
 
-- The AOH Google email clients should invite.
-- The first AOH GBP update you want tested.
+- Pick the first safe AOH GBP update you want tested.
 
 Reference: \`docs/client-ops-ledger/gbp-client-access-and-update-test.md\`
 Training loop: \`docs/agentops/local-visibility-manager-gbp-training-loop.md\``,

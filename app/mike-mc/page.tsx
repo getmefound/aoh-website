@@ -733,7 +733,7 @@ function ProfileCard() {
       cadence="client-zero test now"
       activity={{
         doingNow: "Testing AOH Google Business Profile access/update handoff",
-        upNext: "Choose the AOH Google email clients should invite",
+        upNext: "Pick the first safe AOH profile update to test",
       }}
       ownedTitle="Owns now"
       ownedRows={[

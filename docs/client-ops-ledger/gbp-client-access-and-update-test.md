@@ -17,6 +17,8 @@ This proves the handoff is simple:
 4. AOH prepares the first profile update.
 5. Public changes are approved before posting.
 
+Current AOH status: access is already confirmed for the client-zero test. The next blocker is choosing the first safe AOH profile update to draft and approve.
+
 ## Training Goal
 
 Local Visibility Manager learns the whole process on AOH first, then repeats it for clients.
@@ -63,14 +65,13 @@ Then AOH accepts the invite from that Google account.
 
 ## AOH Test Steps
 
-1. Pick the AOH Google email clients should invite.
-2. Add that email to AOH's own Business Profile first.
-3. Confirm the invite arrives and can be accepted.
-4. Confirm Local Visibility Manager can see the profile.
-5. Check the basics: name, address/service area, phone, website, hours, categories, services, photos, posts, review link, and unanswered reviews.
-6. Draft one safe GBP update for AOH.
-7. Get Mike approval before publishing the update.
-8. Log what worked, what was confusing, and what screenshots/video are needed for clients.
+1. Treat AOH profile access as confirmed for the client-zero test.
+2. Use the business-domain Google login as the client invite email for now.
+3. Confirm Local Visibility Manager can see the profile.
+4. Check the basics: name, address/service area, phone, website, hours, categories, services, photos, posts, review link, and unanswered reviews.
+5. Draft one safe GBP update for AOH.
+6. Get Mike approval before publishing the update.
+7. Log what worked, what was confusing, and what screenshots/video are needed for clients.
 
 ## Agent Output
 
@@ -87,7 +88,7 @@ When asked to prepare the test, Local Visibility Manager should return:
 
 This training is done when:
 
-- AOH has tested the invite path with the actual AOH Google email
+- AOH profile access is confirmed
 - Local Visibility Manager can explain the client process in plain language
 - the first AOH profile update is drafted
 - Mike approved or rejected the draft

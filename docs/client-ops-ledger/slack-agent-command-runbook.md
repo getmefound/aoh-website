@@ -610,8 +610,9 @@ Local Visibility Manager, prepare GBP access test
 Client-safe rule:
 
 - no Google password sharing
-- client invites the AOH Google email under Business Profile settings -> People and access
+- client invites the AOH business-domain Google login under Business Profile settings -> People and access
 - default access is Manager, not Owner
+- AOH access is already confirmed for the client-zero test
 - Local Visibility Manager learns on AOH first, then repeats the same process for clients
 - Local Visibility Manager returns access status, profile gaps, draft update, proof needed, and approval needed
 - Mike approves before anything public is posted

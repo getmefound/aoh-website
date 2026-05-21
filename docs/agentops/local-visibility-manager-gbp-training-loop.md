@@ -14,7 +14,8 @@ The agent should learn how to get access, inspect the profile, draft a safe upda
 ## What The Agent Must Know
 
 - "GMB" is the old common name. Use "Google Business Profile" or "GBP" with clients.
-- The client should add the AOH Google email under Business Profile settings -> People and access.
+- AOH access is already confirmed for the client-zero test.
+- The client should add the AOH business-domain Google login under Business Profile settings -> People and access.
 - Default access is Manager.
 - No one should share a Google password.
 - Manager access is enough for normal profile work.
@@ -25,16 +26,15 @@ The agent should learn how to get access, inspect the profile, draft a safe upda
 
 ## AOH Client-Zero Run
 
-Input needed:
+Current input needed:
 
-- AOH Google email that should receive GBP invites
 - AOH Business Profile link or search name
 - one safe update Mike is willing to test
 
 Local Visibility Manager run:
 
-1. Check whether AOH has been invited and whether the invite was accepted.
-2. Confirm the role is Manager unless Mike specifically approved Owner.
+1. Treat AOH access as confirmed for the client-zero test.
+2. For future clients, confirm the role is Manager unless Mike specifically approved Owner.
 3. Check profile basics: name, service area/address, phone, website, hours, categories, services, photos, posts, review link, and unanswered reviews.
 4. Draft one safe update.
 5. List proof needed for the future client instructions.

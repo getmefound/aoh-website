@@ -92,17 +92,20 @@
       "must_include": [
         "train this on AOH first",
         "AOH's own Google Business Profile as the practice account",
+        "AOH access is already confirmed for client-zero",
         "People and access",
         "Default access is Manager",
         "No password sharing",
         "Mike approves before anything public",
         "Access status",
         "Profile health gaps",
-        "Draft update"
+        "Draft update",
+        "Pick the first safe AOH GBP update"
       ],
       "must_not_include": [
         "Owner access is required",
         "send your password",
+        "The AOH Google email clients should invite",
         "HighLevel AI can be enabled"
       ]
     }
