@@ -276,6 +276,7 @@ Profile owns Google Business Profile and local visibility:
 Client-facing draft:
 
 - `docs/CLIENT_REVIEW_AUTOMATION_ONBOARDING.md`
+- `docs/client-ops-ledger/review-automation-client-intake.md`
 
 This is the self-serve onboarding flow for Review Automation:
 

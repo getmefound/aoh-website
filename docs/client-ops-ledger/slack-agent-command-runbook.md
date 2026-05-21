@@ -20,6 +20,7 @@ For Mike's plain daily workflow, use `mike-daily-agent-quickstart.md` first. Thi
 | Owner peek command | Wired | `Manager, owner peek` explains where Mike should look and whether Manager DMs are wired. |
 | Model routing command | Wired | `Manager, model routing` explains which work uses no LLM, cheap models, standard models, strong models, or Mike. |
 | GBP access test command | Wired | `Local Visibility Manager, prepare GBP access test` explains the client-zero GBP invite/update process. |
+| Review Automation intake | Wired | `/intake/review-automation` collects client setup details and routes GBP access status to Manager. |
 | Manager recovery check | Wired | `npm run reach:manager-check` records whether Relay needs an automatic capped retry after the morning campaign run. |
 | Agent directory | Wired | `Manager, list agents` shows the agent team and example commands. |
 | Direct agent addressing | Wired | Mike can address agents by role, such as `Coach, ...`, `Scheduler, ...`, `Reporter, ...`, or `Press, ...`. |
