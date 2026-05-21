@@ -85,6 +85,10 @@ function routeCommand(command, args) {
     return buildOwnerPeekResponse();
   }
 
+  if (mentionsMorningBrief(normalized)) {
+    return buildMorningBriefResult();
+  }
+
   if (mentionsReachRunStatusQuestion(normalized)) {
     return buildReachRunTodayResponse();
   }
@@ -151,6 +155,7 @@ Supported commands:
 - \`Manager, start cold reach campaign\`
 - \`Manager, train Reach team\`
 - \`Manager, owner peek\`
+- \`Manager, morning brief\`
 - \`Manager, run Reach Cold Email Campaign\`
 - \`Manager, show Reach warmup autopilot\`
 - \`Manager, explain the Reach result\`
@@ -332,6 +337,56 @@ Recommendation:
 
 ${dailySignals.recommendation || "Keep auto on. Let agents handle routine refills and readiness; bring Mike only exceptions or true business decisions."}
 `,
+  };
+}
+
+function buildMorningBriefResult() {
+  const data = loadData();
+  const reachJobs = getReachJobs(data.jobs);
+  const summaries = reachJobs.map((job) => laneSummary(job, data.domains));
+  const managerCheck = readText(`${OUTBOX_DIR}/reach-manager-check-${today()}.md`);
+  const relayClean = managerCheck.match(/Relay clean contacts:\s*([^\n.]+)\./)?.[1] ?? "";
+  const relayStatus = managerCheck.match(/Relay status:\s*([^\n.]+)\./)?.[1] ?? "";
+  const dailySignals = parseDailyBriefSignals(data.dailyBrief);
+  const relayLine = relayClean
+    ? `Relay has ${relayClean} clean contacts${relayStatus ? ` and status is ${relayStatus}` : ""}.`
+    : "Reach lane status is available from the current job ledger.";
+
+  return {
+    kind: "agent-morning-brief",
+    text: `*Morning Brief - ${today()}*
+
+Mike, here is the owner version.
+
+Overnight result:
+
+- Reach: ${relayLine}
+- Current lanes: ${summaries.map((summary) => `${summary.label} ${summary.status}`).join("; ")}.
+- Safety: GHL Expert still owns sender/domain proof, and HighLevel AI stays OFF.
+
+Needs Mike today:
+
+- No routine babysitting. Manager should bring you only spend changes, safety overrides, target changes, or stuck client-facing risk.
+
+Who feeds the brief:
+
+- GHL Expert: GHL campaign numbers, workflow proof, and exports.
+- Sales Manager: what the numbers mean and what to do next.
+- Scout / Market Watcher: industry news, competitor signals, and offer ideas.
+- Systems Director: cron/source failures and cost risk.
+- Manager: final owner summary to you.
+
+Market/news:
+
+- Not fully wired yet. First source layer should be Google Alerts/RSS plus curated industry sources; broad GHL/docs knowledge should use retrieval, not one giant prompt.
+
+Recommended move:
+
+${dailySignals.recommendation || "Keep auto on. Let agents handle routine refills and readiness; bring Mike only exceptions or true business decisions."}
+
+Knowledge note:
+
+- Today the agents read local ledgers/runbooks and run scoped checks. The Morning Brief skill pack now records the upgrade path for a searchable GHL/document knowledge base.`,
   };
 }
 
@@ -1277,6 +1332,14 @@ function mentionsBrief(normalized) {
   );
 }
 
+function mentionsMorningBrief(normalized) {
+  return (
+    normalized.includes("morning brief") ||
+    normalized.includes("owner morning brief") ||
+    normalized.includes("daily owner brief")
+  );
+}
+
 function mentionsAgentList(normalized) {
   return (
     normalized.includes("list agents") ||
@@ -1464,6 +1527,11 @@ function readCsv(path) {
   const absolute = resolve(path);
   if (!existsSync(absolute)) return [];
   return parseCsv(readFileSync(absolute, "utf8"));
+}
+
+function readText(path) {
+  const absolute = resolve(path);
+  return existsSync(absolute) ? readFileSync(absolute, "utf8") : "";
 }
 
 function parseCsv(raw) {

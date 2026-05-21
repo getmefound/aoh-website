@@ -49,6 +49,11 @@ const DOCS = [
     path: "docs/GHL_EXPERT_KNOWLEDGE_PACK.md",
     purpose: "GHL setup, reputation management, workflows, and troubleshooting map.",
   },
+  {
+    title: "Morning Brief Skill Pack",
+    path: "docs/client-ops-ledger/morning-brief-skill-pack.md",
+    purpose: "Who feeds Mike's owner brief and how agent knowledge should be sourced.",
+  },
 ];
 
 const RECOVERY_STEPS = [

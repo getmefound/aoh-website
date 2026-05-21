@@ -10,6 +10,7 @@ const JOBS_PATH = "docs/client-ops-ledger/agent-jobs.csv";
 const DOMAINS_PATH = "docs/client-ops-ledger/sending-domain-readiness.csv";
 const WARMUP_CONFIG_PATH = "docs/client-ops-ledger/reach-warmup-autopilot.json";
 const DAILY_BRIEF_PATH = "docs/client-ops-ledger/daily-brief-current.md";
+const OUTBOX_DIR = "docs/client-ops-ledger/outbox";
 const GHL_API_BASE = "https://services.leadconnectorhq.com";
 const GHL_API_VERSION = "2021-07-28";
 const DEFAULT_AGENT_CHANNEL_ID = "C0ATTA4NBR8";
@@ -142,7 +143,7 @@ const AGENTS: Record<
     aliases: ["general manager", "manager", "gm", "elon"],
     reportsTo: "President",
     job: "Runs the agent company day to day, prepares the brief, filters noise, owns the approval queue, assigns owners, tracks blockers, and escalates to Mike.",
-    canDo: ["prepare the daily brief", "run Reach Cold Email Campaign", "explain warmup autopilot", "route work to agents", "show status", "explain blockers"],
+    canDo: ["prepare the morning brief", "run Reach Cold Email Campaign", "explain warmup autopilot", "route work to agents", "show status", "explain blockers"],
     nextStep: "Ask: `Manager, run Reach Cold Email Campaign` or `Manager, status`.",
   },
   scheduler: {
@@ -460,6 +461,8 @@ ${address(actor)}, all campaign live actions are blocked.
 
   if (mentionsOwnerPeek(normalized)) return buildOwnerPeekResponse(actor);
 
+  if (mentionsMorningBrief(normalized)) return buildMorningBriefResponse(actor);
+
   if (mentionsReachRunStatusQuestion(normalized)) return buildReachRunTodayResponse(actor);
 
   if (mentionsColdReachStart(normalized)) return buildColdReachStartResponse(actor, normalized, context);
@@ -508,6 +511,7 @@ Manager, is Reach set to run today, and do I need anything?
 Manager, start cold reach campaign
 Manager, train Reach team
 Manager, owner peek
+Manager, morning brief
 Manager, run Reach Cold Email Campaign
 Manager, show Reach warmup autopilot
 Manager, explain the Reach result
@@ -635,6 +639,51 @@ Sales Manager, review Reach QA
 GHL Expert, check Reach readiness
 Manager, run Reach Cold Email Campaign
 \`\`\``;
+}
+
+function buildMorningBriefResponse(actor: UserContext) {
+  const summaries = laneSummaries();
+  const managerCheck = readText(`${OUTBOX_DIR}/reach-manager-check-${today()}.md`);
+  const relayClean = managerCheck.match(/Relay clean contacts:\s*([^\n.]+)\./)?.[1] ?? "";
+  const relayStatus = managerCheck.match(/Relay status:\s*([^\n.]+)\./)?.[1] ?? "";
+  const recommendation = readRecommendation();
+  const relayLine = relayClean
+    ? `Relay has ${relayClean} clean contacts${relayStatus ? ` and status is ${relayStatus}` : ""}.`
+    : "Reach lane status is available from the current job ledger.";
+
+  return `*Morning Brief - ${today()}*
+
+${address(actor)}, here is the owner version.
+
+Overnight result:
+
+- Reach: ${relayLine}
+- Current lanes: ${summaries.map((summary) => `${summary.label} ${summary.status}`).join("; ")}.
+- Safety: GHL Expert still owns sender/domain proof, and HighLevel AI stays OFF.
+
+Needs Mike today:
+
+- No routine babysitting. Manager should bring you only spend changes, safety overrides, target changes, or stuck client-facing risk.
+
+Who feeds the brief:
+
+- GHL Expert: GHL campaign numbers, workflow proof, and exports.
+- Sales Manager: what the numbers mean and what to do next.
+- Scout / Market Watcher: industry news, competitor signals, and offer ideas.
+- Systems Director: cron/source failures and cost risk.
+- Manager: final owner summary to you.
+
+Market/news:
+
+- Not fully wired yet. First source layer should be Google Alerts/RSS plus curated industry sources; broad GHL/docs knowledge should use retrieval, not one giant prompt.
+
+Recommended move:
+
+${recommendation}
+
+Knowledge note:
+
+- Today the agents read local ledgers/runbooks and run scoped checks. The Morning Brief skill pack now records the upgrade path for a searchable GHL/document knowledge base.`;
 }
 
 function buildReachRunTodayResponse(actor: UserContext) {
@@ -1930,6 +1979,14 @@ function asArray(value: unknown): unknown[] {
 
 function mentionsBrief(normalized: string) {
   return normalized.includes("manager status") || normalized.includes("status") || normalized.includes("brief");
+}
+
+function mentionsMorningBrief(normalized: string) {
+  return (
+    normalized.includes("morning brief") ||
+    normalized.includes("owner morning brief") ||
+    normalized.includes("daily owner brief")
+  );
 }
 
 function mentionsAgentList(normalized: string) {

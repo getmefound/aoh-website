@@ -25,6 +25,7 @@ This keeps the front page useful as more agent jobs are added.
 | Custom agents | `/mike-mc/jobs#custom-agent-layer` | Show optional CRM/custom-agent work after the sale. |
 | Send status | `/mike-mc/jobs/reach-cold-email-campaign` | Check whether emails are ready to send or still blocked. |
 | Spending | `/mike-mc/jobs` | See daily spend and spend so far by job. |
+| Morning Brief skill pack | `docs/client-ops-ledger/morning-brief-skill-pack.md` | Shows who feeds Mike's daily owner brief and how knowledge should be sourced. |
 
 ## Commercial Reach
 
@@ -54,6 +55,20 @@ Custom agents begin only after the client needs the deeper layer:
 6. Watch the agent.
 
 Do not bundle this into the basic Reach promise. It is an add-on for clients that need agents working from their systems.
+
+## Morning Brief
+
+The Morning Brief is Mike's daily owner view:
+
+1. Overnight result.
+2. What needs Mike today.
+3. What agents are handling.
+4. Market/news signal.
+5. One recommended move.
+
+Manager owns the final brief. GHL Expert feeds campaign stats, Sales Manager explains what the numbers mean, Scout watches market/news opportunities, and Systems Director watches cron/source failures.
+
+This is internal first. If it proves useful, sell it as Owner Morning Brief.
 
 ## Safety Boundary
 
