@@ -57,6 +57,7 @@ The technical stuff below (Docker, Langfuse, AutoGen, code pattern names) — th
 ### What the team SHOULD read
 
 - [[AOH Brand Voice v1]] — voice rules every piece of content follows. Reference it daily when writing emails or social.
+- [[AOH Agent Model Routing and Morning Brief]] — which agent work uses no LLM, cheap models, standard models, strong models, or Mike; also covers the Morning Brief owner flow.
 - [[AOH Distribution Strategy v1]] — what gets posted where and how often.
 - [[AOH Ground Truth]] — verified facts about AOH (positioning, pricing, who we serve, who we don't).
 
@@ -90,7 +91,7 @@ The technical stuff below (Docker, Langfuse, AutoGen, code pattern names) — th
 
 **Why not pure swarm:** Gives up the global view Director needs to brief Mike each morning.
 
-**Why not a separate staff layer:** Just hierarchical orchestration with a marketing label. Director or Manager already does this.
+**Why not Chief of Staff (the new pattern):** Just hierarchical orchestration with a marketing label. Director already does this.
 
 **Vibe shift to know about:** As of late 2025/early 2026, Anthropic and OpenAI both published research showing single agents with better tools + longer context often beat multi-agent systems. Marketing pendulum is swinging back toward "fewer, sharper agents." Build multi-agent only when parallelism, separation of concerns, or context isolation actually pays for itself. AOH's case (specialized roles, sequential pipeline, multi-tenant clients) does justify it — but resist agent sprawl.
 
@@ -320,6 +321,7 @@ A new developer starts there, then circles back to this doc for the strategic co
 
 - [[AOH Ground Truth]] — verified facts about AOH
 - [[AOH Brand Voice v1]] — voice rules for content agents (Studio, Press)
+- [[AOH Agent Model Routing and Morning Brief]] — model tiers, provider/key status, Claude decision, and Morning Brief ownership
 - [[AOH Distribution Strategy v1]] — what Studio + Press publish where
 - `reference_aoh_agent_fleet.md` (memory) — agent naming + roster (Scout, Director, Coach, Sender, Booker, Enricher, Sorter, Caller, Hub + new: Studio, Press, Auditor)
 - `reference_openclaw_architecture.md` (memory) — current OpenClaw + Atlantis setup

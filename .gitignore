@@ -61,6 +61,7 @@ lighthouse-local-*
 !/scripts/build-reach-scrape-inventory.mjs
 !/scripts/agent-command-center.mjs
 !/scripts/auditor-security-sweep.mjs
+!/scripts/sync-coach-obsidian.ps1
 /data/
 
 # tmp / scratch artifacts (dev logs, ad-hoc scan outputs, pids)

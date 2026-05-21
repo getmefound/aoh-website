@@ -23,6 +23,10 @@ The ledger is intentionally spreadsheet-first. Mike should be able to open it, s
 | `aoh-agent-company-operating-model.md` | Canonical company hierarchy: Mike as President, General Manager, specialist agents, recommendations, jobs, approvals. |
 | `mike-daily-agent-quickstart.md` | Plain-English daily guide for Mike to talk to agents, run Reach checks, and issue safe approvals in Slack. |
 | `agent-model-routing-policy.md` | Cost-control policy for choosing no LLM, cheap, standard, strong, or human decision tiers. |
+| `morning-brief-skill-pack.md` | Morning Brief ownership, knowledge-source rules, and productization path. |
+| `morning-brief-current.md` | Current generated owner brief for Mike. |
+| `morning-brief-sources.json` | News/RSS and GHL stats source configuration for the Morning Brief. |
+| `ghl-email-stats-template.csv` | Template for GHL email performance stats before API/export automation is wired. |
 | `reach-campaign-agent-runbook.md` | Safe agent workflow for Reach email campaign prep, approval, import, drip start, and logging. |
 | `mission-control-job-flow-index.md` | Mission Control job index links and the split between Commercial Reach and optional custom agent/CRM work. |
 | `slack-agent-command-runbook.md` | How Mike talks to Manager, GHL Expert, Sales Manager, and approval gates through Slack-ready commands. |
@@ -41,8 +45,9 @@ The ledger is intentionally spreadsheet-first. Mike should be able to open it, s
 4. Require all agent runs to write back to the ledger through a controlled workflow, not by freeform editing.
 5. Route every agent job through `agent-model-routing-policy.md` so cheap/no-LLM steps stay cheap.
 6. Use `reach-campaign-agent-runbook.md` before any agent prepares, imports, or starts a Reach email campaign.
-7. Use `mike-daily-agent-quickstart.md` for daily Slack usage, then `slack-agent-command-runbook.md` and `npm run agent:brief` for deeper setup and command details.
-8. Move to a real database only after the spreadsheet becomes painful, likely around 15-25 active clients.
+7. Use `mike-daily-agent-quickstart.md` for daily Slack usage, then `slack-agent-command-runbook.md`, `npm run agent:brief`, and `npm run morning:brief` for deeper setup and command details.
+8. Keep the Obsidian synced note `AOH Agent Model Routing and Morning Brief.md` current when model/provider or Morning Brief ownership changes.
+9. Move to a real database only after the spreadsheet becomes painful, likely around 15-25 active clients.
 
 ## Higher-Level Truth
 
