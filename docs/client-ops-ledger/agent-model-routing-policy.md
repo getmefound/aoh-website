@@ -38,7 +38,24 @@ Mike currently has Gemini, ChatGPT, and Claude available. Do not hard-code a per
 
 Systems Director owns the current mapping and should refresh it monthly or when a provider changes pricing.
 
-Suggested starting map:
+Current working map as of 2026-05-21:
+
+| Tier | Default choice | Use when |
+|---|---|---|
+| 0 - No LLM | scripts/tools | CSV parsing, dedupe, counts, API checks, imports, scheduled jobs. |
+| 1 - Cheap | Gemini Flash / OpenAI mini or nano | bulk summaries, obvious fit checks, simple reply labels, first-pass news scan. |
+| 2 - Standard | OpenAI mini/standard or Claude Sonnet | campaign angles, reply triage, sales judgment, brief synthesis. |
+| 3 - Strong | OpenAI frontier/Codex or Claude Sonnet/Opus | production code, complex GHL risk, final approval packets, ambiguous client-facing decisions. |
+| 4 - Human | Mike | spend changes, drip starts, live client/prospect action, HighLevel AI feature authorization. |
+
+Provider notes:
+
+- Gemini Flash is the first choice for cheap/high-volume agent work once `GEMINI_API_KEY` or `GOOGLE_GENERATIVE_AI_API_KEY` is configured.
+- OpenAI is the default fallback and strong-work provider once `OPENAI_API_KEY` is configured.
+- Claude is useful as a second strong reviewer for complex writing, strategy, coding review, and when OpenAI output needs an independent check. It is optional for v1, not required to run the morning brief or Reach autopilot.
+- The current production Vercel environment should list provider keys before any live model-backed agents are expected to run. Do not paste API keys into Slack or docs.
+
+Generic provider map:
 
 | Tier | Gemini | ChatGPT / OpenAI | Claude |
 |---|---|---|---|
@@ -47,6 +64,25 @@ Suggested starting map:
 | Strong | strongest available model | frontier/reasoning model | Opus or strongest Sonnet-style model |
 
 If a tool can do the work without an LLM, use the tool instead.
+
+## Current Key Status Check
+
+Check key presence without printing secrets:
+
+```bash
+vercel env ls --scope aoh-inc
+```
+
+Expected model-provider env names:
+
+```text
+OPENAI_API_KEY
+GEMINI_API_KEY
+GOOGLE_GENERATIVE_AI_API_KEY
+ANTHROPIC_API_KEY
+```
+
+If none of those are present, model-backed agents are not yet running in production. Scripted agents and deterministic jobs can still run.
 
 ## Escalation Rules
 
@@ -104,6 +140,19 @@ If the job hits 100% of budget, the job stops and Manager decides whether Mike n
 | Check GHL tags/workflow risk | GHL Expert | 2 or 3 |
 | Prepare approval packet | Manager | 2 |
 | Approve import or drip start | Mike | 4 |
+
+## Agent Defaults
+
+| Agent | Default tier | Escalates when |
+|---|---|---|
+| Manager | 1 or 2 | final owner recommendation, multi-agent conflict, budget/safety decision. |
+| Systems Director | 0 or 2 | secrets, billing, production reliability, live integration risk. |
+| GHL Expert | 0 for read-only checks; 2 or 3 for risk review | workflow/tag/sender-domain risk or live GHL change. |
+| Scout | 1 | prospect fit is unclear or niche strategy matters. |
+| Sender | 0 | deliverability judgment or campaign wording risk appears. |
+| Sales Manager | 1 or 2 | lead quality, offer fit, or reply intent is ambiguous. |
+| Coach/Editor | 2 | sensitive brand voice, claims, or client-facing copy. |
+| Reporter | 0 or 1 | report interpretation needs client-facing explanation. |
 
 ## Cost Log
 

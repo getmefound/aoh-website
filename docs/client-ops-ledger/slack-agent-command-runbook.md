@@ -18,6 +18,7 @@ For Mike's plain daily workflow, use `mike-daily-agent-quickstart.md` first. Thi
 | Owner Reach status question | Wired | `Manager, is Reach set to run today, and do I need anything?` gives Mike the short owner answer without a role-card intro. |
 | Reach team training command | Wired | `Manager, train Reach team` reminds each agent what it owns for discovery, QA, GHL readiness, sending, cost, replies, and booking. |
 | Owner peek command | Wired | `Manager, owner peek` explains where Mike should look and whether Manager DMs are wired. |
+| Model routing command | Wired | `Manager, model routing` explains which work uses no LLM, cheap models, standard models, strong models, or Mike. |
 | Manager recovery check | Wired | `npm run reach:manager-check` records whether Relay needs an automatic capped retry after the morning campaign run. |
 | Agent directory | Wired | `Manager, list agents` shows the agent team and example commands. |
 | Direct agent addressing | Wired | Mike can address agents by role, such as `Coach, ...`, `Scheduler, ...`, `Reporter, ...`, or `Press, ...`. |
@@ -80,6 +81,7 @@ Manager, train Reach team
 Manager, owner peek
 Manager, brief
 Manager, morning brief
+Manager, model routing
 GHL Expert, check Reach readiness
 GHL Expert, visually confirm Relay sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
 Sales Manager, review Reach QA
@@ -179,6 +181,7 @@ npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
 npm run agent:command -- --command "Manager, train Reach team"
 npm run agent:command -- --command "Manager, owner peek"
 npm run agent:command -- --command "Manager, morning brief"
+npm run agent:command -- --command "Manager, model routing"
 npm run reach:manager-check
 npm run agent:command -- --command "GHL Expert, check Reach readiness"
 npm run agent:command -- --command "approve relay import only"

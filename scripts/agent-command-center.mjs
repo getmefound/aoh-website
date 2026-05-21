@@ -90,6 +90,10 @@ function routeCommand(command, args) {
     return buildMorningBriefResult();
   }
 
+  if (mentionsModelRouting(normalized)) {
+    return buildModelRoutingResult();
+  }
+
   if (mentionsReachRunStatusQuestion(normalized)) {
     return buildReachRunTodayResponse();
   }
@@ -157,6 +161,7 @@ Supported commands:
 - \`Manager, train Reach team\`
 - \`Manager, owner peek\`
 - \`Manager, morning brief\`
+- \`Manager, model routing\`
 - \`Manager, run Reach Cold Email Campaign\`
 - \`Manager, show Reach warmup autopilot\`
 - \`Manager, explain the Reach result\`
@@ -396,6 +401,32 @@ ${dailySignals.recommendation || "Keep auto on. Let agents handle routine refill
 Knowledge note:
 
 - Today the agents read local ledgers/runbooks and run scoped checks. The Morning Brief skill pack now records the upgrade path for a searchable GHL/document knowledge base.`,
+  };
+}
+
+function buildModelRoutingResult() {
+  return {
+    kind: "agent-model-routing",
+    text: `*Model routing - ${today()}*
+
+Mike, here is the simple owner version.
+
+- *No LLM*: CSV parsing, dedupe, counts, API checks, imports, scheduled jobs.
+- *Cheap model*: bulk summaries, obvious fit checks, simple reply labels, first-pass news scan. Gemini Flash is the preferred cheap lane once a Gemini key is configured.
+- *Standard model*: campaign angles, reply triage, sales judgment, and morning brief synthesis.
+- *Strong model*: production code, complex GHL risk, approval packets, sensitive client-facing decisions.
+- *Human*: spend changes, drip starts, live prospect/client action, and any HighLevel AI feature.
+
+Current production key check:
+
+- Vercel has GHL, Slack, Outscraper, cron, and OpenClaw keys.
+- I did not find OpenAI, Gemini, or Anthropic provider keys in the current Vercel env list.
+
+Claude:
+
+- Optional for v1. Keep it if you want a second strong reviewer for strategy, writing, code review, or tricky GHL decisions. Not needed for scripted Reach autopilot or the basic Morning Brief generator.
+
+Reference: \`docs/client-ops-ledger/agent-model-routing-policy.md\``,
   };
 }
 
@@ -1346,6 +1377,18 @@ function mentionsMorningBrief(normalized) {
     normalized.includes("morning brief") ||
     normalized.includes("owner morning brief") ||
     normalized.includes("daily owner brief")
+  );
+}
+
+function mentionsModelRouting(normalized) {
+  return (
+    normalized.includes("model routing") ||
+    normalized.includes("which llm") ||
+    normalized.includes("what llm") ||
+    normalized.includes("which model") ||
+    normalized.includes("gemini flash") ||
+    normalized.includes("need claude") ||
+    normalized.includes("claude")
   );
 }
 
