@@ -13,8 +13,9 @@ export type ClientUploadRequest = {
   detail: string;
 };
 
-export type ClientAgentStep = {
-  agent: string;
+export type ClientNextStep = {
+  step: string;
+  status: ClientHubStatus;
   job: string;
   output: string;
 };
@@ -39,7 +40,7 @@ export type ClientHubProfile = {
   logoText: string;
   brandNote: string;
   protection: "Not enabled" | "Requested" | "Enabled";
-  managerSummary: string;
+  statusSummary: string;
   nextClientAction: string;
   checklist: ClientChecklistItem[];
   metrics: ClientMetric[];
@@ -51,34 +52,39 @@ export type ClientHubProfile = {
     proof: string;
   };
   aiVisibilityPreview: ClientMetric[];
-  agentSteps: ClientAgentStep[];
+  nextSteps: ClientNextStep[];
 };
 
-const sharedAgentSteps: ClientAgentStep[] = [
+const sharedNextSteps: ClientNextStep[] = [
   {
-    agent: "Manager",
-    job: "Receives the signup or intake signal.",
-    output: "Tells the team what is ready, what is missing, and what should happen next.",
+    step: "Setup review",
+    status: "working",
+    job: "AOH reviews the signup and intake details.",
+    output: "You get a simple ready, waiting, or needs-help status.",
   },
   {
-    agent: "Local Visibility Manager",
-    job: "Checks Google Business Profile access and profile health.",
-    output: "Returns access status, public profile gaps, screenshots needed, and safe update recommendations.",
+    step: "Google profile check",
+    status: "working",
+    job: "AOH checks Google Business Profile access and profile health.",
+    output: "We confirm access, profile gaps, and the review link before launch.",
   },
   {
-    agent: "Reviews Manager",
-    job: "Prepares the review request plan.",
-    output: "Confirms who should receive review requests, who should not, and when requests go out.",
+    step: "Review request setup",
+    status: "needed",
+    job: "AOH prepares who should receive review requests and when.",
+    output: "You only need to provide recent completed jobs or customers.",
   },
   {
-    agent: "GHL Expert",
-    job: "Builds and verifies the HighLevel workflow.",
-    output: "Checks contacts, custom fields, workflow trigger, sender, logs, and keeps HighLevel AI off.",
+    step: "Automation build",
+    status: "working",
+    job: "AOH builds the email review request automation.",
+    output: "Nothing sends until the test and launch checks pass.",
   },
   {
-    agent: "Systems Director",
-    job: "Watches access, cost, errors, and automation risk.",
-    output: "Escalates only if something can break delivery, billing, or client trust.",
+    step: "Launch proof",
+    status: "needed",
+    job: "AOH runs the final proof check.",
+    output: "You see proof of the first test before the setup is marked live.",
   },
 ];
 
@@ -97,69 +103,69 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     logoText: "AB",
     brandNote: "Logo can be auto-checked from the website first. Uploaded brand files always win.",
     protection: "Requested",
-    managerSummary:
+    statusSummary:
       "We have enough to start setup. The only client-side item left is confirming Google Business Profile access and uploading the latest customer/job list.",
     nextClientAction: "Confirm GBP access and upload recent completed jobs.",
     checklist: [
       {
         label: "Business info confirmed",
-        owner: "Manager",
+        owner: "AOH",
         status: "done",
         detail: "Name, website, phone, email, category, and service area are on file.",
       },
       {
         label: "Google Business Profile access",
-        owner: "Local Visibility Manager",
+        owner: "Client",
         status: "needed",
         detail: "Client should add AOH as Manager under People and access. No password sharing.",
       },
       {
         label: "Logo and brand",
-        owner: "Press",
+        owner: "AOH",
         status: "working",
-        detail: "Agent checks website favicon, metadata, and public brand assets first. Client can upload a better logo.",
+        detail: "AOH checks website favicon, metadata, and public brand assets first. Client can upload a better logo.",
       },
       {
         label: "Google review link",
-        owner: "Local Visibility Manager",
+        owner: "AOH",
         status: "working",
         detail: "Review link is captured after profile access or public profile verification.",
       },
       {
         label: "Recent customer/job list",
-        owner: "Reviews Manager",
+        owner: "Client",
         status: "needed",
         detail: "Client uploads completed jobs, invoices, or customers who should receive review requests.",
       },
       {
         label: "Review request message",
-        owner: "Coach",
+        owner: "AOH",
         status: "working",
         detail: "Simple email request is drafted in the business voice before first send.",
       },
       {
-        label: "GHL workflow setup",
-        owner: "GHL Expert",
+        label: "Automation setup",
+        owner: "AOH",
         status: "working",
-        detail: "Workflow is prepared after contacts and review link are confirmed.",
+        detail: "The review request automation is prepared after contacts and review link are confirmed.",
       },
       {
         label: "Test request",
-        owner: "Auditor",
+        owner: "AOH",
         status: "needed",
         detail: "One test review request is sent before the client is marked live.",
       },
       {
         label: "Client live",
-        owner: "Manager",
+        owner: "AOH",
         status: "needed",
-        detail: "Manager marks this green after the test request and proof checks pass.",
+        detail: "AOH marks this green after the test request and proof checks pass.",
       },
     ],
     metrics: [
       { label: "Review requests", value: "0", sub: "waiting on customer list" },
       { label: "Google access", value: "Needs confirm", sub: "client invite step" },
-      { label: "Workflow", value: "Draft", sub: "not sending yet" },
+      { label: "Automation", value: "Draft", sub: "not sending yet" },
       { label: "Owner action", value: "2 items", sub: "GBP access + list" },
     ],
     uploadRequests: [
@@ -181,14 +187,14 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       {
         label: "Best contact for approvals",
         status: "done",
-        detail: "Manager sends only setup blockers and final ready summaries.",
+        detail: "AOH sends only setup blockers and final ready summaries.",
       },
     ],
     reviews: {
       googleStatus: "Access pending",
       reviewLinkStatus: "Being verified",
       requestRule: "Email request after completed work. SMS is an AI Visibility upgrade.",
-      proof: "Manager will show first test request, workflow proof, and review link proof before launch.",
+      proof: "AOH will show first test request, automation proof, and review link proof before launch.",
     },
     aiVisibilityPreview: [
       { label: "ChatGPT visibility", value: "Locked", sub: "preview scan available with upgrade" },
@@ -196,7 +202,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       { label: "Local ranking gaps", value: "Locked", sub: "monthly visibility report" },
       { label: "Competitor watch", value: "Locked", sub: "who is gaining attention" },
     ],
-    agentSteps: sharedAgentSteps,
+    nextSteps: sharedNextSteps,
   },
   {
     slug: "ai-outsource-hub",
@@ -212,69 +218,69 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     logoText: "AOH",
     brandNote: "AOH logo is already available from the website assets.",
     protection: "Not enabled",
-    managerSummary:
-      "This is the practice client hub for building the client workflow before real client volume arrives.",
+    statusSummary:
+      "This is the practice client hub for building the client setup process before real client volume arrives.",
     nextClientAction: "Use AOH as the first full test before selling this flow.",
     checklist: [
       {
         label: "Business info confirmed",
-        owner: "Manager",
+        owner: "AOH",
         status: "done",
         detail: "AOH identity, website, phone, and contact are known.",
       },
       {
         label: "Google Business Profile access",
-        owner: "Local Visibility Manager",
+        owner: "AOH",
         status: "done",
         detail: "Client-zero access is already confirmed.",
       },
       {
         label: "Logo and brand",
-        owner: "Press",
+        owner: "AOH",
         status: "done",
         detail: "AOH logo files are in the website assets.",
       },
       {
         label: "Google review link",
-        owner: "Local Visibility Manager",
+        owner: "AOH",
         status: "working",
         detail: "Capture and store the review link for the AOH practice run.",
       },
       {
         label: "Recent customer/job list",
-        owner: "Reviews Manager",
+        owner: "Client",
         status: "needed",
         detail: "Use a safe test list first. Do not message real customers until approved.",
       },
       {
         label: "Review request message",
-        owner: "Coach",
+        owner: "AOH",
         status: "working",
         detail: "Draft the starter message for Mike's approval.",
       },
       {
-        label: "GHL workflow setup",
-        owner: "GHL Expert",
+        label: "Automation setup",
+        owner: "AOH",
         status: "working",
-        detail: "Check sender, workflow, logs, and HighLevel AI toggles off.",
+        detail: "Check sender, automation, logs, and AI features stay off unless approved.",
       },
       {
         label: "Test request",
-        owner: "Auditor",
+        owner: "AOH",
         status: "needed",
         detail: "Send one safe test request before live launch.",
       },
       {
         label: "Client live",
-        owner: "Manager",
+        owner: "AOH",
         status: "needed",
-        detail: "Manager reports ready after the proof checks pass.",
+        detail: "AOH reports ready after the proof checks pass.",
       },
     ],
     metrics: [
       { label: "Review requests", value: "Test only", sub: "no real sends yet" },
       { label: "Google access", value: "Confirmed", sub: "AOH profile" },
-      { label: "Workflow", value: "Checking", sub: "GHL Expert owns" },
+      { label: "Automation", value: "Checking", sub: "AOH checking" },
       { label: "Owner action", value: "1 item", sub: "approve first safe test" },
     ],
     uploadRequests: [
@@ -296,14 +302,14 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       {
         label: "Best contact for approvals",
         status: "done",
-        detail: "Mike receives final Manager summaries.",
+        detail: "Mike receives final AOH summaries.",
       },
     ],
     reviews: {
       googleStatus: "Access confirmed",
       reviewLinkStatus: "Needs capture",
       requestRule: "Test internally first. Public customer sends require Mike approval.",
-      proof: "Manager needs screenshots and one safe GHL test before this becomes the client template.",
+      proof: "AOH needs screenshots and one safe automation test before this becomes the client template.",
     },
     aiVisibilityPreview: [
       { label: "ChatGPT visibility", value: "Custom", sub: "AOH internal testing" },
@@ -311,7 +317,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       { label: "Local ranking gaps", value: "Pending", sub: "profile scan next" },
       { label: "Competitor watch", value: "Pending", sub: "AI Visibility lane" },
     ],
-    agentSteps: sharedAgentSteps,
+    nextSteps: sharedNextSteps,
   },
 ];
 

@@ -59,7 +59,7 @@ export default async function ClientHubPage({ params }: PageProps) {
                 {client.statusLabel}
               </span>
               <span className="rounded-md border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-amber-900">
-                Owner protection: {client.protection}
+                Private page: {client.protection}
               </span>
             </div>
 
@@ -73,15 +73,15 @@ export default async function ClientHubPage({ params }: PageProps) {
                   {client.businessName}
                 </h1>
                 <p className="mt-3 max-w-3xl break-words text-base leading-7 text-slate-600 md:text-lg">
-                  {client.managerSummary}
+                  {client.statusSummary}
                 </p>
               </div>
             </div>
           </div>
 
           <aside className="rounded-lg border border-slate-200 bg-slate-50 p-5">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
-              Manager says
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
+              AOH status
             </p>
             <p className="mt-2 text-2xl font-semibold text-slate-950">
               {progress}% ready
@@ -107,7 +107,7 @@ export default async function ClientHubPage({ params }: PageProps) {
             ["Review Automation", "#reviews"],
             ["Uploads", "#uploads"],
             ["AI Visibility", "#ai-visibility"],
-            ["Agent workflow", "#agents"],
+            ["Next steps", "#next-steps"],
           ].map(([label, href]) => (
             <a
               key={href}
@@ -139,7 +139,7 @@ export default async function ClientHubPage({ params }: PageProps) {
           <SectionHeader
             eyebrow="Setup"
             title="What we have and what is still needed"
-            sub="This is the page the client can check instead of logging into GHL."
+            sub="This is the page the client can check instead of logging into another dashboard."
           />
           <BusinessCard client={client} />
         </div>
@@ -150,7 +150,7 @@ export default async function ClientHubPage({ params }: PageProps) {
               <div>
                 <StatusPill status={item.status} />
                 <p className="mt-3 text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
-                  {item.owner}
+                  {item.owner === "Client" ? "Waiting on you" : "AOH handling"}
                 </p>
               </div>
               <div>
@@ -188,7 +188,7 @@ export default async function ClientHubPage({ params }: PageProps) {
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               <MiniStat label="Requests sent" value={client.metrics[0]?.value ?? "0"} />
               <MiniStat label="Access status" value={client.reviews.googleStatus} />
-              <MiniStat label="Workflow" value={client.metrics[2]?.value ?? "Checking"} />
+              <MiniStat label="Automation" value={client.metrics[2]?.value ?? "Checking"} />
               <MiniStat label="Proof" value="Saved here" />
             </div>
             <p className="mt-5 text-sm leading-6 text-slate-600">
@@ -267,17 +267,18 @@ export default async function ClientHubPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section id="agents" className="mx-auto max-w-7xl px-6 py-10">
+      <section id="next-steps" className="mx-auto max-w-7xl px-6 py-10">
         <SectionHeader
-          eyebrow="Agent workflow"
-          title="Who does the work behind this page"
-          sub="Manager owns the final client-facing answer. The child agents prepare the checks and proof."
+          eyebrow="Next steps"
+          title="What happens behind the scenes"
+          sub="You see the simple status. AOH handles the setup work, proof checks, and launch notes."
         />
         <div className="grid gap-4 lg:grid-cols-5">
-          {client.agentSteps.map((step) => (
-            <article key={step.agent} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
-                {step.agent}
+          {client.nextSteps.map((step) => (
+            <article key={step.step} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <StatusPill status={step.status} />
+              <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
+                {step.step}
               </p>
               <h3 className="mt-3 text-base font-semibold text-slate-950">{step.job}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{step.output}</p>

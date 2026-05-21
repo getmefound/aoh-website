@@ -21,7 +21,7 @@ For Mike's plain daily workflow, use `mike-daily-agent-quickstart.md` first. Thi
 | Model routing command | Wired | `Manager, model routing` explains which work uses no LLM, cheap models, standard models, strong models, or Mike. |
 | GBP access test command | Wired | `Local Visibility Manager, prepare GBP access test` explains the client-zero GBP invite/update process. |
 | Review Automation intake | Wired | `/intake/review-automation` collects client setup details and routes GBP access status to Manager. |
-| Client hub | Wired | `/client/ai-outsource-hub` and `/client/abc-business` show client-facing setup status, standard Review Automation, and locked AI Visibility preview. |
+| Client hub | Wired | `/client/ai-outsource-hub` and `/client/abc-business` show client-facing setup status, standard Review Automation, and locked AI Visibility preview without exposing internal agent names. |
 | Manager recovery check | Wired | `npm run reach:manager-check` records whether Relay needs an automatic capped retry after the morning campaign run. |
 | Agent directory | Wired | `Manager, list agents` shows the agent team and example commands. |
 | Direct agent addressing | Wired | Mike can address agents by role, such as `Coach, ...`, `Scheduler, ...`, `Reporter, ...`, or `Press, ...`. |
@@ -634,7 +634,7 @@ Use it so clients can see:
 
 - what AOH already knows
 - what is still needed
-- which agent owns the next step
+- what AOH owns vs what the client needs to provide
 - Review Automation status
 - locked AI Visibility preview
 
@@ -654,7 +654,7 @@ docs/client-ops-ledger/client-hub-runbook.md
 Manager should summarize it simply:
 
 ```text
-Mike, the client hub shows setup status, missing client items, the agent workflow, and the AI Visibility upgrade preview. Clients do not need GHL for normal setup visibility.
+Mike, the client hub shows setup status, missing client items, what AOH is handling, and the AI Visibility upgrade preview. Clients do not see internal agent names or need GHL for normal setup visibility.
 ```
 
 ## Live Action Guard

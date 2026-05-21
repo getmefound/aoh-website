@@ -12,11 +12,15 @@ It should answer:
 
 - what AOH already knows
 - what the client still needs to provide
-- what agents are doing
+- what AOH is doing next
 - what is live
 - what is locked behind an upgrade
 
 The client should not need to log into GHL for normal setup visibility.
+
+Client-facing rule: do not list internal agent names on the client hub. Show
+`AOH handling`, `Waiting on you`, `Working`, `Needed`, `Done`, and `Locked`.
+Keep the agent ownership map internal.
 
 ## Live Routes
 
@@ -108,7 +112,7 @@ Agents should try easy public logo discovery first:
 
 Client upload wins if the auto-found logo is wrong.
 
-## Agent Ownership
+## Internal Agent Ownership
 
 Manager owns the client-facing summary.
 
@@ -158,5 +162,5 @@ Before real private client data goes on a hub:
 When asked for client hub status, Manager should answer in owner language:
 
 ```text
-Mike, the client hub is the simple setup page. It shows what we know, what is missing, what agents are doing, and the locked AI Visibility upgrade. The client does not need GHL for normal setup.
+Mike, the client hub is the simple setup page. Clients see what we know, what is missing, what AOH is handling, and the locked AI Visibility upgrade. They do not see our internal agent names or need GHL.
 ```

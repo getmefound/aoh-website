@@ -302,6 +302,7 @@ The client hub is the client-facing status page after signup:
 - sample client route: `/client/abc-business`
 - shows standard Review Automation setup status
 - shows locked AI Visibility preview as the custom/upgrade area
+- hides internal agent names from the client-facing page
 - keeps GHL as the backend while giving clients a simpler page
 - should be password or magic-link protected before real private client data is shown
 
