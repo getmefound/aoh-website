@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authorizeInternalRequest } from "@/lib/internal-api-auth";
 import { validateEmail } from "@/lib/email-validation";
 import {
+  buildSuppressionPacket,
   buildSendLogPacket,
   cleanLongText,
   cleanText,
@@ -9,7 +10,7 @@ import {
   postReviewAutomationSlackSummary,
   type ReviewSendLogPacket,
 } from "@/lib/review-automation";
-import { saveReviewAutomationEvent } from "@/lib/review-automation-store";
+import { saveReviewAutomationEvent, saveReviewSuppression } from "@/lib/review-automation-store";
 
 type SendLogBody = {
   clientSlug?: unknown;
@@ -59,6 +60,17 @@ export async function POST(req: NextRequest) {
   });
 
   const storageResult = await saveReviewAutomationEvent("send_log", packet);
+  const suppressionResult =
+    packet.status === "bounced"
+      ? await saveReviewSuppression(
+          buildSuppressionPacket({
+            clientSlug,
+            customerEmail: packet.customerEmail,
+            reason: `Auto-held after bounced review request${packet.detail ? `: ${packet.detail}` : "."}`,
+            source: "aioutsourcehub.com:review-automation-send-log",
+          }),
+        )
+      : null;
   const webhookResult = await forwardReviewAutomationEvent("send_log", packet);
   const shouldAlert = packet.status === "failed" || packet.status === "bounced";
   if (shouldAlert) {
@@ -73,5 +85,6 @@ export async function POST(req: NextRequest) {
     ok: true,
     stored: storageResult.ok || webhookResult.ok,
     storageConfigured: storageResult.configured || webhookResult.configured,
+    suppressed: Boolean(suppressionResult?.ok),
   });
 }

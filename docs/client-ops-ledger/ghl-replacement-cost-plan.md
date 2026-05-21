@@ -125,6 +125,8 @@ Build status:
 - Internal send-log v1 exists at `/api/review-automation/send-log`.
   GHL exports/webhooks or the future AOH sender can record sent, failed,
   bounced, clicked, and follow-up events there.
+- Bounced send logs automatically add the email to the client suppression list
+  when Redis is configured.
 - Follow-up due v1 exists at `/api/review-automation/followups/due`.
   It reads internal send logs and returns customers due for one gentle follow-up.
 - Manager/internal summary status exists at `/api/review-automation/status`.
@@ -193,7 +195,6 @@ What this gives Mike:
 Still needed before removing GHL from Review Automation sending:
 
 - Verified Google review link for each client.
-- Bounce handling.
 - Monthly recap.
 
 ## GHL-Free Cost View For Review Automation

@@ -166,12 +166,14 @@ Rules:
 - Stored suppressions are applied to future customer uploads when Redis is
   configured.
 - Send logs are internal-only and protected by the same internal token.
+- Bounced send logs automatically hold that email back from future uploads when
+  Redis is configured.
 - Follow-up candidates are internal-only and protected by the same internal token.
 - The status endpoint requires an internal token. Use
   `AOH_INTERNAL_API_TOKEN`, or the existing report bypass token as the bridge
   token while infrastructure is being consolidated.
 - Happy customers route to Google only after the verified client review link is saved.
-- GHL remains the sender bridge until AOH has bounce handling and a tested send job.
+- GHL remains the sender bridge until AOH has a tested send job.
 
 Current deployment note:
 

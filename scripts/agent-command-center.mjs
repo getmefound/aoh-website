@@ -978,6 +978,7 @@ Live pieces:
 - Unsubscribe/suppression page: built.
 - Internal send-log endpoint: built.
 - Follow-up due endpoint: built.
+- Bounce auto-hold: built.
 - Summary storage: ready once Upstash env is set on Vercel.
 - Slack/automation handoff: summary-only; optional webhook can be added.
 - Manager status API: built and protected by internal token.
@@ -995,7 +996,7 @@ What Manager can check:
 Still needed:
 
 - Add each client's verified Google review link before happy feedback can route to Google.
-- Keep GHL as sender until the AOH sender has bounce handling and a tested send job.
+- Keep GHL as sender until the AOH sender has a tested send job.
 
 Useful URL for systems/Manager:
 
