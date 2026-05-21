@@ -13,13 +13,6 @@ export type ClientUploadRequest = {
   detail: string;
 };
 
-export type ClientNextStep = {
-  step: string;
-  status: ClientHubStatus;
-  job: string;
-  output: string;
-};
-
 export type ClientMetric = {
   label: string;
   value: string;
@@ -57,41 +50,7 @@ export type ClientHubProfile = {
   uploadRequests: ClientUploadRequest[];
   reviews: ReviewAutomationStatus;
   aiVisibilityPreview: ClientMetric[];
-  nextSteps: ClientNextStep[];
 };
-
-const sharedNextSteps: ClientNextStep[] = [
-  {
-    step: "Setup review",
-    status: "working",
-    job: "AOH reviews the signup and intake details.",
-    output: "You get a simple ready, waiting, or needs-help status.",
-  },
-  {
-    step: "Google profile check",
-    status: "working",
-    job: "AOH checks Google Business Profile access and profile health.",
-    output: "We confirm access, profile gaps, and the review link before launch.",
-  },
-  {
-    step: "Review request setup",
-    status: "needed",
-    job: "AOH prepares who should receive review requests and when.",
-    output: "You only need to provide recent completed jobs or customers.",
-  },
-  {
-    step: "Automation build",
-    status: "working",
-    job: "AOH builds the email review request automation.",
-    output: "Nothing sends until the test and launch checks pass.",
-  },
-  {
-    step: "Launch proof",
-    status: "needed",
-    job: "AOH runs the final proof check.",
-    output: "You see proof of the first test before the setup is marked live.",
-  },
-];
 
 export const CLIENT_HUBS: ClientHubProfile[] = [
   {
@@ -213,14 +172,13 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       { label: "Local ranking gaps", value: "Locked", sub: "monthly visibility report" },
       { label: "Competitor watch", value: "Locked", sub: "who is gaining attention" },
     ],
-    nextSteps: sharedNextSteps,
   },
   {
     slug: "ai-outsource-hub",
     businessName: "AI Outsource Hub",
     ownerName: "Mike Egidio",
-    plan: "Client Setup",
-    statusLabel: "Client-zero test",
+    plan: "Review Automation",
+    statusLabel: "Setting up",
     website: "https://aioutsourcehub.com",
     phone: "(877) 521-2224",
     email: "mike@aioutsourcehub.com",
@@ -230,8 +188,8 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     brandNote: "AOH logo is already available from the website assets.",
     protection: "Not enabled",
     statusSummary:
-      "This is the practice client hub for building the client setup process before real client volume arrives.",
-    nextClientAction: "Use AOH as the first full test before selling this flow.",
+      "Review Automation is being set up so recent happy customers can be asked for Google reviews.",
+    nextClientAction: "Upload recent completed jobs or customers.",
     checklist: [
       {
         label: "Business info confirmed",
@@ -243,7 +201,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
         label: "Google Business Profile access",
         owner: "AOH",
         status: "done",
-        detail: "Client-zero access is already confirmed.",
+        detail: "Google access is confirmed.",
       },
       {
         label: "Logo and brand",
@@ -255,31 +213,31 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
         label: "Google review link",
         owner: "AOH",
         status: "working",
-        detail: "Capture and store the review link for the AOH practice run.",
+        detail: "Review link is being captured so requests point to the right place.",
       },
       {
         label: "Recent customer/job list",
         owner: "Client",
         status: "needed",
-        detail: "Use a safe test list first. Do not message real customers until approved.",
+        detail: "Upload recent completed jobs or customers who should receive review requests.",
       },
       {
         label: "Review request message",
         owner: "AOH",
         status: "working",
-        detail: "Draft the starter message for Mike's approval.",
+        detail: "Review request message is being prepared.",
       },
       {
         label: "Automation setup",
         owner: "AOH",
         status: "working",
-        detail: "Check sender, automation, logs, and AI features stay off unless approved.",
+        detail: "Review request automation is being prepared.",
       },
       {
         label: "Test request",
         owner: "AOH",
         status: "needed",
-        detail: "Send one safe test request before live launch.",
+        detail: "First review request will be tested before launch.",
       },
       {
         label: "Client live",
@@ -289,20 +247,20 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       },
     ],
     metrics: [
-      { label: "Review requests", value: "Test only", sub: "no real sends yet" },
+      { label: "Review requests", value: "0", sub: "waiting on customer list" },
       { label: "Google access", value: "Confirmed", sub: "AOH profile" },
-      { label: "Automation", value: "Checking", sub: "AOH checking" },
+      { label: "Automation", value: "Checking", sub: "setup in progress" },
     ],
     uploadRequests: [
       {
-        label: "Safe test contact list",
+        label: "Recent completed jobs or customers",
         status: "needed",
-        detail: "Use internal test contacts before real AOH customers.",
+        detail: "Send a spreadsheet, export, invoices, or a clean list from email.",
       },
       {
         label: "Profile screenshots",
         status: "working",
-        detail: "Access proof, edit area proof, and draft-before-publish proof.",
+        detail: "Optional if you already know the Google review link.",
       },
       {
         label: "Do-not-contact notes",
@@ -316,25 +274,24 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       },
     ],
     reviews: {
-      status: "Client-zero test",
+      status: "Setting up",
       weeklyReviews: 0,
       weeklyGoal: 2,
       requestsSent: 0,
       responseRate: "0%",
-      trendLabel: "Testing before live customer sends",
+      trendLabel: "Behind goal this week",
       lowReviewTips: [
-        "Use a safe test contact list before real AOH customers.",
-        "Capture the Google review link so the test request points to the right place.",
-        "Approve the first safe test before turning this into the client template.",
+        "Send this week's completed jobs so review requests can go out.",
+        "Ask your team to mention the review request before the customer leaves.",
+        "Send names of happy customers who are most likely to leave a review.",
       ],
     },
     aiVisibilityPreview: [
       { label: "ChatGPT visibility", value: "Custom", sub: "AOH internal testing" },
       { label: "Review replies", value: "Locked", sub: "manual approval only" },
-      { label: "Local ranking gaps", value: "Pending", sub: "profile scan next" },
+      { label: "Local ranking gaps", value: "Pending", sub: "visibility scan next" },
       { label: "Competitor watch", value: "Pending", sub: "AI Visibility lane" },
     ],
-    nextSteps: sharedNextSteps,
   },
 ];
 
