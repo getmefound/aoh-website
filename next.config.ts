@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+const MC_HOST = "mc.aioutsourcehub.com";
+const PUBLIC_HOSTS = ["aioutsourcehub.com", "www.aioutsourcehub.com"];
+
+const mcHostMatch = [{ type: "host" as const, value: MC_HOST }];
+
 const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/agent/slack": [
@@ -13,6 +18,20 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      ...PUBLIC_HOSTS.flatMap((host) => [
+        {
+          source: "/mike-mc",
+          destination: `https://${MC_HOST}/mike-mc`,
+          permanent: false,
+          has: [{ type: "host" as const, value: host }],
+        },
+        {
+          source: "/mike-mc/:path*",
+          destination: `https://${MC_HOST}/mike-mc/:path*`,
+          permanent: false,
+          has: [{ type: "host" as const, value: host }],
+        },
+      ]),
       { source: "/control", destination: "/mike-mc", permanent: true },
       { source: "/control/", destination: "/mike-mc", permanent: true },
       { source: "/about-us", destination: "/about", permanent: true },
@@ -83,6 +102,18 @@ const nextConfig: NextConfig = {
       { source: "/elementskit-content/:path*", destination: "/", permanent: true },
       { source: "/header/:path*", destination: "/", permanent: true },
     ];
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: "/", destination: "/mike-mc", has: mcHostMatch },
+        { source: "/ops", destination: "/mike-mc/ops", has: mcHostMatch },
+        { source: "/jobs", destination: "/mike-mc/jobs", has: mcHostMatch },
+        { source: "/jobs/:path*", destination: "/mike-mc/jobs/:path*", has: mcHostMatch },
+        { source: "/campaigns", destination: "/mike-mc/campaigns", has: mcHostMatch },
+        { source: "/team", destination: "/mike-mc/team", has: mcHostMatch },
+      ],
+    };
   },
 };
 
