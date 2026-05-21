@@ -64,6 +64,7 @@ Manager will ask which campaign to prepare before doing anything else.
 When the result is too technical, ask Manager directly:
 
 ```text
+/manager owner peek
 /manager what does this mean?
 /manager explain the Reach result in plain English
 /manager what should I do next?
@@ -72,6 +73,8 @@ When the result is too technical, ask Manager directly:
 ```
 
 Manager should answer with a plain-English readout, the current blocker, and the next safe commands.
+
+Use `owner peek` when you want to know where activity is showing and whether you need to look at anything.
 
 If Manager says agent review is still needed, ask:
 

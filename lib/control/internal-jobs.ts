@@ -74,6 +74,15 @@ export type ReachTeamTraining = {
   tone: ControlTone;
 };
 
+export type ManagerOwnerPeek = {
+  label: string;
+  where: string;
+  whatYouSee: string;
+  cadence: string;
+  ownerUse: string;
+  tone: ControlTone;
+};
+
 export const REACH_JOB_HREF = "/mike-mc/jobs/reach-cold-email-campaign";
 
 export const REACH_LANES: ReachLane[] = [
@@ -390,6 +399,54 @@ export const REACH_TEAM_TRAINING: ReachTeamTraining[] = [
     proof: "AOH Talk booking link",
     status: "next",
     tone: "muted",
+  },
+];
+
+export const MANAGER_OWNER_PEEK: ManagerOwnerPeek[] = [
+  {
+    label: "Manager conversation",
+    where: "Slack #04-aoh-ops",
+    whatYouSee:
+      "Manager answers your questions, posts simple status, routes blockers, and gives the clean next move.",
+    cadence: "On demand now; recommended daily owner brief.",
+    ownerUse: "Best place to talk to Manager like your right hand.",
+    tone: "accent",
+  },
+  {
+    label: "Owner dashboard",
+    where: "Mission Control front page",
+    whatYouSee:
+      "Active jobs, current blocker, agent owners, spend snapshot, and which room to open.",
+    cadence: "Peek anytime.",
+    ownerUse: "Best place to satisfy yourself without reading logs.",
+    tone: "accent",
+  },
+  {
+    label: "Reach job room",
+    where: "/mike-mc/jobs/reach-cold-email-campaign",
+    whatYouSee:
+      "Lane status, warmup progress, agent handoff, team training, and the next blocker.",
+    cadence: "Peek when a campaign question comes up.",
+    ownerUse: "Best place to see what the cold email agents are doing.",
+    tone: "warm",
+  },
+  {
+    label: "Proof logs",
+    where: "GitHub Actions + ledger outbox",
+    whatYouSee:
+      "Workflow runs, CSV/report artifacts, verification proof, and exact technical history.",
+    cadence: "Only when something looks wrong.",
+    ownerUse: "For audit/proof, not your daily owner view.",
+    tone: "muted",
+  },
+  {
+    label: "Manager DM",
+    where: "Not automatic yet",
+    whatYouSee:
+      "Recommended: one short daily DM plus urgent exceptions only, not every agent message.",
+    cadence: "Advised next layer.",
+    ownerUse: "Keeps Manager as your right hand without blowing up your phone.",
+    tone: "warn",
   },
 ];
 

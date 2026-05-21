@@ -81,6 +81,10 @@ function routeCommand(command, args) {
     return buildReachTeamTrainingResponse();
   }
 
+  if (mentionsOwnerPeek(normalized)) {
+    return buildOwnerPeekResponse();
+  }
+
   if (mentionsColdReachStart(normalized)) {
     return buildColdReachStartResponse(normalized);
   }
@@ -141,6 +145,7 @@ Supported commands:
 - \`Manager, list agents\`
 - \`Manager, start cold reach campaign\`
 - \`Manager, train Reach team\`
+- \`Manager, owner peek\`
 - \`Manager, run Reach Cold Email Campaign\`
 - \`Manager, show Reach warmup autopilot\`
 - \`Manager, explain the Reach result\`
@@ -232,6 +237,40 @@ Manager, run Reach Cold Email Campaign
 \`\`\`
 
 Reference: \`docs/client-ops-ledger/reach-agent-team-training.md\``,
+  };
+}
+
+function buildOwnerPeekResponse() {
+  return {
+    kind: "manager-owner-peek",
+    text: `*Manager owner peek - ${today()}*
+
+Short answer: you do not need to read every agent conversation.
+
+Where to look:
+
+- *Slack #04-aoh-ops*: talk to Manager and see brief answers, blockers, and follow-ups.
+- *Mission Control front page*: owner view of active jobs, blockers, agents, and spend.
+- *Reach job room*: cold email lane status, agent handoff, and next blocker.
+- *GitHub/ledger/outbox*: proof logs only; use these when something looks wrong.
+
+DM status:
+
+- Automatic Manager DMs are not wired yet.
+- Recommended setup: one short daily DM plus urgent exceptions only.
+- Do not DM every agent action; that becomes noise fast.
+
+What I would expect Manager to send you:
+
+\`\`\`text
+Reach today: Reviews and AI running. Relay needs 5 more clean contacts. No action needed from Mike unless raising spend or overriding safety.
+\`\`\`
+
+Next useful command:
+
+\`\`\`text
+Manager, status
+\`\`\``,
   };
 }
 
@@ -1274,6 +1313,19 @@ function mentionsTeamTraining(normalized) {
     normalized.includes("reach") ||
     normalized.includes("campaign") ||
     normalized.includes("cold email")
+  );
+}
+
+function mentionsOwnerPeek(normalized) {
+  return (
+    normalized.includes("owner peek") ||
+    normalized.includes("where can i see") ||
+    normalized.includes("where do i see") ||
+    normalized.includes("manager dm") ||
+    normalized.includes("dm me") ||
+    normalized.includes("right hand man") ||
+    normalized.includes("right-hand") ||
+    (normalized.includes("activity") && (normalized.includes("shown") || normalized.includes("see") || normalized.includes("display")))
   );
 }
 

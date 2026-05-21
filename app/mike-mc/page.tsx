@@ -24,7 +24,7 @@ import {
   type BoardTask,
   type MissionTone,
 } from "@/lib/control/mission";
-import { INTERNAL_JOBS } from "@/lib/control/internal-jobs";
+import { INTERNAL_JOBS, MANAGER_OWNER_PEEK } from "@/lib/control/internal-jobs";
 import { SCHEDULED_JOB_COSTS } from "@/lib/control/job-costs";
 
 export const metadata: Metadata = {
@@ -153,6 +153,7 @@ export default async function ControlPage() {
       </section>
 
       <JobsInProgressSection />
+      <OwnerPeekSection />
       <TeamTrackerSection />
 
       {/* Agent cards — workforce view */}
@@ -186,6 +187,48 @@ export default async function ControlPage() {
 // ─────────────────────────────────────────────────────────────────────────────
 // Per-agent cards
 // ─────────────────────────────────────────────────────────────────────────────
+
+function OwnerPeekSection() {
+  return (
+    <section className="mb-8 rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-5">
+      <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-300">
+            Owner peek
+          </p>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-50">
+            Where Manager and the agents show their work
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+            You should see enough to trust the system without reading every scrape,
+            workflow, or agent note.
+          </p>
+        </div>
+        <Pill tone="accent">right-hand view</Pill>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        {MANAGER_OWNER_PEEK.map((item) => (
+          <article key={item.label} className="rounded-xl border border-zinc-800/70 bg-zinc-950/70 p-4">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <h3 className="text-sm font-semibold leading-snug text-zinc-100">
+                {item.label}
+              </h3>
+              <Pill tone={item.tone}>{item.cadence}</Pill>
+            </div>
+            <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-300">
+              {item.where}
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.whatYouSee}</p>
+            <p className="mt-3 border-t border-zinc-800/60 pt-3 text-xs leading-relaxed text-zinc-500">
+              {item.ownerUse}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function JobsInProgressSection() {
   const job = INTERNAL_JOBS[0];

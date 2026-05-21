@@ -15,6 +15,7 @@ For Mike's plain daily workflow, use `mike-daily-agent-quickstart.md` first. Thi
 | Manager status brief | Wired | `npm run agent:brief` reads the current job queue, domain readiness, QA counts, and daily brief. |
 | Reach Cold Email Campaign command | Wired | `Manager, run Reach Cold Email Campaign` runs today's safe QA/readiness routine and reports approval needs. |
 | Reach team training command | Wired | `Manager, train Reach team` reminds each agent what it owns for discovery, QA, GHL readiness, sending, cost, replies, and booking. |
+| Owner peek command | Wired | `Manager, owner peek` explains where Mike should look and whether Manager DMs are wired. |
 | Agent directory | Wired | `Manager, list agents` shows the agent team and example commands. |
 | Direct agent addressing | Wired | Mike can address agents by role, such as `Coach, ...`, `Scheduler, ...`, `Reporter, ...`, or `Press, ...`. |
 | Fast Slack response mode | Wired | Normal commands answer from the ledger/brief quickly; slower GHL/Reach checks acknowledge first and post follow-up results in the background. |
@@ -40,6 +41,20 @@ Use these channels as the first operating split:
 | `#04-aoh-ghl-feed` | GHL feed and system-event channel. Keep noisy automation proof here instead of the approval channel. |
 | `#04-aoh-prospects` | Prospect and campaign-list work. Keep raw prospect discussion out of the main ops brief. |
 
+## Owner Peek
+
+Mike should not need to watch every agent message.
+
+Use `Manager, owner peek` for the owner-level view:
+
+- Slack `#04-aoh-ops` is where Mike talks to Manager.
+- Mission Control is where Mike peeks at jobs, blockers, agents, and spend.
+- Reach job room shows campaign-specific handoff and blocker status.
+- GitHub/ledger/outbox are proof logs for audits and debugging.
+- Automatic Manager DMs are not wired yet.
+
+Recommended DM policy: one short daily owner brief plus urgent exceptions only. Do not DM every agent action.
+
 ## Command Map
 
 Mike should be able to talk in plain text.
@@ -50,6 +65,7 @@ Manager, list agents
 Elon, what is the status of Reach Cold Email Campaign
 Manager, run Reach Cold Email Campaign
 Manager, train Reach team
+Manager, owner peek
 Manager, brief
 GHL Expert, check Reach readiness
 GHL Expert, visually confirm Relay sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
@@ -137,6 +153,7 @@ Route a command:
 npm run agent:command -- --command "Manager, status"
 npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
 npm run agent:command -- --command "Manager, train Reach team"
+npm run agent:command -- --command "Manager, owner peek"
 npm run agent:command -- --command "GHL Expert, check Reach readiness"
 npm run agent:command -- --command "approve relay import only"
 ```

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ControlShell, Pill } from "@/components/control/ControlPrimitives";
 import {
   REACH_INTERNAL_JOB,
+  MANAGER_OWNER_PEEK,
   REACH_PROCESS_FACTS,
   REACH_TEAM_TRAINING,
   REACH_WARMUP_AUTOPILOT,
@@ -71,6 +72,7 @@ export default function ReachColdEmailCampaignPage() {
       </section>
 
       <CommercialBoundarySection />
+      <OwnerVisibilitySection />
 
       <section className="mb-8 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 md:p-6">
         <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
@@ -160,6 +162,43 @@ function CommercialBoundarySection() {
             Added only when a client wants agents connected to their CRM or daily business software.
           </p>
         </article>
+      </div>
+    </section>
+  );
+}
+
+function OwnerVisibilitySection() {
+  return (
+    <section className="mb-8 rounded-2xl border border-sky-500/25 bg-sky-500/5 p-5 md:p-6">
+      <div className="mb-4 flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
+            Owner visibility
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+            What you should peek at
+          </h2>
+          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
+            Manager should feel like your right hand: short updates, clear blockers,
+            and only the decisions that need you.
+          </p>
+        </div>
+        <Pill tone="warm">not every log</Pill>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        {MANAGER_OWNER_PEEK.map((item) => (
+          <article key={item.label} className="rounded-xl border border-zinc-800/70 bg-zinc-950/70 p-4">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <h3 className="text-sm font-semibold leading-snug text-zinc-100">{item.label}</h3>
+              <Pill tone={item.tone}>{item.cadence}</Pill>
+            </div>
+            <p className="font-mono text-xs uppercase tracking-wider text-sky-300">
+              {item.where}
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.whatYouSee}</p>
+          </article>
+        ))}
       </div>
     </section>
   );

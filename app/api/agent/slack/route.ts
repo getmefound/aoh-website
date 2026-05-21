@@ -435,6 +435,8 @@ ${address(actor)}, all campaign live actions are blocked.
 
   if (mentionsTeamTraining(normalized)) return buildReachTeamTrainingResponse(actor);
 
+  if (mentionsOwnerPeek(normalized)) return buildOwnerPeekResponse(actor);
+
   if (mentionsColdReachStart(normalized)) return buildColdReachStartResponse(actor, normalized, context);
 
   if (mentionsGenericCampaignDeploy(normalized)) return buildCampaignClarificationResponse(actor);
@@ -479,6 +481,7 @@ Supported examples:
 Manager, status
 Manager, start cold reach campaign
 Manager, train Reach team
+Manager, owner peek
 Manager, run Reach Cold Email Campaign
 Manager, show Reach warmup autopilot
 Manager, explain the Reach result
@@ -876,6 +879,37 @@ Manager, run Reach Cold Email Campaign
 \`\`\`
 
 Reference: \`docs/client-ops-ledger/reach-agent-team-training.md\``;
+}
+
+function buildOwnerPeekResponse(actor: UserContext) {
+  return `*Manager owner peek - ${today()}*
+
+${address(actor)}, you do not need to read every agent conversation.
+
+Where to look:
+
+- *Slack #04-aoh-ops*: talk to Manager and see brief answers, blockers, and follow-ups.
+- *Mission Control front page*: owner view of active jobs, blockers, agents, and spend.
+- *Reach job room*: cold email lane status, agent handoff, and next blocker.
+- *GitHub/ledger/outbox*: proof logs only; use these when something looks wrong.
+
+DM status:
+
+- Automatic Manager DMs are not wired yet.
+- Recommended setup: one short daily DM plus urgent exceptions only.
+- Do not DM every agent action; that becomes noise fast.
+
+What Manager should send you:
+
+\`\`\`text
+Reach today: Reviews and AI running. Relay needs 5 more clean contacts. No action needed from Mike unless raising spend or overriding safety.
+\`\`\`
+
+Next useful command:
+
+\`\`\`text
+Manager, status
+\`\`\``;
 }
 
 function buildAgentRoleResponse(agentKey: AgentKey, actor: UserContext) {
@@ -1893,6 +1927,19 @@ function mentionsTeamTraining(normalized: string) {
     normalized.includes("reach") ||
     normalized.includes("campaign") ||
     normalized.includes("cold email")
+  );
+}
+
+function mentionsOwnerPeek(normalized: string) {
+  return (
+    normalized.includes("owner peek") ||
+    normalized.includes("where can i see") ||
+    normalized.includes("where do i see") ||
+    normalized.includes("manager dm") ||
+    normalized.includes("dm me") ||
+    normalized.includes("right hand man") ||
+    normalized.includes("right-hand") ||
+    (normalized.includes("activity") && (normalized.includes("shown") || normalized.includes("see") || normalized.includes("display")))
   );
 }
 

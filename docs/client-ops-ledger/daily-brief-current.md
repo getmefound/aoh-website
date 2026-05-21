@@ -125,6 +125,7 @@ Wired locally today:
 npm run agent:brief
 npm run agent:command -- --command "Manager, status"
 npm run agent:command -- --command "Manager, list agents"
+npm run agent:command -- --command "Manager, owner peek"
 npm run agent:command -- --command "Manager, train Reach team"
 npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
 npm run agent:command -- --command "GHL Expert, check Reach readiness"
