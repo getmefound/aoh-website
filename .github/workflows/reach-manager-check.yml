@@ -30,6 +30,8 @@ jobs:
       NEVERBOUNCE_API_KEY: ${{ secrets.NEVERBOUNCE_API_KEY }}
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       SLACK_CHANNEL: ${{ vars.REACH_SLACK_CHANNEL || 'C0ATTA4NBR8' }}
+      MANAGER_NOTIFY_TOKEN: ${{ secrets.MANAGER_NOTIFY_TOKEN || secrets.REPORT_TEST_BYPASS_TOKEN }}
+      MANAGER_NOTIFY_URL: ${{ vars.MANAGER_NOTIFY_URL || 'https://aioutsourcehub.com/api/agent/slack?manager_notify=1' }}
       AUTO_RETRY_RELAY: ${{ github.event.inputs.auto_retry_relay || 'true' }}
       REACH_ALLOW_OUTSCRAPER_SPEND: "true"
       TZ: America/New_York
@@ -91,6 +93,8 @@ jobs:
 
           async function main() {
             const token = process.env.SLACK_BOT_TOKEN;
+            const managerNotifyToken = process.env.MANAGER_NOTIFY_TOKEN;
+            const managerNotifyUrl = process.env.MANAGER_NOTIFY_URL;
             const channel = process.env.SLACK_CHANNEL || "C0ATTA4NBR8";
             const date = new Intl.DateTimeFormat("en-CA", {
               timeZone: process.env.TZ || "America/New_York",
@@ -99,8 +103,21 @@ jobs:
               day: "2-digit",
             }).format(new Date());
             const path = `docs/client-ops-ledger/outbox/reach-manager-check-${date}.md`;
-            if (!token || !fs.existsSync(path)) return;
+            if (!fs.existsSync(path)) return;
             const text = fs.readFileSync(path, "utf8").slice(0, 3500);
+            if (!token && managerNotifyToken && managerNotifyUrl) {
+              const response = await fetch(managerNotifyUrl, {
+                method: "POST",
+                headers: {
+                  "content-type": "application/json",
+                  "x-manager-notify-token": managerNotifyToken,
+                },
+                body: JSON.stringify({ channel, text }),
+              });
+              if (!response.ok) throw new Error(`Manager notify failed: ${response.status} ${await response.text()}`);
+              return;
+            }
+            if (!token) return;
             const response = await fetch("https://slack.com/api/chat.postMessage", {
               method: "POST",
               headers: {

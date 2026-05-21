@@ -241,6 +241,7 @@ Required environment variables:
 |---|---|
 | `SLACK_SIGNING_SECRET` | Verifies inbound Slack requests. Required. |
 | `SLACK_BOT_TOKEN` | Lets the listener post replies back in Slack. Required for normal message events. |
+| `MANAGER_NOTIFY_TOKEN` or `REPORT_TEST_BYPASS_TOKEN` | Lets GitHub Manager checks call the live Vercel Slack endpoint without storing a Slack bot token in GitHub. |
 | `SLACK_AGENT_ALLOWED_CHANNEL_IDS` | Comma-separated channel IDs allowed to trigger the listener. Default includes `C0ATTA4NBR8` for `#04-aoh-ops`. |
 | `AOH_OWNER_SLACK_USER_ID` | Slack user ID for Mike so agents know who is speaking. Default: `U0ATPQYFA85`. |
 | `AOH_OWNER_FIRST_NAME` | First-name address for Mike. Default: `Mike`. |

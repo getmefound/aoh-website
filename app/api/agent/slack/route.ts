@@ -321,6 +321,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: auth.error }, { status: auth.status });
   }
 
+  const url = new URL(req.url);
+  if (url.searchParams.get("manager_notify") === "1") {
+    return handleManagerNotify(rawBody);
+  }
+
   const contentType = req.headers.get("content-type") ?? "";
 
   if (contentType.includes("application/json")) {
@@ -332,6 +337,23 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ ok: false, error: "Unsupported Slack payload." }, { status: 415 });
+}
+
+async function handleManagerNotify(rawBody: string) {
+  const payload = safeJson(rawBody);
+  if (!payload) {
+    return NextResponse.json({ ok: false, error: "Invalid JSON." }, { status: 400 });
+  }
+
+  const text = typeof payload.text === "string" ? payload.text.trim() : "";
+  if (!text) {
+    return NextResponse.json({ ok: false, error: "Missing text." }, { status: 400 });
+  }
+
+  const channel = typeof payload.channel === "string" && payload.channel.trim() ? payload.channel.trim() : firstAllowedChannel();
+  const threadTs = typeof payload.thread_ts === "string" && payload.thread_ts.trim() ? payload.thread_ts.trim() : undefined;
+  await postSlackMessage({ channel, text, threadTs });
+  return NextResponse.json({ ok: true });
 }
 
 export async function GET(req: NextRequest) {
@@ -1603,6 +1625,10 @@ function verifySlackRequest(req: NextRequest, rawBody: string): { ok: true } | {
   const signingSecret = process.env.SLACK_SIGNING_SECRET?.trim();
   const localTestToken = process.env.SLACK_LISTENER_TEST_TOKEN?.trim() || process.env.REPORT_TEST_BYPASS_TOKEN?.trim() || "local-dev-only";
   const localBypass = process.env.NODE_ENV !== "production" && req.headers.get("x-agent-test-bypass") === localTestToken;
+  const managerNotifyToken = process.env.MANAGER_NOTIFY_TOKEN?.trim() || process.env.REPORT_TEST_BYPASS_TOKEN?.trim() || process.env.CRON_SECRET?.trim();
+  if (managerNotifyToken && req.headers.get("x-manager-notify-token") === managerNotifyToken) {
+    return { ok: true };
+  }
 
   if (!signingSecret) {
     return localBypass
