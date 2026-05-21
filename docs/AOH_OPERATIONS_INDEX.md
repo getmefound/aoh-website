@@ -266,6 +266,11 @@ Profile owns Google Business Profile and local visibility:
   - AI visibility checks
   - monthly profile reporting
 
+- `docs/agentops/local-visibility-manager-gbp-training-loop.md`
+  - trains Local Visibility Manager on AOH first
+  - confirms Manager access, no password sharing, draft update, proof, and approval rules
+  - becomes the repeatable client process after AOH passes the test
+
 ## Client Onboarding
 
 Client-facing draft:

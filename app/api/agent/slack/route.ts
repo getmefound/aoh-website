@@ -735,29 +735,36 @@ Reference: \`docs/client-ops-ledger/agent-model-routing-policy.md\``;
 function buildGbpAccessTestResponse(actor: UserContext) {
   return `*GBP access test - ${today()}*
 
-${address(actor)}, Local Visibility Manager owns this.
+${address(actor)}, yes - train this on AOH first. Local Visibility Manager owns it.
 
 Client-zero test:
 
-- Use AOH's own Google Business Profile first.
+- Use AOH's own Google Business Profile as the practice account.
 - The business owner adds the AOH Google email under Business Profile settings -> People and access.
 - Default access is Manager, not Owner.
 - No password sharing.
-- Local Visibility Manager confirms access, checks profile basics, and drafts the first update.
 - Mike approves before anything public is posted.
 
-Who helps:
+What Local Visibility Manager returns:
 
-- Local Visibility Manager: access, profile check, update draft, review link.
-- Manager: tracks blocker and puts it in the brief.
-- GHL Expert: helps only if GBP needs to connect into HighLevel/reputation workflows.
+- Access status.
+- Profile health gaps.
+- Draft update.
+- Proof or screenshots needed for future clients.
+- What Mike must approve.
+
+Handoff:
+
+- Manager tracks blockers and puts them in the brief.
+- GHL Expert helps only if GBP needs to connect into HighLevel/reputation workflows.
 
 Need from Mike:
 
 - The AOH Google email clients should invite.
 - The first AOH GBP update you want tested.
 
-Reference: \`docs/client-ops-ledger/gbp-client-access-and-update-test.md\``;
+Reference: \`docs/client-ops-ledger/gbp-client-access-and-update-test.md\`
+Training loop: \`docs/agentops/local-visibility-manager-gbp-training-loop.md\``;
 }
 
 function buildReachRunTodayResponse(actor: UserContext) {

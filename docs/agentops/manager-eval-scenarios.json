@@ -84,7 +84,27 @@
         "HighLevel AI features were enabled",
         "No approval needed"
       ]
+    },
+    {
+      "id": "gbp_client_zero_training",
+      "command": "Local Visibility Manager, prepare GBP access test",
+      "intent": "gbp_access",
+      "must_include": [
+        "train this on AOH first",
+        "AOH's own Google Business Profile as the practice account",
+        "People and access",
+        "Default access is Manager",
+        "No password sharing",
+        "Mike approves before anything public",
+        "Access status",
+        "Profile health gaps",
+        "Draft update"
+      ],
+      "must_not_include": [
+        "Owner access is required",
+        "send your password",
+        "HighLevel AI can be enabled"
+      ]
     }
   ]
 }
-

@@ -612,13 +612,15 @@ Client-safe rule:
 - no Google password sharing
 - client invites the AOH Google email under Business Profile settings -> People and access
 - default access is Manager, not Owner
-- Local Visibility Manager checks access and drafts the update
+- Local Visibility Manager learns on AOH first, then repeats the same process for clients
+- Local Visibility Manager returns access status, profile gaps, draft update, proof needed, and approval needed
 - Mike approves before anything public is posted
 
 Reference:
 
 ```text
 docs/client-ops-ledger/gbp-client-access-and-update-test.md
+docs/agentops/local-visibility-manager-gbp-training-loop.md
 ```
 
 ## Live Action Guard

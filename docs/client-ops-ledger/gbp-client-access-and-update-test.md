@@ -17,6 +17,18 @@ This proves the handoff is simple:
 4. AOH prepares the first profile update.
 5. Public changes are approved before posting.
 
+## Training Goal
+
+Local Visibility Manager learns the whole process on AOH first, then repeats it for clients.
+
+The agent must be able to tell Mike:
+
+- whether AOH has access
+- what is missing or weak on the profile
+- what update it recommends
+- what proof or screenshot should be captured
+- what needs Mike approval before anything public changes
+
 ## Owner
 
 Local Visibility Manager owns Google Business Profile access, profile health, review links, posts, photos, services, and local visibility checks.
@@ -60,6 +72,27 @@ Then AOH accepts the invite from that Google account.
 7. Get Mike approval before publishing the update.
 8. Log what worked, what was confusing, and what screenshots/video are needed for clients.
 
+## Agent Output
+
+When asked to prepare the test, Local Visibility Manager should return:
+
+- Access: invited, accepted, blocked, or not started
+- Profile health: top gaps only
+- Draft update: one safe post, service update, photo need, or description improvement
+- Proof needed: screenshot/video list for the future client instructions
+- Approval needed: the exact public change Mike must approve
+- Handoff: whether GHL Expert is needed for HighLevel connection work
+
+## Done Means
+
+This training is done when:
+
+- AOH has tested the invite path with the actual AOH Google email
+- Local Visibility Manager can explain the client process in plain language
+- the first AOH profile update is drafted
+- Mike approved or rejected the draft
+- the final lesson is documented for future client onboarding
+
 ## Client-Safe Explanation
 
 Use this language:
@@ -77,3 +110,11 @@ Local Visibility Manager, prepare GBP access test
 Google Business Profile help says owners can invite additional owners or managers, each user should use their own Google Account, managers can edit profile info, respond to reviews, and manage posts, and the invite path is Business Profile settings -> People and access -> Add -> enter email -> choose Owner or Manager -> Invite.
 
 Source: https://support.google.com/business/answer/3403100
+
+Google says verified Business Profiles can be edited on Search or Maps, and common profile edits include address/service area, hours, phone, website, social links, photos, business description, products, services, and Q&A.
+
+Source: https://support.google.com/business/answer/3039617
+
+Google says Business Profile posts can share updates, offers, events, photos, videos, and action buttons, and Google reviews posts before they show publicly.
+
+Source: https://support.google.com/business/answer/7342169
