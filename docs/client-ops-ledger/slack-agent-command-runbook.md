@@ -250,6 +250,8 @@ Slash-command style:
 
 ```text
 /manager what is status of Reach Cold Email Campaign
+/manager start cold reach campaign
+/manager start campaign
 /manager run Reach Cold Email Campaign
 /manager deploy campaign
 /manager deploy Reach Cold Email Campaign
@@ -265,7 +267,17 @@ Slash-command style:
 
 Mike does not need to name a batch for the normal daily run.
 
-This command:
+This is Mike's everyday command:
+
+```text
+/manager start cold reach campaign
+```
+
+It means Manager should use the Reach Warmup Autopilot, refill/replace bad
+emails, expand searches when needed, import only QA OK contacts, and start drip
+only after the lane is marked `ready_for_drip=yes`.
+
+This older command:
 
 ```text
 Manager, run Reach Cold Email Campaign
@@ -286,16 +298,18 @@ means:
 This generic shortcut asks Mike which campaign to prepare:
 
 ```text
-/manager deploy campaign
+/manager start campaign
 ```
 
-This specific shortcut means the same safe routine:
+This specific shortcut means the same warmup autopilot intent:
 
 ```text
-/manager deploy Reach Cold Email Campaign
+/manager start cold reach campaign
 ```
 
-It runs through Manager, Sales Manager QA, and GHL Expert readiness first. It does not import contacts or start a drip by itself.
+Manager owns the handoff and row cleanup. Mike should not need to approve or
+reject individual warmup rows. Start-drip still stays blocked until
+`ready_for_drip=yes`, and HighLevel AI features stay OFF.
 
 ## Reach Warmup Autopilot
 

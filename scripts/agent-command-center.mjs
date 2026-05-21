@@ -77,6 +77,10 @@ function routeCommand(command, args) {
     return buildApprovalResponse(approval, args);
   }
 
+  if (mentionsColdReachStart(normalized)) {
+    return buildColdReachStartResponse(normalized);
+  }
+
   if (mentionsGenericCampaignDeploy(normalized)) {
     return buildCampaignClarificationResponse();
   }
@@ -131,6 +135,7 @@ Supported commands:
 
 - \`Manager, status\`
 - \`Manager, list agents\`
+- \`Manager, start cold reach campaign\`
 - \`Manager, run Reach Cold Email Campaign\`
 - \`Manager, show Reach warmup autopilot\`
 - \`Manager, explain the Reach result\`
@@ -252,10 +257,10 @@ Current campaign I can run through the team gates:
 Use this exact command:
 
 \`\`\`text
-Manager, deploy Reach Cold Email Campaign
+Manager, start cold reach campaign
 \`\`\`
 
-I will run Manager, Sales Manager QA, and GHL Expert readiness first. I will not import contacts, start drip, change GHL settings, or enable HighLevel AI without separate approval.`,
+I will treat that as the Reach Warmup Autopilot: refill bad emails, expand searches when needed, import only QA OK contacts, and start drip only when the lane is marked \`ready_for_drip=yes\`.`,
   };
 }
 
@@ -368,6 +373,61 @@ Guardrails:
 - Do not reuse imported/started contacts.
 - Do not start drip unless \`ready_for_drip=yes\`.
 - Keep HighLevel AI features OFF.`,
+  };
+}
+
+function buildColdReachStartResponse(normalized) {
+  const config = readJsonIfExists(WARMUP_CONFIG_PATH);
+  const data = loadData();
+  const requestedLane = findLaneKey(normalized);
+  const lanes = requestedLane ? [requestedLane] : Object.keys(LANES);
+  const dayNumber = warmupDay(config?.planned_start_date, today());
+  const quota = quotaForWarmupDay(config, dayNumber);
+  const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
+
+  return {
+    kind: "reach-cold-start",
+    text: `*Manager accepted: Reach Cold Email Campaign - ${today()}*
+
+I know "cold reach campaign" as *Internal Job: Reach Cold Email Campaign*.
+
+Default mode: *Warmup Autopilot*
+Current warmup day: ${dayNumber}
+Current quota: ${quotaText}
+
+What Manager owns:
+
+- Work toward today's warmup amount without asking Mike to decide each row.
+- Replace bad, risky, duplicate, personal-domain, unknown, or catchall emails.
+- Expand the search if the first niche or area is too small.
+- Import only QA OK contacts when the lane is import-ready.
+- Start drip only when the lane is marked \`ready_for_drip=yes\`.
+- Stop at the configured attempt and scrape caps so this cannot loop forever.
+
+Current lanes:
+
+${lanes
+  .map((laneKey) => {
+    const lane = LANES[laneKey];
+    const domain = data.domains.find((row) => row.lane?.toLowerCase() === laneKey) ?? {};
+    return `- ${lane.label}: domain \`${domain.dedicated_subdomain || "TBD"}\`; import ${domain.ready_for_import || "unknown"}; drip ${domain.ready_for_drip || "unknown"}; allowed ${domain.allowed_daily_send_volume || "TBD"}`;
+  })
+  .join("\n")}
+
+Behind-the-scenes runner:
+
+\`\`\`bash
+npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute import
+npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
+\`\`\`
+
+If Mike only says \`/manager start campaign\`, Manager asks which campaign first.
+
+Safety:
+
+- HighLevel AI features stay OFF.
+- Start-drip remains blocked until \`ready_for_drip=yes\`.
+- Mike does not need to make row-by-row warmup decisions.`,
   };
 }
 
@@ -1094,6 +1154,26 @@ function mentionsReachColdEmailCampaign(normalized) {
   );
 }
 
+function mentionsColdReachStart(normalized) {
+  if (!/\b(run|start|deploy|launch|begin|kick off|kickoff)\b/.test(normalized)) return false;
+  return (
+    normalized.includes("cold reach campaign") ||
+    normalized.includes("start cold reach") ||
+    normalized.includes("run cold reach") ||
+    normalized.includes("launch cold reach") ||
+    normalized.includes("deploy cold reach") ||
+    normalized.includes("start reach cold email campaign") ||
+    normalized.includes("start reach campaign") ||
+    normalized.includes("run reach campaign") ||
+    normalized.includes("launch reach campaign") ||
+    normalized.includes("deploy reach campaign") ||
+    normalized.includes("start cold email") ||
+    normalized.includes("run cold email") ||
+    normalized.includes("launch cold email") ||
+    normalized.includes("deploy cold email")
+  );
+}
+
 function mentionsReachCampaignStatus(normalized) {
   return (
     mentionsReachColdEmailCampaign(normalized) &&
@@ -1117,6 +1197,7 @@ function mentionsWarmupAutopilot(normalized) {
 }
 
 function mentionsGenericCampaignDeploy(normalized) {
+  if (mentionsColdReachStart(normalized)) return false;
   if (mentionsReachColdEmailCampaign(normalized)) return false;
   return /\b(run|start|deploy|launch)\s+(the\s+|a\s+)?campaign\b/.test(normalized);
 }

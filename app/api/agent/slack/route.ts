@@ -406,6 +406,8 @@ ${address(actor)}, all campaign live actions are blocked.
   const approval = parseApproval(normalized);
   if (approval) return buildApprovalResponse(approval, actor);
 
+  if (mentionsColdReachStart(normalized)) return buildColdReachStartResponse(actor, normalized);
+
   if (mentionsGenericCampaignDeploy(normalized)) return buildCampaignClarificationResponse(actor);
 
   if (mentionsWarmupAutopilot(normalized)) return buildWarmupAutopilotResponse(actor, normalized);
@@ -446,6 +448,7 @@ Supported examples:
 
 \`\`\`text
 Manager, status
+Manager, start cold reach campaign
 Manager, run Reach Cold Email Campaign
 Manager, show Reach warmup autopilot
 Manager, explain the Reach result
@@ -684,6 +687,58 @@ Important:
 - The Slack listener reports the plan; the long scrape/verify/refill runner is the repo command above.`;
 }
 
+function buildColdReachStartResponse(actor: UserContext, normalized: string) {
+  const config = warmupConfig();
+  const domains = domainRows();
+  const requestedLane = findLaneKey(normalized);
+  const lanes = requestedLane ? [requestedLane] : (Object.keys(LANES) as LaneKey[]);
+  const dayNumber = warmupDay(config?.planned_start_date, today());
+  const quota = quotaForWarmupDay(config, dayNumber);
+  const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
+
+  return `*Manager accepted: Reach Cold Email Campaign - ${today()}*
+
+${address(actor)}, I know "cold reach campaign" as *Internal Job: Reach Cold Email Campaign*.
+
+Default mode: *Warmup Autopilot*
+Current warmup day: ${dayNumber}
+Current quota: ${quotaText}
+
+What I will own:
+
+- Work toward today's warmup amount without asking you to decide each row.
+- Replace bad, risky, duplicate, personal-domain, unknown, or catchall emails.
+- Expand the search if the first niche or area is too small.
+- Import only QA OK contacts when the lane is import-ready.
+- Start drip only when the lane is marked \`ready_for_drip=yes\`.
+- Stop at the configured attempt and scrape caps so this cannot loop forever.
+
+Current lanes:
+
+${lanes
+  .map((laneKey) => {
+    const lane = LANES[laneKey];
+    const domain = domains.find((row) => row.lane?.toLowerCase() === laneKey) ?? {};
+    return `- ${lane.label}: domain \`${domain.dedicated_subdomain || "TBD"}\`; import ${domain.ready_for_import || "unknown"}; drip ${domain.ready_for_drip || "unknown"}; allowed ${domain.allowed_daily_send_volume || "TBD"}`;
+  })
+  .join("\n")}
+
+Behind-the-scenes runner:
+
+\`\`\`bash
+npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute import
+npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
+\`\`\`
+
+If you only say \`/manager start campaign\`, I will ask which campaign first.
+
+Safety:
+
+- HighLevel AI features stay OFF.
+- Start-drip remains blocked until \`ready_for_drip=yes\`.
+- I do not need row-by-row decisions from Mike for warmup cleanup.`;
+}
+
 function buildCampaignClarificationResponse(actor: UserContext) {
   return `*Manager campaign check - ${today()}*
 
@@ -696,10 +751,10 @@ Current campaign I can run through the team gates:
 Use this exact command:
 
 \`\`\`text
-/manager deploy Reach Cold Email Campaign
+/manager start cold reach campaign
 \`\`\`
 
-I will run Manager, Sales Manager QA, and GHL Expert readiness first. I will not import contacts, start drip, change GHL settings, or enable HighLevel AI without separate approval.`;
+I will treat that as the Reach Warmup Autopilot: refill bad emails, expand searches when needed, import only QA OK contacts, and start drip only when the lane is marked \`ready_for_drip=yes\`.`;
 }
 
 function buildAgentListResponse(actor: UserContext) {
@@ -1348,6 +1403,7 @@ function allowedChannels() {
 function isSupportedCommand(text: string) {
   const normalized = normalizeCommand(text);
   return (
+    mentionsColdReachStart(normalized) ||
     mentionsGenericCampaignDeploy(normalized) ||
     mentionsWarmupAutopilot(normalized) ||
     mentionsReachDecisionQuestion(normalized) ||
@@ -1366,6 +1422,7 @@ function isSupportedCommand(text: string) {
 function shouldRunAsync(command: string) {
   const normalized = normalizeCommand(command);
   if (mentionsReachCampaignStatus(normalized)) return false;
+  if (mentionsColdReachStart(normalized)) return false;
   if (mentionsGenericCampaignDeploy(normalized)) return false;
   if (mentionsWarmupAutopilot(normalized)) return false;
   return mentionsReachColdEmailCampaign(normalized) || mentionsGhlReadiness(normalized);
@@ -1606,6 +1663,26 @@ function mentionsReachColdEmailCampaign(normalized: string) {
   );
 }
 
+function mentionsColdReachStart(normalized: string) {
+  if (!/\b(run|start|deploy|launch|begin|kick off|kickoff)\b/.test(normalized)) return false;
+  return (
+    normalized.includes("cold reach campaign") ||
+    normalized.includes("start cold reach") ||
+    normalized.includes("run cold reach") ||
+    normalized.includes("launch cold reach") ||
+    normalized.includes("deploy cold reach") ||
+    normalized.includes("start reach cold email campaign") ||
+    normalized.includes("start reach campaign") ||
+    normalized.includes("run reach campaign") ||
+    normalized.includes("launch reach campaign") ||
+    normalized.includes("deploy reach campaign") ||
+    normalized.includes("start cold email") ||
+    normalized.includes("run cold email") ||
+    normalized.includes("launch cold email") ||
+    normalized.includes("deploy cold email")
+  );
+}
+
 function mentionsReachCampaignStatus(normalized: string) {
   return mentionsReachColdEmailCampaign(normalized) && mentionsBrief(normalized) && !/\b(run|start|deploy|launch|execute|fresh|live|recheck|rerun)\b/.test(normalized);
 }
@@ -1625,6 +1702,7 @@ function mentionsWarmupAutopilot(normalized: string) {
 }
 
 function mentionsGenericCampaignDeploy(normalized: string) {
+  if (mentionsColdReachStart(normalized)) return false;
   if (mentionsReachColdEmailCampaign(normalized)) return false;
   return /\b(run|start|deploy|launch)\s+(the\s+|a\s+)?campaign\b/.test(normalized);
 }
