@@ -59,6 +59,12 @@ type UserContext = {
   tone: "first-name" | "formal";
 };
 
+type AgentResponseContext = {
+  channel?: string;
+  threadTs?: string;
+  responseUrl?: string;
+};
+
 let ghlReadinessCache: { fetchedAt: number; result: GhlResult } | null = null;
 let slackBotUserIdCache: string | null = null;
 
@@ -382,14 +388,14 @@ async function handleSlashLikeCommand(rawBody: string) {
     });
   }
 
-  const response = await buildAgentResponse(text, actor);
+  const response = await buildAgentResponse(text, actor, { channel, responseUrl });
   return NextResponse.json({
     response_type: "in_channel",
     text: response,
   });
 }
 
-async function buildAgentResponse(command: string, actor = buildUserContext()): Promise<string> {
+async function buildAgentResponse(command: string, actor = buildUserContext(), context: AgentResponseContext = {}): Promise<string> {
   const normalized = normalizeCommand(command);
 
   if (normalized.includes("pause all campaign live actions")) {
@@ -406,7 +412,7 @@ ${address(actor)}, all campaign live actions are blocked.
   const approval = parseApproval(normalized);
   if (approval) return buildApprovalResponse(approval, actor);
 
-  if (mentionsColdReachStart(normalized)) return buildColdReachStartResponse(actor, normalized);
+  if (mentionsColdReachStart(normalized)) return buildColdReachStartResponse(actor, normalized, context);
 
   if (mentionsGenericCampaignDeploy(normalized)) return buildCampaignClarificationResponse(actor);
 
@@ -687,7 +693,7 @@ Important:
 - The Slack listener reports the plan; the long scrape/verify/refill runner is the repo command above.`;
 }
 
-function buildColdReachStartResponse(actor: UserContext, normalized: string) {
+async function buildColdReachStartResponse(actor: UserContext, normalized: string, context: AgentResponseContext = {}) {
   const config = warmupConfig();
   const domains = domainRows();
   const requestedLane = findLaneKey(normalized);
@@ -695,6 +701,13 @@ function buildColdReachStartResponse(actor: UserContext, normalized: string) {
   const dayNumber = warmupDay(config?.planned_start_date, today());
   const quota = quotaForWarmupDay(config, dayNumber);
   const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
+  const queued = await queueReachWarmupWorkflow({
+    lane: requestedLane ?? "all",
+    actor,
+    channel: context.channel,
+    threadTs: context.threadTs,
+    responseUrl: context.responseUrl,
+  });
 
   return `*Manager accepted: Reach Cold Email Campaign - ${today()}*
 
@@ -703,6 +716,7 @@ ${address(actor)}, I know "cold reach campaign" as *Internal Job: Reach Cold Ema
 Default mode: *Warmup Autopilot*
 Current warmup day: ${dayNumber}
 Current quota: ${quotaText}
+Runner: ${queued.ok ? `queued in GitHub Actions (\`${queued.runLabel}\`)` : `not queued yet (${queued.error})`}
 
 What I will own:
 
@@ -723,12 +737,10 @@ ${lanes
   })
   .join("\n")}
 
-Behind-the-scenes runner:
+Worker action:
 
-\`\`\`bash
-npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute import
-npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
-\`\`\`
+${queued.ok ? "- The worker will choose import vs start from the lane readiness ledger." : "- The command is recognized, but the worker trigger needs configuration before it can run unattended."}
+${queued.ok ? "- It will post the final result back here when it finishes." : "- The repo runner remains `npm run reach:warmup -- --lane all --execute auto`."}
 
 If you only say \`/manager start campaign\`, I will ask which campaign first.
 
@@ -1200,7 +1212,7 @@ async function pollSlackCommands() {
   for (const message of commands) {
     const text = message.text?.trim() ?? "";
     const actor = buildUserContext({ userId: message.user ?? "", commandText: text });
-    const response = await buildAgentResponse(text, actor);
+    const response = await buildAgentResponse(text, actor, { channel });
     await postSlackMessage({ channel, text: response });
     processed++;
   }
@@ -1281,6 +1293,55 @@ async function postSlackResponseUrl(responseUrl: string, text: string) {
   return response.ok;
 }
 
+async function queueReachWarmupWorkflow({
+  lane,
+  actor,
+  channel,
+  threadTs,
+  responseUrl,
+}: {
+  lane: LaneKey | "all";
+  actor: UserContext;
+  channel?: string;
+  threadTs?: string;
+  responseUrl?: string;
+}): Promise<{ ok: true; runLabel: string } | { ok: false; error: string }> {
+  const token = process.env.GITHUB_REACH_RUNNER_TOKEN?.trim();
+  if (!token) return { ok: false, error: "GITHUB_REACH_RUNNER_TOKEN is not configured" };
+
+  const repo = process.env.GITHUB_REACH_REPO?.trim() || "aoh-inc/aoh-website";
+  const workflow = process.env.GITHUB_REACH_WORKFLOW_ID?.trim() || "reach-warmup-autopilot.yml";
+  const ref = process.env.GITHUB_REACH_REF?.trim() || "main";
+  const url = `https://api.github.com/repos/${repo}/actions/workflows/${workflow}/dispatches`;
+  const runLabel = `${lane}/auto`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+    body: JSON.stringify({
+      ref,
+      inputs: {
+        lane,
+        execute: "auto",
+        slack_channel: channel || firstAllowedChannel(),
+        slack_thread_ts: threadTs || "",
+        slack_response_url: responseUrl || "",
+        requested_by: actor.name || OWNER_FIRST_NAME,
+      },
+    }),
+    cache: "no-store",
+  });
+
+  if (response.status === 204) return { ok: true, runLabel };
+  const text = await response.text().catch(() => "");
+  return { ok: false, error: `GitHub dispatch failed ${response.status}: ${text.slice(0, 180)}` };
+}
+
 function scheduleSlackEventResponse({
   channel,
   command,
@@ -1299,7 +1360,7 @@ function scheduleSlackEventResponse({
       if (asyncMode) {
         await postSlackMessage({ channel, text: buildAsyncAcknowledgement(command, actor), threadTs });
       }
-      const response = await buildAgentResponse(command, actor);
+      const response = await buildAgentResponse(command, actor, { channel, threadTs });
       await postSlackMessage({ channel, text: response, threadTs });
     } catch (error) {
       await postSlackMessage({ channel, text: buildAsyncErrorResponse(error, actor), threadTs });
@@ -1320,7 +1381,7 @@ function scheduleSlackFollowup({
 }) {
   after(async () => {
     try {
-      const response = await buildAgentResponse(command, actor);
+      const response = await buildAgentResponse(command, actor, { channel });
       const postedViaResponseUrl = await postSlackResponseUrl(responseUrl, response);
       if (!postedViaResponseUrl && channel) await postSlackMessage({ channel, text: response });
     } catch (error) {

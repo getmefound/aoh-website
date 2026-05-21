@@ -277,6 +277,10 @@ It means Manager should use the Reach Warmup Autopilot, refill/replace bad
 emails, expand searches when needed, import only QA OK contacts, and start drip
 only after the lane is marked `ready_for_drip=yes`.
 
+In Slack, this command queues the GitHub Actions worker
+`Reach Warmup Autopilot`. The worker runs the repo scripts and posts the final
+result back to the Slack command response.
+
 This older command:
 
 ```text
@@ -325,7 +329,7 @@ docs/client-ops-ledger/reach-warmup-autopilot.json
 Autopilot runner:
 
 ```bash
-npm run reach:warmup -- --lane all
+npm run reach:warmup -- --lane all --execute auto
 ```
 
 What it does:
@@ -348,6 +352,15 @@ Start drip:
 ```bash
 npm run reach:warmup -- --lane relay --execute start
 ```
+
+Auto mode:
+
+```bash
+npm run reach:warmup -- --lane all --execute auto
+```
+
+Auto mode chooses `start` only for lanes marked `ready_for_drip=yes`; otherwise
+it chooses `import` for lanes marked `ready_for_import=yes`.
 
 Start-drip is still blocked unless `ready_for_drip=yes`. This keeps the decision
 out of Mike's hands day to day while still requiring the agent/GHL readiness

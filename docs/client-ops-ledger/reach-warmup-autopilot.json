@@ -44,6 +44,7 @@
     "allow_catchall_email_verification": false,
     "require_ready_for_import": true,
     "require_ready_for_drip_for_start": true,
+    "require_no_prior_import_today": true,
     "require_no_prior_start_today": true,
     "require_ghl_ai_features_off": true,
     "highlevel_ai_policy": "Never enable Conversation AI, AI Employee, Content AI, Auto-Review Replies, or any other HighLevel AI feature without explicit manual authorization from Mike."

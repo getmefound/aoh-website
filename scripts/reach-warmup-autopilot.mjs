@@ -39,7 +39,7 @@ function main() {
 
   const date = String(args.date ?? today()).trim();
   const execute = String(args.execute ?? "none").toLowerCase();
-  if (!["none", "import", "start"].includes(execute)) die("--execute must be none, import, or start.");
+  if (!["none", "import", "start", "auto"].includes(execute)) die("--execute must be none, import, start, or auto.");
 
   const selectedLanes = selectLanes(args, config);
   const domains = existsSync(resolve(DOMAIN_PATH)) ? readCsv(DOMAIN_PATH) : [];
@@ -61,6 +61,7 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
   const lane = LANES[laneKey];
   const laneConfig = config.lanes?.[laneKey];
   if (!lane || !laneConfig?.enabled) die(`Lane is not enabled: ${laneKey}`);
+  const laneExecute = resolveLaneExecute({ laneKey, domains, config, execute });
 
   const dayNumber = warmupDay(config.planned_start_date, date);
   const quota = quotaForDay(config, dayNumber);
@@ -177,14 +178,14 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
   const selectedRows = pool.slice(0, target);
   const blockers = [];
   if (selectedRows.length < min) blockers.push(`Only ${selectedRows.length} OK rows found; minimum is ${min}.`);
-  if (execute !== "none") blockers.push(...liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute, config, date, history }));
+  if (laneExecute !== "none") blockers.push(...liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute: laneExecute, config, date, history }));
 
   const selectedCsv = `tmp-reach-warmup-${laneKey}-${date}-selected-qa.csv`;
   writeCsv(selectedCsv, selectedRows);
 
   const actionResults = [];
-  if (execute !== "none" && blockers.length === 0) {
-    const outFile = `tmp-reach-warmup-${laneKey}-${date}-${execute}.json`;
+  if (laneExecute !== "none" && blockers.length === 0) {
+    const outFile = `tmp-reach-warmup-${laneKey}-${date}-${laneExecute}.json`;
     const launchArgs = [
       "scripts/launch-reach-campaign.mjs",
       "--lane",
@@ -198,25 +199,38 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
       "--out",
       outFile,
     ];
-    if (execute === "start") launchArgs.push("--start-drip");
+    if (laneExecute === "start") launchArgs.push("--start-drip");
     run("node", launchArgs);
-    actionResults.push({ action: execute, outFile, resultFile: outFile.replace(/\.json$/i, "-ghl-results.json") });
+    actionResults.push({ action: laneExecute, outFile, resultFile: outFile.replace(/\.json$/i, "-ghl-results.json") });
   }
 
   return writeLaneReport({
     laneKey,
     lane,
     date,
-    execute,
+    execute: laneExecute,
+    requestedExecute: execute,
     dayNumber,
     quota: { ...quota, target, min, max },
-    status: blockers.length ? "blocked" : execute === "none" ? "prepared" : "executed",
+    status: blockers.length ? "blocked" : laneExecute === "none" ? "prepared" : "executed",
     selectedRows,
     selectedCsv,
     attempts,
     blockers,
     actionResults,
   });
+}
+
+function resolveLaneExecute({ laneKey, domains, config, execute }) {
+  if (execute !== "auto") return execute;
+  const domain = domains.find((row) => String(row.lane ?? "").toLowerCase() === laneKey) ?? {};
+  const guardrails = config.guardrails ?? {};
+  const importReady = String(domain.ready_for_import ?? "").toLowerCase() === "yes";
+  const dripReady = String(domain.ready_for_drip ?? "").toLowerCase() === "yes";
+  if (config.autopilot_start_enabled === true && guardrails.require_ready_for_drip_for_start && dripReady) return "start";
+  if (config.autopilot_start_enabled === true && !guardrails.require_ready_for_drip_for_start) return "start";
+  if (importReady) return "import";
+  return "none";
 }
 
 function liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute, config, date, history }) {
@@ -230,6 +244,9 @@ function liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, ex
   }
   if (guardrails.require_ready_for_import && String(domain.ready_for_import ?? "").toLowerCase() !== "yes") {
     blockers.push("Domain readiness says ready_for_import is not yes.");
+  }
+  if (execute === "import" && guardrails.require_no_prior_import_today && hasImportToday(laneKey, date)) {
+    blockers.push("An import-only warmup run already exists for this lane/date.");
   }
   if (execute === "start") {
     if (config.autopilot_start_enabled !== true) blockers.push("autopilot_start_enabled is not true.");
@@ -247,6 +264,19 @@ function liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, ex
     blockers.push(`Selected CSV contains contacts that already have ${lane.startTag}.`);
   }
   return blockers;
+}
+
+function hasImportToday(laneKey, date) {
+  if (!existsSync(OUTBOX)) return false;
+  return readdirSync(OUTBOX).some((file) => {
+    if (file !== `reach-warmup-${laneKey}-${date}.json`) return false;
+    try {
+      const report = JSON.parse(readFileSync(resolve(OUTBOX, file), "utf8"));
+      return report.execute === "import" && report.status === "executed";
+    } catch {
+      return false;
+    }
+  });
 }
 
 function writeLaneReport({ laneKey, lane, date, execute, dayNumber, quota, status, selectedRows, selectedCsv, attempts, blockers, actionResults }) {
@@ -528,13 +558,16 @@ Import only after enough OK rows are found:
 Start drip only when ready_for_drip=yes and guardrails pass:
   npm run reach:warmup -- --lane relay --execute start
 
+Choose import vs start from the lane readiness ledger:
+  npm run reach:warmup -- --lane all --execute auto
+
 Options:
   --lane all|reviews|ai|relay
   --date YYYY-MM-DD
   --target 20
   --min 10
   --max 20
-  --execute none|import|start
+  --execute none|import|start|auto
   --max-attempts 5
   --scrape-limit 60
   --provider neverbounce|hunter

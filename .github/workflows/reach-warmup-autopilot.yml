@@ -1,0 +1,170 @@
+name: Reach Warmup Autopilot
+
+on:
+  workflow_dispatch:
+    inputs:
+      lane:
+        description: "Lane to run"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - reviews
+          - ai
+          - relay
+      execute:
+        description: "Action mode"
+        required: true
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - none
+          - import
+          - start
+      slack_channel:
+        description: "Slack channel for result"
+        required: false
+        default: ""
+      slack_thread_ts:
+        description: "Slack thread timestamp for result"
+        required: false
+        default: ""
+      slack_response_url:
+        description: "Slack slash-command response URL"
+        required: false
+        default: ""
+      requested_by:
+        description: "Requester name"
+        required: false
+        default: "Mike"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reach-warmup-autopilot
+  cancel-in-progress: false
+
+jobs:
+  warmup:
+    name: Run guarded warmup
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GHL_PIT_TOKEN: ${{ secrets.GHL_PIT_TOKEN }}
+      GHL_LOCATION_ID: ${{ secrets.GHL_LOCATION_ID }}
+      OUTSCRAPER_API_KEY: ${{ secrets.OUTSCRAPER_API_KEY }}
+      NEVERBOUNCE_API_KEY: ${{ secrets.NEVERBOUNCE_API_KEY }}
+      HUNTER_API_KEY: ${{ secrets.HUNTER_API_KEY }}
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_CHANNEL: ${{ inputs.slack_channel }}
+      SLACK_THREAD_TS: ${{ inputs.slack_thread_ts }}
+      SLACK_RESPONSE_URL: ${{ inputs.slack_response_url }}
+      REQUESTED_BY: ${{ inputs.requested_by }}
+      REACH_LANE: ${{ inputs.lane }}
+      REACH_EXECUTE: ${{ inputs.execute }}
+      TZ: America/New_York
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Reach warmup autopilot
+        id: warmup
+        shell: bash
+        run: |
+          set -o pipefail
+          RUN_DATE="$(date +%F)"
+          echo "run_date=$RUN_DATE" >> "$GITHUB_OUTPUT"
+          npm run reach:warmup -- --lane "$REACH_LANE" --execute "$REACH_EXECUTE" 2>&1 | tee "reach-warmup-$RUN_DATE.log"
+
+      - name: Commit warmup ledger
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "AOH Manager"
+          git config user.email "actions@github.com"
+          git add -f docs/client-ops-ledger/outbox/reach-warmup-* tmp-reach-warmup-* "reach-warmup-${{ steps.warmup.outputs.run_date }}.log" || true
+          if git diff --cached --quiet; then
+            echo "No warmup ledger changes to commit."
+          else
+            git commit -m "Record Reach warmup autopilot run"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Post Slack result
+        if: always()
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+
+          async function main() {
+            const token = process.env.SLACK_BOT_TOKEN;
+            const responseUrl = process.env.SLACK_RESPONSE_URL;
+            const channel = process.env.SLACK_CHANNEL || "C0ATTA4NBR8";
+            const threadTs = process.env.SLACK_THREAD_TS || undefined;
+            const date = process.env.TZ ? new Intl.DateTimeFormat("en-CA", {
+              timeZone: process.env.TZ,
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }).format(new Date()) : new Date().toISOString().slice(0, 10);
+            const summaryPath = `docs/client-ops-ledger/outbox/reach-warmup-summary-${date}.md`;
+            const logPath = `reach-warmup-${date}.log`;
+            let text = `Reach Warmup Autopilot finished for ${date}.`;
+
+            if (fs.existsSync(summaryPath)) {
+              text = fs.readFileSync(summaryPath, "utf8");
+            } else if (fs.existsSync(logPath)) {
+              text = fs.readFileSync(logPath, "utf8");
+            }
+
+            text = `*Manager follow-up: Reach Cold Email Campaign*\n\n${text}`.slice(0, 3900);
+            if (responseUrl) {
+              const res = await fetch(responseUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ response_type: "in_channel", text }),
+              });
+              if (!res.ok) throw new Error(`Slack response_url failed: ${res.status}`);
+              return;
+            }
+
+            if (!token) {
+              console.log("SLACK_BOT_TOKEN not set; skipping Slack post.");
+              console.log(text);
+              return;
+            }
+
+            const res = await fetch("https://slack.com/api/chat.postMessage", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ channel, thread_ts: threadTs, text }),
+            });
+            const body = await res.json();
+            if (!body.ok) throw new Error(JSON.stringify(body));
+          }
+
+          main().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
