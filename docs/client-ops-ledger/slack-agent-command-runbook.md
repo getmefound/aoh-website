@@ -396,6 +396,8 @@ What it does:
 - stops at max attempts and scrape caps so it cannot loop forever
 - caps the full all-lane run at 60 scraped records total unless the config is deliberately changed
 - can make new Outscraper calls inside the configured caps because Mike approved auto
+- rotates through lane searches so a weak lane does not keep buying the same first searches
+- subtracts prior same-day lane scraping before spending more
 - writes reports to `docs/client-ops-ledger/outbox`
 
 Budget protection now means capped auto spend, not a manual approval stop. Repeating

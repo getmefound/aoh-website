@@ -63,6 +63,9 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
   const lane = LANES[laneKey];
   const laneConfig = config.lanes?.[laneKey];
   if (!lane || !laneConfig?.enabled) die(`Lane is not enabled: ${laneKey}`);
+  if (!Array.isArray(laneConfig.searches) || laneConfig.searches.length === 0) {
+    die(`Lane has no searches configured: ${laneKey}`);
+  }
   const laneExecute = resolveLaneExecute({ laneKey, domains, config, execute });
 
   const dayNumber = warmupDay(config.planned_start_date, date);
@@ -96,10 +99,9 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
     guardrails.max_scrape_limit_per_attempt ?? 100,
   );
   const scrapeTimeoutMs = numberArg(args["scrape-timeout-ms"] ?? args.scrapeTimeoutMs, 120_000);
-  const maxTotalScraped = Math.min(
-    guardrails.max_total_scraped_per_lane_per_day ?? 500,
-    scrapeRunBudgetRemaining(runBudget),
-  );
+  const priorScrapedToday = scrapedForLaneOnDate(laneKey, date);
+  const laneDailyScrapeRemaining = Math.max(0, (guardrails.max_total_scraped_per_lane_per_day ?? 500) - priorScrapedToday);
+  const maxTotalScraped = Math.min(laneDailyScrapeRemaining, scrapeRunBudgetRemaining(runBudget));
   const provider = String(args.provider ?? "neverbounce");
   const skipVerify = Boolean(args["skip-verify"]);
   const pool = [];
@@ -133,10 +135,11 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
   if (inventoryAttempt) attempts.push(inventoryAttempt);
 
   let totalScraped = 0;
+  const searchOffset = priorSearchAttemptCount(laneKey);
 
   for (let attempt = 1; laneExecute !== "start" && attempt <= maxAttempts && pool.length < target && !scrapeSpendBlocker; attempt++) {
     if (totalScraped >= maxTotalScraped) break;
-    const search = laneConfig.searches[(attempt - 1) % laneConfig.searches.length];
+    const search = laneConfig.searches[(searchOffset + attempt - 1) % laneConfig.searches.length];
     const remainingScrape = Math.max(1, Math.min(scrapeLimit, maxTotalScraped - totalScraped));
     const prefix = `tmp-reach-warmup-${laneKey}-${date}-a${attempt}`;
     const rawJson = `${prefix}.json`;
@@ -231,7 +234,7 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
   if (selectedRows.length < min) blockers.push(`Only ${selectedRows.length} OK rows found; minimum is ${min}.`);
   if (selectedRows.length < min && scrapeSpendBlocker) blockers.push(scrapeSpendBlocker);
   if (selectedRows.length < min && maxTotalScraped <= 0) {
-    blockers.push("Run-level Outscraper scrape budget is already exhausted; no new scraping was attempted.");
+    blockers.push("Outscraper scrape budget is already exhausted for this run or lane/day; no new scraping was attempted.");
   }
   if (laneExecute !== "none") blockers.push(...liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute: laneExecute, config, date, history }));
 
@@ -399,6 +402,10 @@ function loadImportedStartInventory(laneKey, lane) {
 }
 
 function warmupImportReportFiles(laneKey) {
+  return warmupReportFiles(laneKey);
+}
+
+function warmupReportFiles(laneKey) {
   if (!existsSync(OUTBOX)) return [];
   return readdirSync(OUTBOX)
     .filter((file) => file.startsWith(`reach-warmup-${laneKey}-`) && file.endsWith(".json"))
@@ -526,6 +533,34 @@ function scrapeRunBudgetRemaining(runBudget) {
 function spendScrapeRunBudget(runBudget, amount) {
   if (!runBudget) return;
   runBudget.used += Math.max(0, Number(amount) || 0);
+}
+
+function priorSearchAttemptCount(laneKey) {
+  return warmupReportFiles(laneKey).reduce((sum, file) => {
+    const report = readWarmupReport(file);
+    return sum + scrapeAttemptsFromReport(report).length;
+  }, 0);
+}
+
+function scrapedForLaneOnDate(laneKey, date) {
+  const report = readWarmupReport(`reach-warmup-${laneKey}-${date}.json`);
+  return scrapeAttemptsFromReport(report).reduce((sum, attempt) => sum + (Number(attempt.scrapeLimit) || 0), 0);
+}
+
+function scrapeAttemptsFromReport(report) {
+  if (!Array.isArray(report?.attempts)) return [];
+  return report.attempts.filter((attempt) => Number(attempt.scrapeLimit) > 0);
+}
+
+function readWarmupReport(file) {
+  if (!file) return null;
+  try {
+    const path = resolve(OUTBOX, file);
+    if (!existsSync(path)) return null;
+    return JSON.parse(readFileSync(path, "utf8"));
+  } catch {
+    return null;
+  }
 }
 
 function liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute, config, date, history }) {
@@ -659,6 +694,8 @@ ${reports
 - It will not loop forever.
 - It can call Outscraper automatically inside the configured scrape caps.
 - It will not exceed the run-level Outscraper scrape cap across all lanes.
+- It rotates through the configured search list so a stuck lane does not keep buying the same first searches.
+- It subtracts prior same-day lane scraping before spending more.
 - It will not reuse contacts already imported or started in prior GHL result files.
 - It re-verifies the selected live-action CSV before import or start tags.
 - Auto mode refills lanes while they are import-ready; start tags still require clean selected contacts.

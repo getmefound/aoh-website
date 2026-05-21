@@ -402,14 +402,14 @@ function NextMoveSection() {
             Auto is on; Relay is waiting
           </h2>
           <p className="mt-3 text-base leading-relaxed text-zinc-400">
-            Reviews and AI Visibility started today. Relay will not start until it has enough clean contacts and the ready switch is yes.
+            Reviews and AI Visibility started today. Relay tried today&apos;s capped refill and will move to the next searches on the next run.
           </p>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
           <ActionTile
             label="1"
-            title="Refill Relay"
-            body="Relay has 5 OK contacts and needs 10 for the current warmup minimum."
+            title="Next searches"
+            body="Relay has 5 OK contacts, needs 10, and used today's 60-record scrape cap."
           />
           <ActionTile
             label="2"

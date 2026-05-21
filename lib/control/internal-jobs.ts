@@ -90,9 +90,9 @@ export const REACH_LANES: ReachLane[] = [
   {
     name: "Relay",
     domain: "mail.myaioutsourcehub.com",
-    status: "Auto waiting for enough clean contacts and ready status",
+    status: "Auto waiting; today's refill cap used",
     rows: "5 OK / 10 min",
-    qa: "Needs refill + ready switch",
+    qa: "Needs next searches + ready switch",
     importState: "2 OK contacts imported/tagged",
     dripState: "Auto waiting",
     tone: "warm",
@@ -202,10 +202,10 @@ export const REACH_STEPS: ReachStep[] = [
     status: "Waiting",
     tone: "warm",
     whatHappened:
-      "Reviews and AI Visibility started warmup automatically. Relay is waiting because it has 5 OK contacts and needs 10, and ready_for_drip is still no.",
+      "Reviews and AI Visibility started warmup automatically. Relay used today's capped refill attempts and is still at 5 OK contacts; it needs 10 and ready_for_drip is still no.",
     leftToDo:
-      "Let the auto runner refill Relay with enough clean contacts and mark the lane ready after the sending checks pass.",
-    evidence: "2026-05-21 warmup reports: Reviews 12 started, AI 20 started, Relay blocked at 5 OK rows and ready_for_drip=no.",
+      "Let the next auto run rotate into the next Relay searches, then mark the lane ready after the sending checks pass.",
+    evidence: "2026-05-21 warmup reports: Reviews 12 started, AI 20 started, Relay tried 60 scraped rows and stayed blocked at 5 OK.",
   },
   {
     order: 10,
@@ -248,7 +248,7 @@ export const REACH_WARMUP_AUTOPILOT: ReachWarmupAutopilot = {
   status: "Auto mode on",
   statusTone: "accent",
   currentBlocker:
-    "Reviews and AI started today. Relay is waiting for 10 OK contacts and ready_for_drip=yes; then auto can start it without asking Mike again.",
+    "Reviews and AI started today. Relay used today's capped refill attempts and is waiting for 10 OK contacts plus ready_for_drip=yes.",
   dailyLadder: [
     "Days 1-3: 10-20 emails/day per dedicated domain",
     "Days 4-6: 40-50 emails/day per dedicated domain",
@@ -257,28 +257,30 @@ export const REACH_WARMUP_AUTOPILOT: ReachWarmupAutopilot = {
   ],
   commands: [
     {
-      label: "Prepare only",
-      command: "npm run reach:warmup -- --lane all",
-      detail: "Finds, verifies, QA-filters, and refills contacts. Does not touch GHL.",
-      tone: "muted",
-    },
-    {
-      label: "Import only",
-      command: "npm run reach:warmup -- --lane all --execute import",
-      detail: "Imports/tags enough QA OK contacts for warmup. Does not send email.",
+      label: "Daily auto",
+      command: "npm run reach:warmup -- --lane all --execute auto",
+      detail: "Chooses import or start from readiness, refills short lanes, and stops at caps.",
       tone: "accent",
     },
     {
-      label: "Start warmup drip",
+      label: "Manual import",
+      command: "npm run reach:warmup -- --lane all --execute import",
+      detail: "Override for importing QA OK contacts only.",
+      tone: "muted",
+    },
+    {
+      label: "Manual start",
       command: "npm run reach:warmup -- --lane all --execute start",
-      detail: "Adds start tags only when ready_for_drip=yes, enough clean contacts exist, and guardrails pass.",
+      detail: "Override for adding start tags only when ready_for_drip=yes and guardrails pass.",
       tone: "danger",
     },
   ],
   guardrails: [
-    "max 5 refill attempts per lane per day",
-    "max 100 scraped rows per attempt",
-    "max 500 scraped rows per lane per day",
+    "max 3 refill attempts per lane per run",
+    "max 20 scraped rows per attempt",
+    "max 60 scraped rows per all-lane run",
+    "max 60 scraped rows per lane per day",
+    "weak lanes rotate through the next configured searches",
     "bad/risky emails are removed and replaced",
     "already imported or started contacts are not reused",
     "HighLevel AI features stay OFF",
@@ -298,9 +300,9 @@ export const REACH_INTERNAL_JOB: InternalJob = {
   status: "Auto warmup running",
   statusTone: "accent",
   summary:
-    "Reviews and AI Visibility started guarded warmup today. Relay is waiting for enough clean contacts and ready status.",
+    "Reviews and AI Visibility started guarded warmup today. Relay used today's capped refill and is still waiting for enough clean contacts and ready status.",
   currentBlocker:
-    "Relay has 5 OK contacts but needs 10, and ready_for_drip is still no. Auto will start it once both are fixed.",
+    "Relay has 5 OK contacts but needs 10. Auto will rotate into the next searches on the next run, then start only after ready_for_drip is yes.",
   plainEnglish:
     "Auto is on. The system is running lanes that are ready and holding the lane that is not ready.",
   metrics: [

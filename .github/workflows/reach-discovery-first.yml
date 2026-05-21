@@ -23,9 +23,9 @@ on:
         required: false
         default: "60"
       allow_spend:
-        description: "Explicitly allow paid Outscraper discovery for this run"
+        description: "Allow capped paid Outscraper discovery for this run"
         required: false
-        default: "false"
+        default: "true"
 
 permissions:
   contents: write

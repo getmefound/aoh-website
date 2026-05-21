@@ -37,9 +37,9 @@ on:
         required: false
         default: "Mike"
       allow_scrape_spend:
-        description: "Explicitly allow paid Outscraper calls for this run"
+        description: "Allow capped paid Outscraper calls for this run"
         required: false
-        default: "false"
+        default: "true"
 
 permissions:
   contents: write

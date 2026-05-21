@@ -134,7 +134,7 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
     status: "partial",
     description:
       "Sender sends a useful first note and asks for a simple next step.",
-    verification: "Auto warmup can start lanes after readiness checks pass. Relay is waiting because it has 5 OK contacts and needs 10.",
+    verification: "Auto warmup can start lanes after readiness checks pass. Relay has 5 OK contacts, needs 10, and used today's capped refill attempts.",
   },
   {
     title: "Sort replies",

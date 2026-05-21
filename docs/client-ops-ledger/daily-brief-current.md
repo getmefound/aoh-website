@@ -7,7 +7,7 @@ Prepared by: Manager
 
 | # | Decision | Recommendation | Risk | Approval needed |
 |---|---|---|---|---|
-| 1 | Normal Reach warmup | Auto mode is on. Reviews and AI Visibility started today. Relay is waiting for enough clean contacts and ready_for_drip=yes. | Relay only has 5 OK contacts and is not marked ready | No Mike action unless overriding auto |
+| 1 | Normal Reach warmup | Auto mode is on. Reviews and AI Visibility started today. Relay used today's capped refill and will rotate to the next searches on the next run. | Relay only has 5 OK contacts and is not marked ready | No Mike action unless overriding auto |
 
 ## 2. Campaigns Being Prepared
 
@@ -15,7 +15,7 @@ Prepared by: Manager
 |---|---|---|---:|---:|---|
 | Reviews | `reviews` | Pet boarding / Connecticut | 12 OK started | $2 | Auto warmup start executed |
 | AI Visibility | `ai` | Senior living / Connecticut | 20 OK started | $2 | Auto warmup start executed |
-| Relay | `relay` | Veterinary / Connecticut | 5 OK / 10 min | $2 | Auto waiting for refill and ready status |
+| Relay | `relay` | Veterinary / Connecticut | 5 OK / 10 min | $2 | Auto waiting; today's 60-record refill cap used |
 
 ## 3. Required Checks Before Any Live Action
 
@@ -70,7 +70,7 @@ Do not manually override auto.
 Recommended path:
 
 1. Let auto continue for Reviews and AI Visibility.
-2. Refill Relay until it has at least 10 OK contacts.
+2. Let the next auto run rotate Relay into the next searches until it has at least 10 OK contacts.
 3. Mark Relay `ready_for_drip=yes` only after the sending setup is checked.
 4. Auto will start Relay when both conditions are true.
 5. Keep HighLevel AI features OFF.
