@@ -4,6 +4,7 @@ import { ControlShell, Pill } from "@/components/control/ControlPrimitives";
 import {
   REACH_INTERNAL_JOB,
   REACH_PROCESS_FACTS,
+  REACH_WARMUP_AUTOPILOT,
   type ControlTone,
   type ReachLane,
   type ReachStep,
@@ -97,6 +98,7 @@ export default function ReachColdEmailCampaignPage() {
       </section>
 
       <LaneStatusSection lanes={job.lanes} />
+      <WarmupAutopilotSection />
       <ProcessSection steps={job.steps} />
       <RelayRowsSection />
       <ProcessFactsSection />
@@ -141,6 +143,72 @@ function LaneStatusSection({ lanes }: { lanes: ReachLane[] }) {
   );
 }
 
+function WarmupAutopilotSection() {
+  const warmup = REACH_WARMUP_AUTOPILOT;
+
+  return (
+    <section className="mb-8 rounded-2xl border border-sky-500/25 bg-sky-500/5 p-5 md:p-6">
+      <div className="mb-5 flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
+            Warmup autopilot
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+            Daily quota runner with bounded refill
+          </h2>
+          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
+            This is the mode Mike asked for: keep filling the daily warmup amount,
+            remove bad emails, expand the search when needed, and stop before it can loop forever.
+          </p>
+        </div>
+        <Pill tone={warmup.statusTone}>{warmup.status}</Pill>
+      </div>
+
+      <div className="mb-5 rounded-xl border border-amber-500/25 bg-amber-500/5 p-4">
+        <p className="font-mono text-xs uppercase tracking-wider text-amber-300">
+          Current blocker
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-zinc-300">
+          {warmup.currentBlocker}
+        </p>
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+        <div className="space-y-4">
+          <InfoList title="Daily ladder" tone="accent" items={warmup.dailyLadder} />
+          <InfoList title="Guardrails" tone="warm" items={warmup.guardrails} />
+        </div>
+
+        <div className="space-y-3">
+          {warmup.commands.map((item) => (
+            <article key={item.label} className="rounded-xl border border-zinc-800/70 bg-zinc-950/80 p-4">
+              <div className="mb-3 flex items-start justify-between gap-3">
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-wider text-zinc-500">
+                    Start option
+                  </p>
+                  <h3 className="mt-1 text-base font-semibold text-zinc-100">
+                    {item.label}
+                  </h3>
+                </div>
+                <Pill tone={item.tone}>{item.tone === "danger" ? "guarded" : "ready"}</Pill>
+              </div>
+              <pre className="overflow-x-auto rounded-lg border border-zinc-800 bg-black/30 p-3 font-mono text-xs leading-relaxed text-zinc-300">
+                <code>{item.command}</code>
+              </pre>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-400">{item.detail}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <InfoList title="What MC can show right now" tone="muted" items={warmup.visibility} />
+      </div>
+    </section>
+  );
+}
+
 function ProcessSection({ steps }: { steps: ReachStep[] }) {
   return (
     <section className="mb-8">
@@ -155,6 +223,34 @@ function ProcessSection({ steps }: { steps: ReachStep[] }) {
         ))}
       </div>
     </section>
+  );
+}
+
+function InfoList({
+  title,
+  tone,
+  items,
+}: {
+  title: string;
+  tone: ControlTone;
+  items: string[];
+}) {
+  return (
+    <div className="rounded-xl border border-zinc-800/70 bg-black/25 p-4">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h3 className="font-mono text-xs uppercase tracking-wider text-zinc-300">
+          {title}
+        </h3>
+        <Pill tone={tone}>{items.length}</Pill>
+      </div>
+      <ul className="space-y-2">
+        {items.map((item) => (
+          <li key={item} className="text-sm leading-relaxed text-zinc-400">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

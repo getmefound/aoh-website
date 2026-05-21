@@ -49,6 +49,21 @@ export type InternalJob = {
   steps: ReachStep[];
 };
 
+export type ReachWarmupAutopilot = {
+  status: string;
+  statusTone: ControlTone;
+  currentBlocker: string;
+  dailyLadder: string[];
+  commands: {
+    label: string;
+    command: string;
+    detail: string;
+    tone: ControlTone;
+  }[];
+  guardrails: string[];
+  visibility: string[];
+};
+
 export const REACH_JOB_HREF = "/mike-mc/jobs/reach-cold-email-campaign";
 
 export const REACH_LANES: ReachLane[] = [
@@ -228,6 +243,52 @@ export const REACH_PROCESS_FACTS = [
       "The next handoff is not another import. It is drip readiness: warmup, sender nodes, caps, unsubscribe/reply routing, and no HighLevel AI toggles.",
   },
 ];
+
+export const REACH_WARMUP_AUTOPILOT: ReachWarmupAutopilot = {
+  status: "Armed, not running",
+  statusTone: "warm",
+  currentBlocker:
+    "Start-drip remains blocked until each lane is marked ready_for_drip=yes. Import-only can run before that.",
+  dailyLadder: [
+    "Days 1-3: 10-20 emails/day per dedicated domain",
+    "Days 4-6: 40-50 emails/day per dedicated domain",
+    "Days 7-9: 80-100 emails/day per dedicated domain",
+    "After Day 9: hold for deliverability review before increasing",
+  ],
+  commands: [
+    {
+      label: "Prepare only",
+      command: "npm run reach:warmup -- --lane all",
+      detail: "Finds, verifies, QA-filters, and refills contacts. Does not touch GHL.",
+      tone: "muted",
+    },
+    {
+      label: "Import only",
+      command: "npm run reach:warmup -- --lane all --execute import",
+      detail: "Imports/tags enough QA OK contacts for warmup. Does not send email.",
+      tone: "accent",
+    },
+    {
+      label: "Start warmup drip",
+      command: "npm run reach:warmup -- --lane all --execute start",
+      detail: "Adds start tags only when ready_for_drip=yes and guardrails pass.",
+      tone: "danger",
+    },
+  ],
+  guardrails: [
+    "max 5 refill attempts per lane per day",
+    "max 100 scraped rows per attempt",
+    "max 500 scraped rows per lane per day",
+    "bad/risky emails are removed and replaced",
+    "already imported or started contacts are not reused",
+    "HighLevel AI features stay OFF",
+  ],
+  visibility: [
+    "Mission Control now shows the warmup plan and exact commands.",
+    "Local runs write reports into docs/client-ops-ledger/outbox.",
+    "True live progress in production MC needs the runner connected to shared state or a deployed job trigger.",
+  ],
+};
 
 export const REACH_INTERNAL_JOB: InternalJob = {
   slug: "reach-cold-email-campaign",
