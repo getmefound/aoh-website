@@ -331,8 +331,9 @@ ${dailySignals.recommendation || "Relay is the cleanest small lane right now. Im
 function buildWarmupAutopilotResponse(normalized) {
   const config = readJsonIfExists(WARMUP_CONFIG_PATH);
   const data = loadData();
-  const requestedLane = findLaneKey(normalized);
-  const lanes = requestedLane ? [requestedLane] : Object.keys(LANES);
+  const requestedLanes = findLaneKeys(normalized);
+  const lanes = requestedLanes.length ? requestedLanes : Object.keys(LANES);
+  const laneInput = requestedLanes.length ? requestedLanes.join(",") : "all";
   const dayNumber = warmupDay(config?.planned_start_date, today());
   const quota = quotaForWarmupDay(config, dayNumber);
   const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
@@ -366,9 +367,9 @@ ${lanes
 Repo commands:
 
 \`\`\`bash
-npm run reach:warmup -- --lane ${requestedLane ?? "all"}
-npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute import
-npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
+npm run reach:warmup -- --lane ${laneInput}
+npm run reach:warmup -- --lane ${laneInput} --execute import
+npm run reach:warmup -- --lane ${laneInput} --execute start
 \`\`\`
 
 Guardrails:
@@ -387,8 +388,9 @@ Guardrails:
 function buildColdReachStartResponse(normalized) {
   const config = readJsonIfExists(WARMUP_CONFIG_PATH);
   const data = loadData();
-  const requestedLane = findLaneKey(normalized);
-  const lanes = requestedLane ? [requestedLane] : Object.keys(LANES);
+  const requestedLanes = findLaneKeys(normalized);
+  const lanes = requestedLanes.length ? requestedLanes : Object.keys(LANES);
+  const laneInput = requestedLanes.length ? requestedLanes.join(",") : "all";
   const dayNumber = warmupDay(config?.planned_start_date, today());
   const quota = quotaForWarmupDay(config, dayNumber);
   const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
@@ -434,8 +436,8 @@ ${lanes
 Behind-the-scenes runner:
 
 \`\`\`bash
-npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute import
-npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
+npm run reach:warmup -- --lane ${laneInput} --execute import
+npm run reach:warmup -- --lane ${laneInput} --execute start
 \`\`\`
 
 If Mike only says \`/manager start campaign\`, Manager asks which campaign first.
@@ -844,12 +846,18 @@ function parseApproval(normalized) {
 }
 
 function findLaneKey(normalized) {
+  return findLaneKeys(normalized)[0] ?? null;
+}
+
+function findLaneKeys(normalized) {
+  if (/\b(all|all three|every lane|all lanes)\b/.test(normalized)) return Object.keys(LANES);
   const matches = Object.entries(LANES).flatMap(([key, lane]) =>
     lane.aliases
       .filter((alias) => containsAlias(normalized, alias))
       .map((alias) => ({ key, length: alias.length })),
   );
-  return matches.sort((a, b) => b.length - a.length)[0]?.key ?? null;
+  const ordered = matches.sort((a, b) => b.length - a.length).map((match) => match.key);
+  return [...new Set(ordered)];
 }
 
 function approvalBlockers({ action, job, domain, approvalSource, visualConfirmed }) {

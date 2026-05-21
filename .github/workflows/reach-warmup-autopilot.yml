@@ -4,15 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       lane:
-        description: "Lane to run"
+        description: "Lane to run: all, reviews, ai, relay, or comma list like reviews,ai"
         required: true
         default: "all"
-        type: choice
-        options:
-          - all
-          - reviews
-          - ai
-          - relay
       execute:
         description: "Action mode"
         required: true

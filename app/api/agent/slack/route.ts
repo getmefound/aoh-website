@@ -31,6 +31,7 @@ type SlackMessage = {
 };
 
 type LaneKey = "reviews" | "ai" | "relay";
+type LaneInput = LaneKey | "all" | string;
 type AgentKey =
   | "general-manager"
   | "scheduler"
@@ -646,8 +647,9 @@ ${recommendation}`;
 function buildWarmupAutopilotResponse(actor: UserContext, normalized: string) {
   const config = warmupConfig();
   const domains = domainRows();
-  const requestedLane = findLaneKey(normalized);
-  const lanes = requestedLane ? [requestedLane] : (Object.keys(LANES) as LaneKey[]);
+  const requestedLanes = findLaneKeys(normalized);
+  const lanes = requestedLanes.length ? requestedLanes : (Object.keys(LANES) as LaneKey[]);
+  const laneInput = requestedLanes.length ? requestedLanes.join(",") : "all";
   const dayNumber = warmupDay(config?.planned_start_date, today());
   const quota = quotaForWarmupDay(config, dayNumber);
   const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
@@ -682,9 +684,9 @@ What autopilot does:
 Commands wired in the repo:
 
 \`\`\`bash
-npm run reach:warmup -- --lane ${requestedLane ?? "all"}
-npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute import
-npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
+npm run reach:warmup -- --lane ${laneInput}
+npm run reach:warmup -- --lane ${laneInput} --execute import
+npm run reach:warmup -- --lane ${laneInput} --execute start
 \`\`\`
 
 Important:
@@ -697,8 +699,9 @@ Important:
 async function buildColdReachStartResponse(actor: UserContext, normalized: string, context: AgentResponseContext = {}) {
   const config = warmupConfig();
   const domains = domainRows();
-  const requestedLane = findLaneKey(normalized);
-  const lanes = requestedLane ? [requestedLane] : (Object.keys(LANES) as LaneKey[]);
+  const requestedLanes = findLaneKeys(normalized);
+  const lanes = requestedLanes.length ? requestedLanes : (Object.keys(LANES) as LaneKey[]);
+  const laneInput = requestedLanes.length ? requestedLanes.join(",") : "all";
   const dayNumber = warmupDay(config?.planned_start_date, today());
   const quota = quotaForWarmupDay(config, dayNumber);
   const quotaText = quota ? `${quota.min}-${quota.max} emails/day, target ${quota.target}` : "hold for deliverability review";
@@ -706,7 +709,7 @@ async function buildColdReachStartResponse(actor: UserContext, normalized: strin
   const spendApprovalRequired = config?.guardrails?.require_outscraper_spend_approval === true;
   const scrapeRunCap = config?.guardrails?.max_total_scraped_per_run ?? "not set";
   const queued = await queueReachWarmupWorkflow({
-    lane: requestedLane ?? "all",
+    lane: laneInput,
     actor,
     channel: context.channel,
     threadTs: context.threadTs,
@@ -1311,7 +1314,7 @@ async function queueReachWarmupWorkflow({
   responseUrl,
   allowScrapeSpend = false,
 }: {
-  lane: LaneKey | "all";
+  lane: LaneInput;
   actor: UserContext;
   channel?: string;
   threadTs?: string;
@@ -1547,12 +1550,18 @@ function parseApproval(normalized: string): { laneKey: LaneKey; action: "import"
 }
 
 function findLaneKey(normalized: string): LaneKey | null {
+  return findLaneKeys(normalized)[0] ?? null;
+}
+
+function findLaneKeys(normalized: string): LaneKey[] {
+  if (/\b(all|all three|every lane|all lanes)\b/.test(normalized)) return Object.keys(LANES) as LaneKey[];
   const matches = (Object.keys(LANES) as LaneKey[]).flatMap((key) =>
     LANES[key].aliases
       .filter((alias) => containsAlias(normalized, alias))
       .map((alias) => ({ key, length: alias.length })),
   );
-  return matches.sort((a, b) => b.length - a.length)[0]?.key ?? null;
+  const ordered = matches.sort((a, b) => b.length - a.length).map((match) => match.key);
+  return [...new Set(ordered)];
 }
 
 function hasOutscraperSpendApproval(normalized: string) {

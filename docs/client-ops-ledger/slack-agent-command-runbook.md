@@ -311,6 +311,13 @@ This specific shortcut means the same warmup autopilot intent:
 /manager start cold reach campaign
 ```
 
+Lane-specific shortcuts are supported:
+
+```text
+/manager start cold reach campaign for reviews and ai
+/manager start cold reach campaign for relay
+```
+
 Manager owns the handoff and row cleanup. Mike should not need to approve or
 reject individual warmup rows. Start-drip still stays blocked until
 `ready_for_drip=yes`, and HighLevel AI features stay OFF.

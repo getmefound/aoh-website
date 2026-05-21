@@ -614,9 +614,13 @@ ${reports
 
 function selectLanes(args, config) {
   const laneArg = String(args.lane ?? "all").toLowerCase();
-  const lanes = laneArg === "all" ? Object.keys(LANES) : [laneArg];
+  const laneParts = laneArg
+    .split(/[,+]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const lanes = laneParts.length === 0 || laneParts.includes("all") ? Object.keys(LANES) : [...new Set(laneParts)];
   for (const lane of lanes) {
-    if (!LANES[lane]) die("Missing or invalid --lane. Use reviews, ai, relay, or all.");
+    if (!LANES[lane]) die("Missing or invalid --lane. Use reviews, ai, relay, all, or a comma list like reviews,ai.");
     if (config.lanes?.[lane]?.enabled !== true) die(`Lane disabled in config: ${lane}`);
   }
   return lanes;
