@@ -1,0 +1,78 @@
+{
+  "version": "2026-05-21",
+  "status": "v1_safe_foundation",
+  "note": "This is the versioned routing map Manager should converge toward. Current Slack/local routers are still hard-coded and should be refactored later to share this source.",
+  "routes": [
+    {
+      "intent": "owner_status",
+      "examples": ["Manager, status", "what needs Mike today", "owner peek"],
+      "primary_owner": "General Manager",
+      "supporting_agents": ["Systems Director"],
+      "risk_tier": "low",
+      "model_tier": "no_llm",
+      "required_packet": false,
+      "required_checks": ["answer in owner language", "show blockers only", "avoid role biography"]
+    },
+    {
+      "intent": "reach_cold_email_status",
+      "examples": ["did cold email campaign send", "is Reach set to run today", "when is campaign set to run"],
+      "primary_owner": "General Manager",
+      "supporting_agents": ["Sales Manager", "Sender", "GHL Expert", "Systems Director"],
+      "risk_tier": "medium",
+      "model_tier": "no_llm",
+      "required_packet": true,
+      "required_checks": ["read ledgers first", "explain send/wait status", "NeverBounce before GHL", "HighLevel AI stays OFF"]
+    },
+    {
+      "intent": "reach_live_action",
+      "examples": ["start cold reach campaign", "approve relay import only", "approve start drip"],
+      "primary_owner": "General Manager",
+      "supporting_agents": ["Sender", "GHL Expert", "Sales Manager"],
+      "risk_tier": "high",
+      "model_tier": "standard",
+      "required_packet": true,
+      "required_checks": ["clean contacts", "GHL readiness", "visual sender-domain check", "approval gate", "no HighLevel AI"]
+    },
+    {
+      "intent": "morning_brief",
+      "examples": ["Manager, morning brief", "prepare daily brief"],
+      "primary_owner": "General Manager",
+      "supporting_agents": ["GHL Expert", "Sales Manager", "Scout", "Systems Director"],
+      "risk_tier": "low",
+      "model_tier": "standard",
+      "required_packet": true,
+      "required_checks": ["prior results", "needs Mike", "market signal", "agent owners", "recommended move"]
+    },
+    {
+      "intent": "model_routing",
+      "examples": ["Manager, model routing", "which LLM does each agent use"],
+      "primary_owner": "Systems Director",
+      "supporting_agents": ["General Manager"],
+      "risk_tier": "low",
+      "model_tier": "no_llm",
+      "required_packet": false,
+      "required_checks": ["cheapest reliable method", "budget hard stops", "human approval for risky actions"]
+    },
+    {
+      "intent": "gbp_access",
+      "examples": ["prepare GBP access test", "client added us to GMB"],
+      "primary_owner": "Local Visibility Manager",
+      "supporting_agents": ["GHL Expert", "General Manager"],
+      "risk_tier": "medium",
+      "model_tier": "no_llm",
+      "required_packet": true,
+      "required_checks": ["manager access not owner by default", "no password sharing", "Mike approves public updates"]
+    },
+    {
+      "intent": "security_or_credentials",
+      "examples": ["can I paste my key here", "check secrets", "rotate token"],
+      "primary_owner": "Systems Director",
+      "supporting_agents": ["Codex", "General Manager"],
+      "risk_tier": "high",
+      "model_tier": "strong",
+      "required_packet": true,
+      "required_checks": ["do not print secrets", "report path and type only", "rotate exposed tokens"]
+    }
+  ]
+}
+

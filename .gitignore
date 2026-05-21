@@ -61,6 +61,7 @@ lighthouse-local-*
 !/scripts/build-reach-scrape-inventory.mjs
 !/scripts/ghl-email-stats.mjs
 !/scripts/agent-command-center.mjs
+!/scripts/manager-agent-eval.mjs
 !/scripts/auditor-security-sweep.mjs
 !/scripts/sync-coach-obsidian.ps1
 /data/

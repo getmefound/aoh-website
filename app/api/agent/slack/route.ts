@@ -1031,6 +1031,7 @@ ${address(actor)}, yes. The team should handle the recurring work.
 
 Codex role:
 
+- Codex trains and repairs the system; agents run recurring work inside guardrails.
 - Train and repair the system.
 - Improve guardrails, costs, workflows, and Mission Control.
 - Step in when automation breaks or a new job type needs setup.
@@ -1052,6 +1053,7 @@ Training status:
 - Relay is waiting because it has 5 OK contacts and needs 10.
 - The next auto run rotates Relay into the next searches instead of repeating the same first searches.
 - Same-day reruns preserve executed reports instead of overwriting the ledger.
+- Safety: HighLevel AI features stay OFF.
 
 Next team command:
 
@@ -1069,7 +1071,7 @@ ${address(actor)}, you do not need to read every agent conversation.
 
 Where to look:
 
-- *Slack #04-aoh-ops*: talk to Manager and see brief answers, blockers, and follow-ups.
+- *Manager conversation*: Slack #04-aoh-ops is where you talk to Manager and see brief answers, blockers, and follow-ups.
 - *Mission Control front page*: owner view of active jobs, blockers, agents, and spend.
 - *Reach job room*: cold email lane status, agent handoff, and next blocker.
 - *GitHub/ledger/outbox*: proof logs only; use these when something looks wrong.
@@ -1077,7 +1079,7 @@ Where to look:
 DM status:
 
 - Automatic Manager DMs are not wired yet.
-- Recommended setup: one short daily DM plus urgent exceptions only.
+- Recommended DM policy: one short daily DM plus urgent exceptions only.
 - Do not DM every agent action; that becomes noise fast.
 
 What Manager should send you:
@@ -1361,7 +1363,11 @@ If Mike personally confirms those screens, use the combined approval so Manager 
 /manager approve ${approvalLane} import only; I visually confirmed ${LANES[approvalLane].label} sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
 \`\`\`
 
-Until that visual confirmation is included, import-only remains blocked. Start-drip is still not approved.`;
+Until that visual confirmation is included, import-only remains blocked. Start-drip is still not approved.
+
+Safety:
+
+- No contacts, tags, workflows, settings, or HighLevel AI features were changed.`;
 }
 
 function approvalImportSource({

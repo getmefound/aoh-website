@@ -39,6 +39,25 @@ Main doc:
 
 - `docs/AGENT_OPERATING_MODEL.md`
 
+Manager AgentOps review and eval loop:
+
+- `docs/aoh-agentops-current-state-review.md`
+  - current-state review of Slack, Manager, OpenClaw references, Obsidian sync, GitHub/Vercel jobs, and security risks
+- `docs/agentops/manager-agentops-loop.md`
+  - repeatable loop for turning Manager behavior problems into versioned training changes
+- `docs/agentops/manager-eval-scenarios.json`
+  - Manager command scenarios used by `npm run agent:eval`
+- `docs/agentops/manager-task-packet-template.md`
+  - standard packet Manager should create before routing child-agent work
+- `docs/agentops/manager-routing-table.json`
+  - v1 intent-to-owner routing map; current Slack/local routers are still hard-coded and should converge toward it
+
+Run Manager evals:
+
+```bash
+npm run agent:eval
+```
+
 This defines the rule:
 
 > Agents own the knowledge. Mission Control displays the work.

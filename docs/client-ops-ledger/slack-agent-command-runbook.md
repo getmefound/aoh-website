@@ -190,6 +190,21 @@ npm run agent:command -- --command "GHL Expert, check Reach readiness"
 npm run agent:command -- --command "approve relay import only"
 ```
 
+Run Manager behavior evals before changing Slack/Manager routing:
+
+```bash
+npm run agent:eval
+npm run agent:eval -- --scenario owner_run_today
+```
+
+Eval sources:
+
+- `docs/aoh-agentops-current-state-review.md`
+- `docs/agentops/manager-agentops-loop.md`
+- `docs/agentops/manager-eval-scenarios.json`
+- `docs/agentops/manager-task-packet-template.md`
+- `docs/agentops/manager-routing-table.json`
+
 Post the brief through a configured Slack webhook:
 
 ```bash

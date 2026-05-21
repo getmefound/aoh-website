@@ -1,0 +1,32 @@
+name: Manager Agent Evals
+
+on:
+  pull_request:
+    paths:
+      - "app/api/agent/slack/**"
+      - "scripts/agent-command-center.mjs"
+      - "scripts/manager-agent-eval.mjs"
+      - "docs/agentops/**"
+      - "docs/client-ops-ledger/**"
+      - "lib/control/**"
+      - "package.json"
+      - ".github/workflows/manager-agent-evals.yml"
+  workflow_dispatch:
+
+jobs:
+  manager-agent-evals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run Manager evals
+        run: npm run agent:eval
+

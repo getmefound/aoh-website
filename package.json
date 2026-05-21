@@ -24,6 +24,7 @@
     "morning:brief": "node scripts/morning-brief.mjs",
     "agent:brief": "node scripts/agent-command-center.mjs",
     "agent:command": "node scripts/agent-command-center.mjs",
+    "agent:eval": "node scripts/manager-agent-eval.mjs",
     "agent:slack": "node scripts/agent-command-center.mjs --post-slack",
     "audit:security": "node scripts/auditor-security-sweep.mjs"
   },
