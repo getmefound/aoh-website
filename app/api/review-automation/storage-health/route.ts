@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import { cleanEnvValue } from "@/lib/env";
 
 export async function GET() {
-  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  const url = cleanEnvValue(process.env.UPSTASH_REDIS_REST_URL);
+  const token = cleanEnvValue(process.env.UPSTASH_REDIS_REST_TOKEN);
 
   if (!url || !token) {
     return NextResponse.json({

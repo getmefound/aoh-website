@@ -6,6 +6,7 @@ import type {
   ReviewSendLogPacket,
   ReviewSuppressionPacket,
 } from "@/lib/review-automation";
+import { cleanEnvValue } from "@/lib/env";
 
 export type ReviewAutomationRecord = {
   id: string;
@@ -48,8 +49,8 @@ export async function saveReviewAutomationEvent(
   eventType: ReviewAutomationEventType,
   payload: ReviewAutomationPacket,
 ): Promise<StorageResult> {
-  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  const url = cleanEnvValue(process.env.UPSTASH_REDIS_REST_URL);
+  const token = cleanEnvValue(process.env.UPSTASH_REDIS_REST_TOKEN);
   const id = `${Date.now()}-${crypto.randomUUID()}`;
 
   if (!url || !token) {
@@ -98,8 +99,8 @@ export async function saveReviewAutomationEvent(
 }
 
 export async function saveReviewSuppression(packet: ReviewSuppressionPacket): Promise<StorageResult> {
-  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  const url = cleanEnvValue(process.env.UPSTASH_REDIS_REST_URL);
+  const token = cleanEnvValue(process.env.UPSTASH_REDIS_REST_TOKEN);
   const id = `${Date.now()}-${crypto.randomUUID()}`;
 
   if (!url || !token) {
@@ -125,8 +126,8 @@ export async function saveReviewSuppression(packet: ReviewSuppressionPacket): Pr
 }
 
 export async function listReviewSuppressions(clientSlug: string) {
-  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  const url = cleanEnvValue(process.env.UPSTASH_REDIS_REST_URL);
+  const token = cleanEnvValue(process.env.UPSTASH_REDIS_REST_TOKEN);
 
   if (!url || !token) {
     return { ok: false as const, configured: false as const, emails: [], error: "Storage is not configured." };
@@ -163,8 +164,8 @@ export async function listReviewAutomationRecords(input: {
   clientSlug?: string;
   limit?: number;
 }): Promise<ReviewAutomationRecordResult> {
-  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  const url = cleanEnvValue(process.env.UPSTASH_REDIS_REST_URL);
+  const token = cleanEnvValue(process.env.UPSTASH_REDIS_REST_TOKEN);
 
   if (!url || !token) {
     return { ok: false, configured: false, error: "UPSTASH_REDIS_REST_URL or UPSTASH_REDIS_REST_TOKEN is not set." };

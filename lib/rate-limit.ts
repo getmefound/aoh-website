@@ -1,3 +1,5 @@
+import { cleanEnvValue } from "@/lib/env";
+
 type RateResult = { ok: boolean; retryAfterSec?: number };
 
 const memoryBuckets = new Map<string, number[]>();
@@ -6,8 +8,8 @@ async function incrWithTtl(
   key: string,
   windowSec: number,
 ): Promise<{ count: number; ttlSec: number } | null> {
-  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  const url = cleanEnvValue(process.env.UPSTASH_REDIS_REST_URL);
+  const token = cleanEnvValue(process.env.UPSTASH_REDIS_REST_TOKEN);
   if (!url || !token) return null;
 
   const endpoint = `${url}/pipeline`;
@@ -87,4 +89,3 @@ export async function checkReportDedupe(email: string, businessName: string): Pr
   const key = `dedupe:report:${emailNorm}:${businessNorm}`;
   return checkRate({ key, limit: 1, windowSec: 24 * 60 * 60 });
 }
-
