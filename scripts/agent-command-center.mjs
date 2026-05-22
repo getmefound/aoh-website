@@ -1011,6 +1011,7 @@ Live pieces:
 - Follow-up due endpoint: built.
 - Bounce auto-hold: built.
 - Send-candidate endpoint: built, but waits on storage and verified Google review link.
+- Send-batch endpoint: built with dry-run first, capped live sends, and send logging.
 - Summary storage: ready once Upstash env is set on Vercel.
 - Slack/automation handoff: summary-only; optional webhook can be added.
 - Manager status API: built and protected by internal token.
@@ -1023,13 +1024,14 @@ What Manager can check:
 - Send events like sent, failed, bounced, clicked, or follow-up sent.
 - Who is due for one gentle follow-up.
 - Which uploaded customers are eligible for first send once storage and review link are ready.
+- Dry-run the next review request batch before any live email goes out.
 - Counts and summaries only by default.
 - No full customer list in Slack.
 
 Still needed:
 
 - Add each client's verified Google review link before happy feedback can route to Google.
-- Keep GHL as sender until the AOH sender has a tested send job.
+- Add email sender env and test AOH client-zero before replacing GHL sends.
 
 Useful URL for systems/Manager:
 

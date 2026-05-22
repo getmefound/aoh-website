@@ -78,10 +78,16 @@ export const GHL_EXIT_CHECKLIST: GhlExitChecklistItem[] = [
     detail: "Run the full AOH test with safe contacts before selling this workflow as client-ready.",
   },
   {
-    title: "Actual review request sender",
+    title: "Review request sender endpoint",
+    owner: "Sender",
+    status: "done",
+    detail: "AOH can dry-run a capped send batch, preview recipients, and log send attempts.",
+  },
+  {
+    title: "Live review request sender",
     owner: "Sender",
     status: "next",
-    detail: "Send review requests outside GHL with logging, suppression, and one follow-up.",
+    detail: "Add email provider env, run proof checks, then send only after the AOH client-zero test passes.",
   },
   {
     title: "Monthly client recap",
