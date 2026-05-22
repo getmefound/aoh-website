@@ -1,0 +1,21 @@
+[
+  {
+    "email": "c.holder@ctvetcenter.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "invalid",
+    "flags": [
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "webmaster@veternet.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "unknown",
+    "flags": [],
+    "suggestedCorrection": ""
+  }
+]
