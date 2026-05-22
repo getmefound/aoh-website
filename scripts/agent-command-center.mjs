@@ -98,6 +98,10 @@ function routeCommand(command, args) {
     return buildModelRoutingResult();
   }
 
+  if (mentionsGbpReviewLink(normalized)) {
+    return buildGbpReviewLinkResult();
+  }
+
   if (mentionsGbpAccessTest(normalized)) {
     return buildGbpAccessTestResult();
   }
@@ -524,6 +528,43 @@ Handoff:
 
 Reference: \`docs/client-ops-ledger/gbp-client-access-and-update-test.md\`
 Training loop: \`docs/agentops/local-visibility-manager-gbp-training-loop.md\``,
+  };
+}
+
+function buildGbpReviewLinkResult() {
+  return {
+    kind: "gbp-review-link",
+    text: `*Google review link capture - ${today()}*
+
+Owner: Local Visibility Manager
+
+Goal:
+
+- Get the verified AOH Google review link.
+- Do not publish anything.
+- Do not change profile settings.
+- Hand the link to Reviews Manager so Review Automation can send to the right place.
+
+What Local Visibility Manager should do:
+
+1. Open AOH's Google Business Profile while logged in as Mike.
+2. Find the review/share review form link.
+3. Confirm it opens the AI Outsource Hub review page.
+4. Save only the final public review link.
+5. Report back with: access status, review link found yes/no, blocker if no.
+
+Blocked if:
+
+- Google does not show the profile tools.
+- The link opens the wrong business.
+- AOH needs additional profile verification.
+
+Next handoff:
+
+- Reviews Manager adds the link to the AOH client profile.
+- Sender only dry-runs until storage and email sender env are ready.
+
+Reference: \`docs/PROFILE_KNOWLEDGE_PACK.md\``,
   };
 }
 
@@ -1690,6 +1731,16 @@ function mentionsGbpAccessTest(normalized) {
     normalized.includes("business profile");
   if (!mentionsGbp) return false;
   return /\b(access|invite|manager|owner|profile update|update|handoff|test|client zero|client-zero|draft|post|proof|publish|approve|approved)\b/.test(normalized);
+}
+
+function mentionsGbpReviewLink(normalized) {
+  const mentionsProfile =
+    /\b(gbp|gmb)\b/.test(normalized) ||
+    normalized.includes("google business") ||
+    normalized.includes("business profile") ||
+    normalized.includes("local visibility manager");
+  if (!mentionsProfile) return false;
+  return normalized.includes("review link") || normalized.includes("google review link") || normalized.includes("share review");
 }
 
 function mentionsGbpPostApproval(normalized) {
