@@ -87,10 +87,10 @@
     },
     {
       "id": "gbp_client_zero_training",
-      "command": "Local Visibility Manager, prepare GBP access test",
+      "command": "Profile Manager, prepare GBP access test",
       "intent": "gbp_access",
       "must_include": [
-        "Local Visibility Manager status:",
+        "Profile Manager status:",
         "Confirmed for the AOH client-zero test",
         "AOH's own Google Business Profile is the practice account",
         "Profile gaps:",
@@ -108,14 +108,14 @@
         "Owner access is required",
         "send your password",
         "The AOH Google email clients should invite",
-        "What Local Visibility Manager returns",
+        "What Profile Manager returns",
         "Pick the first safe AOH GBP update",
         "HighLevel AI can be enabled"
       ]
     },
     {
       "id": "gbp_draft_approval_not_reach_drip",
-      "command": "Local Visibility Manager, I approve the starter draft. Prepare the final GBP post steps and proof checklist, but do not publish until I say publish.",
+      "command": "Profile Manager, I approve the starter draft. Prepare the final GBP post steps and proof checklist, but do not publish until I say publish.",
       "intent": "gbp_post_approval",
       "must_include": [
         "GBP post approval",

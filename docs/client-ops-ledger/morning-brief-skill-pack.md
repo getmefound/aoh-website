@@ -22,7 +22,7 @@ This starts as an internal AOH brief for Mike. For the new Presence Refresh laun
 |---|---|
 | General Manager | Final brief, priority order, owner language, decisions, blockers. |
 | GHL Expert | GHL campaign stats, workflows, pipeline proof, export/readiness checks. |
-| Local Visibility Manager | Google Business Profile access, profile updates, local visibility checks, review links, and client GBP handoff proof. |
+| Profile Manager | Google Business Profile access, profile updates, local visibility checks, review links, and client GBP handoff proof. |
 | Sales Manager | What the campaign numbers mean and what to do next. |
 | Scout / Market Watcher | Industry news, competitor signals, niche opportunities, offer ideas. |
 | Systems Director | Cron reliability, source health, cost, failed jobs, missing data. |

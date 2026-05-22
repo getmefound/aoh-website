@@ -120,10 +120,10 @@ export const AGENT_TEAM: AgentTeamMember[] = [
     color: "emerald",
   },
   {
-    agent: "Local Visibility Manager",
+    agent: "Profile Manager",
     displayName: "Seth Godin",
     codename: "Presence",
-    title: "Local Visibility Specialist",
+    title: "Profile Specialist",
     status: "building",
     archetype: "Local trust lens",
     archetypeNote: "Looks at the public footprint the way a buyer or AI answer engine would.",

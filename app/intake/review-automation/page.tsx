@@ -37,7 +37,7 @@ export default function ReviewAutomationIntakePage() {
               settings under People and access. No password sharing.
             </div>
             <div className="text-slate-500">
-              After this form is submitted, our Manager routes the setup packet to Local Visibility Manager,
+              After this form is submitted, our Manager routes the setup packet to Profile Manager,
               Reviews Manager, and GHL Expert.
             </div>
           </div>
@@ -53,7 +53,7 @@ export default function ReviewAutomationIntakePage() {
             <li>
               <span className="font-semibold text-slate-950">1. Access check</span>
               <br />
-              Local Visibility Manager confirms whether AOH can see the Google profile.
+              Profile Manager confirms whether AOH can see the Google profile.
             </li>
             <li>
               <span className="font-semibold text-slate-950">2. Setup routing</span>

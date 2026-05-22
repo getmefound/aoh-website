@@ -270,7 +270,7 @@ as `data/ghl-exit/YYYY-MM-DD/` and must not be committed.
 ### Step 2: AOH Review Automation Core
 
 Owner: Website/Codex  
-Specialists: Sender, Sorter, Local Visibility Manager, Manager
+Specialists: Sender, Sorter, Profile Manager, Manager
 
 Build:
 
@@ -307,7 +307,7 @@ Current v1 foundation:
 
 ### Step 3: AOH AI Visibility Core
 
-Owner: Local Visibility Manager  
+Owner: Profile Manager  
 Specialists: Scout, Reporter, Website/Codex, Auditor
 
 Build:
@@ -400,7 +400,7 @@ AOH-owned operating skill.
 | Sender | Move drips from GHL to Smartlead/Instantly/AOH logic | Reach cannot leave GHL without Sender owning this. |
 | Scout | Research vendors, costs, heatmap tools, cold email tools, voice partners | Prevents expensive tool choices. |
 | Sorter | Customer/prospect list cleanup and suppression rules | Bad lists break review automation and outreach. |
-| Local Visibility Manager | GBP access, profile checks, review link, AI Visibility findings | Replaces GHL reputation dependence. |
+| Profile Manager | GBP access, profile checks, review link, AI Visibility findings | Replaces GHL reputation dependence. |
 | Reporter | Monthly reports, heatmap/visibility summaries, result pages | Makes the service feel premium without GHL dashboards. |
 | Auditor | QA, proof, downgrade safety, cancellation readiness | Prevents silent breakage. |
 

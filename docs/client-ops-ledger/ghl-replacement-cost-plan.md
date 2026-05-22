@@ -84,7 +84,7 @@ Recommended stack:
 | Client/customer database | Postgres/Supabase/Neon tables for clients, jobs/customers, exclusions, review links, sends, events. | About $25-$100/mo early stage depending on provider/usage. | One shared AOH database is cheaper than one GHL subaccount per client. |
 | Customer/job upload | CSV upload to AOH page, plus manual paste/list option. | Low. Storage may be pennies to low dollars at first. | Must include do-not-contact and bad-fit exclusions. |
 | Google review link | Store URL captured from GBP or public profile. | Free. | The review link is enough to send email requests without GHL. |
-| GBP audit/fix | Local Visibility Manager checklist, screenshots, and manual profile updates through Google access. | Labor/agent time, not platform-heavy. | This does not require GHL. |
+| GBP audit/fix | Profile Manager checklist, screenshots, and manual profile updates through Google access. | Labor/agent time, not platform-heavy. | This does not require GHL. |
 | Review request email | Use GHL/LC Email as bridge, then move to transactional/email API only when needed. | Low at review volume. GHL LC Email is $0.675/1,000, external email APIs are also low. | Needs unsubscribe, bounce tracking, templates, and sender domain setup before full GHL exit. |
 | Private feedback filter | AOH-hosted landing page asks for rating/feedback before showing Google link to happy customers. | Mostly existing website cost. | This supports the "filter unhappy privately" promise without GHL. |
 | Follow-up cadence | AOH cron/workflow sends a gentle follow-up if no click/review after X days. | Low. | Start simple: one follow-up. |
@@ -158,16 +158,16 @@ What not to build into v1:
 | Payment/order confirmed | Manager | Stripe/checkout event creates client record and setup status. | Client exists in AOH system with plan, owner, email, and status. |
 | Client setup page created | Website/Codex | Generate `/client/[slug]` page from client record. | Client sees service status and what is needed. |
 | Intake collected | Manager/Coach | AOH form collects business info, review flow, exclusions, customer source, GBP invite confirmation. | Required setup fields complete or blockers shown. |
-| GBP access accepted | Local Visibility Manager | Accept/check Manager access in Google; capture proof. | Correct profile/location confirmed. |
-| GBP audit/fix | Local Visibility Manager | Run profile checklist: name, category, services, hours, phone, site, photos, posts, review link, unanswered reviews. | Fixes made or client/Mike blockers listed. |
-| Review link captured | Local Visibility Manager | Store Google review URL in AOH client record. | Test link opens the correct review destination. |
+| GBP access accepted | Profile Manager | Accept/check Manager access in Google; capture proof. | Correct profile/location confirmed. |
+| GBP audit/fix | Profile Manager | Run profile checklist: name, category, services, hours, phone, site, photos, posts, review link, unanswered reviews. | Fixes made or client/Mike blockers listed. |
+| Review link captured | Profile Manager | Store Google review URL in AOH client record. | Test link opens the correct review destination. |
 | Customer list cleaned | Sorter | Normalize CSV/list, dedupe, remove exclusions, flag missing email. | Clean sendable customer list exists. |
 | Review email written | Coach/Sender | Use approved template with business name, customer name, and review link/private feedback link. | Test email renders cleanly. |
 | Email sender configured | Systems Director/Sender | Configure domain/sender in chosen email provider. | SPF/DKIM/DMARC pass, test email delivered. |
 | Review request sent | Sender/System | Cron/API sends only eligible customers during approved window. | Send log shows success/fail per customer. |
 | Follow-up sent | Sender/System | One follow-up to non-click/non-response customers after configured delay. | Follow-up respects suppression and does not over-send. |
 | Private feedback handled | Sorter/Manager | Low-rating/private feedback gets routed to owner/Manager, not Google-first. | Unhappy feedback is visible and not pushed publicly by automation. |
-| New reviews tracked | Local Visibility Manager/Auditor | Start manual check or API/vendor check; record review count and new review notes. | Monthly recap has review outcome data. |
+| New reviews tracked | Profile Manager/Auditor | Start manual check or API/vendor check; record review count and new review notes. | Monthly recap has review outcome data. |
 | Monthly recap sent | Manager | Generate simple summary and email/client-page update. | Client sees what went out, what came in, and what is needed. |
 | Low-review coaching | Manager/Coach | If review count is below goal, page shows simple owner tips. | Client gets practical next action, not internal tooling detail. |
 | QA and proof | Auditor | Check sends, links, suppressions, GBP link, and summary accuracy. | Client can be marked live/healthy. |

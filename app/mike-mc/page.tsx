@@ -740,7 +740,7 @@ function GhlExpertCard({ data }: { data: ControlData }) {
 function ProfileCard() {
   return (
     <AgentCard
-      name="Local Visibility Manager"
+      name="Profile Manager"
       role="Google profile + local visibility"
       status="manual"
       cadence="client-zero test now"

@@ -19,7 +19,7 @@ For Mike's plain daily workflow, use `mike-daily-agent-quickstart.md` first. Thi
 | Reach team training command | Wired | `Manager, train Reach team` reminds each agent what it owns for discovery, QA, GHL readiness, sending, cost, replies, and booking. |
 | Owner peek command | Wired | `Manager, owner peek` explains where Mike should look and whether Manager DMs are wired. |
 | Model routing command | Wired | `Manager, model routing` explains which work uses no LLM, cheap models, standard models, strong models, or Mike. |
-| GBP access test command | Wired | `Local Visibility Manager, prepare GBP access test` explains the client-zero GBP invite/update process. |
+| GBP access test command | Wired | `Profile Manager, prepare GBP access test` explains the client-zero GBP invite/update process. |
 | Review Automation intake | Wired | `/intake/review-automation` collects client setup details and routes GBP access status to Manager. |
 | Client hub | Wired | `/client/ai-outsource-hub` and `/client/abc-business` show client-facing setup status, standard Review Automation, and locked AI Visibility preview without exposing internal agent names. |
 | Manager recovery check | Wired | `npm run reach:manager-check` records whether Relay needs an automatic capped retry after the morning campaign run. |
@@ -85,7 +85,7 @@ Manager, owner peek
 Manager, brief
 Manager, morning brief
 Manager, model routing
-Local Visibility Manager, prepare GBP access test
+Profile Manager, prepare GBP access test
 GHL Expert, check Reach readiness
 GHL Expert, visually confirm Relay sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
 Sales Manager, review Reach QA
@@ -186,7 +186,7 @@ npm run agent:command -- --command "Manager, train Reach team"
 npm run agent:command -- --command "Manager, owner peek"
 npm run agent:command -- --command "Manager, morning brief"
 npm run agent:command -- --command "Manager, model routing"
-npm run agent:command -- --command "Local Visibility Manager, prepare GBP access test"
+npm run agent:command -- --command "Profile Manager, prepare GBP access test"
 npm run reach:manager-check
 npm run agent:command -- --command "GHL Expert, check Reach readiness"
 npm run agent:command -- --command "approve relay import only"
@@ -587,8 +587,8 @@ Engagement Scout, what social conversations are worth entering?
 Client Success, what client risks need attention?
 Hub, what do we know about this account?
 Reporter, verify report delivery status
-Local Visibility Manager, what visibility gaps matter today?
-Local Visibility Manager, prepare GBP access test
+Profile Manager, what visibility gaps matter today?
+Profile Manager, prepare GBP access test
 Reviews Manager, check review automation health
 Relay Manager, check Relay readiness
 Coach, review this copy
@@ -601,12 +601,12 @@ The first response from agents is intentionally conservative: they identify thei
 
 ## Google Business Profile Access Test
 
-Local Visibility Manager owns Google Business Profile access and updates.
+Profile Manager owns Google Business Profile access and updates.
 
 Use AOH's own profile first as client zero:
 
 ```text
-Local Visibility Manager, prepare GBP access test
+Profile Manager, prepare GBP access test
 ```
 
 Client-safe rule:
@@ -615,8 +615,8 @@ Client-safe rule:
 - client invites the AOH business-domain Google login under Business Profile settings -> People and access
 - default access is Manager, not Owner
 - AOH access is already confirmed for the client-zero test
-- Local Visibility Manager learns on AOH first, then repeats the same process for clients
-- Local Visibility Manager returns access status, profile gaps, draft update, proof needed, and approval needed
+- Profile Manager learns on AOH first, then repeats the same process for clients
+- Profile Manager returns access status, profile gaps, draft update, proof needed, and approval needed
 - Mike approves before anything public is posted
 
 Reference:

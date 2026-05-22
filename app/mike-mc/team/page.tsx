@@ -93,7 +93,7 @@ const ROLES: OrgRole[] = [
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Paul_G._Allen.jpg/330px-Paul_G._Allen.jpg",
   },
   {
-    title: "Local Visibility Manager",
+    title: "Profile Manager",
     persona: "TBD",
     status: "building",
     summary: "Owns Google Business Profile access, profile health, citations, review links, and local/AI visibility signals.",
@@ -252,7 +252,7 @@ const DEPARTMENTS = [
   },
   {
     title: "Client Delivery",
-    lead: "Local Visibility Manager",
+    lead: "Profile Manager",
     support: ["Reviews Manager", "Relay Manager"],
   },
   {
@@ -272,7 +272,7 @@ const TBD_OPTIONS = [
     options: ["Marc Benioff", "Stewart Butterfield", "Meg Whitman", "Jim Barksdale"],
   },
   {
-    role: "Local Visibility Manager",
+    role: "Profile Manager",
     options: ["Mike Blumenthal", "Joy Hawkins", "Rand Fishkin", "Darren Shaw"],
   },
   {

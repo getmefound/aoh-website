@@ -131,7 +131,7 @@ Client upload wins if the auto-found logo is wrong.
 
 Manager owns the client-facing summary.
 
-Local Visibility Manager owns:
+Profile Manager owns:
 
 - Google Business Profile access
 - profile gaps

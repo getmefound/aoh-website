@@ -240,7 +240,7 @@ function buildSlackMessage(payload: CleanIntake) {
 *Customer system:* ${payload.customerSystem || "not provided"}
 
 *Manager routing:*
-- Local Visibility Manager: verify GBP access and profile basics.
+- Profile Manager: verify GBP access and profile basics.
 - Reviews Manager: prepare review automation setup.
 - Systems Director: keep AOH-owned intake and alert paths healthy.
 - GHL Expert: bridge-only HighLevel setup/export while GHL remains active.

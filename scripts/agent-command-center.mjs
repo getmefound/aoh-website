@@ -194,7 +194,7 @@ Supported commands:
 - \`GHL Expert, run $97 smoke check\`
 - \`Reviews Manager, status\`
 - \`Reviews Manager, storage check\`
-- \`Local Visibility Manager, prepare GBP access test\`
+- \`Profile Manager, prepare GBP access test\`
 - \`Manager, run Reach Cold Email Campaign\`
 - \`Manager, show Reach warmup autopilot\`
 - \`Manager, explain the Reach result\`
@@ -220,7 +220,7 @@ function buildAgentListResponse() {
     ["Systems and IT", ["Systems Director", "GHL Expert"]],
     ["Sales", ["Sales Manager", "Scout", "Sender", "Sorter", "Booker", "Engagement Scout"]],
     ["Client Success", ["Client Success Manager", "Hub", "Reporter"]],
-    ["Client Delivery", ["Local Visibility Manager", "Reviews Manager", "Relay Manager"]],
+    ["Client Delivery", ["Profile Manager", "Reviews Manager", "Relay Manager"]],
     ["Marketing", ["Editor", "Press"]],
   ];
 
@@ -240,7 +240,7 @@ Manager, run Reach Cold Email Campaign
 Manager, train Reach team
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
-Local Visibility Manager, prepare GBP access test
+Profile Manager, prepare GBP access test
 Coach, review this copy
 Reporter, verify report delivery status
 Press, what is ready to publish
@@ -423,7 +423,7 @@ Who feeds the brief:
 - GHL Expert: GHL campaign numbers, workflow proof, and exports.
 - Sales Manager: what the numbers mean and what to do next.
 - Scout / Market Watcher: industry news, competitor signals, and offer ideas.
-- Local Visibility Manager: GBP access/update status and local visibility findings.
+- Profile Manager: GBP access/update status and local visibility findings.
 - Systems Director: cron/source failures and cost risk.
 - Manager: final owner summary to you.
 
@@ -484,7 +484,7 @@ function buildGbpAccessTestResult() {
     kind: "gbp-access-test",
     text: `*GBP access test - ${today()}*
 
-Mike, Local Visibility Manager status:
+Mike, Profile Manager status:
 
 Access:
 
@@ -494,7 +494,7 @@ Access:
 Profile gaps:
 
 - Not fully inspected from Slack yet.
-- Local Visibility Manager owns the visual check: hours, services, categories, photos, posts, review link, and unanswered reviews.
+- Profile Manager owns the visual check: hours, services, categories, photos, posts, review link, and unanswered reviews.
 - Automation gap: the Slack listener cannot open Mike's authenticated Google profile by itself yet.
 
 Agent-prepared draft:
@@ -527,7 +527,7 @@ Handoff:
 - GHL Expert helps only if GBP needs to connect into HighLevel/reputation workflows.
 
 Reference: \`docs/client-ops-ledger/gbp-client-access-and-update-test.md\`
-Training loop: \`docs/agentops/local-visibility-manager-gbp-training-loop.md\``,
+Training loop: \`docs/agentops/profile-manager-gbp-training-loop.md\``,
   };
 }
 
@@ -536,7 +536,7 @@ function buildGbpReviewLinkResult() {
     kind: "gbp-review-link",
     text: `*Google review link capture - ${today()}*
 
-Owner: Local Visibility Manager
+Owner: Profile Manager
 
 Goal:
 
@@ -545,7 +545,7 @@ Goal:
 - Do not change profile settings.
 - Hand the link to Reviews Manager so Review Automation can send to the right place.
 
-What Local Visibility Manager should do:
+What Profile Manager should do:
 
 1. Open AOH's Google Business Profile while logged in as Mike.
 2. Find the review/share review form link.
@@ -583,7 +583,7 @@ AI Outsource Hub helps local businesses automate the follow-up work that usually
 
 Agent work:
 
-- Local Visibility Manager prepares the GBP post.
+- Profile Manager prepares the GBP post.
 - Press captures proof screenshots.
 - Manager reports final status back to Mike.
 
@@ -1739,6 +1739,7 @@ function mentionsGbpReviewLink(normalized) {
     /\b(gbp|gmb)\b/.test(normalized) ||
     normalized.includes("google business") ||
     normalized.includes("business profile") ||
+    normalized.includes("profile manager") ||
     normalized.includes("local visibility manager");
   if (!mentionsProfile) return false;
   return normalized.includes("review link") || normalized.includes("google review link") || normalized.includes("share review");
@@ -1749,6 +1750,7 @@ function mentionsGbpPostApproval(normalized) {
     /\b(gbp|gmb)\b/.test(normalized) ||
     normalized.includes("google business") ||
     normalized.includes("business profile") ||
+    normalized.includes("profile manager") ||
     normalized.includes("local visibility manager");
   if (!mentionsGbp) return false;
   const approvesDraft = /\b(approve|approved|yes|ok|okay)\b/.test(normalized) && /\b(draft|post|update|publish|proof|checklist)\b/.test(normalized);

@@ -105,7 +105,7 @@ export function ReviewAutomationIntakeForm({ inviteEmail }: { inviteEmail: strin
         </p>
         <h2 className="mt-3 text-2xl font-semibold">We have the setup packet.</h2>
         <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-          Manager will route this to Local Visibility Manager for Google profile access, Reviews Manager
+          Manager will route this to Profile Manager for Google profile access, Reviews Manager
           for review automation, and GHL Expert for HighLevel setup.
         </p>
       </div>

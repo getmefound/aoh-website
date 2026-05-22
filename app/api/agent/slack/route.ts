@@ -260,13 +260,13 @@ const AGENTS: Record<
     nextStep: "Ask: `Reporter, verify report delivery status`.",
   },
   "local-visibility-manager": {
-    title: "Local Visibility Manager",
+    title: "Profile Manager",
     persona: "TBD",
-    aliases: ["local visibility manager", "local visibility", "local vis", "visibility manager", "gbp manager", "gmb manager"],
+    aliases: ["profile manager", "local visibility manager", "local visibility", "local vis", "visibility manager", "gbp manager", "gmb manager"],
     reportsTo: "Client Success Manager",
     job: "Owns Google Business Profile access, profile updates, profile health, citations, review links, and AI visibility signals.",
     canDo: ["prepare GBP access tests", "check visibility gaps", "summarize GBP readiness"],
-    nextStep: "Ask: `Local Visibility Manager, prepare GBP access test`.",
+    nextStep: "Ask: `Profile Manager, prepare GBP access test`.",
   },
   "reviews-manager": {
     title: "Reviews Manager",
@@ -520,7 +520,7 @@ Manager, train Reach team
 Manager, owner peek
 Manager, morning brief
 Manager, model routing
-Local Visibility Manager, prepare GBP access test
+Profile Manager, prepare GBP access test
 Manager, run Reach Cold Email Campaign
 Manager, show Reach warmup autopilot
 Manager, explain the Reach result
@@ -680,7 +680,7 @@ Needs Mike today:
 Who feeds the brief:
 
 - GHL Expert: GHL campaign numbers, workflow proof, and exports.
-- Local Visibility Manager: GBP access/update status and local visibility findings.
+- Profile Manager: GBP access/update status and local visibility findings.
 - Sales Manager: what the numbers mean and what to do next.
 - Scout / Market Watcher: industry news, competitor signals, and offer ideas.
 - Systems Director: cron/source failures and cost risk.
@@ -737,7 +737,7 @@ Reference: \`docs/client-ops-ledger/agent-model-routing-policy.md\``;
 function buildGbpAccessTestResponse(actor: UserContext) {
   return `*GBP access test - ${today()}*
 
-${address(actor)}, Local Visibility Manager status:
+${address(actor)}, Profile Manager status:
 
 Access:
 
@@ -747,7 +747,7 @@ Access:
 Profile gaps:
 
 - Not fully inspected from Slack yet.
-- Local Visibility Manager owns the visual check: hours, services, categories, photos, posts, review link, and unanswered reviews.
+- Profile Manager owns the visual check: hours, services, categories, photos, posts, review link, and unanswered reviews.
 - Automation gap: the Slack listener cannot open Mike's authenticated Google profile by itself yet.
 
 Agent-prepared draft:
@@ -796,7 +796,7 @@ AI Outsource Hub helps local businesses automate the follow-up work that usually
 
 Agent work:
 
-- Local Visibility Manager prepares the GBP post.
+- Profile Manager prepares the GBP post.
 - Press captures proof screenshots.
 - Manager reports final status back to Mike.
 
@@ -1075,7 +1075,7 @@ Manager, train Reach team
 Manager, brief
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
-Local Visibility Manager, prepare GBP access test
+Profile Manager, prepare GBP access test
 Coach, review this copy
 Reporter, verify report delivery status
 Press, what is ready to publish
@@ -2159,6 +2159,7 @@ function mentionsGbpPostApproval(normalized: string) {
     /\b(gbp|gmb)\b/.test(normalized) ||
     normalized.includes("google business") ||
     normalized.includes("business profile") ||
+    normalized.includes("profile manager") ||
     normalized.includes("local visibility manager");
   if (!mentionsGbp) return false;
   const approvesDraft = /\b(approve|approved|yes|ok|okay)\b/.test(normalized) && /\b(draft|post|update|publish|proof|checklist)\b/.test(normalized);

@@ -46,7 +46,7 @@ Use these as inspiration-label candidates only. Public figures are not affiliate
 
 | Role | Option 1 | Option 2 | Option 3 | Option 4 |
 |---|---|---|---|---|
-| Local Visibility Manager | Mike Blumenthal | Joy Hawkins | Rand Fishkin | Darren Shaw |
+| Profile Manager | Mike Blumenthal | Joy Hawkins | Rand Fishkin | Darren Shaw |
 | Reviews Manager | Jay Baer | Shep Hyken | Fred Reichheld | Jeanne Bliss |
 | Relay Manager | Alexander Graham Bell | Lily Tomlin | Claude Shannon | Walt Mossberg |
 
@@ -70,7 +70,7 @@ This is the set I would try first if you want the chart to feel less random-cele
 | Client Success Manager | Danny Meyer |
 | Hub | Marc Benioff |
 | GHL Expert | Satya Nadella |
-| Local Visibility Manager | Mike Blumenthal |
+| Profile Manager | Mike Blumenthal |
 | Reviews Manager | Jay Baer |
 | Relay Manager | Claude Shannon |
 | Coach | Dale Carnegie |

@@ -1,7 +1,7 @@
 # AOH GBP Client Access And Update Test
 
 Status: client-zero test
-Owner: Local Visibility Manager
+Owner: Profile Manager
 Reviewer: Manager
 Last updated: 2026-05-21
 
@@ -18,7 +18,7 @@ The process should be simple enough for a business owner:
 
 ## Agent Ownership
 
-Local Visibility Manager owns:
+Profile Manager owns:
 
 - Google Business Profile access
 - profile health
@@ -70,7 +70,7 @@ Run AOH as client zero:
 ## Slack Command
 
 ```text
-Local Visibility Manager, prepare GBP access test
+Profile Manager, prepare GBP access test
 ```
 
 ## Source

@@ -38,7 +38,7 @@ Manager, owner peek
 Manager, status
 Manager, run Reach Cold Email Campaign
 Manager, train Reach team
-Local Visibility Manager, prepare GBP access test
+Profile Manager, prepare GBP access test
 ```
 
 ## What Manager Should Bring Mike

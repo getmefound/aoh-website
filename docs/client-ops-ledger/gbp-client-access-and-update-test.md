@@ -1,7 +1,7 @@
 # Google Business Profile Access And Update Test
 
 Status: client-zero test
-Owner: Local Visibility Manager
+Owner: Profile Manager
 Reviewer: Manager
 Last updated: 2026-05-21
 
@@ -13,7 +13,7 @@ This proves the handoff is simple:
 
 1. The business owner invites AOH by email.
 2. AOH accepts access without asking for the owner's password.
-3. Local Visibility Manager confirms what can be updated.
+3. Profile Manager confirms what can be updated.
 4. AOH prepares the first profile update.
 5. Public changes are approved before posting.
 
@@ -21,7 +21,7 @@ Current AOH status: access is already confirmed for the client-zero test. The ne
 
 ## Training Goal
 
-Local Visibility Manager learns the whole process on AOH first, then repeats it for clients.
+Profile Manager learns the whole process on AOH first, then repeats it for clients.
 
 The agent must be able to tell Mike:
 
@@ -33,7 +33,7 @@ The agent must be able to tell Mike:
 
 ## Owner
 
-Local Visibility Manager owns Google Business Profile access, profile health, review links, posts, photos, services, and local visibility checks.
+Profile Manager owns Google Business Profile access, profile health, review links, posts, photos, services, and local visibility checks.
 
 Manager owns the brief and blocker tracking.
 
@@ -67,7 +67,7 @@ Then AOH accepts the invite from that Google account.
 
 1. Treat AOH profile access as confirmed for the client-zero test.
 2. Use the business-domain Google login as the client invite email for now.
-3. Confirm Local Visibility Manager can see the profile.
+3. Confirm Profile Manager can see the profile.
 4. Check the basics: name, address/service area, phone, website, hours, categories, services, photos, posts, review link, and unanswered reviews.
 5. Draft one safe GBP update for AOH.
 6. Get Mike approval before publishing the update.
@@ -75,7 +75,7 @@ Then AOH accepts the invite from that Google account.
 
 ## Agent Output
 
-When asked to prepare the test, Local Visibility Manager should return:
+When asked to prepare the test, Profile Manager should return:
 
 - Access: confirmed, blocked, or needs owner action
 - Profile health: top gaps only, or "not fully inspected from Slack yet"
@@ -90,7 +90,7 @@ When asked to prepare the test, Local Visibility Manager should return:
 This training is done when:
 
 - AOH profile access is confirmed
-- Local Visibility Manager can explain the client process in plain language
+- Profile Manager can explain the client process in plain language
 - the first AOH profile update is drafted
 - Manager gives Mike a final recommendation
 - Mike approves or rejects public publishing
@@ -105,7 +105,7 @@ Use this language:
 ## Slack Command
 
 ```text
-Local Visibility Manager, prepare GBP access test
+Profile Manager, prepare GBP access test
 ```
 
 ## Source

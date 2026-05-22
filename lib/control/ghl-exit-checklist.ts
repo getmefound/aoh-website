@@ -68,7 +68,7 @@ export const GHL_EXIT_CHECKLIST: GhlExitChecklistItem[] = [
   },
   {
     title: "AOH Google review link",
-    owner: "Local Visibility Manager",
+    owner: "Profile Manager",
     status: "blocked",
     detail: "Capture and save the real AOH Google review link before any real review request send.",
   },
@@ -122,7 +122,7 @@ export const GHL_EXIT_CHECKLIST: GhlExitChecklistItem[] = [
   },
   {
     title: "AI Visibility replacement",
-    owner: "Local Visibility Manager",
+    owner: "Profile Manager",
     status: "later",
     detail: "Replace GHL-dependent reporting with AOH-owned ranking checks, notes, and monthly proof.",
   },

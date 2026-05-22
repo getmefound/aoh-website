@@ -2,7 +2,7 @@
 
 Status: v1 live intake
 Owner: Manager
-Primary agents: Local Visibility Manager, Reviews Manager, Systems Director, GHL Expert bridge
+Primary agents: Profile Manager, Reviews Manager, Systems Director, GHL Expert bridge
 Last updated: 2026-05-21
 
 ## Purpose
@@ -14,7 +14,7 @@ The important trigger is Google Business Profile access:
 - client adds the AOH business-domain Google login as Manager
 - client submits the intake form
 - Manager routes the setup packet to the right agents
-- Local Visibility Manager verifies access
+- Profile Manager verifies access
 - Reviews Manager prepares the review automation flow
 - Systems Director keeps the AOH-owned intake/alert path healthy
 - GHL Expert handles HighLevel only as a bridge while the GHL exit is in progress
@@ -60,7 +60,7 @@ Owner access is not the default. If a client selects Owner, Manager should flag 
 
 1. Client submits intake form.
 2. Manager receives setup packet.
-3. Local Visibility Manager checks GBP access and profile basics.
+3. Profile Manager checks GBP access and profile basics.
 4. Reviews Manager prepares review automation setup.
 5. Systems Director confirms the AOH-owned intake/alert path received the packet.
 6. GHL Expert prepares HighLevel setup only if the GHL bridge is still active.

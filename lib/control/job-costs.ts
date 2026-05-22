@@ -385,8 +385,8 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     internalTasks: [
       {
         title: "Supply proof points",
-        description: "Local Visibility Manager gives the campaign the checklist and findings that make the visibility pitch credible.",
-        owner: "Local Visibility Manager",
+        description: "Profile Manager gives the campaign the checklist and findings that make the visibility pitch credible.",
+        owner: "Profile Manager",
       },
       {
         title: "Decide whether to keep spending",
@@ -395,10 +395,10 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
       },
     ],
     agentRoles: [
-      { agent: "Scout", role: "Finds prospects with Local Visibility Manager, review, citation, or AI visibility gaps." },
+      { agent: "Scout", role: "Finds prospects with Profile Manager, review, citation, or AI visibility gaps." },
       { agent: "Sender", role: "Sends the visibility-audit angle and keeps the message aligned to AOH's offer." },
       { agent: "Sorter", role: "Classifies replies and sends interested leads toward discovery." },
-      { agent: "Local Visibility Manager", role: "Provides the visibility checklist and proof points used in the pitch." },
+      { agent: "Profile Manager", role: "Provides the visibility checklist and proof points used in the pitch." },
       { agent: "Systems Director", role: "Watches reply quality and whether booked audits justify the daily spend." },
     ],
     cadence: "Daily at 7:15am",
@@ -537,21 +537,21 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     slug: "local-visibility-sweep",
     name: "Local visibility sweep",
     service: "AI Visibility",
-    owner: "Local Visibility Manager",
+    owner: "Profile Manager",
     overview:
       "Check AOH or client profiles for access, basic visibility decay, profile completeness, reviews, unanswered reviews, and NAP drift.",
     salesAgentTasks: [
       {
         title: "Create client-facing findings",
-        description: "Local Visibility Manager turns profile gaps, unanswered reviews, and visibility drift into simple sales talking points.",
-        owner: "Local Visibility Manager",
+        description: "Profile Manager turns profile gaps, unanswered reviews, and visibility drift into simple sales talking points.",
+        owner: "Profile Manager",
       },
     ],
     internalTasks: [
       {
         title: "Monitor profile health",
-        description: "Local Visibility Manager checks GBP access, completeness, photos, services, categories, reviews, and NAP consistency.",
-        owner: "Local Visibility Manager",
+        description: "Profile Manager checks GBP access, completeness, photos, services, categories, reviews, and NAP consistency.",
+        owner: "Profile Manager",
       },
       {
         title: "Confirm GHL connection health",
@@ -565,7 +565,7 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
       },
     ],
     agentRoles: [
-      { agent: "Local Visibility Manager", role: "Checks GBP access, completeness, reviews, photos, services, categories, and NAP consistency." },
+      { agent: "Profile Manager", role: "Checks GBP access, completeness, reviews, photos, services, categories, and NAP consistency." },
       { agent: "GHL Expert", role: "Confirms connected HighLevel/GBP pieces still sync where needed." },
       { agent: "Systems Director", role: "Confirms recurring profile issues are not being ignored." },
       { agent: "Coach", role: "Turns findings into client-facing explanations or monthly report language." },

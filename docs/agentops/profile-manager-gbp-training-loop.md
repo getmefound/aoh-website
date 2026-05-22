@@ -1,7 +1,7 @@
-# Local Visibility Manager GBP Training Loop
+# Profile Manager GBP Training Loop
 
 Status: v1 client-zero
-Owner: Local Visibility Manager
+Owner: Profile Manager
 Reviewer: Manager
 Last updated: 2026-05-21
 
@@ -31,7 +31,7 @@ Current input needed:
 - AOH Business Profile link or search name
 - final public-publish approval only
 
-Local Visibility Manager run:
+Profile Manager run:
 
 1. Treat AOH access as confirmed for the client-zero test.
 2. For future clients, confirm the role is Manager unless Mike specifically approved Owner.
@@ -45,7 +45,7 @@ Local Visibility Manager run:
 ## Required Response Format
 
 ```text
-Local Visibility Manager - GBP client-zero status
+Profile Manager - GBP client-zero status
 
 Access:
 - Confirmed for AOH client-zero, blocked, or needs owner action

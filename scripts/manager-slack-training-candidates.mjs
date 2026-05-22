@@ -16,7 +16,7 @@ const AGENT_PREFIXES = [
   "sender",
   "sorter",
   "booker",
-  "local visibility manager",
+  "profile manager",
   "reviews manager",
   "relay manager",
   "coach",

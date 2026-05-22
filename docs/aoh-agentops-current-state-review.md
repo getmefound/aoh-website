@@ -204,7 +204,7 @@ This repo references OpenClaw and provides a login helper, but I did not find th
 - Manager routing is duplicated between the Slack route and the local command-center script.
 - Regex command matching will get brittle as more jobs are added.
 - Agent lists differ across Slack code, Mission Control, docs, and operating-model notes.
-- Some docs still use older names like Director/Auditor/Profile while newer pages use General Manager/Systems Director/Local Visibility Manager.
+- Some docs still use older names like Director/Auditor/Profile while newer pages use General Manager/Systems Director/Profile Manager.
 - The current loop still requires Mike or Codex to manually notice a bad Slack answer and decide what file to edit.
 - Outbox logs are useful, but they are not an evaluation system.
 - Mission Control displays work, but it does not yet enforce the handoff packet, proof checklist, or eval result.
