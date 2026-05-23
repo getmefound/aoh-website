@@ -15,6 +15,11 @@ export function hasSupabaseConfig() {
   return Boolean(envValue("NEXT_PUBLIC_SUPABASE_URL") && getSupabaseSecretKey());
 }
 
+function supabaseRestBaseUrl(rawUrl: string) {
+  const url = rawUrl.replace(/\/+$/, "");
+  return url.endsWith("/rest/v1") ? url : `${url}/rest/v1`;
+}
+
 export async function supabaseRest<T>(
   table: string,
   options: SupabaseRequestOptions = {},
@@ -26,7 +31,7 @@ export async function supabaseRest<T>(
   }
 
   const query = options.query ? `?${options.query.replace(/^\?/, "")}` : "";
-  const response = await fetch(`${url}/rest/v1/${table}${query}`, {
+  const response = await fetch(`${supabaseRestBaseUrl(url)}/${table}${query}`, {
     method: options.method ?? "GET",
     headers: {
       apikey: key,
