@@ -23,28 +23,28 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aioutsourcehub.com"),
+  metadataBase: new URL("https://getmefound.ai"),
   title: {
-    default: "AI Outsource Hub - Growth Services for Local Businesses",
-    template: "%s - AI Outsource Hub",
+    default: "GetMeFound - AI Search Visibility for Local Businesses",
+    template: "%s - GetMeFound",
   },
   description:
-    "Done-for-you growth for local businesses. Reviews, voice answering, and search visibility — run for you, not in a dashboard. Starts at $49/mo. No contract.",
+    "GetMeFound helps local businesses get found and recommended in Google, Maps, AI search, and near-me moments.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "AI Outsource Hub — You run your business. We run the rest.",
+    title: "GetMeFound - Be the local business AI recommends.",
     description:
-      "Done-for-you growth for local businesses. Reviews, voice answering, and search visibility. Starts at $49/mo. No contract.",
-    url: "https://aioutsourcehub.com",
-    siteName: "AI Outsource Hub",
+      "AI search visibility, Google Business Profile cleanup, reviews, and local trust signals for service businesses.",
+    url: "https://getmefound.ai",
+    siteName: "GetMeFound",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Outsource Hub — You run your business. We run the rest.",
+    title: "GetMeFound - Be the local business AI recommends.",
     description:
-      "Done-for-you growth for local businesses. Reviews, voice answering, search visibility. Starts at $49/mo. No contract.",
+      "AI search visibility, Google Business Profile cleanup, reviews, and local trust signals for service businesses.",
   },
   robots: {
     index: true,
@@ -61,27 +61,23 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "AI Outsource Hub",
-  url: "https://aioutsourcehub.com",
+  name: "GetMeFound",
+  url: "https://getmefound.ai",
   description:
-    "AI Outsource Hub runs growth services for local businesses - review automation, voice answering, search visibility, lead generation, and custom agents built around your business. You run your business. We run the rest.",
+    "GetMeFound helps local businesses get found and recommended in Google, Maps, AI search, and near-me moments.",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "support",
-    email: "support@aioutsourcehub.com",
+    email: "support@getmefound.ai",
   },
-  sameAs: [
-    "https://www.linkedin.com/company/ai-outsource-hub",
-    "https://www.facebook.com/aioutsourcehub",
-    "https://www.instagram.com/aioutsourcehub",
-  ],
+  sameAs: [],
 };
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "AI Outsource Hub",
-  url: "https://aioutsourcehub.com",
+  name: "GetMeFound",
+  url: "https://getmefound.ai",
 };
 
 export default function RootLayout({

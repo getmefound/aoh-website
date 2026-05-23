@@ -57,7 +57,7 @@ export function ContactForm() {
       return;
     }
     if (message.trim().length < 10) {
-      setError("Your message is too short — give us a bit more to work with.");
+      setError("Your message is too short - give us a bit more to work with.");
       return;
     }
 
@@ -94,14 +94,14 @@ export function ContactForm() {
   if (submitted) {
     return (
       <div className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-8">
-        <h2 className="text-2xl font-bold mb-3">Thanks — we got it.</h2>
+        <h2 className="text-2xl font-bold mb-3">Thanks - we got it.</h2>
         <p className="text-[var(--color-text-muted)] leading-relaxed">
           We&apos;ll reply within a few hours. If it&apos;s urgent, email{" "}
           <a
-            href="mailto:support@aioutsourcehub.com"
+            href="mailto:support@getmefound.ai"
             className="text-[var(--color-accent)] hover:underline font-medium"
           >
-            support@aioutsourcehub.com
+            support@getmefound.ai
           </a>{" "}
           directly.
         </p>
@@ -181,7 +181,7 @@ export function ContactForm() {
           disabled={pending}
           className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] py-3 px-6 rounded-xl font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {pending ? "Sending…" : "Send message"}
+          {pending ? "Sending..." : "Send message"}
         </button>
 
         {error && (

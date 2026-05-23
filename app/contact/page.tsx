@@ -8,7 +8,7 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Questions about AOH? We answer them. Email support@aioutsourcehub.com or send us a message.",
+    "Questions about GetMeFound? Email support@getmefound.ai or send us a message.",
   alternates: { canonical: "/contact" },
 };
 
@@ -26,7 +26,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title="Talk to a human."
-        subtitle="Questions about pricing, setup, or whether AOH is right for your business? We answer them — usually within a few hours."
+        subtitle="Questions about pricing, setup, or whether GetMeFound is right for your business? We answer them - usually within a few hours."
       />
       <PageBody>
         <PageSection>
@@ -42,10 +42,10 @@ export default function ContactPage() {
                     Email
                   </span>
                   <a
-                    href="mailto:support@aioutsourcehub.com"
+                    href="mailto:support@getmefound.ai"
                     className="text-[var(--color-accent)] hover:underline font-medium"
                   >
-                    support@aioutsourcehub.com
+                    support@getmefound.ai
                   </a>
                 </li>
                 <li>
@@ -53,12 +53,12 @@ export default function ContactPage() {
                     Website
                   </span>
                   <a
-                    href="https://aioutsourcehub.com"
+                    href="https://getmefound.ai"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[var(--color-accent)] hover:underline font-medium"
                   >
-                    aioutsourcehub.com
+                    getmefound.ai
                   </a>
                 </li>
               </ul>

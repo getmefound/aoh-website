@@ -106,6 +106,7 @@ const TRUSTED_REPORT_HOSTS = [
   "leadconnectorhq.com",
   "hub360ai.com",
   "aioutsourcehub.com",
+  "getmefound.ai",
 ];
 
 function trustedReportUrl(raw: string | null): string | null {

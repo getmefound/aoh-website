@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { usePathname } from "next/navigation";
@@ -23,7 +22,7 @@ const company = [
 const socials = [
   {
     label: "Email",
-    href: "mailto:support@aioutsourcehub.com",
+    href: "mailto:support@getmefound.ai",
     Icon: (props: { className?: string }) => (
       <svg
         viewBox="0 0 24 24"
@@ -42,7 +41,7 @@ const socials = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/company/ai-outsource-hub",
+    href: "https://www.linkedin.com/company/getmefound",
     Icon: (props: { className?: string }) => (
       <svg
         viewBox="0 0 24 24"
@@ -62,7 +61,7 @@ const socials = [
   },
   {
     label: "Facebook",
-    href: "https://www.facebook.com/aioutsourcehub",
+    href: "#",
     Icon: (props: { className?: string }) => (
       <svg
         viewBox="0 0 24 24"
@@ -80,7 +79,7 @@ const socials = [
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/aioutsourcehub",
+    href: "#",
     Icon: (props: { className?: string }) => (
       <svg
         viewBox="0 0 24 24"
@@ -119,38 +118,24 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-[var(--color-hero-bg)] text-[var(--color-hero-subtext)] border-t border-[var(--color-hero-border)]">
-      {/* Decorative blur orbs */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 h-96 w-96 -mr-32 -mt-32 rounded-full bg-[var(--color-accent)]/10 blur-[120px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 -ml-24 -mb-24 rounded-full bg-[var(--color-accent)]/5 blur-[100px]"
-      />
-
       <div className="relative mx-auto max-w-6xl px-6 py-12">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-12">
-          {/* Brand block — 4 cols on md+ */}
+          {/* Brand block - 4 cols on md+ */}
           <div className="col-span-2 md:col-span-4">
             <Link href={withLocale("/")} className="inline-block">
-              <Image
-                src="/AOH-logo-dark-bg.svg"
-                alt="AI Outsource Hub"
-                width={140}
-                height={36}
-                className="h-9 w-auto"
-              />
+              <span className="text-2xl font-black tracking-tight text-[var(--color-hero-text)]">
+                GetMeFound
+              </span>
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed">
-              You run the business. We run the rest.
+              Be the local business AI recommends.
             </p>
             <p className="mt-3 text-sm">
               <a
-                href="mailto:support@aioutsourcehub.com"
+                href="mailto:support@getmefound.ai"
                 className="hover:text-[var(--color-hero-text)] transition-colors"
               >
-                support@aioutsourcehub.com
+                support@getmefound.ai
               </a>
             </p>
 
@@ -171,7 +156,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Services — 2 cols */}
+          {/* Services - 2 cols */}
           <div className="md:col-span-2">
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--color-hero-text)]">
               Services
@@ -190,7 +175,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company — 2 cols */}
+          {/* Company - 2 cols */}
           <div className="md:col-span-2">
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--color-hero-text)]">
               Company
@@ -215,16 +200,16 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter — 4 cols */}
+          {/* Newsletter - 4 cols */}
           <div className="col-span-2 md:col-span-4">
             <NewsletterForm />
           </div>
         </div>
 
-        {/* Bottom row — pulled up, single line w/ legal + Hub360ai credit */}
+        {/* Bottom row */}
         <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-[var(--color-hero-border)] pt-5 text-xs md:flex-row md:items-center">
           <div className="flex items-center gap-4">
-            <p>&copy; {year} AI Outsource Hub.</p>
+            <p>&copy; {year} GetMeFound.</p>
             <Link href={withLocale("/privacy")} className="hover:text-[var(--color-hero-text)] transition-colors">
               {isSpanish ? "Privacidad" : "Privacy"}
             </Link>
@@ -232,17 +217,7 @@ export function Footer() {
               {isSpanish ? "Términos" : "Terms"}
             </Link>
           </div>
-          <div className="flex items-center gap-2 text-[var(--color-hero-subtext)]/70">
-            <span>Runs on</span>
-            <Image
-              src="/hub360ai/hub360ai-icon-mono.svg"
-              alt="Hub360ai"
-              width={18}
-              height={18}
-              className="h-4 w-4 opacity-80"
-            />
-            <span className="font-mono text-[var(--color-hero-text)]">Hub360ai</span>
-          </div>
+          <p className="text-[var(--color-hero-subtext)]/70">Built for local service businesses.</p>
         </div>
       </div>
     </footer>

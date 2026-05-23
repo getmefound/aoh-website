@@ -1,77 +1,54 @@
-# AOH — Product Context
+# GetMeFound Product Context
 
-> Public-safe context doc for the website codebase. For canonical pricing + internal positioning, contact Mike directly.
+Public-safe context for the website codebase.
 
----
+## What GetMeFound Is
 
-## What AOH is
+**GetMeFound** helps local businesses become the company that search engines and AI assistants recommend. The core offer is AI search visibility, supported by reviews, listings, schema, local proof, and practical conversion paths.
 
-**AI Outsource Hub.** A done-for-you AI services agency for local small and mid-sized businesses — the kind of business that doesn't have a marketing person and won't hire a developer.
+The plain-English promise: **be the local business AI recommends.**
 
-The promise: **"We run it. You don't learn it."** No dashboards, no apps, no platforms for the client to log into. Daily updates by text and email.
+## Who It Serves
 
-## Who AOH serves
+Local service businesses that need more qualified customers but do not want another dashboard to manage. The buyer is usually an owner or operator who wants outcomes, not software homework.
 
-Local service businesses across six verticals:
+## Offer Direction
 
-- Pet groomers / boarders
-- Funeral homes
-- Marketing consultants
-- Veterinary clinics
-- Senior living / assisted living
-- B2B services (accountants, MSPs, similar small-team operations)
-
-**Target buyer:** owner of a $300K-$2M annual revenue local service business, 40-65 years old, mature audience, prefers email + SMS over apps. Doesn't want to learn AI; wants someone else to run it.
-
-## What AOH sells
-
-Four customer-facing services:
+Primary offer:
 
 | Service | What it does |
 |---|---|
-| **Reviews** | SMS + email review collection, AI-drafted responses, Google Business Profile optimization, AI-search visibility, local-rank tracking. |
-| **Relay** | 24/7 inbound call handling, bilingual EN+ES single-agent, unlimited inbound minutes. Books appointments, transfers to humans when needed. |
-| **AI Visibility** | Get found in ChatGPT, Claude, Google AI Overviews, and traditional search. Schema markup, llms.txt, JSON-LD, GBP optimization, ongoing monitoring. |
-| **Studio** | Content production — images, copy, social posts, blog. Includes ad creative for Meta and Google. |
+| **AI Visibility** | Improves how the business appears across Google, Maps, AI search, answer engines, and near-me discovery moments. |
 
-Specific pricing is shared with serious applicants and clients directly.
+Supporting offers can exist as upsells or consulting services:
+
+| Service | What it does |
+|---|---|
+| **Review Automation** | Creates steady review velocity and better reputation signals. |
+| **Reach** | Outbound prospecting and appointment generation. |
+| **Relay** | Missed-call and lead-response coverage if a partner or replacement stack makes it worthwhile. |
+| **Presence Refresh** | Cleanup of listings, website trust signals, schema, and local proof. |
 
 ## Positioning
 
 | Lever | What |
 |---|---|
-| **Trust framing** | "We run it. You don't learn it." Counter-positions vs SaaS dashboards owners won't log into. |
-| **No-app stance** | Comms run on email + SMS. On-brand phrase: *"no app to download, no dashboard to learn"*. |
-| **AI Visibility moat** | First-mover positioning — "get cited by AI engines" is structurally ahead of competitors that aren't selling this yet. |
-| **Honest framing** | Pre-revenue today. The site is openly transparent about being early-stage. Never invent testimonials. |
+| AI visibility | The market cares about being recommended by AI, not just ranking as a blue link. |
+| Local proof | Reviews, accurate listings, service pages, schema, and business facts give AI systems something to trust. |
+| Durable brand | GetMeFound still makes sense if the channel shifts from websites to maps, answer boxes, agents, or future search surfaces. |
+| Hands-off service | The owner wants the result handled, not another tool to learn. |
 
-## What AOH is NOT
+## What It Is Not
 
-- **Not** a SaaS. Not a platform. Not an app. Not a tool the client uses. **A service the client buys.**
-- **Not** a tech-first agency. The positioning is "the contractor who shows up on time" — not the AI-bro agency.
-- **Not** enterprise. Built for local service businesses, not 500-person companies.
-- **Not** multi-location enterprise SEO. Built for 1-3 locations.
-- **Not** running paid ads (yet). Organic + outbound only.
+- Not a generic AI agency.
+- Not a SaaS dashboard.
+- Not only SEO with a new label.
+- Not dependent on one vendor or one search interface.
+- Not tied to HighLevel as the long-term operating stack.
 
-## Channel mix
+## Current Migration Notes
 
-- **Cold email** — primary outbound channel
-- **Cold calls** — direct sales
-- **Ads** (Meta + Google when budget exists)
-- **Social + blog** — organic, produced via Studio
-
-## Founder team
-
-| Name | Role |
-|---|---|
-| **Mike Egidio** | Founder · Operations + Tech |
-| **Kip Leathers** | Co-Founder · Sales + Onboarding |
-| **Teri Blackburn** | Nursing Sector + Cold Outreach |
-
-Photos in `public/`: `Mike.jpg`, `Teri.jpg`, Kip pending.
-
-## Cross-refs
-
-- [`README.md`](./README.md) — repo overview
-- [`HIRING.md`](./HIRING.md) — Project 1 brief for incoming developers
-- [`DESIGN.md`](./DESIGN.md) — visual system
+- Google Workspace for `getmefound.ai` is live.
+- GitHub now points to `mje-gmf/website`.
+- GHL campaign warmup was paused for the domain/company reset.
+- The old AOH repo and deployment should be treated as archive/reference, not the future production system.

@@ -1,56 +1,26 @@
-# AOH Website (`aoh-inc/aoh-website`)
+# GetMeFound Website (`mje-gmf/website`)
 
-The marketing site for **AI Outsource Hub** — a done-for-you AI services agency for local small businesses. Live at [aioutsourcehub.com](https://aioutsourcehub.com).
+The marketing site for **GetMeFound** - AI search visibility and local presence services for small businesses. Primary domain: [getmefound.ai](https://getmefound.ai).
 
-> **New developer? Read in this order:**
-> 1. This README — repo overview, deploy, conventions
-> 2. [`HIRING.md`](./HIRING.md) — Project 1 brief and scope
-> 3. [`PRODUCT.md`](./PRODUCT.md) — what AOH is, what it sells, who it serves
-> 4. [`DESIGN.md`](./DESIGN.md) — visual system, palette, typography, hero pattern
+> **Developer orientation**
+> 1. Read this README for repo setup and deploy notes.
+> 2. Read `PRODUCT.md` for current positioning.
+> 3. Read `DESIGN.md` before changing visual patterns.
+> 4. This repo uses a newer Next.js release. Before code changes, read the relevant guide in `node_modules/next/dist/docs/`.
 
----
+## Tech Stack
 
-## Tech stack
+| Layer | Choice |
+|---|---|
+| Framework | Next.js App Router |
+| UI | React |
+| Styling | Tailwind CSS v4 |
+| Animation | Framer Motion |
+| Hosting | Vercel |
+| Repo host | GitHub `mje-gmf/website` |
+| Package manager | npm |
 
-| Layer | Choice | Version |
-|---|---|---|
-| Framework | Next.js (App Router) | 16.2.5 |
-| UI | React | 19.2.4 |
-| Styling | Tailwind CSS v4 | 4.x |
-| Animation | Framer Motion | 12.x |
-| Type | Geist Sans + Geist Mono | 1.7 |
-| Hosting | Vercel | — |
-| Repo host | GitHub `aoh-inc` org | — |
-| Package mgr | npm | — |
-
-One server route — `app/api/report/route.ts` — handles the homepage lead form + token links. Validates requests, verifies Cloudflare Turnstile (or signed token), forwards to a GHL webhook, and applies server-side rate/dedupe controls. Env vars:
-
-- `TURNSTILE_SECRET_KEY`
-- `GHL_WEBSITE_REPORT_WEBHOOK_URL` (preferred for public homepage free report intake)
-- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` (optional for warm campaign report requests)
-- `GHL_WEBHOOK_URL` (legacy fallback if lane-specific envs are not set)
-- `REPORT_LINK_SECRET` (required for `/r/{token}` outbound links)
-- `REPORT_TEST_BYPASS_TOKEN` (private weekly smoke test token; set in Vercel and GitHub Actions)
-- Optional durable limits: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`
-
-(Set in Vercel project settings; `.env.local` for local dev). Everything else is fully static and server-rendered.
-
-## Lead capture routes + env
-
-- `/api/report` -> homepage form -> `GHL_WEBSITE_REPORT_WEBHOOK_URL` or fallback `GHL_WEBHOOK_URL`; if no webhook is configured, it uses `GHL_PIT_TOKEN` + `GHL_LOCATION_ID` to create/update the GHL contact and add the `aoh_website_report_requested` tag.
-- warm campaign report requests -> `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` or fallback `GHL_WEBHOOK_URL`
-- `/api/contact` -> contact form -> `GHL_CONTACT_WEBHOOK_URL` (falls back to `GHL_WEBHOOK_URL`)
-- `/api/newsletter` -> newsletter form -> `GHL_NEWSLETTER_WEBHOOK_URL` (falls back to `GHL_WEBHOOK_URL`)
-
-Required/optional envs:
-- `TURNSTILE_SECRET_KEY` (used by report/contact anti-bot validation)
-- `GHL_WEBSITE_REPORT_WEBHOOK_URL` (public homepage report intake)
-- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` (optional warm campaign report intake)
-- `GHL_WEBHOOK_URL` (base fallback webhook)
-- `GHL_CONTACT_WEBHOOK_URL` (optional contact-specific webhook)
-- `GHL_NEWSLETTER_WEBHOOK_URL` (optional newsletter-specific webhook)
-
-## Local development
+## Local Development
 
 ```bash
 npm install
@@ -71,110 +41,40 @@ Linting:
 npm run lint
 ```
 
-Weekly report smoke test:
+## Lead Capture Routes
 
-- GitHub Actions runs `.github/workflows/weekly-report-smoke.yml` every Monday.
-- It posts an internal test lead to `/api/report` and fails if the website route or GHL webhook handoff breaks.
-- Required GitHub secret: `REPORT_TEST_BYPASS_TOKEN`, matching the Vercel production env var.
-- Manual GHL verification still matters weekly: confirm the test contact receives the website/report tags, both report workflows run, `Website Leads` gets an opportunity, callbacks succeed, and generated links open.
+- `/api/report` handles homepage free report requests.
+- `/api/contact` handles contact form submissions.
+- `/api/newsletter` handles newsletter submissions.
 
-```bash
-$env:REPORT_TEST_BYPASS_TOKEN="..."
-npm run smoke:report
-```
+Current webhook env names still include legacy `GHL_*` labels because the migration off HighLevel is in progress. Do not add new GHL-dependent behavior unless Mike explicitly asks for it.
 
-## Page architecture
+Common envs:
 
-Multi-page site (12 routes, all server-rendered + statically prerendered).
+- `TURNSTILE_SECRET_KEY`
+- `GHL_WEBSITE_REPORT_WEBHOOK_URL`
+- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL`
+- `GHL_CONTACT_WEBHOOK_URL`
+- `GHL_NEWSLETTER_WEBHOOK_URL`
+- `GHL_WEBHOOK_URL`
+- `REPORT_LINK_SECRET`
+- `REPORT_TEST_BYPASS_TOKEN`
+- `UPSTASH_REDIS_REST_URL`
+- `UPSTASH_REDIS_REST_TOKEN`
 
-**Top-level routes:** `/`, `/about`, `/pricing`, `/contact`, `/faq`, `/privacy`, `/terms`
-**Service pages:** `/reviews`, `/ai-visibility`, `/relay`, `/studio`, `/rankings`
-**Server route:** `/api/report` (lead form)
+## Public Routes
 
-Homepage sections (`app/page.tsx`):
+Top-level routes include `/`, `/about`, `/pricing`, `/contact`, `/faq`, `/privacy`, and `/terms`.
 
-1. **Navbar** (`components/Navbar.tsx`)
-2. **HeroEmailForm** (`components/hero/HeroEmailForm.tsx`) — dark exception, alternating `HeroVisualAI` / `HeroVisualReviews` per campaign variant
-3. **RevenueCalculator** (`components/RevenueCalculator.tsx`) — interactive revenue-loss calculator
-4. **Services grid** — inline in `app/page.tsx`
-5. **SocialProof** (`components/sections/SocialProof.tsx`) — placeholder until real testimonials land
-6. **FAQ** (`components/sections/FAQ.tsx`)
-7. **Footer** (`components/sections/Footer.tsx`)
-
-Sub-pages compose `components/PageHeader` + `components/PageBody` (`PageSection`, `CtaBlock`) primitives — extend these, don't duplicate the layout.
-
-JSON-LD strategy: `Organization` + `WebSite` in `app/layout.tsx`; `Service` schema on each service page; `BreadcrumbList` on every sub-page (helper in `lib/seo.ts`); `FAQPage` on home + `/faq` (data in `lib/faq.ts`).
-
-## Design system at a glance
-
-**Light mode default. Hero is the only dark exception.** Token definitions live in `app/globals.css` under `@theme`. Read [`DESIGN.md`](./DESIGN.md) for the why behind every choice.
-
-| Token | Value | Used for |
-|---|---|---|
-| `--color-bg-page` | `#F8F6F1` | Page background (warm white) |
-| `--color-text-body` | `#1A1F2E` | Body text (near-black, not pure) |
-| `--color-accent` | `#2D6A4F` | Pine green — the single brand accent |
-| `--color-hero-bg` | `#0F1419` | Hero dark exception |
-
-Don't introduce a second accent. Don't switch to pure white or pure black. Don't add gradients beyond the hero arch.
+The public shell currently carries the GetMeFound brand. Some internal packs, legacy API helpers, and archived content may still refer to AOH/AI Outsource Hub until those systems are retired or rewritten.
 
 ## Deploy
 
-**Branch `main` auto-deploys to production at `aioutsourcehub.com` via Vercel.** Pushes to feature branches generate Vercel preview URLs automatically.
+The previous Vercel project was tied to the old AOH deployment. Treat GetMeFound as a new production deploy target and verify the Vercel project/domain before promoting anything to production.
 
-To check the most recent deploy: visit Vercel → AI Outsource Hub project → Deployments.
+## Hard Rules
 
-## Branch + commit conventions
-
-- `main` is production. Always green. Never force-push.
-- Feature branches: `v{N+1}-{shortname}` (e.g. `v10-logo-refresh`). PR into main. Squash on merge.
-- Commit subjects: imperative, ≤72 chars. Body explains *why*, not *what*.
-- Versioned milestones: tag commits like `v9: complete redesign per locked design foundation` (see git log for the pattern).
-
-## What this site is NOT
-
-- **Not** a SaaS dashboard. AOH sells a service, not a product.
-- **Not** a tech-bro AI agency aesthetic. No purple gradients, no neural-network illustrations, no AI-persona mascots.
-- **Not** a regional-craftsman vibe. AOH targets nationally; never anchor to a specific city or state.
-- **Not** a stock-photo site. Zero stock photography. Real founder photos only.
-- **Not** an enterprise SaaS site. No demo-request gating, no enterprise feature tables.
-
-## Hard rules (don't break)
-
-- **No regional anchors anywhere.** Any city/state references in code or copy → delete.
-- **No single-niche pigeonholing.** Default to plural neutral ("local businesses", "shop owners"). Rotate niches across examples; never lead with one.
-- **No fake testimonials.** Testimonial component is intentionally honest about being placeholder until real ones land.
-- **No banned hype phrases.** "Transform your business," "revolutionize," "game-changer," "synergy," "10x," "next-level," "unleash" — all out. Voice is direct and operator-tone.
-- **No technical jargon in customer-facing copy.** No vendor names, no `place_id`, no API terminology. Use plain language: "our platform" / "your hub" / "we run it."
-- **AEO / GEO baked in.** Every visual choice respects semantic HTML, schema markup, sub-1s LCP. Don't break crawler-readability for visual flair.
-
-## Completed since v9 (2026-05-08)
-
-Project 1 in `HIRING.md` was scoped against the v9 single-page site. A lot has shipped since. Don't re-quote these:
-
-- ✅ Multi-page IA built — `/about`, `/pricing`, `/contact`, `/faq`, `/privacy`, `/terms` + 5 service pages (`/reviews`, `/ai-visibility`, `/relay`, `/studio`, `/rankings`)
-- ✅ JSON-LD baked in per page — `Organization`, `WebSite`, `Service` per pillar, `BreadcrumbList`, `FAQPage`
-- ✅ `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt` — AI crawlers explicitly allowlisted
-- ✅ `app/opengraph-image.tsx` — 1200×630 OG image generator (`next/og`)
-- ✅ Per-page metadata: unique title, description, `alternates.canonical`
-- ✅ `app/api/report` POST endpoint — Turnstile + GHL webhook + rate-limit
-- ✅ `next.config.ts` — 301/308 redirects from ~150 old WordPress URLs
-- ✅ Google Search Console verified (DNS TXT), sitemap submitted
-- ✅ Vercel auto-deploy from `main`
-
-`HIRING.md` is the v9 scope and is partly stale. Active job listings live on Contra.
-
-## Cross-refs
-
-- [`HIRING.md`](./HIRING.md) — original Project 1 brief (partly superseded by what's listed above)
-- [`PRODUCT.md`](./PRODUCT.md) — product context
-- [`DESIGN.md`](./DESIGN.md) — design system
-
-## PP Wiring
-- See \\docs/PP_GHL_WIRING.md\\ for full Prospecting Premium + GHL callback mapping.
-
-## Disaster Recovery
-
-- [`docs/AOH_OPERATIONS_INDEX.md`](./docs/AOH_OPERATIONS_INDEX.md) - master index for backup, agents, onboarding, and operations docs
-- [`docs/LAPTOP_DEATH_RECOVERY.md`](./docs/LAPTOP_DEATH_RECOVERY.md) - restore path if the laptop dies
-- [`docs/BACKUP_READINESS_CHECKLIST.md`](./docs/BACKUP_READINESS_CHECKLIST.md) - recurring backup readiness check
+- Do not enable or toggle any HighLevel AI features without explicit manual authorization from Mike.
+- Do not invent testimonials, logos, case studies, or client counts.
+- Avoid vendor names in customer-facing copy unless the page is specifically about setup or integrations.
+- Keep AI visibility positioning durable: reviews, listings, schema, local proof, citations, and conversion paths matter even if individual AI search products change.

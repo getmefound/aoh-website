@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BookMeetingModal } from "@/components/BookMeetingModal";
 import { usePathname } from "next/navigation";
 
 function MenuIcon({ className }: { className?: string }) {
@@ -49,7 +47,6 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const [bookOpen, setBookOpen] = useState(false);
   const lastY = useRef(0);
 
   // Scroll-aware behavior: transparent → frosted bg, hide on scroll-down, show on scroll-up
@@ -86,8 +83,6 @@ export function Navbar() {
 
   if (isOperator) return null;
 
-  // Logo + text-color swap based on scroll state
-  const logoSrc = scrolled ? "/AOH-logo-light-bg.svg" : "/AOH-logo-dark-bg.svg";
   const linkColor = scrolled
     ? "text-[var(--color-text-muted)] hover:text-[var(--color-text-body)]"
     : "text-[var(--color-hero-subtext)] hover:text-[var(--color-hero-text)]";
@@ -119,15 +114,14 @@ export function Navbar() {
       >
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center justify-between gap-6">
-            <Link href={withLocale("/")} className="shrink-0 pl-1 md:pl-2" aria-label="AI Outsource Hub home">
-              <Image
-                src={logoSrc}
-                alt="AI Outsource Hub"
-                width={200}
-                height={44}
-                className="h-10 w-auto transition-opacity duration-300"
-                priority
-              />
+            <Link
+              href={withLocale("/")}
+              className={`shrink-0 pl-1 text-xl font-black tracking-tight transition-colors md:pl-2 ${
+                scrolled ? "text-[var(--color-text-body)]" : "text-[var(--color-hero-text)]"
+              }`}
+              aria-label="GetMeFound home"
+            >
+              GetMeFound
             </Link>
 
             <div className={`hidden md:flex items-center gap-8 text-sm font-medium ${linkColor} transition-colors duration-500`}>
@@ -162,19 +156,18 @@ export function Navbar() {
               </Link>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setBookOpen(true)}
+            <Link
+              href={withLocale("/contact")}
               className="group hidden md:inline-flex items-center gap-1.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-5 py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-[var(--color-accent)]/30 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
-              {isSpanish ? "Reserva una Llamada" : "Book a Free Call"}
+              {isSpanish ? "Solicitar Auditoria" : "Request an Audit"}
               <span
                 aria-hidden="true"
                 className="transition-transform duration-200 group-hover:translate-x-0.5"
               >
                 →
               </span>
-            </button>
+            </Link>
 
             <button
               type="button"
@@ -265,16 +258,13 @@ export function Navbar() {
                   >
                     {isSpanish ? "Nosotros" : "About"}
                   </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setMobileOpen(false);
-                      setBookOpen(true);
-                    }}
+                  <Link
+                    href={withLocale("/contact")}
+                    onClick={() => setMobileOpen(false)}
                     className="mt-3 block w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-4 py-3 rounded-lg font-semibold text-center transition-colors"
                   >
-                    {isSpanish ? "Reserva una Llamada" : "Book a Free Call"}
-                  </button>
+                    {isSpanish ? "Solicitar Auditoria" : "Request an Audit"}
+                  </Link>
                 </div>
               </motion.div>
             </>
@@ -282,7 +272,6 @@ export function Navbar() {
         </AnimatePresence>
       </motion.nav>
 
-      <BookMeetingModal open={bookOpen} onClose={() => setBookOpen(false)} />
     </>
   );
 }

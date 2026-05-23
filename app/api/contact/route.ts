@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
     email: (email as string).trim().toLowerCase(),
     message: message.trim(),
     timestamp: new Date().toISOString(),
-    source: "aioutsourcehub.com/contact",
+    source: "getmefound.ai/contact",
   });
 
   return NextResponse.json({ ok: true });

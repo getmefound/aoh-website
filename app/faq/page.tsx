@@ -8,7 +8,7 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Common questions about AI Outsource Hub — pricing, contracts, results timelines, AI visibility vs SEO, and how the service actually works.",
+    "Common questions about GetMeFound - pricing, contracts, results timelines, AI visibility vs SEO, and how the service actually works.",
   alternates: { canonical: "/faq" },
 };
 
@@ -29,7 +29,7 @@ export default function FaqPage() {
       <PageHeader
         eyebrow="FAQ"
         title="Questions, answered."
-        subtitle="Pricing, results, contracts, and how AOH actually works. If your question isn't here, email support@aioutsourcehub.com."
+        subtitle="Pricing, results, contracts, and how GetMeFound works. If your question isn't here, email support@getmefound.ai."
       />
       <PageBody>
         <PageSection>
@@ -49,7 +49,7 @@ export default function FaqPage() {
 
         <CtaBlock
           headline="Still have questions?"
-          subline="Email us at support@aioutsourcehub.com — we usually reply the same day."
+          subline="Email us at support@getmefound.ai - we usually reply the same day."
           buttonText="Contact Us"
           buttonHref="/contact"
         />

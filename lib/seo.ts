@@ -1,4 +1,4 @@
-export const SITE_URL = "https://aioutsourcehub.com";
+export const SITE_URL = "https://getmefound.ai";
 
 type Crumb = { name: string; path: string };
 
