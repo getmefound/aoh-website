@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 const breadcrumb = pageBreadcrumbs("Pricing", "/pricing");
-const BOOKING_HREF = "https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY";
+const BOOKING_HREF = "/contact";
 
 const products: ProductDetailData[] = [
   {
@@ -58,7 +58,7 @@ const products: ProductDetailData[] = [
     setup: "No setup fee",
     promoNote: "Launch rate — $49 forever as long as you stay.",
     ctaLabel: "Start collecting reviews — $49/mo →",
-    ctaHref: "https://pay.aioutsourcehub.com/review-automation-plan",
+    ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.star,
     mock: <MockReviewPanel />,
@@ -107,7 +107,7 @@ const products: ProductDetailData[] = [
       sub: "Apply at checkout. New customers only.",
     },
     ctaLabel: "Get named in ChatGPT — $99 first month →",
-    ctaHref: "https://pay.aioutsourcehub.com/ai-visibility-page",
+    ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.search,
     mock: <MockAIVisibilityPanel />,
@@ -156,7 +156,7 @@ const products: ProductDetailData[] = [
       sub: "Apply at checkout. New customers only.",
     },
     ctaLabel: "Start booking calls — $149 first month →",
-    ctaHref: "https://pay.aioutsourcehub.com/reach-plan",
+    ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.target,
     mock: <MockReachPanel />,
@@ -203,7 +203,7 @@ const products: ProductDetailData[] = [
       sub: "Apply at checkout. New customers only.",
     },
     ctaLabel: "Stop losing calls — $199 first month →",
-    ctaHref: "https://pay.aioutsourcehub.com/checkout-relay-plan",
+    ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.phone,
     mock: <MockRelayPanel />,
@@ -367,7 +367,7 @@ export default function PricingPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   <Link
-                    href="https://pay.aioutsourcehub.com/review-automation-plan"
+                    href="/contact"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 hover:bg-green-500 text-white px-6 py-3.5 text-sm font-semibold transition-all hover:gap-3 hover:shadow-lg hover:shadow-green-600/30"
@@ -461,6 +461,3 @@ export default function PricingPage() {
     </>
   );
 }
-
-
-

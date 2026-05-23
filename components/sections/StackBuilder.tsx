@@ -22,7 +22,7 @@ const SERVICES: Service[] = [
     oneLiner: "Reviews on autopilot after every job.",
     monthly: 49,
     setup: 0,
-    href: "https://pay.aioutsourcehub.com/review-automation-plan",
+    href: "/contact",
     iconPaths: ICON_PATHS.star,
   },
   {
@@ -31,7 +31,7 @@ const SERVICES: Service[] = [
     oneLiner: "Cited in ChatGPT, Google AI, Perplexity.",
     monthly: 179,
     setup: 199,
-    href: "https://pay.aioutsourcehub.com/ai-visibility-page",
+    href: "/contact",
     iconPaths: ICON_PATHS.search,
   },
   {
@@ -40,7 +40,7 @@ const SERVICES: Service[] = [
     oneLiner: "Done-for-you outreach. Calls on your calendar.",
     monthly: 249,
     setup: 199,
-    href: "https://pay.aioutsourcehub.com/reach-plan",
+    href: "/contact",
     iconPaths: ICON_PATHS.target,
   },
   {
@@ -49,12 +49,12 @@ const SERVICES: Service[] = [
     oneLiner: "24/7 multilingual receptionist. Books calls.",
     monthly: 499,
     setup: 499,
-    href: "https://pay.aioutsourcehub.com/checkout-relay-plan",
+    href: "/contact",
     iconPaths: ICON_PATHS.phone,
   },
 ];
 
-const BOOKING_HREF = "https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY";
+const BOOKING_HREF = "/contact";
 
 function money(n: number) {
   return `$${n.toLocaleString("en-US")}`;
@@ -349,6 +349,3 @@ export function StackBuilder() {
     </div>
   );
 }
-
-
-

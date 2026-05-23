@@ -26,7 +26,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Monthly digest email — what was sent, what came in",
       "Cancel anytime · no contract",
     ],
-    ctaUrl: "https://pay.aioutsourcehub.com/review-automation-plan",
+    ctaUrl: "/contact",
     ctaKind: "subscribe",
   },
   {
@@ -45,7 +45,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Cited in ChatGPT, Google AI Overviews, Claude",
       "Structured data + schema markup on your site",
     ],
-    ctaUrl: "https://pay.aioutsourcehub.com/ai-visibility-page",
+    ctaUrl: "/contact",
     ctaKind: "subscribe",
   },
   {
@@ -64,7 +64,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "750 minutes/month included",
       "Fully managed — we build it, run it, tune it",
     ],
-    ctaUrl: "https://pay.aioutsourcehub.com/checkout-relay-plan",
+    ctaUrl: "/contact",
     ctaKind: "subscribe",
   },
   {
@@ -82,7 +82,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Weekly campaign performance report",
       "Fully managed — we write, send, reply, book",
     ],
-    ctaUrl: "https://pay.aioutsourcehub.com/reach-plan",
+    ctaUrl: "/contact",
     ctaKind: "subscribe",
   },
 ];

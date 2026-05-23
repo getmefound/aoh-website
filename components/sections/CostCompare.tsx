@@ -188,7 +188,7 @@ export function CostCompare() {
                 </div>
                 <div className="rounded-xl bg-[var(--color-accent)]/10 p-3 ring-1 ring-[var(--color-accent)]/30 flex flex-col items-center justify-center">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-hero-text)] mb-2">
-                    AI Outsource Hub
+                    GetMeFound
                   </p>
                   <AnimatedCheck delay={0.6 + i * 0.25} />
                   <p className="mt-2 text-xs font-semibold text-[var(--color-accent)]">
@@ -230,7 +230,7 @@ export function CostCompare() {
               </div>
               <div>
                 <p className="text-[10px] uppercase tracking-wider text-[var(--color-hero-text)] mb-1">
-                  AI Outsource Hub
+                  GetMeFound
                 </p>
                 <p className="font-mono text-2xl font-bold text-[var(--color-accent)] leading-none">
                   $<AnimatedNumber value={199} duration={2800} />
@@ -288,7 +288,7 @@ export function CostCompare() {
             </div>
             <div className="px-6 py-4 border-l border-white/[0.08] text-center bg-[var(--color-accent)]/[0.08]">
               <p className="font-mono text-xs font-bold uppercase tracking-[0.15em] text-[var(--color-hero-text)]">
-                AI Outsource Hub
+                GetMeFound
               </p>
               <p className="mt-0.5 text-[10px] font-medium text-[var(--color-hero-subtext)]/60">
                 Done for you
@@ -384,7 +384,7 @@ export function CostCompare() {
           <p className="text-base text-[var(--color-text-body)] leading-relaxed">
             <strong className="font-bold">The tools are the cheap part.</strong>{" "}
             <span className="text-[var(--color-text-muted)]">
-              Even the $37/mo ones need someone who knows how to use them — listings strategy, schema markup, AI search rules, response timing. AOH brings the tools AND the people who run them.
+              Even the $37/mo ones need someone who knows how to use them — listings strategy, schema markup, AI search rules, response timing. GetMeFound brings the tools AND the people who run them.
             </span>
           </p>
         </div>
@@ -405,7 +405,7 @@ export function CostCompare() {
         </div>
 
         <p className="mt-6 text-center text-xs text-[var(--color-text-muted)] max-w-3xl mx-auto leading-relaxed">
-          Prices reflect publicly listed rates as of 2026: Birdeye Standard ($349/mo), Yext Essential / BrightLocal ($37–$39/mo), Profound Starter ($99/mo, ChatGPT-only tier), and typical small-business marketing-assistant labor. Voice answering (Relay) is a separate AOH product — add as you scale.
+          Prices reflect publicly listed rates as of 2026: Birdeye Standard ($349/mo), Yext Essential / BrightLocal ($37–$39/mo), Profound Starter ($99/mo, ChatGPT-only tier), and typical small-business marketing-assistant labor. Voice answering (Relay) is a separate GetMeFound product — add as you scale.
         </p>
       </div>
     </section>

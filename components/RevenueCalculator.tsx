@@ -8,8 +8,8 @@ const TRUSTED_REPORT_HOSTS = [
   "gohighlevel.com",
   "msgsndr.com",
   "leadconnectorhq.com",
-  "hub360ai.com",
-  "aioutsourcehub.com",
+  "getmefound.ai",
+  "getmefound.ai",
 ];
 
 function trustedReportUrl(raw: string | null): string | null {
@@ -139,7 +139,7 @@ function RevenueCalculatorInner() {
     const currentTraffic = rankingTraffic[Math.min(ranking, 20)];
     const trafficLoss = 1 - currentTraffic;
 
-    // Weights: review velocity is now the dominant lever (0.45) since it's AOH's primary product
+    // Weights: review velocity is now the dominant lever (0.45) since it's GetMeFound's primary product
     // and Whitespark 2026 research confirms velocity > total count for ranking.
     const totalPenalty = Math.min(0.90, trafficLoss * 0.40 + starPenalty * 0.15 + reviewPenalty * 0.45);
 
