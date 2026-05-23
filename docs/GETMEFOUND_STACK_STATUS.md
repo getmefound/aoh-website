@@ -27,6 +27,13 @@ Run `supabase/schema.sql` in the Supabase SQL editor for the GetMeFound project.
 
 Until that schema is applied, the site can build and deploy, but Supabase writes from `/api/contact` will be skipped by the app and logged as missing-table errors.
 
+## Next Queue
+
+1. Apply `supabase/schema.sql` in Supabase.
+2. Recheck `/api/health/ops`.
+3. When Resend moves from pending to verified, send one internal test email.
+4. Start email warmup immediately after verification, using a separate outreach sender/domain plan rather than the main brand inbox.
+
 ## Resend Status
 
 `send.getmefound.ai` DNS records have been added. Resend may take time to move from pending to verified. When it verifies, contact notifications will start sending without another code change.
