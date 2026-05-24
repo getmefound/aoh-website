@@ -115,8 +115,8 @@ export default async function ClientHubPage({ params }: PageProps) {
           <div className="max-w-xl">
           <SectionHeader
             eyebrow="Standard"
-            title="Review Automation"
-            sub="What your review system is doing this week."
+            title="Review Engine"
+            sub="What your review request system is doing this week."
           />
           </div>
 
@@ -334,17 +334,17 @@ export default async function ClientHubPage({ params }: PageProps) {
               Custom upgrade
             </p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight md:text-4xl">
-              AI Visibility preview
+              Stay Found and Review Voice preview
             </h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">
-              Every client hub can show a locked preview so owners understand what they get if they upgrade:
-              review replies, local ranking gaps, ChatGPT visibility, and competitor movement.
+              Every client hub can show locked next steps so owners understand what they get if they upgrade:
+              review replies, local visibility checks, Google profile upkeep, and competitor movement.
             </p>
             <Link
-              href="/pricing#ai-visibility"
+              href="/pricing#stay-found"
               className="mt-6 inline-flex rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-100"
             >
-              Unlock AI Visibility
+              Unlock Stay Found
             </Link>
           </div>
 

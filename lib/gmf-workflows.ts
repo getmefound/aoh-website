@@ -1,5 +1,4 @@
 import { getClientSetupJob } from "@/lib/client-setup-jobs";
-import { getReportFlowStatus } from "@/lib/report-flow-status";
 import { getIntegrationHealthRollup } from "@/lib/review-integration-health";
 import { getReviewReplyDigest } from "@/lib/review-reply-digest";
 import { getSmsReadiness } from "@/lib/review-sms-readiness";
@@ -40,35 +39,35 @@ export type GmfWorkflow = {
 
 export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
   {
-    slug: "gmf-client-setup-gbp",
-    name: "Launch 01: Client Setup",
-    oneLine: "Turns a new business into a tracked setup job with GBP access, review link, safety checks, and launch gate.",
+    slug: "get-found-refresh",
+    name: "Launch 01: Get Found Refresh",
+    oneLine: "Runs the one-time visibility cleanup that makes a business easier for Google and customers to understand.",
     description:
-      "This workflow is the standard onboarding path for GMF and future clients. It starts with intake, moves through Google Business Profile access and review setup, then ends with Manager/Auditor launch readiness.",
+      "This is GMF's entry service. Profile Manager checks the public Google-facing footprint, records what is missing, drafts safe fixes, and gives the client a simple before/after.",
     status: "working",
-    weeklyCheckAgent: "Manager",
+    weeklyCheckAgent: "Profile Manager",
     auditAgent: "Auditor",
     stalledProtocol:
-      "Auditor flags the stalled step, Manager decides whether the responsible agent needs more information, and the owner agent drafts the client request.",
+      "Auditor names the missing proof, Profile Manager drafts the next fix or client request, and Manager keeps the blocker visible.",
     mikeEscalation:
-      "If the blocker needs a client item, Manager asks Mike to approve the exact client email or to provide a different instruction.",
+      "Manager asks Mike only when a public profile edit, client access request, or pricing/offer decision needs approval.",
     clientEmailApproval:
-      "Profile Manager drafts GBP access/verification emails. Manager presents them to Mike for approval before sending.",
+      "Profile Manager drafts any GBP access or profile-update request. Manager asks Mike to approve the exact message before it is sent.",
     coachTraining:
-      "Coach owns the plain-English SOP, client instructions, and agent checklist for this setup workflow.",
+      "Coach keeps the Refresh checklist, client-safe explanation, and sample before/after language current.",
     readyCriteria: [
-      "Client owns or can claim the Google Business Profile.",
-      "GMF has Manager access or a documented verification blocker.",
-      "Google review link is captured before review requests go live.",
-      "Systems Director confirms no password sharing and no ownership hostage risk.",
-      "Auditor verifies proof before Manager marks launch ready.",
+      "Correct business/profile is confirmed.",
+      "Access state or verification blocker is recorded.",
+      "Review link is captured or the blocker is visible.",
+      "Categories, services, hours, website, description, and photo gaps are checked.",
+      "Auditor approves the client-facing findings before delivery.",
     ],
     agents: [
-      { agent: "Manager", role: "Workflow owner", does: "Opens the setup job, confirms fit and missing info, and keeps the next owner clear.", proof: "Setup job has Manager review event." },
-      { agent: "Profile Manager", role: "GBP owner", does: "Checks create/claim/verify/access status and captures profile blockers.", proof: "GBP access and verification steps have notes or proof links." },
-      { agent: "Reviews Manager", role: "Review setup owner", does: "Saves the review link and prepares review request proof before first send.", proof: "Review link and proof page are ready." },
-      { agent: "Systems Director", role: "Safety owner", does: "Confirms no password sharing, client ownership, and safe access boundaries.", proof: "Systems safety step is review/done." },
-      { agent: "Auditor", role: "Final check", does: "Checks proof, blockers, claims, and launch readiness before done.", proof: "Auditor gate event exists." },
+      { agent: "Manager", role: "Job opener", does: "Creates the setup job, confirms the offer, and keeps the next owner visible.", proof: "Setup job exists with current status." },
+      { agent: "Profile Manager", role: "Workflow owner", does: "Checks the Google profile, services, categories, review link, and visibility gaps.", proof: "Refresh checklist and profile notes are recorded." },
+      { agent: "Coach", role: "Client language", does: "Turns findings into plain business-owner language.", proof: "Client-safe summary is ready." },
+      { agent: "Auditor", role: "Quality gate", does: "Checks that fixes are safe, factual, and not overpromised.", proof: "Auditor pass or blocker is recorded." },
+      { agent: "Manager", role: "Outcome owner", does: "Marks ready, blocked, or needs Mike/client approval.", proof: "Next action is visible in Mission Control." },
     ],
     links: [
       { label: "Setup Jobs", href: "/mike-mc/setup-jobs?client=getmefound" },
@@ -77,35 +76,71 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "gmf-review-automation-launch",
-    name: "Serve 01: Review Launch",
-    oneLine: "Moves uploaded customers through proof, approved send, private feedback, follow-up, and monthly recap.",
+    slug: "stay-found",
+    name: "Serve 01: Stay Found",
+    oneLine: "Runs the monthly visibility check so the client's Google-facing footprint does not go stale.",
     description:
-      "This workflow replaces the GHL review automation path with GMF-owned customer upload, proof, sending, private feedback, follow-up, and reporting.",
+      "This is the lightweight monthly maintenance plan. Profile Manager checks drift, Client Success turns it into a short recap, and Auditor verifies that claims stay factual.",
+    status: "planned",
+    weeklyCheckAgent: "Profile Manager",
+    auditAgent: "Auditor",
+    stalledProtocol:
+      "If no monthly note exists, Client Success drafts it from the latest profile/review activity and Manager flags the missing recap.",
+    mikeEscalation:
+      "Manager asks Mike only when a recommendation changes the offer, needs client approval, or could affect a public profile.",
+    clientEmailApproval:
+      "Client Success drafts any client check-in. Manager asks Mike to approve sensitive asks before sending.",
+    coachTraining:
+      "Coach maintains the monthly recap template and the approved language for Google/Search changes.",
+    readyCriteria: [
+      "Client has a profile baseline.",
+      "Review/link/profile status is visible.",
+      "Monthly recap template exists.",
+      "Recommendations include source observations, not invented metrics.",
+      "Auditor can see what changed and what is next.",
+    ],
+    agents: [
+      { agent: "Profile Manager", role: "Workflow owner", does: "Checks profile completeness, review drift, and local visibility changes.", proof: "Monthly visibility notes exist." },
+      { agent: "Reviews Manager", role: "Review signal", does: "Adds review velocity, feedback, and unanswered-review status.", proof: "Review counts or status are included." },
+      { agent: "Client Success", role: "Recap owner", does: "Turns the activity into a short owner-readable client note.", proof: "Monthly recap draft or sent note exists." },
+      { agent: "Auditor", role: "Truth check", does: "Checks that numbers, claims, and recommendations are supportable.", proof: "Auditor pass or correction is recorded." },
+    ],
+    links: [
+      { label: "Client Hub", href: "/client/ai-outsource-hub" },
+      { label: "Clients", href: "/mike-mc/clients" },
+      { label: "Workflows", href: "/mike-mc/workflows" },
+    ],
+  },
+  {
+    slug: "review-engine",
+    name: "Serve 02: Review Engine",
+    oneLine: "Sends email review requests to completed customers and keeps feedback, suppressions, and proof visible.",
+    description:
+      "This is GMF's core recurring review service. It handles uploaded customers, POS-ready events, proof previews, email sends, private feedback, follow-ups, and monthly review reporting.",
     status: "ready",
     weeklyCheckAgent: "Reviews Manager",
     auditAgent: "Auditor",
     stalledProtocol:
-      "If candidates stop moving, Auditor checks storage, sender health, review link, and suppression blockers before Manager escalates.",
+      "If send candidates stop moving, Auditor checks storage, sender health, review link, suppressions, and held rows before Manager escalates.",
     mikeEscalation:
       "Manager asks Mike only when a live send approval, client list question, or sender-risk decision is needed.",
     clientEmailApproval:
-      "Reviews Manager drafts any client request for missing customer list or review link; Manager asks Mike to approve it.",
+      "Reviews Manager drafts requests for missing customer lists, review links, or POS exports. Manager asks Mike to approve the exact email.",
     coachTraining:
-      "Coach keeps the client-facing upload instructions and review request language current.",
+      "Coach keeps customer-upload instructions, review request language, and the client explanation for email-first review requests current.",
     readyCriteria: [
       "Verified Google review link exists.",
       "Customer list is checked for duplicates, missing emails, and suppressions.",
       "Proof page preview is reviewed before live send.",
-      "Resend sender and Supabase logging are healthy.",
-      "Follow-up and recap paths are protected by internal approval.",
+      "Sender and Supabase logging are healthy.",
+      "Follow-up and recap paths stay protected by internal approval.",
     ],
     agents: [
       { agent: "Reviews Manager", role: "Workflow owner", does: "Builds send candidates, checks proof, and controls live-send readiness.", proof: "Proof page shows sendable rows and preview." },
       { agent: "Sorter", role: "List readiness", does: "Cleans customer lists and holds duplicates, missing emails, and suppressions.", proof: "Upload summary shows clean/held rows." },
-      { agent: "Systems Director", role: "Sender/storage safety", does: "Checks Supabase, Resend, and protected endpoint health.", proof: "Health endpoints return ok." },
-      { agent: "Auditor", role: "Launch QA", does: "Verifies no accidental sends and all sends are logged.", proof: "Send log and proof checks match." },
-      { agent: "Manager", role: "Client/status owner", does: "Reports ready, blocked, or needs-client-help status.", proof: "Client hub status is updated." },
+      { agent: "Systems Director", role: "Sender/storage safety", does: "Checks storage, sender, and protected endpoint health.", proof: "Health endpoints return ok." },
+      { agent: "Auditor", role: "Launch QA", does: "Verifies no accidental sends and all live sends are logged.", proof: "Send log and proof checks match." },
+      { agent: "Manager", role: "Status owner", does: "Reports ready, blocked, or needs-client-help status.", proof: "Client hub status is updated." },
     ],
     links: [
       { label: "Proof Page", href: "/mike-mc/review-proof/ai-outsource-hub" },
@@ -114,102 +149,31 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "gmf-pos-crm-intake",
-    name: "Serve 02: POS Intake",
-    oneLine: "Receives customer/job events from uploads or integrations, dedupes them, and holds unsafe records before review sending.",
+    slug: "review-voice",
+    name: "Serve 03: Review Voice",
+    oneLine: "Drafts review replies in the client's voice while keeping risky replies human-reviewed.",
     description:
-      "This workflow is the bridge from client systems into GMF review automation. Manual upload is base; auto-sync is an upgrade with health checks and alerts.",
-    status: "ready",
-    weeklyCheckAgent: "Systems Director",
-    auditAgent: "Auditor",
-    stalledProtocol:
-      "If events stop or held events rise, Systems Director checks source health and Auditor confirms no bad events entered send candidates.",
-    mikeEscalation:
-      "Manager asks Mike only when a client POS/admin access email or paid connector decision needs approval.",
-    clientEmailApproval:
-      "Systems Director drafts POS access/export requests; Manager asks Mike to approve before sending to the client.",
-    coachTraining:
-      "Coach keeps the POS integration ladder and client explanation current.",
-    readyCriteria: [
-      "Manual upload path works for every client.",
-      "Event idempotency prevents duplicate sends.",
-      "Held and missing-email events are visible.",
-      "Send-delay gate prevents immediate accidental review requests.",
-      "Daily health cron alerts only when attention is needed.",
-    ],
-    agents: [
-      { agent: "Systems Director", role: "Workflow owner", does: "Owns POS/CRM source health, sync alerts, and integration boundaries.", proof: "Integration health page and cron check pass." },
-      { agent: "Sorter", role: "Data quality", does: "Checks fields, missing emails, duplicates, and hold reasons.", proof: "Event health counts are clean." },
-      { agent: "Reviews Manager", role: "Send candidate owner", does: "Allows only eligible, delayed events into review proof queue.", proof: "Send candidates exclude held/duplicate/not-yet-eligible rows." },
-      { agent: "Auditor", role: "Failure guard", does: "Verifies duplicate retries and sync gaps do not create bad sends.", proof: "Dedupe smoke and health rollup pass." },
-      { agent: "Manager", role: "Client communication", does: "Turns technical blocker into a client request when needed.", proof: "Approved client request is logged." },
-    ],
-    links: [
-      { label: "GHL Exit Ops", href: "/mike-mc/ghl-exit-ops" },
-      { label: "Integration Health", href: "/api/review-automation/integration-health" },
-    ],
-  },
-  {
-    slug: "gmf-report-flow",
-    name: "Serve 03: Report Delivery",
-    oneLine: "Tracks report requests, submitted status, audit links, heatmap links, blockers, and owner summary outside GHL.",
-    description:
-      "This workflow gives GMF proof and visibility for website/campaign reports without depending on GHL workflow state.",
-    status: "ready",
-    weeklyCheckAgent: "Reporter",
-    auditAgent: "Auditor",
-    stalledProtocol:
-      "If a report is blocked or missing links, Reporter records the blocker and Auditor checks whether delivery proof exists.",
-    mikeEscalation:
-      "Manager asks Mike when a prospect/client needs a manually approved report delivery or explanation.",
-    clientEmailApproval:
-      "Reporter drafts report-delivery or blocker emails; Manager asks Mike to approve if the message goes to a client/prospect.",
-    coachTraining:
-      "Coach trains Reporter on the plain-English report status language and what not to promise.",
-    readyCriteria: [
-      "Report request creates a GMF-owned status record.",
-      "Audit and heatmap links can be recorded.",
-      "Blocked reports have a blocker note.",
-      "Owner summary is visible in the report flow room.",
-      "No report flow action triggers GHL AI features.",
-    ],
-    agents: [
-      { agent: "Reporter", role: "Workflow owner", does: "Tracks report status, links, blockers, and delivery summary.", proof: "Report Flow page has latest status." },
-      { agent: "Systems Director", role: "Endpoint owner", does: "Keeps protected report endpoints and storage working.", proof: "Report ops smoke passes." },
-      { agent: "Auditor", role: "Proof owner", does: "Checks no duplicate or secret-bearing report delivery.", proof: "Report activity log is clean." },
-      { agent: "Manager", role: "Owner summary", does: "Explains what is ready, blocked, or needs approval.", proof: "Owner summary is current." },
-    ],
-    links: [
-      { label: "Report Flow", href: "/mike-mc/report-flow" },
-      { label: "GHL Exit Ops", href: "/mike-mc/ghl-exit-ops" },
-    ],
-  },
-  {
-    slug: "gmf-review-replies",
-    name: "Serve 04: Review Replies",
-    oneLine: "Drafts review replies in the client voice, keeps risky replies human-reviewed, and records approve/reject/posted decisions.",
-    description:
-      "This workflow replaces review-reply AI inside GHL with a safer GMF-controlled approval process.",
+      "This add-on replaces risky auto-reply behavior with GMF-controlled drafts, safety flags, approval decisions, and audit history.",
     status: "working",
-    weeklyCheckAgent: "Profile Manager",
+    weeklyCheckAgent: "Reply Writer",
     auditAgent: "Auditor",
     stalledProtocol:
-      "If drafts pile up, Profile Manager flags pending replies and Manager decides whether Mike/client approval is needed.",
+      "If drafts pile up, Reply Writer flags pending replies and Manager decides whether Mike/client approval is needed.",
     mikeEscalation:
-      "Manager asks Mike to approve the exact reply or client email when a high-risk review or automation-level change appears.",
+      "Manager asks Mike to approve exact replies or client messages when a review is high-risk or the automation level changes.",
     clientEmailApproval:
-      "Profile Manager drafts client-facing review-reply approval requests; Manager presents the exact wording to Mike.",
+      "Reply Writer drafts client-facing approval requests. Manager presents the exact wording to Mike before it is sent.",
     coachTraining:
-      "Coach maintains voice-profile examples, escalation terms, and safe reply rules.",
+      "Coach maintains voice examples, escalation terms, and safe reply rules.",
     readyCriteria: [
       "Client voice profile exists.",
-      "Draft mode starts as draft-only or approval-required.",
+      "Draft mode starts approval-only.",
       "High-risk topics never auto-post.",
       "Approve/reject/posted decisions are logged.",
-      "Google Business Profile posting waits for explicit future approval path.",
+      "Auto-posting waits for a future trust level and Mike approval.",
     ],
     agents: [
-      { agent: "Profile Manager", role: "Workflow owner", does: "Maintains client voice and review reply quality.", proof: "Voice profile and reply workspace are current." },
+      { agent: "Reply Writer", role: "Workflow owner", does: "Drafts replies in the client's voice and flags sensitive topics.", proof: "Draft and risk flags are saved." },
       { agent: "Reviews Manager", role: "Queue owner", does: "Keeps review reply decisions moving.", proof: "Pending drafts are visible." },
       { agent: "Auditor", role: "Safety owner", does: "Checks high-risk flags and auto-post eligibility.", proof: "Safety flags match review content." },
       { agent: "Manager", role: "Approval owner", does: "Gets Mike/client approval when needed.", proof: "Decision note is logged." },
@@ -220,38 +184,71 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "gmf-sms-readiness",
-    name: "Serve 05: SMS Readiness",
-    oneLine: "Tracks A2P, opt-in, STOP handling, and sample-message approval before any SMS review requests go live.",
+    slug: "weekly-safety-audit",
+    name: "Systems 01: Weekly Safety Audit",
+    oneLine: "Checks broken pipes, secrets, stale integrations, and risky live-action paths before clients feel the problem.",
     description:
-      "This workflow keeps SMS as a compliant paid add-on, not a shortcut around carrier rules.",
-    status: "planned",
+      "This is the recurring guardrail that lets GMF run more autonomously. Systems Director watches tool health; Auditor blocks unsafe changes; Manager sees only exceptions.",
+    status: "ready",
     weeklyCheckAgent: "Systems Director",
     auditAgent: "Auditor",
     stalledProtocol:
-      "If SMS remains blocked, Systems Director records which compliance item is missing and Manager decides whether to ask the client.",
+      "Systems Director records the failing check, Auditor decides whether it blocks live work, and Manager escalates only exceptions.",
     mikeEscalation:
-      "Manager asks Mike before sending any client A2P/opt-in request or before approving SMS as a paid add-on.",
+      "Manager asks Mike when credentials, billing, tool spend, or public/security risk requires owner approval.",
     clientEmailApproval:
-      "Systems Director drafts A2P/opt-in request emails; Manager asks Mike to approve before sending.",
+      "Systems Director drafts any client access/integration request. Manager asks Mike to approve before sending.",
     coachTraining:
-      "Coach keeps the client explanation for why SMS costs extra and cannot bypass compliance.",
+      "Coach keeps the plain-English explanation for why certain live actions stay blocked until safety gates pass.",
     readyCriteria: [
-      "A2P brand is approved.",
-      "A2P campaign is approved.",
-      "Opt-in language is approved.",
-      "STOP handling is ready.",
-      "Sample SMS is approved before live sending.",
+      "Internal pages are protected.",
+      "No secret values are printed or exposed.",
+      "Sender/storage/integration health can be checked.",
+      "Blocked live actions show the reason.",
+      "Recovery docs stay current enough for a laptop-loss scenario.",
     ],
     agents: [
-      { agent: "Systems Director", role: "Workflow owner", does: "Tracks A2P, opt-in, STOP handling, provider readiness, and cost risk.", proof: "SMS readiness checklist has 5/5 ready." },
-      { agent: "Reviews Manager", role: "Message owner", does: "Prepares review request wording after compliance clears.", proof: "Sample message is approved." },
-      { agent: "Auditor", role: "Compliance guard", does: "Blocks live SMS until every gate is approved.", proof: "Live sending allowed remains false until complete." },
-      { agent: "Manager", role: "Client approval", does: "Explains setup fee/monthly add-on and gets approvals.", proof: "Client approval note exists." },
+      { agent: "Systems Director", role: "Workflow owner", does: "Checks stack health, auth, sender/storage status, and integration drift.", proof: "Health checks pass or blocker is named." },
+      { agent: "Auditor", role: "Safety gate", does: "Decides whether a failure blocks live sends, public edits, or deploys.", proof: "Pass/block decision is recorded." },
+      { agent: "Manager", role: "Exception owner", does: "Shows Mike only what needs approval or a business decision.", proof: "Owner decision request is short and specific." },
     ],
     links: [
       { label: "GHL Exit Ops", href: "/mike-mc/ghl-exit-ops" },
-      { label: "SMS API", href: "/api/review-automation/sms-readiness?client=ai-outsource-hub" },
+      { label: "Ops Index", href: "/mike-mc/ops" },
+      { label: "Integration Health", href: "/api/review-automation/integration-health" },
+    ],
+  },
+  {
+    slug: "call-protection",
+    name: "Future 01: Call Protection",
+    oneLine: "Future add-on for answering or routing calls when Google/customers call and the business cannot pick up.",
+    description:
+      "This workflow is intentionally planned, not active. It becomes useful when demand proves that missed calls or Google's local calling features are hurting conversion.",
+    status: "planned",
+    weeklyCheckAgent: "Manager",
+    auditAgent: "Auditor",
+    stalledProtocol:
+      "Manager keeps this parked until there is buyer demand, pricing approval, and a safe phone workflow.",
+    mikeEscalation:
+      "Manager asks Mike before pricing, selling, or wiring any phone/voice workflow.",
+    clientEmailApproval:
+      "No client email goes out until the add-on is activated and priced.",
+    coachTraining:
+      "Coach keeps this framed as future/contact-for-pricing, not part of the base GMF promise.",
+    readyCriteria: [
+      "Pricing is approved.",
+      "Phone provider and compliance are approved.",
+      "Call scripts and handoff rules are tested.",
+      "Auditor approves no-surprise billing and failover.",
+    ],
+    agents: [
+      { agent: "Manager", role: "Future owner", does: "Tracks demand and waits for Mike's go-ahead.", proof: "Demand notes and pricing decision are recorded." },
+      { agent: "Systems Director", role: "Future safety", does: "Defines provider, billing, failover, and compliance risks.", proof: "Safety checklist exists before launch." },
+      { agent: "Auditor", role: "Future gate", does: "Blocks launch until call behavior and costs are safe.", proof: "Auditor approval is recorded." },
+    ],
+    links: [
+      { label: "Ops Index", href: "/mike-mc/ops" },
+      { label: "Workflows", href: "/mike-mc/workflows" },
     ],
   },
 ];
@@ -271,7 +268,7 @@ export async function getGmfWorkflow(slug: string) {
 }
 
 async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
-  if (slug === "gmf-client-setup-gbp") {
+  if (slug === "get-found-refresh") {
     const setup = await getClientSetupJob("getmefound");
     if (!setup.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
     return [
@@ -281,17 +278,7 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "gmf-review-automation-launch") {
-    const records = await listReviewAutomationRecords({ clientSlug: "ai-outsource-hub", limit: 300 });
-    if (!records.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
-    return [
-      { label: "events", value: String(records.records.length), tone: "accent" },
-      { label: "uploads", value: String(records.records.filter((record) => record.eventType === "customer_upload").length), tone: "muted" },
-      { label: "send logs", value: String(records.records.filter((record) => record.eventType === "send_log").length), tone: "muted" },
-    ];
-  }
-
-  if (slug === "gmf-pos-crm-intake") {
+  if (slug === "stay-found") {
     const rollup = await getIntegrationHealthRollup();
     if (!rollup.ok) return [{ label: "health", value: "issue", tone: "danger" }];
     return [
@@ -301,17 +288,17 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "gmf-report-flow") {
-    const report = await getReportFlowStatus({ clientSlug: "getmefound" });
-    if (!report.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
+  if (slug === "review-engine") {
+    const records = await listReviewAutomationRecords({ clientSlug: "ai-outsource-hub", limit: 300 });
+    if (!records.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
     return [
-      { label: "submitted", value: String(report.counts.submitted), tone: "accent" },
-      { label: "ready", value: String(report.counts.reportReady + report.counts.heatmapReady), tone: "accent" },
-      { label: "blocked", value: String(report.counts.blocked), tone: report.counts.blocked ? "danger" : "muted" },
+      { label: "events", value: String(records.records.length), tone: "accent" },
+      { label: "uploads", value: String(records.records.filter((record) => record.eventType === "customer_upload").length), tone: "muted" },
+      { label: "send logs", value: String(records.records.filter((record) => record.eventType === "send_log").length), tone: "muted" },
     ];
   }
 
-  if (slug === "gmf-review-replies") {
+  if (slug === "review-voice") {
     const digest = await getReviewReplyDigest({ clientSlug: "ai-outsource-hub", days: 30 });
     if (!digest.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
     return [
@@ -321,15 +308,25 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "gmf-sms-readiness") {
+  if (slug === "weekly-safety-audit") {
+    const rollup = await getIntegrationHealthRollup();
     const sms = await getSmsReadiness("ai-outsource-hub");
-    const ready = sms.checklist.filter((item) => item.done).length;
+    if (!rollup.ok) return [{ label: "health", value: "issue", tone: "danger" }];
     return [
-      { label: "ready", value: `${ready}/5`, tone: sms.ready ? "accent" : "warm" },
-      { label: "live send", value: sms.ready ? "yes" : "no", tone: sms.ready ? "accent" : "muted" },
-      { label: "blocked", value: sms.ready ? "0" : String(5 - ready), tone: sms.ready ? "muted" : "warm" },
+      { label: "attention", value: String(rollup.needsAttention), tone: rollup.needsAttention ? "danger" : "muted" },
+      { label: "sms ready", value: sms.ready ? "yes" : "no", tone: sms.ready ? "accent" : "muted" },
+      { label: "clients", value: String(rollup.totalClients), tone: "accent" },
+    ];
+  }
+
+  if (slug === "call-protection") {
+    return [
+      { label: "status", value: "future", tone: "muted" },
+      { label: "live", value: "no", tone: "muted" },
+      { label: "pricing", value: "TBD", tone: "warm" },
     ];
   }
 
   return [{ label: "status", value: "manual", tone: "muted" }];
 }
+

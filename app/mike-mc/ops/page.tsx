@@ -10,9 +10,19 @@ export const metadata: Metadata = {
 
 const DOCS = [
   {
-    title: "Operations Index",
+    title: "GMF Company Operating System",
+    path: "docs/GMF_COMPANY_OPERATING_SYSTEM.md",
+    purpose: "How GMF is run, what it sells, who owns each lane, and when Mike is pulled in.",
+  },
+  {
+    title: "GMF Agent Training Pack",
+    path: "docs/GMF_AGENT_TRAINING_PACK.md",
+    purpose: "Agent roster, responsibilities, workflow rules, escalation rules, and weekly checks.",
+  },
+  {
+    title: "Legacy Operations Index",
     path: "docs/AOH_OPERATIONS_INDEX.md",
-    purpose: "Master map of the docs, agents, onboarding, and backup work.",
+    purpose: "Older operating map retained for recovery and migration context.",
   },
   {
     title: "Laptop Death Recovery",
@@ -27,22 +37,22 @@ const DOCS = [
   {
     title: "Agent Operating Model",
     path: "docs/AGENT_OPERATING_MODEL.md",
-    purpose: "How agents hand work off, review each other, and avoid one giant messy queue.",
+    purpose: "Current GMF agent operating model and handoff rules.",
   },
   {
-    title: "Review Automation Onboarding",
+    title: "Review Engine Onboarding",
     path: "docs/CLIENT_REVIEW_AUTOMATION_ONBOARDING.md",
-    purpose: "Client-side setup flow before Profile and GHL Expert begin backend work.",
+    purpose: "Client-side setup flow for review requests and review-ready data.",
   },
   {
     title: "Client Hub Runbook",
     path: "docs/client-ops-ledger/client-hub-runbook.md",
-    purpose: "Client-facing status page for setup, standard Review Automation, and locked AI Visibility preview.",
+    purpose: "Client-facing status page for setup, Review Engine, and locked next-step previews.",
   },
   {
-    title: "Review Automation Skills",
+    title: "Review Engine Skills",
     path: "docs/REVIEW_AUTOMATION_AGENT_SKILLS.md",
-    purpose: "Agent skills, boundaries, and first-service operating rules.",
+    purpose: "Review Engine agent skills, boundaries, and first-service operating rules.",
   },
   {
     title: "Profile Knowledge",
@@ -50,9 +60,9 @@ const DOCS = [
     purpose: "Google Business Profile access, verification, review links, and handoffs.",
   },
   {
-    title: "GHL Expert Knowledge",
+    title: "GHL Bridge Knowledge",
     path: "docs/GHL_EXPERT_KNOWLEDGE_PACK.md",
-    purpose: "GHL setup, reputation management, workflows, and troubleshooting map.",
+    purpose: "Legacy GHL bridge setup, reputation management, workflows, and troubleshooting map while exiting GHL.",
   },
   {
     title: "Morning Brief Skill Pack",

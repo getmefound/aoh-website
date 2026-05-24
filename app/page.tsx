@@ -15,9 +15,9 @@ import { ICON_PATHS } from "@/lib/icon-paths";
 import { faqPageSchema } from "@/lib/faq";
 
 export const metadata: Metadata = {
-  title: "Growth Services for Small Businesses",
+  title: "Google Visibility Services for Local Businesses",
   description:
-    "Done-for-you growth for local businesses. Review automation, AI Visibility, and outreach that books calls. Free audit to start.",
+    "Done-for-you Google visibility for local businesses. Get Found Refresh, Stay Found, Review Engine, and review replies in your voice.",
   alternates: { canonical: "/" },
 };
 
@@ -31,55 +31,55 @@ type TeaserCard = {
   cta: string;
   iconPaths: readonly string[];
   highlight?: boolean;
-  jobLabel: "Get Found" | "Find Customers";
+  jobLabel: "Get Found" | "Stay Found" | "Build Trust";
 };
 
 const teaserCards: TeaserCard[] = [
   {
-    name: "Review Automation",
-    tagline: "Start collecting reviews on autopilot.",
+    name: "Get Found Refresh",
+    tagline: "A one-time cleanup for the new Google search.",
+    price: "$149",
+    cadence: "one-time",
+    bullets: [
+      "Google Business Profile check",
+      "Services, categories, and review link tightened",
+      "Simple before/after findings",
+    ],
+    href: "/pricing#get-found-refresh",
+    cta: "See the refresh",
+    iconPaths: ICON_PATHS.search,
+    jobLabel: "Get Found",
+  },
+  {
+    name: "Stay Found",
+    tagline: "Monthly upkeep so your profile does not go stale.",
     price: "$49",
     cadence: "/month",
     bullets: [
-      "Automated email review requests",
-      "Google Business Profile audit",
-      "Cancel anytime · no setup fee",
+      "Monthly Google visibility check",
+      "Review/profile drift monitoring",
+      "Short monthly note with next steps",
     ],
-    href: "/pricing#review-automation",
-    cta: "See how it works",
-    iconPaths: ICON_PATHS.star,
-    jobLabel: "Get Found",
-  },
-  {
-    name: "AI Visibility",
-    tagline: "Be found everywhere — Google, ChatGPT, AI search.",
-    price: "$199",
-    cadence: "/month",
-    bullets: [
-      "Reviews fully managed, replies in your voice",
-      "Cited in ChatGPT, Google AI, Claude",
-      "Monthly call + ongoing optimization",
-    ],
-    href: "/pricing#ai-visibility",
-    cta: "See how it works",
-    iconPaths: ICON_PATHS.search,
+    href: "/pricing#stay-found",
+    cta: "Stay visible",
+    iconPaths: ICON_PATHS.dashboard,
     highlight: true,
-    jobLabel: "Get Found",
+    jobLabel: "Stay Found",
   },
   {
-    name: "Reach — Lead Engine",
-    tagline: "Done-for-you outreach. Real calls on your calendar.",
-    price: "$299",
+    name: "Review Engine",
+    tagline: "Email review requests for current and future customers.",
+    price: "$149",
     cadence: "/month",
     bullets: [
-      "Curated prospect list built for your business",
-      "Outreach written in your voice — never a template",
-      "We book the calls. Your only job is to show up.",
+      "Customer upload or POS-ready path",
+      "Email review requests and private feedback",
+      "Monthly review summary",
     ],
-    href: "/pricing#reach",
-    cta: "See how it works",
-    iconPaths: ICON_PATHS.target,
-    jobLabel: "Find Customers",
+    href: "/pricing#review-engine",
+    cta: "Build review flow",
+    iconPaths: ICON_PATHS.star,
+    jobLabel: "Build Trust",
   },
 ];
 
@@ -102,13 +102,13 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                Get found. Find customers. Run your business.
+                Get found. Stay found. Build trust.
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-body)] mb-4">
-                Customers can&apos;t find you when they search. We fix that — three ways.
+                Google Search is changing. Your business profile has to keep up.
               </h2>
               <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
-                <span className="font-bold text-[var(--color-text-body)]">80% of your future customers find you by searching.</span> We get you found on Google, in ChatGPT, and across AI search. We also bring you the customers who haven&apos;t found you yet. And we run it all — so you stay in your business.
+                We clean up your Google-facing footprint, keep it fresh, and help happy customers leave the reviews they meant to leave. You do not learn another dashboard. We run it.
               </p>
             </div>
 

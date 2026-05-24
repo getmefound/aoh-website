@@ -53,7 +53,7 @@ export function FinalCta() {
             <span className="text-[var(--color-accent)]">See where you stand.</span>
           </h2>
           <p className="text-base md:text-lg text-[var(--color-hero-subtext)] leading-relaxed mb-6 max-w-xl mx-auto">
-            Two minutes for a free report on your reviews, ranking, and AI Visibility. No card. We&apos;ll show you exactly what&apos;s costing you customers.
+            Two minutes for a free Google visibility check. No card. We&apos;ll show you what is stale, missing, or confusing before customers choose someone else.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

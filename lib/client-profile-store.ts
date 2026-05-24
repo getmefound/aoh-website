@@ -133,7 +133,15 @@ function profileFromRow(row: ClientProfileRow): ClientHubProfile {
 }
 
 function normalizePlan(plan: string | undefined) {
-  if (plan === "Review Automation" || plan === "AI Visibility" || plan === "Client Setup") return plan;
+  if (
+    plan === "Get Found Refresh" ||
+    plan === "Stay Found" ||
+    plan === "Review Engine" ||
+    plan === "Review Voice" ||
+    plan === "Client Setup"
+  ) {
+    return plan;
+  }
   return undefined;
 }
 

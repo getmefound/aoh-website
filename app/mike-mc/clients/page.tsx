@@ -277,8 +277,14 @@ function ClientForm({ record }: { record?: ClientAdminRecord }) {
         <Select
           label="Plan"
           name="plan"
-          defaultValue={profile?.plan ?? "Review Automation"}
-          options={["Review Automation", "AI Visibility", "Client Setup"]}
+          defaultValue={profile?.plan ?? "Get Found Refresh"}
+          options={[
+            "Get Found Refresh",
+            "Stay Found",
+            "Review Engine",
+            "Review Voice",
+            "Client Setup",
+          ]}
         />
         <Field label="Status" name="status" defaultValue={profile?.status ?? "setup"} />
         <Field label="Status label" name="statusLabel" defaultValue={profile?.status_label ?? "Setup in progress"} />

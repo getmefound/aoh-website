@@ -208,7 +208,7 @@ function ghlForwardingDisabled() {
 
 function buildTaskPacket(payload: CleanIntake) {
   return {
-    job: "Review Automation intake",
+    job: "Review Engine intake",
     managerSummary: `${payload.businessName} submitted setup intake. GBP access status: ${statusLabel(payload.accessStatus)}. Role selected: ${roleLabel(payload.accessRole)}.`,
     owners: {
       manager: "route and brief",
@@ -228,7 +228,7 @@ function buildTaskPacket(payload: CleanIntake) {
 }
 
 function buildSlackMessage(payload: CleanIntake) {
-  return `*Client intake received - Review Automation*
+  return `*Client intake received - Review Engine*
 
 *Business:* ${payload.businessName}
 *Contact:* ${payload.contactName} - ${payload.email}${payload.phone ? ` - ${payload.phone}` : ""}
@@ -267,7 +267,7 @@ function roleLabel(role: string) {
 
 function serviceLabel(intent: string) {
   if (intent === "gbp_update") return "Google profile update";
-  if (intent === "ai_visibility") return "AI Visibility";
+  if (intent === "ai_visibility") return "Stay Found";
   if (intent === "not_sure") return "Not sure";
-  return "Review Automation";
+  return "Review Engine";
 }

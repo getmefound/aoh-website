@@ -88,9 +88,9 @@ const variants: Record<Variant, VariantConfig> = {
     subheadline:
       "We handle your reviews, rankings, and online presence — so more customers find you, and choose you.",
     priceLine: "Limited time · from $49/mo · cancel anytime",
-    formHeadline: "Get your free Reviews + AI Visibility report.",
-    formDescription: "We check your reviews, rankings, and AI visibility across Google, ChatGPT, and more. You'll get both reports in about 10 minutes. Free, no card needed.",
-    buttonText: "Get My Free Reviews + AI Visibility Report",
+    formHeadline: "Get your free Google visibility check.",
+    formDescription: "We check your reviews, Google profile, website signals, and obvious local visibility gaps. Free, no card needed.",
+    buttonText: "Get My Free Visibility Check",
   },
 };
 
@@ -144,15 +144,13 @@ function HeroInner() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
-  const [visualVariant, setVisualVariant] = useState<VisualVariant>("reviews");
+  const [fallbackVisualVariant] = useState<VisualVariant>(() =>
+    Math.random() >= 0.5 ? "ai" : "reviews",
+  );
+  const visualVariant: VisualVariant =
+    variant === "reviews" || variant === "ai" ? variant : fallbackVisualVariant;
   const honeypotRef = useRef<HTMLInputElement>(null);
   const turnstileTokenRef = useRef<string>("");
-
-  useEffect(() => {
-    if (variant === "reviews") setVisualVariant("reviews");
-    else if (variant === "ai") setVisualVariant("ai");
-    else setVisualVariant(Math.random() >= 0.5 ? "ai" : "reviews");
-  }, [variant]);
 
   useEffect(() => {
     window.onTurnstileSuccess = (token: string) => {
@@ -422,7 +420,7 @@ function HeroInner() {
                     </label>
                     <label className="flex items-center gap-2 text-sm text-[var(--color-hero-text)]">
                       <input type="radio" name="report-type" value="ai_visibility" checked={reportType === "ai_visibility"} onChange={() => setReportType("ai_visibility")} className="accent-[var(--color-accent)]" />
-                      AI Visibility Report
+                      Google Visibility Check
                     </label>
                   </div>
                 </fieldset>
@@ -497,7 +495,7 @@ function HeroInner() {
               Check your inbox in 10 minutes.
             </h2>
             <p className="mt-3 text-base text-[var(--color-text-muted)]">
-              Your free Reviews + AI Visibility reports are on the way.
+              Your free Google visibility check is on the way.
             </p>
             <button
               type="button"

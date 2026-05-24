@@ -251,7 +251,15 @@ export async function upsertClientAdminRecord(input: {
 }
 
 function normalizePlan(plan: string): ClientHubProfile["plan"] | undefined {
-  if (plan === "Review Automation" || plan === "AI Visibility" || plan === "Client Setup") return plan;
+  if (
+    plan === "Get Found Refresh" ||
+    plan === "Stay Found" ||
+    plan === "Review Engine" ||
+    plan === "Review Voice" ||
+    plan === "Client Setup"
+  ) {
+    return plan;
+  }
   return undefined;
 }
 

@@ -5,15 +5,15 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 import { usePathname } from "next/navigation";
 
 const services = [
-  { href: "/pricing#review-automation", label: "Review Automation" },
-  { href: "/pricing#ai-visibility", label: "AI Visibility" },
-  { href: "/pricing#reach", label: "Reach" },
-  { href: "/pricing#relay", label: "Relay" },
+  { href: "/pricing#get-found-refresh", label: "Get Found Refresh" },
+  { href: "/pricing#stay-found", label: "Stay Found" },
+  { href: "/pricing#review-engine", label: "Review Engine" },
+  { href: "/pricing#review-voice", label: "Review Voice" },
 ];
 
 const company = [
   { href: "/about", label: "About" },
-  { href: "/pricing#review-automation", label: "What We Do" },
+  { href: "/pricing#get-found-refresh", label: "What We Do" },
   { href: "/blog", label: "Blog" },
   { href: "/#faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },

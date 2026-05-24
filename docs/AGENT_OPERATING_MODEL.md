@@ -1,194 +1,191 @@
 # GetMeFound Agent Operating Model
 
-Status: draft source of truth
-Scope: how GetMeFound agents own knowledge, hand off work, and show progress in Mission Control.
+Status: active source of truth
+Scope: how GMF agents run the Google visibility company with as much autonomy as safely possible.
 
 ## Core Rule
 
-Agents own the knowledge. Mission Control displays the work.
+Agents own the work. Mission Control displays the status. Manager owns the handoff. Auditor owns the quality gate.
 
-Mission Control should show who owns a task, what is blocked, what is done, and what needs Mike. It should not be the only place where the actual job knowledge lives.
+Mike should see the business answer, the blocker, and the decision needed. He should not have to read raw logs or chase agents.
 
-## Knowledge Flow
+## Company Scope
 
-1. Scout researches current docs, saved training, examples, and edge cases.
-2. Coach turns raw research into SOPs, checklists, and training material.
-3. Specialist agents learn only the parts they need to execute their job.
-4. Manager assigns work, watches blockers, and keeps client status moving.
-5. Auditor verifies the work and catches drift after launch.
+GMF is focused on local-business visibility and trust as Google Search becomes more AI-driven.
 
-## Review Automation Service Flow
+Active GMF offers:
 
-1. Client buys Review Automation.
-2. Client completes self-serve onboarding.
-3. Manager confirms the onboarding package is complete enough to begin.
-4. Profile confirms Google Business Profile access and profile health.
-5. GHL Expert creates/configures the HighLevel setup.
-6. Sorter prepares any customer list.
-7. GHL Expert launches review workflows when ready.
-8. Auditor checks the setup and first-run behavior.
-9. Manager reports completion or requests missing client items.
+1. Get Found Refresh - one-time visibility cleanup.
+2. Stay Found - monthly visibility maintenance.
+3. Review Engine - email review requests for completed customers.
+4. Review Voice - AI-drafted review replies in the client's voice.
+5. Call Protection - future add-on, not an active default workflow.
 
-## What The Client Does
+Reach, cold outreach, social prospecting, and lead-generation services belong in a separate company/brand.
 
-The client should not need a Zoom setup call as the default path.
+## Operating Stack
 
-They receive written instructions with screenshots and a video. Their work is to provide access and information:
-
-- business basics
-- Google Business Profile manager invite to GetMeFound
-- how completed customers should enter the review flow
-- customer list, if available now
-- POS/CRM name and integration details, if known
-- reply/SMS/social details only if the client has AI Visibility or another upgrade
-
-The required first launch dependency is Google Business Profile access. A customer list and POS/CRM connection can be handled as follow-up work if needed.
+- Supabase/app pages hold live client state, workflow status, counters, approvals, and events.
+- Obsidian/docs hold company memory, SOPs, offer truth, and agent training.
+- Google Drive holds client files, uploads, assets, and reports.
+- GitHub/Vercel hold code and deployed internal/client pages.
+- Smartlead is outreach-only and should not define GMF delivery.
 
 ## Agent Roles
 
 ### Manager
 
-Owns orchestration. Manager decides what is ready, who owns the next step, and when Mike needs to be involved.
+Runs the company operating system.
 
-Manager does not do specialist setup unless explicitly assigned.
+Manager assigns work, watches blockers, updates the owner view, and asks Mike only for decisions that require owner judgment.
 
-Manager is also the model/tool router. Manager decides whether a task should use a cheap/local model, Gemini/DeepSeek/Grok-style credit model, or a premium build/review model such as Codex or Claude Code.
+Manager must:
 
-Manager must route by risk:
+- classify the work
+- assign the owner agent
+- assign the reviewer
+- name proof required before Done
+- keep blocked work visible
+- ask Mike only after the responsible agent has drafted the needed client/owner request
 
-- low-risk summaries, formatting, and first drafts can use cheap/local models
-- research and SOP expansion can use medium/credit models
-- production code, GHL live workflows, outbound campaign launch, security, billing, and client launch decisions require premium review
+### Profile Manager
 
-Manager cannot mark work Done until the required proof exists. The detailed routing rules live in `docs/MANAGER_ROUTING_SKILL_PACK.md`.
+Owns Google-facing visibility.
 
-Manager also has a GHL overview layer. Manager is not GHL Expert, but must understand the GHL map well enough to supervise subaccounts, snapshots, custom values, workflows, calendars, pipelines, Reputation/GBP connection, webhooks, and report/heatmap proof. The detailed supervision checklist lives in `docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md`.
+Profile Manager handles Google Business Profile access, profile health, review link capture, categories/services, monthly drift checks, and Get Found Refresh/Stay Found execution.
 
-### Scout
+### Reviews Manager
 
-Owns research. Scout finds current platform docs, saved training, videos, edge cases, and examples.
+Owns the Review Engine.
 
-Scout does not become the permanent owner of GHL or Google Business Profile knowledge.
+Reviews Manager handles customer uploads, clean/held rows, proof previews, review request sending readiness, private feedback, suppressions, and monthly review summary inputs.
 
-### Coach
+### Reply Writer
 
-Owns the knowledge library. Coach cleans Scout's research into SOPs, checklists, client instructions, and agent training.
+Owns Review Voice.
 
-Coach makes the knowledge usable by the specialist agents.
+Reply Writer drafts replies in the client's voice, flags risky review topics, and records approve/reject/posted decisions. Reply Writer does not auto-post by default.
 
-### Profile
+### Systems Director
 
-Owns Google Business Profile access and health.
+Owns tool health and safety.
 
-Profile verifies the client added GetMeFound as a manager, confirms the correct business/location, checks verification status, finds the review link, and hands off to GHL Expert when GHL can be connected.
-
-### GHL Expert
-
-Owns HighLevel setup and automations.
-
-GHL Expert creates/configures subaccounts, applies snapshots, updates custom values, connects GBP inside HighLevel, configures Reputation/email review workflows/widgets, and tests technical readiness. Reviews AI/SMS work belongs to AI Visibility or an approved upgrade.
-
-### Sorter
-
-Owns customer list readiness.
-
-Sorter cleans, maps, dedupes, and prepares customer lists for import.
-
-### Press
-
-Owns publishing after setup.
-
-Press handles approved review/social/GBP posting workflows, but does not own Google Business Profile access or HighLevel setup.
+Systems Director watches Supabase, Vercel, Resend, auth, cron, POS/manual upload intake, secret exposure, backups, and broken pipes.
 
 ### Auditor
 
-Owns verification and drift checks.
+Owns the quality gate.
 
-Auditor checks that the setup works, reviews are syncing, workflows fire correctly, and post-launch monitoring is healthy.
+Auditor verifies proof, blocks risky live actions, checks client-facing claims, and flags stalled or looping workflows.
 
-Auditor also owns security drift. Before deploys and during daily checks, Auditor should look for:
+### Coach
 
-- tokens or credentials in URLs
-- hardcoded secrets in source code
-- secret-like values in screenshots or public docs
-- `NEXT_PUBLIC_*` variables that contain token, secret, password, API key, or private key material
-- stale or exposed tokens that need rotation
-- public operator pages that should require auth
+Owns the knowledge layer.
 
-## Handoff Rules
+Coach keeps SOPs, offer language, client instructions, objection handling, and agent training current.
 
-- Profile hands off to GHL Expert only after GetMeFound has GBP manager access or a clear blocker is recorded.
-- GHL Expert hands off to Sorter when a customer list needs cleanup.
-- Sorter hands back to GHL Expert when the list is ready to import.
-- GHL Expert hands off to Auditor before launch is marked done.
-- Auditor hands off to Manager when setup is verified or when a blocker needs client/Mike action.
-- Manager hands off model/tool selection before work begins and records the reviewer/proof required before Done.
+### Scout
 
-## Mission Control Should Show
+Owns research support.
 
-- client
-- service
-- plan
-- onboarding status
-- missing client items
-- current owner
-- next agent
-- blockers
-- last agent action
-- next expected action
-- launch readiness
-- post-launch monitoring status
-- model/tool tier used when the work is agent-driven
-- proof required before Done
+Scout researches current Google/Search changes, platform docs, examples, and market observations, then hands the raw findings to Coach or a specialist.
+
+### Client Success
+
+Owns retention communication.
+
+Client Success turns agent activity into monthly client recaps, upgrade recommendations, and at-risk client notes.
 
 ## Workflow Library
 
-Mission Control now has a workflow library at `/mike-mc/workflows`.
+Mission Control workflow library lives at `/mike-mc/workflows`.
 
-Each workflow must have:
+Active workflow families:
 
-- uniform name such as `Launch 01: Client Setup`
+- Launch 01: Get Found Refresh
+- Serve 01: Stay Found
+- Serve 02: Review Engine
+- Serve 03: Review Voice
+- Systems 01: Weekly Safety Audit
+- Future 01: Call Protection
+
+Each workflow must show:
+
 - one-sentence purpose
-- short workflow description
-- visible status: ready, working, blocked, manual, or planned
+- visible status
 - relevant counters
 - weekly check owner
 - audit owner
-- agent-by-agent handoff boxes
+- agent handoff boxes
 - ready criteria
 - stall protocol
 - Mike escalation rule
 - client email approval rule
 - Coach training note
 
-If a workflow stops:
+## Handoff Rules
 
-1. Auditor names the stalled step and responsible agent.
-2. Responsible agent says what they are doing to fix it.
-3. If the fix needs client information, the responsible agent drafts the client email.
-4. Manager asks Mike to approve that exact email or approve a different message.
-5. Manager keeps the workflow visible until the blocker clears or the workflow is intentionally paused.
+- Manager opens or routes the workflow.
+- Specialist agent executes its step and records proof.
+- Auditor checks proof before launch/done.
+- Manager reports ready, blocked, or needs-Mike.
+- If client information is needed, the responsible agent drafts the client email before Manager asks Mike to approve it.
 
-Coach owns the workflow knowledge layer. Coach should keep the workflow pages aligned with SOPs and make sure each specialist agent knows only the parts they need to execute.
+## What Mission Control Should Show
 
-## Auditor Security Checklist
+- client
+- plan
+- active workflow
+- current owner
+- current blocker
+- next action
+- counters
+- proof required
+- approval needed
+- last agent action
+- weekly check owner
+- audit status
 
-Run this before pushing operator/security-sensitive changes:
+## Autonomy Rules
 
-```powershell
-npm run audit:security
-npm run lint
-npm run build
-```
+- Agents exhaust safe internal work before asking Mike.
+- Mike approves live sends, public profile edits, pricing changes, billing, credentials, and high-risk client messages.
+- Drafts are cheap; live actions require proof.
+- No HighLevel AI feature may be enabled without Mike's explicit approval.
+- Review Voice starts draft/approval only. Auto-posting is a future trust level, not a default.
 
-If the sweep fails, fix the exposure before deploy. If a token was already visible in a URL, screenshot, browser history, or git history, move it to an env var and rotate the token at the source system.
+## Model And Tool Routing
 
-## Sources To Keep Attached To Skills
+Manager routes by risk:
 
-- Google Business Profile owner/manager permissions: https://support.google.com/business/answer/3403100
-- Google Business Profile agency invites: https://support.google.com/business/answer/7655924
-- HighLevel GBP integration: https://help.gohighlevel.com/support/solutions/articles/48001222899-how-to-integrate-google-business-profile-gbp-with-highlevel
-- HighLevel Reputation Management docs: https://help.gohighlevel.com/support/solutions/48000449583
-- Google review API capabilities: https://developers.google.com/my-business/content/review-data
-- Manager routing and model/tool selection: `docs/MANAGER_ROUTING_SKILL_PACK.md`
-- Manager GHL supervision overview: `docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md`
+- cheap/local for summaries, formatting, low-risk classification, first-pass checklists
+- medium for research, SOP expansion, client-language drafts, visibility observations
+- premium for code, deploys, security, live sends, billing/access, and final review of client-facing claims
+
+## Weekly Rhythm
+
+Daily:
+
+- Manager checks blockers and owner approvals.
+- Systems Director watches health exceptions.
+
+Weekly:
+
+- Profile Manager checks visibility drift.
+- Reviews Manager checks send/feedback status.
+- Auditor checks stuck workflows and risky gates.
+
+Monthly:
+
+- Client Success and Coach create the client recap.
+- Manager shows Mike clients at risk, upgrades, and owner decisions.
+
+## Required Source Docs
+
+- `docs/GMF_COMPANY_OPERATING_SYSTEM.md`
+- `docs/GMF_AGENT_TRAINING_PACK.md`
+- `docs/MANAGER_ROUTING_SKILL_PACK.md`
+- `docs/PROFILE_KNOWLEDGE_PACK.md`
+- `docs/REVIEW_AUTOMATION_AGENT_SKILLS.md`
+- `docs/CLIENT_REVIEW_AUTOMATION_ONBOARDING.md`
+

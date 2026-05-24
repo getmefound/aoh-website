@@ -49,7 +49,7 @@ export type ClientHubProfile = {
   slug: string;
   businessName: string;
   ownerName: string;
-  plan: "Review Automation" | "AI Visibility" | "Client Setup";
+  plan: "Get Found Refresh" | "Stay Found" | "Review Engine" | "Review Voice" | "Client Setup";
   statusLabel: string;
   website: string;
   phone: string;
@@ -76,7 +76,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     slug: "abc-business",
     businessName: "ABC Business",
     ownerName: "Business Owner",
-    plan: "Review Automation",
+    plan: "Review Engine",
     statusLabel: "Setup in progress",
     website: "https://abcbusiness.com",
     phone: "(555) 010-0199",
@@ -204,7 +204,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     slug: "ai-outsource-hub",
     businessName: "GetMeFound",
     ownerName: "Mike Egidio",
-    plan: "Review Automation",
+    plan: "Review Engine",
     statusLabel: "Setting up",
     website: "https://getmefound.ai",
     phone: "(877) 521-2224",
@@ -216,7 +216,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     brandNote: "GMF logo is already available from the website assets.",
     protection: "Not enabled",
     statusSummary:
-      "Review Automation is being set up so recent happy customers can be asked for Google reviews.",
+      "Review Engine is being set up so recent happy customers can be asked for Google reviews.",
     nextClientAction: "Upload recent completed jobs or customers.",
     checklist: [
       {
@@ -325,7 +325,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       { label: "ChatGPT visibility", value: "Custom", sub: "GMF internal testing" },
       { label: "Review replies", value: "Locked", sub: "manual approval only" },
       { label: "Local ranking gaps", value: "Pending", sub: "visibility scan next" },
-      { label: "Competitor watch", value: "Pending", sub: "AI Visibility lane" },
+      { label: "Competitor watch", value: "Pending", sub: "Stay Found lane" },
     ],
   },
 ];

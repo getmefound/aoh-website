@@ -59,6 +59,9 @@ export const MOTTOS: Motto[] = [
 
 const SERVICES = "Review Automation · AI Visibility · Reach · Studio · Relay · Full Service";
 
+const SERVICE_LABEL = "Get Found Refresh - Stay Found - Review Engine - Review Voice - Call Protection later";
+const SERVICES_TO_RENDER = SERVICE_LABEL || SERVICES;
+
 export function generateStaticParams() {
   return MOTTOS.map((m) => ({ slug: m.slug }));
 }
@@ -143,7 +146,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
               fontFamily: "monospace",
             }}
           >
-            {SERVICES}
+            {SERVICES_TO_RENDER}
           </div>
           <div
             style={{

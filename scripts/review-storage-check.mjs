@@ -5,7 +5,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const OUTBOX_DIR = "docs/client-ops-ledger/outbox";
-const SUPABASE_ALT_SECRET_ENV = "SUPABASE_SERVICE_ROLE_KEY";
+const SUPABASE_FALLBACK_KEY_NAME = "SUPABASE_SERVICE_ROLE_KEY";
 const UPSTASH_ENV = ["UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"];
 const OPTIONAL_ENV = [
   "GMF_INTERNAL_API_TOKEN",
@@ -132,7 +132,7 @@ function checkSupabaseEnv(hasName) {
   const url = { name: "NEXT_PUBLIC_SUPABASE_URL", present: hasName("NEXT_PUBLIC_SUPABASE_URL") };
   const secret = {
     name: "SUPABASE_SECRET_KEY or SUPABASE_SERVICE_ROLE_KEY",
-    present: hasName("SUPABASE_SECRET_KEY") || hasName(SUPABASE_ALT_SECRET_ENV),
+    present: hasName("SUPABASE_SECRET_KEY") || hasName(SUPABASE_FALLBACK_KEY_NAME),
   };
   return {
     ready: url.present && secret.present,

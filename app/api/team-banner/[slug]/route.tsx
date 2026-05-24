@@ -12,8 +12,11 @@ const CREAM = "#F8F6F1";
 const GREEN = "#7CE7B7";
 
 // Picked by Mike: motto + service list format
-const MOTTO_LINES = ["Phones answered.", "Reviews chased.", "Leads followed up."];
+const MOTTO_LINES = ["Get found.", "Stay found.", "Build trust."];
 const SERVICES = "Review Automation · AI Visibility · Reach · Studio · Relay · Full Service";
+
+const SERVICE_LABEL = "Get Found Refresh - Stay Found - Review Engine - Review Voice - Call Protection later";
+const SERVICES_TO_RENDER = SERVICE_LABEL || SERVICES;
 
 type SurfaceConfig = {
   width: number;
@@ -147,7 +150,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
               textAlign: isTall ? "center" : "left",
             }}
           >
-            {SERVICES}
+            {SERVICES_TO_RENDER}
           </div>
 
           <div
