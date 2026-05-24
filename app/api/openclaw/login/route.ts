@@ -1,7 +1,7 @@
 import { timingSafeEqual } from "node:crypto";
 import type { NextRequest } from "next/server";
 
-const OPENCLAW_BASE = "https://hubgateway.aioutsourcehub.com";
+const OPENCLAW_BASE = "https://mc.getmefound.ai";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
