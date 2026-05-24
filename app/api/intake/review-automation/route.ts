@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
 import { checkEmailRate } from "@/lib/rate-limit";
 import { envValueAny } from "@/lib/getmefound-env";
+import { supabaseRest } from "@/lib/supabase-rest";
 
 type IntakePayload = {
   businessName?: unknown;
@@ -106,7 +107,11 @@ export async function POST(req: NextRequest) {
     timestamp: new Date().toISOString(),
   };
 
-  await Promise.allSettled([forwardToGmfIntakeWebhook(payload), forwardToSlack(payload)]);
+  await Promise.allSettled([
+    saveToSupabase(payload),
+    forwardToGmfIntakeWebhook(payload),
+    forwardToSlack(payload),
+  ]);
 
   return NextResponse.json({ ok: true });
 }
@@ -124,6 +129,28 @@ function cleanEnum(value: unknown, allowed: Set<string>, fallback: string) {
 
 function defaultInviteEmail() {
   return envValueAny("GMF_GBP_INVITE_EMAIL", "AOH_GBP_INVITE_EMAIL") || "mike@getmefound.ai";
+}
+
+async function saveToSupabase(payload: CleanIntake) {
+  const result = await supabaseRest("intake_submissions", {
+    method: "POST",
+    prefer: "return=minimal",
+    body: {
+      business_name: payload.businessName,
+      contact_name: payload.contactName,
+      email: payload.email,
+      phone: payload.phone || null,
+      website: payload.website || null,
+      gbp_link: payload.gbpLink || null,
+      access_status: payload.accessStatus,
+      service_intent: payload.serviceIntent,
+      notes: payload.notes || null,
+      created_at: payload.timestamp,
+    },
+  });
+  if (!result.ok) {
+    console.error("Intake Supabase save failed", result.error);
+  }
 }
 
 async function forwardToGmfIntakeWebhook(payload: CleanIntake) {
