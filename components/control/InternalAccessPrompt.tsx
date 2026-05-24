@@ -16,14 +16,24 @@ export function InternalAccessPrompt({ message = "Access required." }: { message
           Enter the internal API token to access Mike Command Center, workflows, agents, and client operations. This browser stays trusted after login.
         </p>
         <form action={openMikeCommandCenter} className="mt-6 rounded-lg border border-zinc-800/70 bg-zinc-950 p-5">
+          <input
+            name="username"
+            type="text"
+            autoComplete="username"
+            defaultValue="mike"
+            className="sr-only"
+            tabIndex={-1}
+            aria-hidden="true"
+            readOnly
+          />
           <label className="block">
             <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
               Internal token
             </span>
             <input
-              name="token"
+              name="password"
               type="password"
-              autoComplete="off"
+              autoComplete="current-password"
               className="mt-2 w-full rounded-md border border-zinc-800 bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-emerald-500/60"
             />
           </label>
@@ -40,7 +50,7 @@ export function InternalAccessPrompt({ message = "Access required." }: { message
 async function openMikeCommandCenter(formData: FormData) {
   "use server";
 
-  const token = String(formData.get("token") ?? "").trim();
+  const token = String(formData.get("password") ?? formData.get("token") ?? "").trim();
   const ok = await startInternalToolSession(token);
 
   if (!ok) redirect("/internal-access?error=Unauthorized");
