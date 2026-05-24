@@ -106,12 +106,7 @@ export async function POST(req: NextRequest) {
     timestamp: new Date().toISOString(),
   };
 
-  const tasks: Promise<void>[] = [forwardToGmfIntakeWebhook(payload), forwardToSlack(payload)];
-  if (!ghlForwardingDisabled()) {
-    tasks.push(forwardToGhl(payload));
-  }
-
-  await Promise.allSettled(tasks);
+  await Promise.allSettled([forwardToGmfIntakeWebhook(payload), forwardToSlack(payload)]);
 
   return NextResponse.json({ ok: true });
 }
@@ -129,30 +124,6 @@ function cleanEnum(value: unknown, allowed: Set<string>, fallback: string) {
 
 function defaultInviteEmail() {
   return envValueAny("GMF_GBP_INVITE_EMAIL", "AOH_GBP_INVITE_EMAIL") || "mike@getmefound.ai";
-}
-
-async function forwardToGhl(payload: CleanIntake) {
-  const url =
-    process.env.GHL_CLIENT_INTAKE_WEBHOOK_URL?.trim() ||
-    process.env.GHL_CONTACT_WEBHOOK_URL?.trim() ||
-    process.env.GHL_WEBHOOK_URL?.trim();
-  if (!url) return;
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      ...payload,
-      taskPacket: buildTaskPacket(payload),
-    }),
-  }).catch((error) => {
-    console.error("Client intake GHL webhook failed", error);
-    return null;
-  });
-
-  if (response && !response.ok) {
-    console.error("Client intake GHL webhook responded", response.status, await response.text().catch(() => ""));
-  }
 }
 
 async function forwardToGmfIntakeWebhook(payload: CleanIntake) {
@@ -199,13 +170,6 @@ async function forwardToSlack(payload: CleanIntake) {
   }
 }
 
-function ghlForwardingDisabled() {
-  const value = String(process.env.GMF_DISABLE_GHL_FORWARDING ?? process.env.GMF_GHL_FREE_MODE ?? process.env.AOH_DISABLE_GHL_FORWARDING ?? process.env.AOH_GHL_FREE_MODE ?? "")
-    .trim()
-    .toLowerCase();
-  return ["1", "true", "yes", "on"].includes(value);
-}
-
 function buildTaskPacket(payload: CleanIntake) {
   return {
     job: "Review Power intake",
@@ -215,13 +179,10 @@ function buildTaskPacket(payload: CleanIntake) {
       localVisibilityManager: "verify Google Business Profile access and profile basics",
       reviewsManager: "prepare review automation setup",
       systemsDirector: "keep setup moving through GMF-owned intake and alert paths",
-      ghlExpert: "bridge-only HighLevel setup/export while GHL remains active",
     },
     safety: [
       "No password sharing.",
       "Default GBP role is Manager.",
-      "GMF-owned intake path should receive the packet before any GHL bridge handoff.",
-      "Do not enable HighLevel AI features without Mike's manual approval.",
       "Public GBP changes need client or Mike approval before publishing.",
     ],
   };
@@ -239,16 +200,15 @@ function buildSlackMessage(payload: CleanIntake) {
 *Setup requested:* ${serviceLabel(payload.serviceIntent)}
 *Customer system:* ${payload.customerSystem || "not provided"}
 
-*Manager routing:*
+*Routing:*
 - Profile Manager: verify GBP access and profile basics.
 - Reviews Manager: prepare review automation setup.
 - Systems Director: keep GMF-owned intake and alert paths healthy.
-- GHL Expert: bridge-only HighLevel setup/export while GHL remains active.
 
 *Safety:*
 - No password sharing.
 - Default GBP role is Manager.
-- HighLevel AI stays OFF unless Mike manually approves it.
+- Public GBP changes need client or Mike approval before publishing.
 
 *Notes:* ${payload.notes || "none"}`;
 }
