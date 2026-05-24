@@ -34,7 +34,7 @@ export async function startInternalToolSession(token: string) {
 }
 
 export function expectedInternalToken() {
-  return envValueAny("GMF_INTERNAL_API_TOKEN", "AOH_INTERNAL_API_TOKEN", "REPORT_TEST_BYPASS_TOKEN");
+  return envValueAny("GMF_INTERNAL_API_TOKEN", "REPORT_TEST_BYPASS_TOKEN");
 }
 
 function tokenHash(value: string) {
