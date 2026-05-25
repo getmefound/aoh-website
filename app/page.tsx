@@ -11,7 +11,7 @@ import { Reveal } from "@/components/Reveal";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
 import { AnimatedIcon } from "@/components/ui/AnimatedIcon";
-import { HeroVisualAI } from "@/components/hero/HeroVisualAI";
+import { CompetitorScoreCard } from "@/components/hero/CompetitorScoreCard";
 import { ICON_PATHS } from "@/lib/icon-paths";
 import { faqPageSchema } from "@/lib/faq";
 
@@ -114,80 +114,111 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-6 py-8 sm:py-10 md:py-12 lg:py-14">
             <div className="grid min-w-0 grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] md:items-center md:gap-10 lg:gap-12">
               <div className="flex min-w-0 flex-col">
-                <h1 className="max-w-[21.5rem] font-semibold leading-[1.05] tracking-tight text-[clamp(1.85rem,6vw,2.55rem)] sm:max-w-none sm:text-[clamp(2.05rem,5vw,3rem)] md:text-[clamp(2.25rem,3.8vw,3.2rem)]">
-                  <span className="block md:hidden">
-                    Your competitor is being
+                {/* Alert badge */}
+                <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1.5">
+                  <span className="relative flex h-2 w-2 shrink-0">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-70" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
                   </span>
-                  <span className="block md:hidden">recommended by</span>
-                  <span className="block md:hidden">Google&apos;s AI.</span>
-                  <span className="hidden md:block">
-                    Your competitor is being recommended by Google&apos;s AI.
+                  <span className="font-mono text-[11px] font-semibold text-red-400">
+                    Google IO 2026 — biggest search change in 25 years
                   </span>
-                  <span className="mt-2 block text-[var(--color-accent)]">
-                    You&apos;re not.
+                </div>
+
+                <h1 className="font-semibold leading-[1.05] tracking-tight text-[clamp(1.85rem,6vw,2.55rem)] sm:text-[clamp(2.05rem,5vw,3rem)] md:text-[clamp(2.25rem,3.8vw,3.2rem)]">
+                  <span className="hero-line-mask">
+                    <span className="hero-roll block" style={{ animationDelay: "0ms" }}>
+                      Your competitor is being recommended by Google&apos;s AI.
+                    </span>
+                  </span>
+                  <span className="hero-line-mask mt-2 block">
+                    <span
+                      className="hero-roll block text-[var(--color-accent)]"
+                      style={{ animationDelay: "400ms" }}
+                    >
+                      You&apos;re not.
+                    </span>
                   </span>
                 </h1>
 
-                <p className="mt-5 w-full max-w-[21.5rem] text-base leading-relaxed text-[var(--color-hero-subtext)] sm:max-w-xl md:text-lg">
-                  Google just changed how customers find local businesses - and clean business facts now matter in ChatGPT, Claude, and other answer engines too. We fix your listing, reviews, and AI visibility in 48 hours, then keep it working every month.
+                <p className="mt-5 w-full max-w-xl text-base leading-relaxed text-[var(--color-hero-subtext)] md:text-lg">
+                  Google just changed how customers find local businesses — and most haven&apos;t caught up. We fix your listing, reviews, and AI visibility in 48 hours, then keep it working every month.
                 </p>
+
+                {/* Pills */}
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {[
+                    "Done for you completely",
+                    "No contract — cancel anytime",
+                    "Results in 48 hours",
+                  ].map((pill) => (
+                    <span
+                      key={pill}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.10] bg-white/[0.05] px-3 py-1 text-xs font-medium text-[var(--color-hero-subtext)]"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        className="h-3 w-3 shrink-0 text-[var(--color-accent)]"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="3"
+                      >
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                      {pill}
+                    </span>
+                  ))}
+                </div>
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   <Link
-                    href="/pricing"
+                    href="/report/ai-visibility"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
                   >
-                    See our plans
+                    See my free score
                     <span aria-hidden="true">→</span>
                   </Link>
-                  <Link
-                    href="/contact"
+                  <a
+                    href="#how-it-works"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-3.5 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20"
                   >
-                    Talk to us
-                  </Link>
+                    How it works
+                  </a>
                 </div>
 
                 <p className="mt-3 font-mono text-xs text-[var(--color-hero-subtext)]/60">
-                  Plans from $99/mo - no contract - cancel anytime
+                  Free · takes 30 seconds · no account needed
                 </p>
               </div>
 
-              <div className="hidden h-full min-w-0 md:block">
-                <HeroVisualAI />
+              <div className="hidden h-full min-w-0 md:flex md:items-center">
+                <CompetitorScoreCard />
               </div>
             </div>
-          </div>
-        </section>
 
-        <section
-          aria-label="GetMeFound proof points"
-          className="border-y border-[var(--color-hero-border)] bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
-        >
-          <div className="mx-auto max-w-6xl px-6 py-3.5">
-            <ul className="grid gap-2 text-sm text-[var(--color-hero-subtext)] sm:grid-cols-3 sm:gap-4">
+            {/* Stats row */}
+            <div className="mt-10 grid grid-cols-1 gap-4 border-t border-white/[0.07] pt-8 sm:grid-cols-3">
               {[
-                "More calls from Google",
-                "Clear facts for ChatGPT and Claude",
-                "No contract - cancel anytime",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2 sm:justify-center">
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4 shrink-0 text-[var(--color-accent)]"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                  >
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
-                  <span>{item}</span>
-                </li>
+                { stat: "45%", label: "of customers now use AI to find local businesses" },
+                { stat: "650%", label: "increase in AI-driven local searches — one year" },
+                { stat: "$149", label: "one-time fix · no contract ever" },
+              ].map((item, i) => (
+                <div
+                  key={item.stat}
+                  className={`flex flex-col gap-1 ${i > 0 ? "sm:border-l sm:border-white/[0.07] sm:pl-6" : ""}`}
+                >
+                  <span className="text-3xl font-bold text-[var(--color-hero-text)]">
+                    {item.stat}
+                  </span>
+                  <span className="text-sm text-[var(--color-hero-subtext)]/70">
+                    {item.label}
+                  </span>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </section>
 
@@ -349,7 +380,9 @@ export default function Home() {
           <RevenueCalculator />
         </section>
 
-        <HowItWorks />
+        <div id="how-it-works" className="scroll-mt-20">
+          <HowItWorks />
+        </div>
 
         <CostCompare />
 
