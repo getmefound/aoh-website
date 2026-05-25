@@ -228,7 +228,7 @@ export function HowItWorks() {
             href="/contact"
             className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-8 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/25"
           >
-            Get your free report
+            See our plans
             <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
               →
             </span>

@@ -70,7 +70,7 @@ export function FinalCta() {
               href="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.08] transition-all hover:bg-white/[0.10] hover:ring-white/20"
             >
-              Get your free report
+              Talk to us
             </Link>
           </div>
 

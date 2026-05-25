@@ -146,17 +146,17 @@ export default function Home() {
 
                 <div className="mt-10 flex flex-wrap gap-4">
                   <Link
-                    href="/contact"
+                    href="/pricing"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-7 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
                   >
-                    Get your free report
+                    See our plans
                     <span aria-hidden="true">→</span>
                   </Link>
                   <Link
-                    href="/pricing"
+                    href="/contact"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-7 py-4 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20"
                   >
-                    See our plans
+                    Talk to us
                   </Link>
                 </div>
 
