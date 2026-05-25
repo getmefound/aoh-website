@@ -120,19 +120,19 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16 md:items-center">
               <div className="flex flex-col">
                 <h1 className="font-semibold leading-[1.05] tracking-tight text-[clamp(2rem,8vw,3.5rem)] md:text-[clamp(2.5rem,5vw,4rem)]">
-                  Google now picks who gets the call.{" "}
-                  <span className="text-[var(--color-accent)]">Are you on the list?</span>
+                  If you&apos;re not on Google&apos;s short list,{" "}
+                  <span className="text-[var(--color-accent)]">you&apos;re not getting the call.</span>
                 </h1>
 
                 <p className="mt-6 max-w-xl text-lg text-[var(--color-hero-subtext)] md:text-xl leading-relaxed">
-                  We set up your Google profile, reviews, and AI visibility in 48 hours — then run it every month so you stay found.
+                  We set up your Google profile, reviews, and AI search results in 48 hours — then run it every month so you stay found.
                 </p>
 
                 <ul className="mt-8 flex flex-wrap gap-3">
                   {[
                     "More calls from Google",
-                    "We do everything",
-                    "No contract",
+                    "We handle everything",
+                    "No contract — cancel anytime",
                   ].map((pill) => (
                     <li
                       key={pill}
@@ -146,17 +146,17 @@ export default function Home() {
 
                 <div className="mt-10 flex flex-wrap gap-4">
                   <Link
-                    href="/pricing"
+                    href="/contact"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-7 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
                   >
-                    See our plans
+                    Get your free report
                     <span aria-hidden="true">→</span>
                   </Link>
                   <Link
-                    href="/contact"
+                    href="/pricing"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-7 py-4 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20"
                   >
-                    Get your free report
+                    See our plans
                   </Link>
                 </div>
 
