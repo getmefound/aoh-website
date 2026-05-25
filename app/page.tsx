@@ -16,9 +16,9 @@ import { ICON_PATHS } from "@/lib/icon-paths";
 import { faqPageSchema } from "@/lib/faq";
 
 export const metadata: Metadata = {
-  title: "GetMeFound — Google Visibility for Local Businesses",
+  title: "GetMeFound - Google Visibility for Local Businesses",
   description:
-    "Done-for-you Google visibility, reviews, and AI search presence for local businesses. No contracts. Live in 48 hours.",
+    "Done-for-you Google visibility, reviews, website hosting, and AI search presence for local businesses. No contracts. Live in 48 hours.",
   alternates: { canonical: "/" },
 };
 
@@ -62,8 +62,8 @@ const teaserCards: TeaserCard[] = [
     bullets: [
       "Everything in Get Found - free",
       "$199 setup, then $99/mo",
-      "SMS and email review requests with AI reply drafts",
-      "Free website hosting for your GMF-managed site",
+      "Text and email review requests with AI reply drafts",
+      "Hosting included; can replace a separate $15-$50/mo bill",
     ],
     href: "/pricing#stay-found",
     cta: "Stay visible",
@@ -78,8 +78,8 @@ const teaserCards: TeaserCard[] = [
     cadence: "/month",
     bullets: [
       "Everything in Stay Found",
-      "AI voice agent ready for Google's calling feature",
-      "Monthly strategy call and AI search citation check",
+      "AI voice readiness for Google's calling feature",
+      "Monthly strategy call and AI answer visibility check",
     ],
     href: "/pricing#always-ready",
     cta: "Always ready",
@@ -106,7 +106,7 @@ export default function Home() {
         tabIndex={-1}
         className="flex flex-1 flex-col focus:outline-none"
       >
-        {/* ── Hero ── */}
+        {/* Hero */}
         <section
           aria-label="Hero"
           className="overflow-hidden bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
@@ -129,7 +129,7 @@ export default function Home() {
                 </h1>
 
                 <p className="mt-5 w-full max-w-[21.5rem] text-base leading-relaxed text-[var(--color-hero-subtext)] sm:max-w-xl md:text-lg">
-                  Google just changed how customers find local businesses — and most haven&apos;t caught up. We fix your listing, reviews, and AI visibility in 48 hours, then keep it working every month.
+                  Google just changed how customers find local businesses - and clean business facts now matter in ChatGPT, Claude, and other answer engines too. We fix your listing, reviews, and AI visibility in 48 hours, then keep it working every month.
                 </p>
 
                 <div className="mt-7 flex flex-wrap gap-3">
@@ -149,7 +149,7 @@ export default function Home() {
                 </div>
 
                 <p className="mt-3 font-mono text-xs text-[var(--color-hero-subtext)]/60">
-                  Plans from $99/mo · no contract · cancel anytime
+                  Plans from $99/mo - no contract - cancel anytime
                 </p>
               </div>
 
@@ -168,7 +168,7 @@ export default function Home() {
             <ul className="grid gap-2 text-sm text-[var(--color-hero-subtext)] sm:grid-cols-3 sm:gap-4">
               {[
                 "More calls from Google",
-                "We handle everything",
+                "Clear facts for ChatGPT and Claude",
                 "No contract - cancel anytime",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2 sm:justify-center">
@@ -193,7 +193,7 @@ export default function Home() {
 
         <ReportTransformation />
 
-        {/* ── Service tiers ── */}
+        {/* Service tiers */}
         <section className="py-14 md:py-20 bg-[var(--color-bg-page)]">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
@@ -204,7 +204,7 @@ export default function Home() {
                 Pick the level that fits where you are.
               </h2>
               <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
-                We run everything. You stay focused on your business.
+                We run the Google profile, review path, website hosting, and AI visibility basics. You stay focused on your business.
               </p>
             </div>
 
@@ -286,7 +286,7 @@ export default function Home() {
                   </p>
                   <h3 className="text-3xl font-bold leading-tight">Are you ready?</h3>
                   <p className="mt-3 max-w-xl text-sm leading-7 text-white/72 md:text-base">
-                    Google is already turning Search into an AI action layer. Always Ready prepares your facts, content, and phone readiness before AI systems recommend or call your business.
+                    Google is already turning Search into an AI action layer. Always Ready prepares your facts, content, and phone readiness before Google, ChatGPT, Claude, and other AI systems recommend or call your business.
                   </p>
                   <a
                     href={GOOGLE_AI_CALLING_URL}
@@ -355,7 +355,7 @@ export default function Home() {
 
         <SocialProof />
 
-        <FAQ limit={3} showSeeAllLink />
+        <FAQ limit={5} showSeeAllLink />
 
         <FinalCta />
       </main>

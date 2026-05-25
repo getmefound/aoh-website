@@ -13,7 +13,7 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Done-for-you Google visibility for local businesses. Get Found, Stay Found, and Always Ready.",
+    "Done-for-you Google visibility, reviews, website hosting, and AI search presence for local businesses. Get Found, Stay Found, and Always Ready.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -29,7 +29,7 @@ const products: ProductDetailData[] = [
     name: "Get Found",
     outcome: "Fix the Google-facing basics before AI search decides who to recommend.",
     story:
-      "A one-time setup for local businesses that need to look current, accurate, and easy for Google, AI answers, and customers to understand. It is the lowest-risk first step before a monthly plan.",
+      "A one-time setup for local businesses that need to look current, accurate, and easy for Google, AI assistants, and customers to understand. It is the lowest-risk first step before a monthly plan.",
     stats: [
       { label: "Type", value: "One-time" },
       { label: "Typical turn", value: "72h" },
@@ -38,7 +38,7 @@ const products: ProductDetailData[] = [
     whatYouGet: [
       "Full Google Business Profile audit and optimization plan",
       "Name, address, phone, website, category, hours, and services checked",
-      "LocalBusiness schema markup plan or handoff",
+      "Website trust markup plan or developer handoff",
       "AI search visibility baseline report",
       "First email review request campaign setup after approval",
       "30-minute onboarding call",
@@ -69,50 +69,56 @@ const products: ProductDetailData[] = [
     slug: "stay-found",
     number: "02",
     name: "Stay Found",
-    outcome: "Keep your listing, reviews, hosted site, and AI visibility moving every month.",
+    outcome: "Keep your listing, reviews, hosted site, and AI-ready business facts moving every month.",
     story:
-      "Stay Found is the preferred monthly plan. Everything in Get Found is included free, then GMF keeps the review request system, Google profile, website hosting, and visibility signals current without making the owner learn another platform.",
+      "Stay Found is the preferred monthly plan. Everything in Get Found is included free, then GMF keeps the review request system, Google profile, website hosting, and business facts current so Google, ChatGPT, Claude, and customers see the same clear story.",
     stats: [
       { label: "Setup", value: "$199" },
-      { label: "Channel", value: "SMS + email" },
+      { label: "Reviews", value: "Text + email" },
       { label: "Hosting", value: "Included" },
     ],
     whatYouGet: [
       "Everything in Get Found - free",
       "Weekly client list upload path for review requests",
-      "SMS and email review request campaigns after A2P readiness",
-      "A2P setup handled by GMF when SMS is approved",
+      "Text and email review request campaigns after phone-number approval",
+      "Text-message setup handled by GMF so you do not need another review-text tool",
       "AI response drafts in the client's brand voice",
       "Negative review alert and suggested response target within 4 business hours",
       "One weekly Google Business Profile post",
-      "Free website hosting for your GMF-managed site",
+      "Website hosting included for your GMF-managed site",
       "Review monitoring across platforms where available",
       "Monthly sentiment, citation, and visibility report",
     ],
     useThisIf: [
       "You do not want your Google profile to decay after the first cleanup.",
       "You have happy customers but do not ask consistently.",
-      "You want stronger review conversion from SMS plus email.",
+      "You want stronger review conversion from text plus email.",
       "You want AI reply drafts without risky auto-posting.",
       "You want GMF to host the site so public updates do not depend on another vendor.",
     ],
     setupSteps: [
       { title: "Baseline", sub: "We start from Get Found or a fresh audit." },
-      { title: "Clear compliance", sub: "SMS waits for opt-in, STOP handling, and A2P readiness." },
+      { title: "Texting setup", sub: "We handle phone-number approval, opt-out language, and the customer-list workflow before texts go live." },
       { title: "Keep moving", sub: "Requests, profile content, hosted-site updates, and owner recaps stay active." },
     ],
-    cadence: "Weekly upkeep with included website hosting, review request campaigns, and a monthly owner recap. Urgent profile issues escalate to Manager.",
+    cadence: "Weekly upkeep with included website hosting, review request campaigns, and a monthly owner recap. Urgent profile issues escalate to the GMF team.",
     crossSell: { label: "Always Ready - add AI voice readiness", href: "#always-ready" },
     price: "$99",
     cadenceLabel: "/mo",
     setup: "$199 setup",
-    promoNote: "Website hosting included for GMF-managed sites.",
+    promoNote: "Hosting included. Many owners can cancel a separate hosting bill after the GMF-hosted site is live.",
     ctaLabel: "Start Stay Found",
     ctaHref: "/checkout/stay-found",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.dashboard,
     mock: <MockReviewPanel />,
     variant: "dark",
+    quickMath: {
+      label: "Built-in savings",
+      formula:
+        "Possible savings: $15-$50/mo in separate website hosting plus $24-$39+/mo for a starter texting tool. Text-message setup is included in Stay Found, so there is no extra setup project just to request reviews.",
+      note: "Keep your current host until GMF confirms the GMF-hosted site is live and checked.",
+    },
   },
 ];
 
@@ -136,7 +142,7 @@ const jobGroupCopy: Record<JobKey, { index: string; label: string; intro: string
     index: "Step 1 of 3",
     label: "Get found.",
     intro:
-      "Google Search is changing. We clean up the public footprint first so customers and search systems see the right business.",
+      "Google Search is changing. We clean up the public footprint first so customers, Google, and AI assistants see the right business.",
   },
   "stay-found": {
     index: "Step 2 of 3",
@@ -177,7 +183,7 @@ export default function PricingPage() {
             </span>
           </h1>
           <p className="mt-5 max-w-[21.5rem] text-lg leading-relaxed text-[var(--color-hero-subtext)] sm:max-w-2xl md:text-xl">
-            GMF helps local businesses get found, stay current, and turn happy customers into stronger review proof. Start small. Add only what is worth keeping.
+            GMF helps local businesses get found on Google, stay current for AI assistants like ChatGPT and Claude, and turn happy customers into stronger review proof. Start small. Add only what is worth keeping.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -205,7 +211,7 @@ export default function PricingPage() {
                   Start with the lowest-risk fix.
                 </h2>
                 <p className="text-base md:text-lg text-[var(--color-text-muted)] leading-relaxed">
-                  A local business does not need another complicated platform first. It needs the Google-facing basics right, a review path that runs, and a clear owner recap.
+                  A local business does not need another complicated platform first. It needs the Google-facing basics right, the same facts ready for AI assistants, a review path that runs, and a clear owner recap.
                 </p>
               </div>
             </Reveal>
@@ -345,7 +351,7 @@ export default function PricingPage() {
               Always ready.
             </h2>
             <p className="text-base md:text-lg text-white/75 leading-relaxed max-w-2xl mx-auto">
-              Voice readiness, GBP content, schema, and AEO checks keep the business ready for calls, searches, and AI recommendations.
+              Voice readiness, Google profile content, website facts, and AI answer checks keep the business ready for calls, searches, and AI recommendations.
             </p>
           </div>
         </section>
@@ -365,7 +371,7 @@ export default function PricingPage() {
                   Are you ready?
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-white/75 md:text-lg">
-                  Google is moving from search results to agentic actions. Always Ready prepares the business facts, content, phone readiness, and escalation rules AI systems need before they recommend or call on behalf of a customer.
+                  Google is moving from search results to AI-assisted actions. Always Ready prepares the business facts, content, phone readiness, and escalation rules Google, ChatGPT, Claude, and other AI systems need before they recommend or call on behalf of a customer.
                 </p>
 
                 <blockquote className="mt-6 rounded-3xl border border-sky-300/25 bg-sky-300/10 p-5 text-sm leading-7 text-white/85">
@@ -384,9 +390,9 @@ export default function PricingPage() {
                     "Everything in Stay Found",
                     "AI voice agent trained on services, pricing, hours, and FAQs",
                     "Voice and phone readiness for AI and customer inquiries",
-                    "Full GBP content management and local content planning",
-                    "FAQ schema and location-page recommendations",
-                    "Monthly 30-minute strategy call and AEO check",
+                    "Full Google profile content management and local content planning",
+                    "FAQ updates and location-page recommendations",
+                    "Monthly 30-minute strategy call and AI answer visibility check",
                   ].map((item) => (
                     <li key={item} className="flex gap-2 leading-relaxed">
                       <span aria-hidden="true" className="mt-1 text-sky-300">+</span>
@@ -461,7 +467,7 @@ export default function PricingPage() {
 
         <CtaBlock
           headline="Not sure where to start?"
-          subline="Start with Get Found. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, website hosting, or voice readiness."
+          subline="Start with Get Found. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, included website hosting, or voice readiness."
         />
       </PageBody>
       <BackToTopButton />

@@ -189,7 +189,7 @@ function ComparisonSlider() {
 
   return (
     <div className="relative min-w-0">
-      <div className="relative aspect-[4/5] w-full max-w-[21.5rem] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-2xl shadow-[var(--color-bg-dark-card)]/15 sm:aspect-[16/11] sm:max-w-none">
+      <div className="relative mx-auto aspect-[4/5] w-full max-w-[21.5rem] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-2xl shadow-[var(--color-bg-dark-card)]/15 sm:aspect-[16/11] sm:max-w-none">
         <div className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-bg-dark-card)] px-4 py-3 text-[var(--color-hero-subtext)]">
           <div className="flex items-center gap-2" aria-hidden="true">
             <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-error)]/80" />
@@ -267,9 +267,9 @@ function ComparisonSlider() {
         </div>
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-4 text-xs font-bold uppercase tracking-[0.14em]">
-        <span className="text-[var(--color-error)]">Before: unclear</span>
-        <span className="text-[var(--color-accent)]">After: AI-ready</span>
+      <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] font-bold uppercase tracking-[0.08em] sm:text-xs sm:tracking-[0.14em]">
+        <span className="min-w-0 text-[var(--color-error)]">Before: unclear</span>
+        <span className="min-w-0 text-right text-[var(--color-accent)]">After: AI-ready</span>
       </div>
     </div>
   );
@@ -286,13 +286,13 @@ export function ReportTransformation() {
           <ComparisonSlider />
         </div>
 
-        <div className="md:pl-2">
+        <div className="min-w-0 md:pl-2">
           <p className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
             The better promise
           </p>
           <h2
             id="report-transformation-title"
-            className="text-3xl font-bold leading-tight text-[var(--color-text-body)] md:text-5xl"
+            className="break-words text-[clamp(2rem,8vw,2.75rem)] font-bold leading-tight text-[var(--color-text-body)] md:text-5xl"
           >
             Skip the black-box score. Show the before and after.
           </h2>

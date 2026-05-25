@@ -3,7 +3,23 @@ export type FaqItem = { q: string; a: string };
 export const FAQ_ITEMS: FaqItem[] = [
   {
     q: "How is GetMeFound different from other agencies?",
-    a: "No contract, cancel anytime. We show you the before-and-after visibility gap before you pay a single dollar. We have to earn your trust before we ask for anything.",
+    a: "No contract, cancel anytime. We keep the work practical: clean up the Google profile, improve the review path, keep the website and business facts current, and show owners what changed in plain English.",
+  },
+  {
+    q: "How does the included website hosting work?",
+    a: "Stay Found includes hosting for your GMF-managed site. After the GMF-hosted site is live and checked, many owners can cancel a separate $15-$50/mo hosting or website-builder bill. You keep ownership of your domain, email, and business accounts; we only change website settings with approval.",
+  },
+  {
+    q: "How does Stay Found roll out?",
+    a: "First we confirm your business details, access, website path, and customer-list process. Then we clean up the profile, launch the hosted site if needed, start approved email review requests, and turn on text review requests after phone-number approval. After launch, you send or upload customers weekly and get a monthly owner recap.",
+  },
+  {
+    q: "Do I need to buy a separate texting tool?",
+    a: "No. Stay Found includes the review-text setup and request workflow, so you do not need another tool just to ask happy customers for reviews. Standalone texting tools often start around $24-$39+/mo before usage, and the text-message setup is included instead of being a separate setup project.",
+  },
+  {
+    q: "Why do you use text messages for review requests?",
+    a: "Texts get seen quickly. Twilio reports SMS has a 98% open rate, 90% of messages are read within 3 minutes, and a 45% response rate. We still send carefully: contacts must be appropriate to message, opt-out language is included, and nothing risky goes live without approval.",
   },
   {
     q: "Will automated replies sound fake and hurt me with Google?",
@@ -11,19 +27,19 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "How much of my time does this take?",
-    a: "Get Found needs a short onboarding call and access details. After that, the monthly plans are built to be light: send or upload customer lists, approve anything risky, and read the recap.",
+    a: "Get Found needs a short onboarding call and access details. After that, the monthly plans are built to be light: send or upload customer lists, approve anything sensitive, and read the recap.",
   },
   {
     q: "How long before I see results?",
-    a: "Review requests start going out within 48 hours of setup. Most clients see new reviews within the first two weeks. Google ranking improvements typically take 60-90 days.",
+    a: "Email review requests can start quickly once setup is approved. Text review requests go live after phone-number approval. Most owners should judge review momentum over the first few weeks and Google visibility over a 60-90 day window.",
   },
   {
     q: "Is AI Visibility just regular SEO with a new name?",
-    a: "Different mechanism entirely. Traditional SEO gets you a spot on Google's list of links. AI Visibility gets your business recommended by name when someone asks ChatGPT who's the best plumber near me - that's a recommendation, not a ranking.",
+    a: "Google is still the front door for local search, but AI assistants like ChatGPT and Claude also need clean facts to understand who you are, what you do, where you serve, and why customers trust you. AI Visibility keeps that business story consistent.",
   },
   {
     q: "Why do I need to keep paying monthly?",
-    a: "ChatGPT and Claude constantly retrain. Google's algorithm keeps changing. Review velocity matters - a business that stops getting reviews looks inactive to both customers and algorithms. Your monthly fee keeps you active, monitored, and found.",
+    a: "Google changes, AI assistants refresh what they know, and customers trust recent proof. A business that stops getting reviews or updating facts can look inactive. Stay Found keeps the profile, review requests, hosted site, and owner reporting moving each month.",
   },
   {
     q: "What if I get a bad review?",
@@ -35,7 +51,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Will this hurt my existing Google Business Profile?",
-    a: "No. We work within Google's guidelines — optimizing what's already there, not replacing it. We never delete reviews, alter your category without approval, or make changes that could trigger a suspension. Everything we touch gets your sign-off first.",
+    a: "No. We work within Google's guidelines - optimizing what's already there, not replacing it. We never delete reviews, alter your category without approval, or make changes that could trigger a suspension. Everything sensitive gets your sign-off first.",
   },
   {
     q: "How do I cancel?",
