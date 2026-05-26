@@ -9,6 +9,7 @@ import { HomepageFAQ } from "@/components/sections/HomepageFAQ";
 import { ReportTransformation } from "@/components/sections/ReportTransformation";
 import { TrustCards } from "@/components/sections/TrustCards";
 import { VisibilityCheck } from "@/components/sections/VisibilityCheck";
+import { GameChanged } from "@/components/sections/GameChanged";
 import { Reveal } from "@/components/Reveal";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
@@ -230,6 +231,8 @@ export default function Home() {
         <HowItWorks />
 
         <VisibilityCheck />
+
+        <GameChanged />
 
         {/* Service tiers */}
         <section className="py-14 md:py-20 bg-[var(--color-bg-page)]">
