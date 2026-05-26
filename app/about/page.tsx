@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const breadcrumb = pageBreadcrumbs("About", "/about");
 
 const AUDIT_HREF = "/report/ai-visibility";
-const MIKE_LINKEDIN = "https://www.linkedin.com/in/mikeegidio";
+const MIKE_LINKEDIN = "https://www.linkedin.com/in/mikeegidio/";
 
 const companyRows = [
   {
@@ -44,7 +44,7 @@ const teamMembers = [
     initials: "KL",
     name: "Kip Leathers",
     title: "Business Development",
-    bio: "Kip finds the right local-business owners to talk to — then opens the conversation. If you've spoken with us, Kip was probably the one who made that first call worth your time.",
+    bio: "Thirty years of closing. Kip has spent his career in commission-only sales — the kind where you either find the right people and open the right conversations, or you don't eat. He brings that same discipline to finding local businesses that are losing ground to competitors who just showed up first.",
   },
   {
     initials: "TE",
