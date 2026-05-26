@@ -150,32 +150,41 @@ function ReportLayer({
       }`}
     >
       <div className="flex h-full flex-col p-4 sm:p-5 md:p-6">
-        <div className="mb-4 flex items-center gap-4 border-b border-border pb-4">
+        <div className={`mb-4 flex items-center gap-4 border-b border-border pb-4 ${isAfter ? "justify-between" : ""}`}>
+          {!isAfter && (
+            <div className="shrink-0">
+              <p className="font-mono text-4xl font-black leading-none text-text-body sm:text-5xl">
+                {score}
+                <span className="text-base text-text-muted">/100</span>
+              </p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-error">
+                {label}
+              </p>
+            </div>
+          )}
           <div className="min-w-0">
             <p
               className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] ${
-                isAfter ? "text-[var(--color-accent)]" : "text-[var(--color-error)]"
+                isAfter ? "text-accent" : "text-error"
               }`}
             >
               Sample {mode}
             </p>
-            <h3 className="mt-1 text-lg font-bold text-[var(--color-text-body)] sm:text-xl">
+            <h3 className="mt-1 text-lg font-bold text-text-body sm:text-xl">
               Local visibility report
             </h3>
           </div>
-          <div className="shrink-0 text-right">
-            <p className="font-mono text-4xl font-black leading-none text-[var(--color-text-body)] sm:text-5xl">
-              {score}
-              <span className="text-base text-[var(--color-text-muted)]">/100</span>
-            </p>
-            <p
-              className={`mt-1 text-xs font-bold uppercase tracking-[0.14em] ${
-                isAfter ? "text-[var(--color-accent)]" : "text-[var(--color-error)]"
-              }`}
-            >
-              {label}
-            </p>
-          </div>
+          {isAfter && (
+            <div className="shrink-0 text-right">
+              <p className="font-mono text-4xl font-black leading-none text-text-body sm:text-5xl">
+                {score}
+                <span className="text-base text-text-muted">/100</span>
+              </p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-accent">
+                {label}
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="mb-4 grid grid-cols-3 gap-2">
