@@ -234,95 +234,136 @@ function ReportLayer({
   );
 }
 
+const browserChrome = (
+  <div className="flex items-center justify-between border-b border-border bg-(--color-bg-dark-card) px-4 py-3 text-hero-subtext">
+    <div className="flex items-center gap-2" aria-hidden="true">
+      <span className="h-2.5 w-2.5 rounded-full bg-error/80" />
+      <span className="h-2.5 w-2.5 rounded-full bg-[#d9a441]/80" />
+      <span className="h-2.5 w-2.5 rounded-full bg-accent" />
+    </div>
+    <p className="min-w-0 flex-1 truncate px-3 text-center font-mono text-[10px] uppercase tracking-[0.18em]">
+      getmefound.ai/sample
+    </p>
+    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
+      AI ops stack
+    </p>
+  </div>
+);
+
+const labelRow = (
+  <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] font-bold uppercase tracking-[0.08em]">
+    <span className="min-w-0 text-error">Before: unclear</span>
+    <span className="min-w-0 text-right text-accent">After: AI-ready</span>
+  </div>
+);
+
 function ComparisonSlider() {
   const reduce = useReducedMotion();
   const [position, setPosition] = useState(40);
   const [focused, setFocused] = useState(false);
+  const [activeTab, setActiveTab] = useState<"before" | "after">("before");
   const afterClip = `inset(0 0 0 ${position}%)`;
 
   return (
     <div className="relative min-w-0">
-      <div className="relative mx-auto aspect-[4/5] w-full max-w-[21.5rem] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-2xl shadow-[var(--color-bg-dark-card)]/15 sm:aspect-[16/11] sm:max-w-none">
-        <div className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-bg-dark-card)] px-4 py-3 text-[var(--color-hero-subtext)]">
-          <div className="flex items-center gap-2" aria-hidden="true">
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-error)]/80" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#d9a441]/80" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]" />
+      {/* ── Mobile: tab buttons (< 768px) ── */}
+      <div className="md:hidden">
+        <div className="mb-3 grid grid-cols-2 gap-2">
+          <button
+            onClick={() => setActiveTab("before")}
+            className={`rounded-xl border py-3 text-xs font-bold uppercase tracking-[0.14em] transition-colors ${
+              activeTab === "before"
+                ? "border-error/40 bg-error/10 text-error"
+                : "border-border bg-transparent text-text-muted"
+            }`}
+          >
+            Before
+          </button>
+          <button
+            onClick={() => setActiveTab("after")}
+            className={`rounded-xl border py-3 text-xs font-bold uppercase tracking-[0.14em] transition-colors ${
+              activeTab === "after"
+                ? "border-accent/40 bg-accent/10 text-accent"
+                : "border-border bg-transparent text-text-muted"
+            }`}
+          >
+            After
+          </button>
+        </div>
+
+        <div className="mx-auto aspect-4/5 w-full max-w-86 overflow-hidden rounded-2xl border border-border bg-(--color-bg-elevated) shadow-2xl shadow-(--color-bg-dark-card)/15">
+          {browserChrome}
+          <div className="relative h-[calc(100%-45px)]">
+            {activeTab === "before" ? (
+              <ReportLayer mode="before" score={23} label="INVISIBLE" findings={BEFORE_FINDINGS} />
+            ) : (
+              <ReportLayer mode="after" score={84} label="AI-READY" findings={AFTER_FINDINGS} />
+            )}
           </div>
-          <p className="min-w-0 flex-1 truncate px-3 text-center font-mono text-[10px] uppercase tracking-[0.18em]">
-            getmefound.ai/sample
-          </p>
-          <p className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-accent)] sm:block">
-            AI ops stack
-          </p>
         </div>
 
-        <div className="relative h-[calc(100%-45px)]">
-          <ReportLayer
-            mode="before"
-            score={23}
-            label="INVISIBLE"
-            findings={BEFORE_FINDINGS}
-          />
-
-          <motion.div
-            className="absolute inset-0 overflow-hidden"
-            style={{ clipPath: afterClip }}
-            animate={reduce ? undefined : { clipPath: afterClip }}
-            transition={{ duration: 0.12, ease: "easeOut" }}
-          >
-            <ReportLayer
-              mode="after"
-              score={84}
-              label="AI-READY"
-              findings={AFTER_FINDINGS}
-            />
-          </motion.div>
-
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 z-20 flex -translate-x-1/2 items-center"
-            style={{ left: `${position}%` }}
-            animate={reduce ? undefined : { left: `${position}%` }}
-            transition={{ duration: 0.12, ease: "easeOut" }}
-          >
-            <span className="h-full w-px bg-white shadow-[0_0_0_1px_rgba(10,22,40,0.28),0_0_18px_rgba(10,22,40,0.18)]" />
-            <span
-              className={`absolute left-1/2 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full bg-[var(--color-bg-dark-card)] text-[var(--color-hero-text)] shadow-xl ring-1 ring-white/20 ${
-                focused ? "outline outline-2 outline-offset-2 outline-[var(--color-accent)]" : ""
-              }`}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m8 7-5 5 5 5M16 7l5 5-5 5" />
-              </svg>
-            </span>
-          </motion.div>
-
-          <input
-            type="range"
-            min={8}
-            max={92}
-            value={position}
-            onChange={(event) => setPosition(Number(event.target.value))}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            aria-label="Slide between the sample before report and after report"
-            className="absolute inset-0 z-30 h-full w-full cursor-ew-resize opacity-0"
-          />
-        </div>
+        {labelRow}
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] font-bold uppercase tracking-[0.08em] sm:text-xs sm:tracking-[0.14em]">
-        <span className="min-w-0 text-[var(--color-error)]">Before: unclear</span>
-        <span className="min-w-0 text-right text-[var(--color-accent)]">After: AI-ready</span>
+      {/* ── Desktop: drag slider (≥ 768px) ── */}
+      <div className="hidden md:block">
+        <div className="relative mx-auto aspect-16/11 w-full overflow-hidden rounded-2xl border border-border bg-(--color-bg-elevated) shadow-2xl shadow-(--color-bg-dark-card)/15">
+          {browserChrome}
+
+          <div className="relative h-[calc(100%-45px)]">
+            <ReportLayer mode="before" score={23} label="INVISIBLE" findings={BEFORE_FINDINGS} />
+
+            <motion.div
+              className="absolute inset-0 overflow-hidden"
+              style={{ clipPath: afterClip }}
+              animate={reduce ? undefined : { clipPath: afterClip }}
+              transition={{ duration: 0.12, ease: "easeOut" }}
+            >
+              <ReportLayer mode="after" score={84} label="AI-READY" findings={AFTER_FINDINGS} />
+            </motion.div>
+
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 z-20 flex -translate-x-1/2 items-center"
+              style={{ left: `${position}%` }}
+              animate={reduce ? undefined : { left: `${position}%` }}
+              transition={{ duration: 0.12, ease: "easeOut" }}
+            >
+              <span className="h-full w-px bg-white shadow-[0_0_0_1px_rgba(10,22,40,0.28),0_0_18px_rgba(10,22,40,0.18)]" />
+              <span
+                className={`absolute left-1/2 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full bg-(--color-bg-dark-card) text-(--color-hero-text) shadow-xl ring-1 ring-white/20 ${
+                  focused ? "outline-2 outline-offset-2 outline-accent" : ""
+                }`}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m8 7-5 5 5 5M16 7l5 5-5 5" />
+                </svg>
+              </span>
+            </motion.div>
+
+            <input
+              type="range"
+              min={8}
+              max={92}
+              value={position}
+              onChange={(event) => setPosition(Number(event.target.value))}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              aria-label="Slide between the sample before report and after report"
+              className="absolute inset-0 z-30 h-full w-full cursor-ew-resize opacity-0"
+            />
+          </div>
+        </div>
+
+        {labelRow}
       </div>
     </div>
   );
