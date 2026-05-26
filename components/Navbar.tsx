@@ -125,11 +125,14 @@ export function Navbar() {
             </Link>
 
             <div className={`hidden md:flex items-center gap-8 text-sm font-medium ${linkColor} transition-colors duration-500`}>
+              <Link href={withLocale("/#how-it-works")} className="transition-colors">
+                {"How It Works"}
+              </Link>
               <Link href={withLocale("/pricing")} className="transition-colors">
-                {"What We Do"}
+                {"Pricing"}
               </Link>
               <Link href={withLocale("/calculator")} className="transition-colors">
-                {"Calculator"}
+                {"Revenue Potential"}
               </Link>
               <Link href={withLocale("/blog")} className="transition-colors">
                 Blog
@@ -196,18 +199,25 @@ export function Navbar() {
               >
                 <div className="mx-auto max-w-6xl px-6 py-4 space-y-1 text-sm">
                   <Link
+                    href={withLocale("/#how-it-works")}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
+                  >
+                    {"How It Works"}
+                  </Link>
+                  <Link
                     href={withLocale("/pricing")}
                     onClick={() => setMobileOpen(false)}
                     className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
                   >
-                    {"What We Do"}
+                    {"Pricing"}
                   </Link>
                   <Link
                     href={withLocale("/calculator")}
                     onClick={() => setMobileOpen(false)}
                     className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
                   >
-                    {"Calculator"}
+                    {"Revenue Potential"}
                   </Link>
                   <Link
                     href={withLocale("/blog")}

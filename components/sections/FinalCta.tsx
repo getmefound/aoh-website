@@ -7,29 +7,16 @@ export function FinalCta() {
   return (
     <section
       aria-label="Final call to action"
-      className="relative overflow-hidden bg-[var(--color-bg-dark-card)] py-14 md:py-20"
+      className="relative overflow-hidden bg-(--color-hero-bg) py-20 md:py-28"
     >
-      {/* Soft accent glow corners */}
+      {/* Accent glow */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[var(--color-accent)]/12 blur-3xl"
+        className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-(--color-accent)/10 blur-3xl"
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -bottom-24 h-80 w-80 rounded-full bg-[var(--color-accent)]/8 blur-3xl"
-      />
-
-      {/* Subtle grid pattern */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-          maskImage:
-            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-        }}
+        className="pointer-events-none absolute -right-24 -bottom-24 h-96 w-96 rounded-full bg-(--color-accent)/7 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-3xl px-6 text-center">
@@ -39,43 +26,47 @@ export function FinalCta() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <p className="mb-3 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-70" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
-            </span>
-            AI visibility refresh
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-[var(--color-hero-text)] leading-tight mb-5">
-            Customers are choosing right now.
-            <br className="hidden md:block" />
-            <span className="hidden md:inline"> </span>
-            <span className="text-[var(--color-accent)]">Make sure they find you.</span>
-          </h2>
-          <p className="text-base md:text-lg text-[var(--color-hero-subtext)] leading-relaxed mb-6 max-w-xl mx-auto">
-            We handle your Google presence, reviews, and AI search visibility every month — so you show up where it counts. No dashboards. No contract.
+          <p className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-hero-subtext/50">
+            One decision
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <h2 className="text-[clamp(2.2rem,6.5vw,3.8rem)] font-bold leading-[1.05] tracking-tight text-hero-text">
+            Your competitor is being recommended.
+            <br />
+            <span className="text-accent">Fix that today.</span>
+          </h2>
+
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/pricing"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-8 py-4 text-base font-semibold text-[var(--color-accent-text)] transition-all hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-[var(--color-accent)]/30"
+              href="/get-found"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-(--color-accent) px-8 py-4 text-base font-semibold text-(--color-accent-text) transition-all hover:bg-(--color-accent-hover) hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-(--color-accent)/30"
             >
-              See our plans
-              <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
-                →
-              </span>
+              Get Found for $149
+              <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
             </Link>
             <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.08] transition-all hover:bg-white/[0.10] hover:ring-white/20"
+              href="/report/ai-visibility"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-hero-text ring-1 ring-white/[0.08] transition-all hover:bg-white/[0.10] hover:ring-white/20"
             >
-              Talk to us
+              See if AI recommends you →
             </Link>
           </div>
 
-          <p className="mt-8 text-xs text-[var(--color-hero-subtext)]/70">
-            No contracts. Cancel anytime. Plans from $99/mo.
+          <p className="mt-6 text-sm text-hero-subtext/60">
+            No contract · No tech skills needed · Results in 48 hours
+          </p>
+
+          <p className="mt-4 text-xs text-hero-subtext/35">
+            Based on{" "}
+            <a
+              href="https://blog.google/products-and-platforms/products/search/deep-search-business-calling-google-search/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-hero-subtext/60 transition-colors"
+            >
+              Google&apos;s local search ranking factors
+            </a>{" "}
+            and AI search behavior.
           </p>
         </motion.div>
       </div>

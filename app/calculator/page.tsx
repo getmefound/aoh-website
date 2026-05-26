@@ -33,10 +33,10 @@ export default function CalculatorPage() {
               Lost-Revenue Calculator
             </p>
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              See what you&apos;re losing every month.
+              See what your business could earn with better visibility.
             </h1>
             <p className="text-base md:text-lg text-[var(--color-hero-subtext)] leading-relaxed max-w-xl mx-auto">
-              <span className="font-bold text-white">80% of your future customers find you by searching.</span> If your reviews, ranking, or AI visibility are weak — they pick a competitor. Run the math in 30 seconds.
+              <span className="font-bold text-white">80% of your future customers find you by searching.</span> If your reviews or AI visibility are weak — they pick a competitor. Run the math in 30 seconds.
             </p>
           </div>
         </section>

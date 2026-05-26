@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -89,3 +90,9 @@ UsersmichaDocumentsaoh-tooling-scan/
 
 # local Claude/Codex runtime state
 .claude/
+
+# CBC medical uploads and visual verification artifacts stay local/private.
+public/cbc/uploads/
+private/cbc/uploads/
+cbc-*.png
+cbc-next-start-*.log

@@ -54,13 +54,6 @@ const industries: Record<
   b2b:           { defaultValue: 2400,  vol: 15,  velocityTarget: 5,  valueLabel: "per engagement", label: "B2B service businesses",  valueMin: 500,   valueMax: 10000,  valueStep: 100 },
 };
 
-const rankingTraffic: Record<number, number> = {
-  1: 1.00, 2: 0.78, 3: 0.61,
-  4: 0.38, 5: 0.28, 6: 0.21,
-  7: 0.15, 8: 0.11, 9: 0.08, 10: 0.06,
-  11: 0.04, 12: 0.03, 13: 0.03, 14: 0.02, 15: 0.02,
-  16: 0.02, 17: 0.01, 18: 0.01, 19: 0.01, 20: 0.01,
-};
 
 type AiVisibilityStatus =
   | ""
@@ -96,7 +89,6 @@ function RevenueCalculatorInner() {
   const [customerValue, setCustomerValue] = useState(290);
   const [reviewsPerMonth, setReviewsPerMonth] = useState(2);
   const [stars, setStars] = useState(3.8);
-  const [ranking, setRanking] = useState(8);
   const [aiVisibility, setAiVisibility] = useState<AiVisibilityStatus>("");
   const [afterHoursCalls, setAfterHoursCalls] = useState(0);
   const [noCallbackRate, setNoCallbackRate] = useState(70);
@@ -136,7 +128,7 @@ function RevenueCalculatorInner() {
     // Slower decay vs half-target keeps per-step deltas above $100 rounding even at low volumes.
     const reviewPenalty = 0.65 * Math.pow(0.5, reviewsPerMonth / ind.velocityTarget);
 
-    const currentTraffic = rankingTraffic[Math.min(ranking, 20)];
+    const currentTraffic = 0.28;
     const trafficLoss = 1 - currentTraffic;
 
     // Weights: review velocity is now the dominant lever (0.45) since it's GetMeFound's primary product
@@ -189,11 +181,9 @@ function RevenueCalculatorInner() {
     } else if (reviewsPerMonth === 0) {
       insight = `<strong>Zero new reviews this month is the biggest issue.</strong> Google&apos;s local pack weights review <em>freshness</em> over total count. Reviews older than 6 months carry only 10–20% of their original ranking power. The top ${ind.label} get ${target}+ new reviews per month, every month — that&apos;s why they outrank you, even if you have a higher total count.`;
     } else if (reviewsPerMonth < target * 0.5) {
-      insight = `<strong>Your review velocity is too low to keep ranking.</strong> The top ${ind.label} collect ${target}+ new reviews per month. At ${reviewsPerMonth}/month, Google reads your business as slowing down — your ranking starts decaying within 30 days regardless of how many older reviews you have. Velocity is the ranking signal; volume isn&apos;t.`;
-    } else if (aiVisibility === "dont-know" && reviewsPerMonth >= target * 0.6 && ranking <= 5) {
-      insight = `<strong>Your Google game is decent — the AI gap is wide open.</strong> You&apos;re close on velocity (${reviewsPerMonth}/mo vs ${target}+) and rank #${ranking}. Unknown is AI search, where most local businesses have never checked whether they are recommended by name.`;
-    } else if (ranking > 5) {
-      insight = `<strong>Your ranking is costing you the most.</strong> Positions #1–3 capture ${Math.round(rankingTraffic[1] * 100)}% of local search clicks. At #${ranking}, you&apos;re getting roughly ${Math.round(currentTraffic * 100)}% of that traffic. Most customers never see you.`;
+      insight = `<strong>Your review velocity is too low to keep being recommended.</strong> The top ${ind.label} collect ${target}+ new reviews per month. At ${reviewsPerMonth}/month, Google reads your business as slowing down — your visibility starts decaying within 30 days regardless of how many older reviews you have. Velocity is the visibility signal; volume isn&apos;t.`;
+    } else if (aiVisibility === "dont-know" && reviewsPerMonth >= target * 0.6) {
+      insight = `<strong>Your Google game is decent — the AI gap is wide open.</strong> You&apos;re close on velocity (${reviewsPerMonth}/mo vs ${target}+). Unknown is AI search, where most local businesses have never checked whether they are recommended by name.`;
     } else if (stars < 4.0) {
       insight = `<strong>Your star rating is your biggest conversion killer.</strong> 94% of consumers won&apos;t consider a business under 4.0 stars. At ${stars.toFixed(1)}, you&apos;re visible — but customers are choosing your competitors instead.`;
     } else if (aiVisibility === "yes-cited") {
@@ -211,7 +201,7 @@ function RevenueCalculatorInner() {
       insight,
       needsAiCheck: aiVisibility === "dont-know" || aiVisibility === "think-so",
     });
-  }, [industry, customerValue, reviewsPerMonth, stars, ranking, aiVisibility, afterHoursCalls, noCallbackRate]);
+  }, [industry, customerValue, reviewsPerMonth, stars, aiVisibility, afterHoursCalls, noCallbackRate]);
 
   const renderStars = (rating: number) => {
     const arr = [];
@@ -374,34 +364,6 @@ function RevenueCalculatorInner() {
                 <div className="flex justify-between mt-2 text-xs text-[var(--color-text-muted)]">
                   <span>1 star</span>
                   <span>5 stars</span>
-                </div>
-              </div>
-
-              {/* Ranking */}
-              <div className="mb-8">
-                <label htmlFor="ranking-range" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
-                  Where do you typically rank on Google Maps for your main service?{" "}
-                  <span className="text-xs font-normal text-[var(--color-text-muted)]">
-                    (e.g. &quot;auto repair near me&quot;)
-                  </span>
-                </label>
-                <div className="flex items-center gap-4">
-                  <input
-                    id="ranking-range"
-                    type="range"
-                    min="1"
-                    max="20"
-                    value={ranking}
-                    onChange={(e) => setRanking(parseInt(e.target.value))}
-                    className="flex-1 h-2 bg-[var(--color-border)] rounded-lg appearance-none cursor-pointer slider"
-                  />
-                  <div className="text-lg font-bold text-[var(--color-text-body)] min-w-[60px] text-right">
-                    #{ranking}
-                  </div>
-                </div>
-                <div className="flex justify-between mt-2 text-xs text-[var(--color-text-muted)]">
-                  <span>#1 (top)</span>
-                  <span>#20+</span>
                 </div>
               </div>
 
