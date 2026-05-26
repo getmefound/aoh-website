@@ -86,11 +86,11 @@ export function AuditRequestForm() {
   if (submitted) {
     return (
       <div
-        className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-8"
+        className="rounded-2xl border border-white/10 bg-(--color-bg-dark-card) p-8"
         role="status"
         aria-live="polite"
       >
-        <p className="text-lg font-bold text-[var(--color-text-body)]">
+        <p className="text-lg font-bold text-(--color-hero-text)">
           On its way — check your inbox shortly.
         </p>
       </div>
@@ -98,17 +98,17 @@ export function AuditRequestForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-8">
-      <h2 className="text-2xl font-bold text-[var(--color-text-body)]">
+    <div className="rounded-2xl border border-white/10 bg-(--color-bg-dark-card) p-8">
+      <h2 className="text-2xl font-bold text-(--color-hero-text)">
         See where your business actually stands.
       </h2>
-      <p className="mt-1.5 text-sm text-[var(--color-text-muted)]">
+      <p className="mt-1.5 text-sm text-white/55">
         Free. In your inbox within 24 hours.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
         <div>
-          <label htmlFor="audit-business-name" className="block text-sm font-semibold mb-2 text-[var(--color-text-body)]">
+          <label htmlFor="audit-business-name" className="block text-sm font-semibold mb-2 text-white/80">
             Business name
           </label>
           <input
@@ -120,12 +120,12 @@ export function AuditRequestForm() {
             placeholder="Your business name"
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
-            className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl bg-white focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 transition-colors text-[var(--color-text-body)] placeholder:text-[var(--color-text-muted)]/60"
+            className="w-full px-4 py-3 border border-white/15 rounded-xl bg-white/6 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-colors text-white placeholder:text-white/35"
           />
         </div>
 
         <div>
-          <label htmlFor="audit-email" className="block text-sm font-semibold mb-2 text-[var(--color-text-body)]">
+          <label htmlFor="audit-email" className="block text-sm font-semibold mb-2 text-white/80">
             Email address
           </label>
           <input
@@ -139,7 +139,7 @@ export function AuditRequestForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             aria-invalid={Boolean(error)}
-            className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl bg-white focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 transition-colors text-[var(--color-text-body)] placeholder:text-[var(--color-text-muted)]/60"
+            className="w-full px-4 py-3 border border-white/15 rounded-xl bg-white/6 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-colors text-white placeholder:text-white/35"
           />
         </div>
 
