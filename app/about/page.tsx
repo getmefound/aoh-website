@@ -48,9 +48,9 @@ const teamMembers = [
   },
   {
     initials: "TE",
-    name: "Teri Egidio",
-    title: "Sales Manager",
-    bio: "Teri runs inbound and onboards every new client. Once you sign, you talk to Teri — not a ticket queue. She makes sure the first 30 days feel handled, not figured out.",
+    name: "Teri Blackburn",
+    title: "Client Success",
+    bio: "When something comes up, a real person answers. Teri comes from staffing — an industry where keeping clients and candidates both happy, at the same time, is the whole job. She manages onboarding and makes sure nothing falls through the cracks after you sign up.",
   },
 ];
 
