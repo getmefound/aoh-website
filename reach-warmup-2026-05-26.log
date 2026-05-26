@@ -1,0 +1,324 @@
+
+> aoh-website@0.1.0 reach:warmup
+> node scripts/reach-warmup-autopilot.mjs --lane all --execute auto --allow-scrape-spend
+
+
+Reviews report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-warmup-reviews-2026-05-26.md
+
+AI Visibility report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-warmup-ai-2026-05-26.md
+
+> node scripts/launch-reach-campaign.mjs --lane relay --industry HVAC contractor --area Connecticut --limit 20 --timeout-ms 120000 --out tmp-reach-warmup-relay-2026-05-26-a27.json
+Scraping Outscraper query: HVAC contractor, Connecticut, USA
+Limit: 20. Enrichment: contacts_n_leads.
+Prepared 20 Relay prospects.
+Saved normalized prospects to tmp-reach-warmup-relay-2026-05-26-a27.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- Connecticut HVAC Services llc <cthvacservices@gmail.com> East Lyme Connecticut
+- Total Mechanical Systems <rm221@hotmail.com> Plainville Connecticut
+- Total Mechanical Systems <andre@harphomeservices.com> Plainville Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-relay-2026-05-26-a27.json --out tmp-reach-warmup-relay-2026-05-26-a27-clean.csv
+Input JSON rows: 20
+CSV written: tmp-reach-warmup-relay-2026-05-26-a27-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a27-clean.csv --out tmp-reach-warmup-relay-2026-05-26-a27-fresh.csv --state Connecticut
+Input rows: 20
+Fresh rows kept: 20
+Removed rows: 0
+Fresh CSV: tmp-reach-warmup-relay-2026-05-26-a27-fresh.csv
+Removed CSV: tmp-reach-warmup-relay-2026-05-26-a27-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-relay-2026-05-26-a27-fresh.csv --out tmp-reach-warmup-relay-2026-05-26-a27-verified.csv --report tmp-reach-warmup-relay-2026-05-26-a27-verified-report.json
+Loaded 20 rows from tmp-reach-warmup-relay-2026-05-26-a27-fresh.csv.
+KEEP cthvacservices@gmail.com valid
+KEEP rm221@hotmail.com valid
+REMOVE andre@harphomeservices.com invalid
+REMOVE acorjulo@tmscomfort.com invalid
+REMOVE cps@ctpsych.org invalid
+REMOVE info@ctcoolingandheating.com invalid
+KEEP ctcooling@yahoo.com valid
+KEEP mike@climatechmechanical.com valid
+KEEP joe@climatechmechanical.com valid
+REMOVE m.naski@climatechmechanical.com invalid
+KEEP ron52183@gmail.com valid
+REMOVE l.piombo@americanheatingservice.com invalid
+KEEP team@latofonts.com valid
+REMOVE kathynoiseux@mac.com unknown
+KEEP cdl.lundgren@gmail.com valid
+REMOVE cassie@dynamichvac.net unknown
+KEEP info@glascohvac.com valid
+KEEP will@glascohvac.com valid
+REMOVE r.tyler@tylerair.com invalid
+REMOVE alexis@tylerair.com invalid
+
+Input: 20
+Kept: 10
+Removed: 10
+Verified CSV: tmp-reach-warmup-relay-2026-05-26-a27-verified.csv
+Verification report: tmp-reach-warmup-relay-2026-05-26-a27-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a27-verified.csv --out tmp-reach-warmup-relay-2026-05-26-a27-qa.csv
+Rows reviewed: 10
+OK rows: 0
+Review rows: 10
+QA CSV: tmp-reach-warmup-relay-2026-05-26-a27-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-relay-quality-2026-05-26.md
+
+> node scripts/launch-reach-campaign.mjs --lane relay --industry plumber --area Connecticut --limit 20 --timeout-ms 120000 --out tmp-reach-warmup-relay-2026-05-26-a28.json
+Scraping Outscraper query: plumber, Connecticut, USA
+Limit: 20. Enrichment: contacts_n_leads.
+Prepared 20 Relay prospects.
+Saved normalized prospects to tmp-reach-warmup-relay-2026-05-26-a28.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- bluefrog Plumbing + Drain of Central Connecticut <ncfazzinoplumbing@gmail.com> Wallingford Connecticut
+- bluefrog Plumbing + Drain of Central Connecticut <csr@bfplumbingct.com> Wallingford Connecticut
+- Advance Plumbing & Heating, Inc. <azplumbers@aol.com> Newington Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-relay-2026-05-26-a28.json --out tmp-reach-warmup-relay-2026-05-26-a28-clean.csv
+Input JSON rows: 20
+CSV written: tmp-reach-warmup-relay-2026-05-26-a28-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a28-clean.csv --out tmp-reach-warmup-relay-2026-05-26-a28-fresh.csv --state Connecticut
+Input rows: 20
+Fresh rows kept: 20
+Removed rows: 0
+Fresh CSV: tmp-reach-warmup-relay-2026-05-26-a28-fresh.csv
+Removed CSV: tmp-reach-warmup-relay-2026-05-26-a28-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-relay-2026-05-26-a28-fresh.csv --out tmp-reach-warmup-relay-2026-05-26-a28-verified.csv --report tmp-reach-warmup-relay-2026-05-26-a28-verified-report.json
+Loaded 20 rows from tmp-reach-warmup-relay-2026-05-26-a28-fresh.csv.
+KEEP ncfazzinoplumbing@gmail.com valid
+KEEP csr@bfplumbingct.com valid
+KEEP azplumbers@aol.com valid
+REMOVE office@onzescph.com catchall
+REMOVE m.b@mrrootersea.com invalid
+REMOVE p.d@sparaco.com invalid
+REMOVE carmenita.jack@mrrootersea.com invalid
+KEEP allstateplumbingct@gmail.com valid
+KEEP escapeplumbing@optonline.net valid
+KEEP escapeplumbing@gmail.com valid
+REMOVE jason@jnrplumbing.com invalid
+REMOVE info@nwsewer.com invalid
+REMOVE jnrplumbingllc@gmail.com invalid
+KEEP hello@rfuenzalida.com valid
+KEEP matt@pixelspread.com valid
+KEEP tim@vanguardplumbingsolutions.com valid
+KEEP jetplumbingct@gmail.com valid
+REMOVE info@jetplumbingct.com unknown
+KEEP cfitzg6505@aol.com valid
+KEEP gjc3839@aol.com valid
+
+Input: 20
+Kept: 12
+Removed: 8
+Verified CSV: tmp-reach-warmup-relay-2026-05-26-a28-verified.csv
+Verification report: tmp-reach-warmup-relay-2026-05-26-a28-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a28-verified.csv --out tmp-reach-warmup-relay-2026-05-26-a28-qa.csv
+Rows reviewed: 12
+OK rows: 0
+Review rows: 12
+QA CSV: tmp-reach-warmup-relay-2026-05-26-a28-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-relay-quality-2026-05-26.md
+
+> node scripts/launch-reach-campaign.mjs --lane relay --industry electrician --area Connecticut --limit 20 --timeout-ms 120000 --out tmp-reach-warmup-relay-2026-05-26-a29.json
+Scraping Outscraper query: electrician, Connecticut, USA
+Limit: 20. Enrichment: contacts_n_leads.
+Prepared 20 Relay prospects.
+Saved normalized prospects to tmp-reach-warmup-relay-2026-05-26-a29.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- J.S. Electrical LLC <jsmart@jselectrical-llc.com> Plainville Connecticut
+- J.S. Electrical LLC <help@jjandselectricllc.com> Plainville Connecticut
+- J.S. Electrical LLC <info@jjandselectricllc.com> Plainville Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-relay-2026-05-26-a29.json --out tmp-reach-warmup-relay-2026-05-26-a29-clean.csv
+Input JSON rows: 20
+CSV written: tmp-reach-warmup-relay-2026-05-26-a29-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a29-clean.csv --out tmp-reach-warmup-relay-2026-05-26-a29-fresh.csv --state Connecticut
+Input rows: 20
+Fresh rows kept: 18
+Removed rows: 2
+Fresh CSV: tmp-reach-warmup-relay-2026-05-26-a29-fresh.csv
+Removed CSV: tmp-reach-warmup-relay-2026-05-26-a29-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-relay-2026-05-26-a29-fresh.csv --out tmp-reach-warmup-relay-2026-05-26-a29-verified.csv --report tmp-reach-warmup-relay-2026-05-26-a29-verified-report.json
+Loaded 18 rows from tmp-reach-warmup-relay-2026-05-26-a29-fresh.csv.
+REMOVE help@jjandselectricllc.com invalid
+REMOVE info@jjandselectricllc.com invalid
+KEEP pbavis@pecofct.com valid
+KEEP kptek@msn.com valid
+KEEP captainelectricc@yahoo.com valid
+REMOVE z.sacirovski@accurateelectricalcontractors.com unknown
+KEEP accurateelectric79@gmail.com valid
+KEEP josh@ajpelectricllc.com valid
+KEEP electricalpowerprosllc@gmail.com valid
+KEEP dan@electricalpowerpros.net valid
+KEEP caseyelectricalservicesllc@gmail.com valid
+KEEP info@caseyelectricalservices.com valid
+KEEP joshcasey@caseyelectricalservices.com valid
+KEEP sarah.mcelectric@gmail.com valid
+KEEP ksbelectric1@gmail.com valid
+KEEP ksbelectricllc@gmail.com valid
+KEEP buckelectricllc@gmail.com valid
+KEEP micah@micahrich.com valid
+
+Input: 18
+Kept: 15
+Removed: 3
+Verified CSV: tmp-reach-warmup-relay-2026-05-26-a29-verified.csv
+Verification report: tmp-reach-warmup-relay-2026-05-26-a29-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a29-verified.csv --out tmp-reach-warmup-relay-2026-05-26-a29-qa.csv
+Rows reviewed: 15
+OK rows: 2
+Review rows: 13
+QA CSV: tmp-reach-warmup-relay-2026-05-26-a29-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-relay-quality-2026-05-26.md
+
+> node scripts/launch-reach-campaign.mjs --lane relay --industry roofing contractor --area Connecticut --limit 20 --timeout-ms 120000 --out tmp-reach-warmup-relay-2026-05-26-a30.json
+Scraping Outscraper query: roofing contractor, Connecticut, USA
+Limit: 20. Enrichment: contacts_n_leads.
+Prepared 20 Relay prospects.
+Saved normalized prospects to tmp-reach-warmup-relay-2026-05-26-a30.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- BEST CONNECTICUT ROOFING LLC <bestconnecticutroofing@hotmail.com> Meriden Connecticut
+- BEST CONNECTICUT ROOFING LLC <jane@bestconnecticutroofing.com> Meriden Connecticut
+- Connecticut Roofing Solutions <sales@connecticutroofingsolutions.com> West Hartford Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-relay-2026-05-26-a30.json --out tmp-reach-warmup-relay-2026-05-26-a30-clean.csv
+Input JSON rows: 20
+CSV written: tmp-reach-warmup-relay-2026-05-26-a30-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a30-clean.csv --out tmp-reach-warmup-relay-2026-05-26-a30-fresh.csv --state Connecticut
+Input rows: 20
+Fresh rows kept: 18
+Removed rows: 2
+Fresh CSV: tmp-reach-warmup-relay-2026-05-26-a30-fresh.csv
+Removed CSV: tmp-reach-warmup-relay-2026-05-26-a30-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-relay-2026-05-26-a30-fresh.csv --out tmp-reach-warmup-relay-2026-05-26-a30-verified.csv --report tmp-reach-warmup-relay-2026-05-26-a30-verified-report.json
+Loaded 18 rows from tmp-reach-warmup-relay-2026-05-26-a30-fresh.csv.
+KEEP bestconnecticutroofing@hotmail.com valid
+REMOVE jane@bestconnecticutroofing.com unknown
+KEEP roofingsolutionsofct@gmail.com valid
+KEEP office@rsofct.com valid
+KEEP hemlockroofing@gmail.com valid
+KEEP hemlockcontractingco@gmail.com valid
+KEEP zamancarpentry@gmail.com valid
+KEEP office@zamanroofing.com valid
+KEEP info@connecticutcommercialroofing.net valid
+KEEP wadmanzr2@yahoo.com valid
+KEEP eliteroofingct@gmail.com valid
+KEEP nutmegroofingco@gmail.com valid
+KEEP allstar.roofingllcc@gmail.com valid
+REMOVE czuluaga@rrcausa.com invalid
+REMOVE nguess@rrcausa.com invalid
+REMOVE alastair@rrcausa.com invalid
+KEEP crystal@brownroofing.org valid
+KEEP darwin@brownroofing.org valid
+
+Input: 18
+Kept: 14
+Removed: 4
+Verified CSV: tmp-reach-warmup-relay-2026-05-26-a30-verified.csv
+Verification report: tmp-reach-warmup-relay-2026-05-26-a30-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a30-verified.csv --out tmp-reach-warmup-relay-2026-05-26-a30-qa.csv
+Rows reviewed: 14
+OK rows: 1
+Review rows: 13
+QA CSV: tmp-reach-warmup-relay-2026-05-26-a30-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-relay-quality-2026-05-26.md
+
+> node scripts/launch-reach-campaign.mjs --lane relay --industry veterinary --area Westchester County NY --limit 20 --timeout-ms 120000 --out tmp-reach-warmup-relay-2026-05-26-a31.json
+Scraping Outscraper query: veterinary, Westchester County NY, USA
+Limit: 20. Enrichment: contacts_n_leads.
+Prepared 20 Relay prospects.
+Saved normalized prospects to tmp-reach-warmup-relay-2026-05-26-a31.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- North Westchester Veterinary Office <northwest.vet@verizon.net> Cortlandt Manor New York
+- North Westchester Veterinary Office <northwestvet@northwestvet.com> Cortlandt Manor New York
+- North Westchester Veterinary Office <julie.slavin@northwestvet.com> Cortlandt Manor New York
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-relay-2026-05-26-a31.json --out tmp-reach-warmup-relay-2026-05-26-a31-clean.csv
+Input JSON rows: 20
+CSV written: tmp-reach-warmup-relay-2026-05-26-a31-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a31-clean.csv --out tmp-reach-warmup-relay-2026-05-26-a31-fresh.csv --state New York
+Input rows: 20
+Fresh rows kept: 20
+Removed rows: 0
+Fresh CSV: tmp-reach-warmup-relay-2026-05-26-a31-fresh.csv
+Removed CSV: tmp-reach-warmup-relay-2026-05-26-a31-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-relay-2026-05-26-a31-fresh.csv --out tmp-reach-warmup-relay-2026-05-26-a31-verified.csv --report tmp-reach-warmup-relay-2026-05-26-a31-verified-report.json
+Loaded 20 rows from tmp-reach-warmup-relay-2026-05-26-a31-fresh.csv.
+KEEP northwest.vet@verizon.net valid
+KEEP northwestvet@northwestvet.com valid
+REMOVE julie.slavin@northwestvet.com invalid
+REMOVE customer.care@felinevetmed.com catchall
+REMOVE hello@hudsondermatology.com catchall
+KEEP staff@taconicvet.com valid
+KEEP info@24hrvetcenter.com valid
+KEEP whiteplainsvets@gmail.com valid
+KEEP cindycafagna@gmail.com valid
+KEEP petchestervets@gmail.com valid
+REMOVE nfo@veterinaryemergencygroup.com unknown
+REMOVE info@vsec.vet unknown
+REMOVE careers@vsec.vet unknown
+REMOVE david@veg.com unknown
+REMOVE bloodbank@veg.vet unknown
+REMOVE asheville@veg.vet unknown
+REMOVE chris@rhvh.com catchall
+REMOVE nick@rhvh.com catchall
+REMOVE joretta@rhvh.com catchall
+KEEP vetnvild@verizon.net valid
+
+Input: 20
+Kept: 8
+Removed: 12
+Verified CSV: tmp-reach-warmup-relay-2026-05-26-a31-verified.csv
+Verification report: tmp-reach-warmup-relay-2026-05-26-a31-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane relay --csv tmp-reach-warmup-relay-2026-05-26-a31-verified.csv --out tmp-reach-warmup-relay-2026-05-26-a31-qa.csv
+Rows reviewed: 8
+OK rows: 1
+Review rows: 7
+QA CSV: tmp-reach-warmup-relay-2026-05-26-a31-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-relay-quality-2026-05-26.md
+
+Relay report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-warmup-relay-2026-05-26.md
+
+Warmup summary: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-warmup-summary-2026-05-26.md
+Done.

@@ -1,0 +1,99 @@
+{
+  "date": "2026-05-26",
+  "lane": "relay",
+  "label": "Relay",
+  "execute": "import",
+  "warmupDay": 7,
+  "quota": {
+    "name": "days_7_9",
+    "from_day": 7,
+    "to_day": 9,
+    "min": 80,
+    "target": 100,
+    "max": 100
+  },
+  "status": "blocked",
+  "selectedCount": 13,
+  "selectedCsv": "tmp-reach-warmup-relay-2026-05-26-selected-qa.csv",
+  "blockers": [
+    "Only 13 OK rows found; minimum is 80.",
+    "Selected rows below minimum 80."
+  ],
+  "attempts": [
+    {
+      "attempt": "cache",
+      "industry": "paid scrape inventory",
+      "area": "31 saved QA files",
+      "state": "",
+      "scrapeLimit": 0,
+      "qaRows": 118,
+      "okRows": 21,
+      "added": 11,
+      "poolSize": 11,
+      "qaCsv": "cached relay QA inventory",
+      "error": "reused_paid_scrape_inventory"
+    },
+    {
+      "attempt": 27,
+      "industry": "HVAC contractor",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 10,
+      "okRows": 0,
+      "added": 0,
+      "poolSize": 11,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-26-a27-qa.csv"
+    },
+    {
+      "attempt": 28,
+      "industry": "plumber",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 12,
+      "okRows": 0,
+      "added": 0,
+      "poolSize": 11,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-26-a28-qa.csv"
+    },
+    {
+      "attempt": 29,
+      "industry": "electrician",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 15,
+      "okRows": 2,
+      "added": 1,
+      "poolSize": 12,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-26-a29-qa.csv"
+    },
+    {
+      "attempt": 30,
+      "industry": "roofing contractor",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 14,
+      "okRows": 1,
+      "added": 1,
+      "poolSize": 13,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-26-a30-qa.csv"
+    },
+    {
+      "attempt": 31,
+      "industry": "veterinary",
+      "area": "Westchester County NY",
+      "state": "New York",
+      "scrapeLimit": 20,
+      "qaRows": 8,
+      "okRows": 1,
+      "added": 0,
+      "poolSize": 13,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-26-a31-qa.csv"
+    }
+  ],
+  "verification": null,
+  "actionResults": []
+}
