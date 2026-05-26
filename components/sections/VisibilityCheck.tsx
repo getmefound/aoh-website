@@ -332,23 +332,6 @@ export function VisibilityCheck() {
                   exit="exit"
                   transition={{ duration: 0.35, ease: "easeInOut" }}
                 >
-                  {/* Category bar */}
-                  <div
-                    className="mb-4 pb-3"
-                    style={{ borderBottom: "1px solid #2a3647" }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2" style={{ color: "#6b7f9a" }}>
-                        {slide.categoryIcon}
-                        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
-                          {slide.category}
-                        </span>
-                      </div>
-                      <span className="font-mono text-[11px] font-bold" style={{ color: "#e8633f" }}>
-                        {slide.passed} / {slide.total} passed
-                      </span>
-                    </div>
-                  </div>
 
                   {/* Check rows */}
                   <div className="flex flex-col gap-3">
