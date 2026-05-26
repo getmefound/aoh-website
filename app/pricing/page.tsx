@@ -313,7 +313,7 @@ export default function PricingPage() {
           const groupCopy = currentJob ? jobGroupCopy[currentJob] : null;
 
           return (
-            <div key={product.slug}>
+            <div key={product.slug} id={jobBySlug[product.slug] ?? product.slug} className="scroll-mt-32">
               {isFirstInJob && groupCopy ? (
                 <section
                   id={`job-${currentJob}`}

@@ -46,6 +46,9 @@ const teamMembers = [
     name: "Kip Leathers",
     title: "Business Development",
     bio: "Thirty years of closing. Kip has spent his career in commission-only sales — the kind where you either find the right people and open the right conversations, or you don't eat. He brings that same discipline to finding local businesses that are losing ground to competitors who just showed up first.",
+    links: [
+      { label: "LinkedIn →", href: "https://www.linkedin.com/in/kip-leathers" },
+    ],
   },
   {
     initials: "TE",
@@ -53,6 +56,10 @@ const teamMembers = [
     name: "Teri Blackburn",
     title: "Client Success",
     bio: "When something comes up, a real person answers. Teri comes from staffing — an industry where keeping clients and candidates both happy, at the same time, is the whole job. She manages onboarding and makes sure nothing falls through the cracks after you sign up.",
+    links: [
+      { label: "support@getmefound.ai", href: "mailto:support@getmefound.ai" },
+      { label: "LinkedIn →", href: "https://www.linkedin.com/in/teri-blackburn-078990259" },
+    ],
   },
 ];
 
@@ -258,7 +265,7 @@ export default function AboutPage() {
               </h2>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {teamMembers.map(({ initials, photo, name, title, bio }) => (
+                {teamMembers.map(({ initials, photo, name, title, bio, links }) => (
                   <div
                     key={name}
                     className="rounded-2xl border border-border bg-(--color-bg-elevated) p-6"
@@ -274,6 +281,21 @@ export default function AboutPage() {
                       )}
                     </div>
                     <p className="font-bold text-text-body">{name}</p>
+                    {links && links.length > 0 && (
+                      <div className="mb-1 flex flex-wrap gap-x-3 gap-y-1">
+                        {links.map(({ label, href }) => (
+                          <Link
+                            key={href}
+                            href={href}
+                            target={href.startsWith("http") ? "_blank" : undefined}
+                            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                            className="text-sm text-accent transition-colors hover:underline"
+                          >
+                            {label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                     <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-accent">
                       {title}
                     </p>
