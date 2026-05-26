@@ -65,7 +65,6 @@ const teaserCards: TeaserCard[] = [
       "Everything in Get Found - free",
       "$199 setup, then $99/mo",
       "Text and email review requests with AI reply drafts",
-      "Hosting included; can replace a separate $15-$50/mo bill",
     ],
     href: "/pricing#stay-found",
     cta: "Stay visible",
@@ -292,7 +291,7 @@ export default function Home() {
                           {p.tagline}
                         </p>
 
-                        <ul className="mb-8 space-y-2">
+                        <ul className="mb-3 space-y-2">
                           {p.bullets.map((b) => (
                             <li key={b} className="flex items-start gap-2 text-sm text-[var(--color-hero-subtext)]">
                               <span className="text-[var(--color-accent)] flex-shrink-0 mt-0.5">✓</span>
@@ -300,6 +299,15 @@ export default function Home() {
                             </li>
                           ))}
                         </ul>
+
+                        {p.highlight && (
+                          <div className="my-3 rounded-lg border-l-2 border-accent/60 bg-accent/10 px-3 py-2.5">
+                            <p className="text-sm font-bold text-hero-text">Website hosting included</p>
+                            <p className="mt-0.5 text-xs text-hero-subtext">
+                              Replaces your current $15–$50/mo hosting bill — most clients pay less overall.
+                            </p>
+                          </div>
+                        )}
 
                         <div className="mt-auto">
                           <Link
