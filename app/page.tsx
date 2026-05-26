@@ -228,6 +228,8 @@ export default function Home() {
 
         <TrustCards />
 
+        <HowItWorks />
+
         <VisibilityCheck />
 
         {/* Service tiers */}
@@ -386,9 +388,6 @@ export default function Home() {
           <RevenueCalculator />
         </section>
 
-        <div id="how-it-works" className="scroll-mt-20">
-          <HowItWorks />
-        </div>
 
         <CostCompare />
 

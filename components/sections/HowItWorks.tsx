@@ -1,241 +1,144 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 
-function ScoreGauge() {
-  const targetScore = 47;
-  const radius = 56;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (targetScore / 100) * circumference;
-
-  return (
-    <div className="relative flex h-44 w-full items-center justify-center">
-      <svg width="160" height="160" viewBox="0 0 160 160" className="-rotate-90">
-        <circle
-          cx="80"
-          cy="80"
-          r={radius}
-          fill="none"
-          stroke="rgba(255,255,255,0.06)"
-          strokeWidth="10"
-        />
-        <motion.circle
-          cx="80"
-          cy="80"
-          r={radius}
-          fill="none"
-          stroke="#2D6A4F"
-          strokeWidth="10"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          initial={{ strokeDashoffset: circumference }}
-          whileInView={{ strokeDashoffset: offset }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 2.4, ease: "easeOut", delay: 0.3 }}
-          style={{
-            filter: "drop-shadow(0 0 8px rgba(45,106,79,0.5))",
-          }}
-        />
-      </svg>
-      <div className="absolute flex flex-col items-center">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-hero-subtext)]/60 mb-1">
-          Score
-        </p>
-        <p className="font-mono text-5xl font-bold text-[var(--color-hero-text)] leading-none">
-          <AnimatedNumber value={targetScore} duration={2400} />
-          <span className="text-xl text-[var(--color-hero-subtext)]/70">/100</span>
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function SetupTimeline() {
-  const tasks = [
-    { label: "Google profile connected", delay: 0.3 },
-    { label: "Set up to rank higher on Google", delay: 0.7 },
-    { label: "Now can be found on ChatGPT and others", delay: 1.1 },
-    { label: "Reviews start going out", delay: 1.5 },
-  ];
-
-  return (
-    <div className="flex h-44 w-full flex-col justify-center gap-2">
-      {tasks.map((task) => (
-        <motion.div
-          key={task.label}
-          initial={{ opacity: 0, x: -8 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ delay: task.delay, duration: 0.5, ease: "easeOut" }}
-          className="flex items-center gap-2.5"
-        >
-          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)]/20 ring-1 ring-[var(--color-accent)]/40">
-            <motion.svg
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#2D6A4F"
-              strokeWidth="3.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              initial={{ pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ delay: task.delay + 0.2, duration: 0.4 }}
-            >
-              <motion.polyline points="20 6 9 17 4 12" />
-            </motion.svg>
-          </span>
-          <p className="text-xs text-[var(--color-hero-text)] leading-tight">{task.label}</p>
-        </motion.div>
-      ))}
-
-      <motion.div
-        initial={{ opacity: 0, x: -8 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ delay: 2.0, duration: 0.5, ease: "easeOut" }}
-        className="mt-1 flex items-center justify-between rounded-lg border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/[0.08] px-3 py-1.5"
-      >
-        <div className="flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-70" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)]" />
-          </span>
-          <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
-            Going live
-          </p>
-        </div>
-        <p className="font-mono text-xs font-bold text-[var(--color-hero-text)]">
-          T-48:00:00
-        </p>
-      </motion.div>
-    </div>
-  );
-}
-
-function ReviewFeed() {
-  return (
-    <div className="flex h-44 w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-5 text-center">
-      <span className="font-mono text-lg text-amber-400/60">★★★★★</span>
-      <p className="text-xs font-medium text-[var(--color-hero-subtext)]/80 leading-relaxed">
-        Reviews from our first clients coming soon.
-      </p>
-    </div>
-  );
-}
-
-type Step = {
-  number: string;
-  title: string;
-  body: string;
-  meta: string;
-  Visual: () => React.ReactElement;
-};
-
-const STEPS: Step[] = [
+const STEPS = [
   {
     number: "01",
-    title: "We audit your presence",
-    body: "We review your Google profile, reviews, star rating, AI search visibility, and listing gaps. You see exactly where you stand — and what's costing you customers.",
-    meta: "Personal review · Same-day",
-    Visual: ScoreGauge,
+    title: "You hand us the keys",
+    body: "Share access to your Google Business listing and your website backend. Takes 5 minutes — we walk you through it. You also send us your past customer list so we can kick off your first review campaign.",
+    note: "We check your email setup first so nothing gets touched that shouldn't be.",
   },
   {
     number: "02",
-    title: "We set you up",
-    body: "We connect your accounts, set you up to rank higher on Google, plug you into ChatGPT and AI search, and turn on review requests. You give us access — we do the rest.",
-    meta: "Live in 48 hrs",
-    Visual: SetupTimeline,
+    title: "We fix everything",
+    body: "Our team corrects your Google listing — hours, services, photos, service area, business description. We update your website to match exactly. We submit your business to the top directories so your information is consistent everywhere Google and AI cross-check.",
+    note: "Your first review request emails go out to your customer list automatically.",
   },
   {
     number: "03",
-    title: "We run it",
-    body: "Reviews, rankings, AI visibility — handled by us every month. You approve replies in your inbox. You stay focused on your business.",
-    meta: "No contract · Cancel anytime",
-    Visual: ReviewFeed,
+    title: "You see exactly what changed",
+    body: "Within 48 hours you get a before/after report showing your likelihood of being found — before we started and after. You'll see how you compare to local competitors and what's still worth improving over time.",
+    note: "Most clients see their likelihood of being found jump from under 20% to over 70%.",
   },
-];
+] as const;
+
+const PILLS = ["No contract", "No tech skills needed", "We handle everything"] as const;
 
 export function HowItWorks() {
   return (
-    <section className="relative py-14 md:py-20 bg-[var(--color-bg-page)] overflow-hidden">
-      <div className="relative mx-auto max-w-6xl px-6">
-        <div className="mb-8 md:mb-10 text-center">
-          <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
-            How it works
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-[var(--color-text-body)] mb-4 leading-tight">
-            From signup to live in 48 hours.
-          </h2>
-          <p className="text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto leading-relaxed">
-            No long onboarding. No learning curve. We run the rest — you stay in your business.
-          </p>
-        </div>
+    <section
+      id="how-it-works"
+      aria-labelledby="hiw-title"
+      className="scroll-mt-20 border-y border-white/10 bg-(--color-hero-bg) py-16 md:py-24"
+    >
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[2fr_3fr] md:items-start md:gap-16">
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-          {STEPS.map((step, i) => {
-            const VisualComp = step.Visual;
-            return (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: 0.15 + i * 0.18, duration: 0.6, ease: "easeOut" }}
-                className="relative flex flex-col overflow-hidden rounded-2xl bg-[var(--color-bg-dark-card)] ring-1 ring-white/[0.08] shadow-xl"
-              >
-                {/* Visual area — top portion, dark */}
-                <div className="relative border-b border-white/[0.06] bg-gradient-to-b from-white/[0.02] to-transparent px-5 pt-6 pb-4">
-                  <div className="absolute left-5 top-5 z-10 flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                      {step.number}
-                    </span>
-                    <span className="h-px w-6 bg-[var(--color-accent)]/40" />
+          {/* Left column */}
+          <div>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-hero-subtext/60">
+              Get Found · $149
+            </p>
+            <h2
+              id="hiw-title"
+              className="mt-3 text-3xl font-bold leading-tight text-hero-text md:text-4xl"
+            >
+              Done for you.<br />Done in 48 hours.
+            </h2>
+            <p className="mt-4 max-w-sm text-base leading-relaxed text-hero-subtext">
+              You give us access. We fix everything Google and AI look at. You get a before/after report showing exactly what changed.
+            </p>
+
+            {/* Pills — reuse hero pill pattern */}
+            <div className="mt-5 flex flex-wrap gap-2">
+              {PILLS.map((pill) => (
+                <span
+                  key={pill}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-hero-subtext"
+                >
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="h-3 w-3 shrink-0 text-accent"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="3"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  {pill}
+                </span>
+              ))}
+            </div>
+
+            {/* CTA — matches hero button style */}
+            <Link
+              href="/checkout/get-found-refresh"
+              className="mt-7 inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-(--color-accent-text) transition hover:-translate-y-0.5 hover:bg-(--color-accent-hover) hover:shadow-lg hover:shadow-(--color-accent)/25"
+            >
+              Get Found for $149
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+
+          {/* Right column — vertical timeline */}
+          <div className="relative">
+            {/* Timeline connector line */}
+            <div
+              aria-hidden="true"
+              className="absolute left-4.75 top-10 h-[calc(100%-2.5rem)] w-0.5"
+              style={{ background: "rgba(255,255,255,0.10)" }}
+            />
+
+            <div className="space-y-5">
+              {STEPS.map((step) => (
+                <div key={step.number} className="relative flex gap-5">
+
+                  {/* Step number circle — matches carousel accent color */}
+                  <div
+                    className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-mono text-sm font-bold"
+                    style={{
+                      background: "rgba(63,174,126,0.12)",
+                      border: "1px solid rgba(63,174,126,0.30)",
+                      color: "#3fae7e",
+                    }}
+                  >
+                    {step.number}
                   </div>
 
-                  <div className="absolute right-5 top-5 z-10">
-                    <span className="rounded-full bg-white/[0.05] px-2.5 py-1 text-[9px] font-mono uppercase tracking-wider text-[var(--color-hero-subtext)]/70 ring-1 ring-white/[0.06]">
-                      {step.meta}
-                    </span>
+                  {/* Step content panel — matches carousel inner panel */}
+                  <div
+                    className="min-w-0 flex-1 rounded-xl p-5"
+                    style={{ background: "#1b2636", border: "1px solid #2a3647" }}
+                  >
+                    <p
+                      className="text-base font-bold leading-snug"
+                      style={{ color: "#f0f6ff" }}
+                    >
+                      {step.title}
+                    </p>
+                    <p
+                      className="mt-2 text-sm leading-relaxed"
+                      style={{ color: "#8099b8" }}
+                    >
+                      {step.body}
+                    </p>
+                    <p
+                      className="mt-3 border-t pt-3 text-xs leading-relaxed"
+                      style={{ color: "#6b7f9a", borderColor: "#2a3647" }}
+                    >
+                      {step.note}
+                    </p>
                   </div>
 
-                  <div className="mt-8">
-                    <VisualComp />
-                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Text area — bottom portion */}
-                <div className="flex-1 px-5 py-5 md:px-6 md:py-6">
-                  <h3 className="text-lg md:text-xl font-bold text-[var(--color-hero-text)] mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-[var(--color-hero-subtext)] leading-relaxed">
-                    {step.body}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* CTA below steps */}
-        <div className="mt-8 flex flex-col items-center gap-3">
-          <Link
-            href="/contact"
-            className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-8 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/25"
-          >
-            See our plans
-            <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
-              →
-            </span>
-          </Link>
-          <p className="text-xs text-[var(--color-text-muted)]">
-            We review your profile and follow up same day.
-          </p>
         </div>
       </div>
     </section>
