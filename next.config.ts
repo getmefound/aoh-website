@@ -7,6 +7,9 @@ const mcHostMatch = [{ type: "host" as const, value: MC_HOST }];
 
 const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
+    "/api/cbc/extract": [
+      "./.cbc/mark-egidio-extraction.json",
+    ],
     "/api/agent/slack": [
       "./docs/client-ops-ledger/agent-jobs.csv",
       "./docs/client-ops-ledger/sending-domain-readiness.csv",

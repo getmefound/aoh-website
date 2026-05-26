@@ -190,6 +190,55 @@ body {
 }
 
 @layer components {
+  .cbc-page-bg {
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at top left, #fde68a 0, #fff7ed 24rem, transparent 42rem),
+      linear-gradient(135deg, #ecfeff 0%, #fff7ed 46%, #fdf2f8 100%);
+  }
+
+  .cbc-page-bg * {
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  .cbc-page-bg h1,
+  .cbc-page-bg h2,
+  .cbc-page-bg h3,
+  .cbc-page-bg p {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .cbc-glass {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(255, 255, 255, 0.82);
+  }
+
+  .cbc-hero {
+    background:
+      radial-gradient(circle at 78% 22%, rgba(251, 191, 36, 0.45), transparent 22rem),
+      radial-gradient(circle at 54% 70%, rgba(45, 212, 191, 0.28), transparent 24rem),
+      linear-gradient(135deg, #0f2f5f 0%, #0f766e 58%, #f59e0b 165%);
+  }
+
+  .cbc-hero-soft {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+
+  .cbc-map-stage {
+    min-height: 34rem;
+    background:
+      radial-gradient(circle at 45% 25%, #ffffff 0, #ecfeff 26rem, #dbeafe 58rem),
+      linear-gradient(135deg, #ecfeff 0%, #dbeafe 100%);
+  }
+
+  .cbc-map-canvas {
+    height: clamp(34rem, 62vh, 44rem);
+    width: 100%;
+  }
+
   .nav-chip {
     @apply rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950;
   }

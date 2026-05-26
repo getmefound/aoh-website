@@ -42,6 +42,7 @@ const MC_BOOKMARKS = [
   { label: "Review Replies", href: "/mike-mc/review-replies/ai-outsource-hub" },
   { label: "Report Flow", href: "/mike-mc/report-flow" },
   { label: "Campaigns", href: "/mike-mc/campaigns" },
+  { label: "Cancer Research", href: "/mike-mc/cancer-research" },
 ];
 
 const OVERSIGHT_LINKS = [

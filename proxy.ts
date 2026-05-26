@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { CBC_SESSION_COOKIE, isValidCbcSessionToken } from "@/lib/cbc-auth-core";
 
 const WINDOW_MS = 60 * 60 * 1000;
 const MAX_PER_WINDOW = 3;
@@ -37,10 +38,20 @@ function hasInternalReportBypass(req: NextRequest): boolean {
   return Boolean(provided && provided === expected);
 }
 
-export function proxy(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const hostname = req.nextUrl.hostname.toLowerCase();
   const method = req.method.toUpperCase();
+
+  if (pathname.startsWith("/cbc/uploads/")) {
+    const token = req.cookies.get(CBC_SESSION_COOKIE)?.value;
+    if (!(await isValidCbcSessionToken(token))) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/cbc";
+      url.search = "";
+      return NextResponse.redirect(url);
+    }
+  }
 
   if (hostname === CANONICAL_INTERNAL_HOST && INTERNAL_SHORT_PATHS[pathname]) {
     const url = req.nextUrl.clone();
@@ -99,6 +110,7 @@ export const config = {
     "/report-flow",
     "/review-proof",
     "/review-replies",
+    "/cbc/uploads/:path*",
     "/mike-mc/:path*",
     "/api/report/:path*",
     "/api/contact/:path*",
