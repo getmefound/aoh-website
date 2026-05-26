@@ -140,6 +140,7 @@ const SLIDES: Slide[] = [
       { icon: <IconStar />, label: "Not enough reviews to get picked", subline: "Below the bar AI looks for", pass: false },
       { icon: <IconClock />, label: "No reviews recently", subline: "Google sees you as inactive", pass: false },
       { icon: <IconReply />, label: "You're not replying to reviews", subline: "Replies signal an active business", pass: false },
+      { icon: <IconMessageQ />, label: "No system sending review requests", subline: "Happy customers leave without being asked", pass: false },
     ],
   },
   {
@@ -165,6 +166,7 @@ const SLIDES: Slide[] = [
       { icon: <IconGlobe />, label: "A website is connected to Google", subline: "Linked from your listing", pass: true },
       { icon: <IconBuilding />, label: "Your name doesn't match site to Google", subline: "AI stops trusting it's one business", pass: false },
       { icon: <IconPhone />, label: "Your phone doesn't match everywhere", subline: "Customers call the wrong number", pass: false },
+      { icon: <IconMapPin />, label: "Your address isn't on your website", subline: "Google can't confirm your location", pass: false },
     ],
   },
   {
@@ -177,6 +179,7 @@ const SLIDES: Slide[] = [
       { icon: <IconSearch />, label: "You're listed on a major directory", subline: "One source AI cross-checks", pass: true },
       { icon: <IconMap />, label: "Missing from Facebook and Apple Maps", subline: "Fewer places = less trust", pass: false },
       { icon: <IconMessageQ />, label: "Your info doesn't answer what people ask", subline: "AI pulls answers from your details", pass: false },
+      { icon: <IconList />, label: "No FAQ or Q&A on your profile", subline: "AI can't answer basic questions about you", pass: false },
     ],
   },
 ];
