@@ -23,7 +23,7 @@ const companyRows = [
   },
   {
     label: "TOOLS",
-    value: "Automation that runs while you focus on the actual work.",
+    value: "Our team handles it while you focus on running your business.",
   },
   {
     label: "FOR",
@@ -31,11 +31,11 @@ const companyRows = [
   },
   {
     label: "MODEL",
-    value: "Done-for-you · monthly · cancel anytime",
+    value: "Done-for-you · starts at $149 · monthly from $99 · cancel anytime",
   },
   {
     label: "WON'T",
-    value: "Send you a dashboard to figure out yourself.",
+    value: "Make you manage it. That's our job.",
   },
 ];
 
@@ -45,8 +45,9 @@ const teamMembers = [
     photo: "/team/kip.jpg",
     name: "Kip Leathers",
     title: "Business Development",
-    bio: "Thirty years of closing. Kip has spent his career in commission-only sales — the kind where you either find the right people and open the right conversations, or you don't eat. He brings that same discipline to finding local businesses that are losing ground to competitors who just showed up first.",
+    bio: "Thirty years of closing. Kip has spent his career in commission-only sales — the kind where you either find the right people and open the right conversations, or you don't eat. He brings that same discipline to finding local businesses that are losing ground to competitors who just got recommended more.",
     links: [
+      { label: "kip@getmefound.ai", href: "mailto:kip@getmefound.ai" },
       { label: "LinkedIn →", href: "https://www.linkedin.com/in/kip-leathers" },
     ],
   },
@@ -66,7 +67,7 @@ const teamMembers = [
 const founderStats = [
   { stat: "15+ years", label: "building & running businesses" },
   { stat: "1 sold", label: "EdTech co. before this" },
-  { stat: "4 hats", label: "sales, marketing, support, IT" },
+  { stat: "4 hats", label: "sales, marketing, support, tech" },
 ];
 
 export default function AboutPage() {
@@ -81,19 +82,30 @@ export default function AboutPage() {
       <section aria-label="About — hero" className="bg-(--color-hero-bg) text-hero-text">
         <div className="mx-auto max-w-4xl px-6 py-20 md:py-28">
           <Reveal>
-            <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-hero-subtext/40">
-              §00
-            </p>
             <h1 className="text-[clamp(2.8rem,8vw,4.5rem)] font-bold leading-[1.05] tracking-tight">
               You want more customers.
             </h1>
             <p className="mt-5 text-xl md:text-2xl font-semibold leading-snug text-hero-subtext/80">
-              We get you found by Google and AI. You run the business.
+              AI decides who to recommend. We make sure it picks you.
             </p>
             <p className="mt-5 max-w-2xl text-base md:text-lg leading-relaxed text-hero-subtext/60">
               Most local owners don&apos;t lose to better businesses. They lose to ones who showed
               up first when AI decided who to recommend. We fix that.
             </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href={AUDIT_HREF}
+                className="inline-flex items-center justify-center rounded-xl bg-(--color-accent) px-6 py-3 text-sm font-semibold text-(--color-accent-text) transition-all hover:bg-(--color-accent-hover) hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+              >
+                See if AI recommends you →
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center rounded-xl border border-hero-subtext/25 px-6 py-3 text-sm font-semibold text-hero-text transition-all hover:border-hero-subtext/45 hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-hero-text focus-visible:ring-offset-2"
+              >
+                See our plans →
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -142,7 +154,7 @@ export default function AboutPage() {
                   <p className="text-base leading-relaxed text-text-muted md:text-lg">
                     Mike is a serial entrepreneur who&apos;s built and sold companies — including an
                     EdTech company that helped schools without in-house tech teams. He&apos;s run
-                    every part of a business himself: sales, marketing, support, IT. Every pain
+                    every part of a business himself: sales, marketing, support, tech. Every pain
                     point local owners hit — missed leads, invisible online, lost to competitors who
                     just showed up more — he&apos;s solved himself. GetMeFound is the same playbook,
                     done for you.
@@ -164,10 +176,10 @@ export default function AboutPage() {
                   {/* Secondary CTA */}
                   <div className="mt-6">
                     <Link
-                      href={AUDIT_HREF}
+                      href="/pricing"
                       className="inline-flex items-center gap-1.5 rounded-lg border border-accent px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-(--color-accent)/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     >
-                      See if AI recommends you →
+                      See our plans →
                     </Link>
                   </div>
                 </div>
@@ -204,14 +216,16 @@ export default function AboutPage() {
                 </div>
 
                 {/* OUR PROMISE card */}
-                <div className="rounded-2xl bg-(--color-bg-dark-card) p-6 text-hero-text ring-1 ring-(--color-hero-border)">
-                  <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
-                    Our Promise
-                  </p>
-                  <p className="text-sm leading-relaxed text-hero-subtext/80">
-                    You almost never log in. Results show up on your phone, in your inbox, and in
-                    more calls coming in.
-                  </p>
+                <div className="flex rounded-2xl bg-(--color-bg-dark-card) p-6 text-hero-text ring-1 ring-(--color-hero-border) md:h-full md:self-stretch">
+                  <div>
+                    <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+                      Our Promise
+                    </p>
+                    <p className="text-sm leading-relaxed text-hero-subtext/80">
+                      You almost never log in. Results show up on your phone, in your inbox, and in
+                      more calls coming in.
+                    </p>
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -221,7 +235,7 @@ export default function AboutPage() {
         {/* §03 — Why Now */}
         <section
           aria-label="Why now"
-          className="border-b border-border bg-(--color-bg-elevated) py-16 md:py-24"
+          className="border-b border-border bg-(--color-bg-elevated) pt-16 pb-10 md:pt-24 md:pb-12"
         >
           <div className="mx-auto max-w-4xl px-6">
             <Reveal>
@@ -235,7 +249,7 @@ export default function AboutPage() {
               <p className="mb-8 max-w-2xl text-base leading-relaxed text-text-muted md:text-lg">
                 45% of your future customers now use AI to find local businesses — up from 6% just
                 one year ago. We make sure they find YOU — on Google, Maps, ChatGPT, and AI
-                Overviews — so the right name comes up first.
+                Overviews — so when AI gets asked, it names you.
               </p>
 
               {/* Channel tags */}
@@ -249,19 +263,30 @@ export default function AboutPage() {
                   </span>
                 ))}
               </div>
+              <p className="mt-5 text-sm leading-relaxed text-text-muted">
+                We make sure your business shows up across all of them.
+              </p>
+              <div className="mt-4">
+                <Link
+                  href={AUDIT_HREF}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-accent px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-(--color-accent)/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                >
+                  See if AI recommends you →
+                </Link>
+              </div>
             </Reveal>
           </div>
         </section>
 
         {/* §04 — The Team */}
-        <section aria-label="The team" className="border-b border-border py-16 md:py-24">
+        <section aria-label="The team" className="border-b border-border pt-12 pb-16 md:pt-16 md:pb-24">
           <div className="mx-auto max-w-4xl px-6">
             <Reveal>
               <p className="mb-5 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-text-muted/50">
                 §04
               </p>
               <h2 className="mb-10 text-2xl font-bold text-text-body md:text-3xl">
-                Who else runs it.
+                The rest of the team.
               </h2>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -338,7 +363,7 @@ export default function AboutPage() {
                   href="/contact"
                   className="inline-flex items-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-hero-text ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-white/20"
                 >
-                  Send a message
+                  Send a message →
                 </Link>
               </div>
             </Reveal>
