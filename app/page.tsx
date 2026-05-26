@@ -346,7 +346,7 @@ export default function Home() {
                   </ul>
                 </div>
 
-                <div className="rounded-[1.75rem] bg-(--color-bg-dark-card) p-5 ring-1 ring-white/10 shadow-2xl shadow-black/25 md:-rotate-1">
+                <div className="rounded-[1.75rem] bg-(--color-bg-dark-card) p-5 ring-1 ring-white/10 shadow-2xl shadow-black/25 md:self-start md:-rotate-1">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-hero-subtext/60">
