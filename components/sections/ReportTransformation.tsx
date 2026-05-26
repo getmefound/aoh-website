@@ -150,7 +150,7 @@ function ReportLayer({
       }`}
     >
       <div className="flex h-full flex-col p-4 sm:p-5 md:p-6">
-        <div className="mb-4 flex items-center justify-between gap-3 border-b border-[var(--color-border)] pb-4">
+        <div className="mb-4 flex items-center gap-4 border-b border-border pb-4">
           <div className="min-w-0">
             <p
               className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] ${
