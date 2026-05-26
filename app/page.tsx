@@ -5,7 +5,7 @@ import { SocialProof } from "@/components/sections/SocialProof";
 import { CostCompare } from "@/components/sections/CostCompare";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { FinalCta } from "@/components/sections/FinalCta";
-import { FAQ } from "@/components/sections/FAQ";
+import { HomepageFAQ } from "@/components/sections/HomepageFAQ";
 import { ReportTransformation } from "@/components/sections/ReportTransformation";
 import { TrustCards } from "@/components/sections/TrustCards";
 import { VisibilityCheck } from "@/components/sections/VisibilityCheck";
@@ -391,16 +391,15 @@ export default function Home() {
           </div>
         </section>
 
+        <HomepageFAQ />
+
         <section id="calculator" className="scroll-mt-24">
           <RevenueCalculator />
         </section>
 
-
         <CostCompare />
 
         <SocialProof />
-
-        <FAQ limit={5} showSeeAllLink />
 
         <FinalCta />
       </main>
