@@ -6,20 +6,17 @@ const STEPS = [
   {
     number: "01",
     title: "You hand us the keys",
-    body: "Share access to your Google Business listing and your website backend. Takes 5 minutes — we walk you through it. You also send us your past customer list so we can kick off your first review campaign.",
-    note: "We check your email setup first so nothing gets touched that shouldn't be.",
+    body: "Share access to your Google Business listing and your website backend. Takes 5 minutes — we walk you through it. You also send us your past customer list so we can kick off your first review campaign — we check your email setup first so nothing gets touched that shouldn't be.",
   },
   {
     number: "02",
     title: "We fix everything",
-    body: "Our team corrects your Google listing — hours, services, photos, service area, business description. We update your website to match exactly. We submit your business to the top directories so your information is consistent everywhere Google and AI cross-check.",
-    note: "Your first review request emails go out to your customer list automatically.",
+    body: "Our team corrects your Google listing — hours, services, photos, service area, business description. We update your website to match exactly. We submit your business to the top directories so your information is consistent everywhere Google and AI cross-check — your first review request emails go out to your customer list automatically.",
   },
   {
     number: "03",
     title: "You see exactly what changed",
-    body: "Within 48 hours you get a before/after report showing your likelihood of being found — before we started and after. You'll see how you compare to local competitors and what's still worth improving over time.",
-    note: "Most clients see their likelihood of being found jump from under 20% to over 70%.",
+    body: "Within 48 hours you get a before/after report showing your likelihood of being found — before we started and after. You'll see how you compare to local competitors and what's still worth improving over time — most clients see their likelihood jump from under 20% to over 70%.",
   },
 ] as const;
 
@@ -111,7 +108,7 @@ export function HowItWorks() {
 
                   {/* Step content panel — matches carousel inner panel */}
                   <div
-                    className="min-w-0 flex-1 rounded-xl p-5"
+                    className="min-w-0 flex-1 rounded-xl px-5 py-4"
                     style={{ background: "#1b2636", border: "1px solid #2a3647" }}
                   >
                     <p
@@ -125,12 +122,6 @@ export function HowItWorks() {
                       style={{ color: "#8099b8" }}
                     >
                       {step.body}
-                    </p>
-                    <p
-                      className="mt-3 border-t pt-3 text-xs leading-relaxed"
-                      style={{ color: "#6b7f9a", borderColor: "#2a3647" }}
-                    >
-                      {step.note}
                     </p>
                   </div>
 
