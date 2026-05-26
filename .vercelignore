@@ -1,0 +1,5 @@
+public/cbc/uploads/**
+private/cbc/uploads/**
+cbc-*.png
+cbc-next-start-*.log
+cbc-edge-profile/
