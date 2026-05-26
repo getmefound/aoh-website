@@ -49,7 +49,7 @@ export default function StayFoundPage() {
           <div className="text-4xl font-bold">$99<span className="text-2xl text-hero-subtext/60">/mo</span></div>
           <div className="text-hero-subtext/70 text-sm leading-snug text-left">
             cancel anytime<br />
-            <span className="text-hero-subtext/50">one-time $199 setup fee</span>
+            <span className="text-hero-subtext/50">$49 one-time setup fee</span>
           </div>
         </div>
 
@@ -111,7 +111,7 @@ export default function StayFoundPage() {
         <div className="mx-auto max-w-sm px-6 text-center">
           <CheckoutButton slug="stay-found" label="Start Stay Found →" />
           <p className="mt-4 text-xs text-hero-subtext/50">
-            $99/mo · one-time $199 setup · cancel anytime
+            $99/mo · $49 one-time setup fee · cancel anytime
           </p>
           <Link
             href="/pricing"

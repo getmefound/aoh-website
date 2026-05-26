@@ -66,7 +66,7 @@ export const SERVICES: ServiceWork[] = [
     slug: "stay-found",
     name: "Stay Found",
     job: "Stay found",
-    outcome: "$99/mo + $199 setup: Get Found included free, SMS/email review requests, AI reply drafts, included website hosting, monitoring, and monthly report.",
+    outcome: "$99/mo + $49 one-time setup fee: Get Found included free, SMS/email review requests, AI reply drafts, included website hosting, monitoring, and monthly report.",
     agents: ["Profile Manager", "Client Success", "Reviews Manager", "Auditor"],
     skills: ["monthly-visibility-check", "profile-drift", "review-status", "client-recap"],
     activeClients: 1,

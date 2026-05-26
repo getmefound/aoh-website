@@ -72,7 +72,7 @@ const products: ProductDetailData[] = [
     story:
       "Stay Found is the preferred monthly plan. Everything in Get Found is included free, then GetMeFound keeps the review request system, Google profile, and business facts current so Google, ChatGPT, Claude, and customers see the same clear story.",
     stats: [
-      { label: "Setup", value: "$199" },
+      { label: "Setup", value: "$49 one-time setup fee" },
       { label: "Reviews", value: "Text + email" },
       { label: "Report", value: "Monthly" },
     ],
@@ -102,7 +102,7 @@ const products: ProductDetailData[] = [
     crossSell: { label: "Always Ready - add AI voice readiness", href: "#always-ready" },
     price: "$99",
     cadenceLabel: "/mo",
-    setup: "$199 setup",
+    setup: "$49 one-time setup fee",
     promoNote: "No contract. Cancel anytime.",
     ctaLabel: "Start Stay Found",
     ctaHref: "/checkout/stay-found",
@@ -217,7 +217,7 @@ export default function PricingPage() {
               <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { value: "$149", label: "Get Found setup", border: "border-t-green-500", text: "text-green-500" },
-                  { value: "$99/mo · $199 setup", label: "Stay Found", border: "border-t-amber-500", text: "text-amber-500" },
+                  { value: "$99/mo · $49 one-time setup fee", label: "Stay Found", border: "border-t-amber-500", text: "text-amber-500" },
                   { value: "$299/mo", label: "Always Ready", border: "border-t-sky-500", text: "text-sky-600" },
                 ].map((stat) => (
                   <div

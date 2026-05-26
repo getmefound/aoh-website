@@ -34,7 +34,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     name: "Stay Found",
     price: "$99",
     cadence: "/month",
-    setup: "$199 setup",
+    setup: "$49 one-time setup fee",
     summary:
       "Monthly visibility upkeep with review requests, AI reply drafts, and a monthly report so the business does not go stale after the first setup.",
     whatYouGet: [
@@ -49,7 +49,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Monthly report showing your reviews, directory listings, and visibility progress",
     ],
     stripePriceId: "price_1Tb0VDLyThSzGsL4BAWAI6sD",
-    setupPriceId: "price_1Tb109LyThSzGsL4V9x9Iy0E",
+    setupPriceId: "price_1TbSBfLyThSzGsL40nKPg4cB",
     stripeMode: "subscription",
   },
   {

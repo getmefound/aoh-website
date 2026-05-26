@@ -302,7 +302,7 @@ export default function Home() {
 
                         {p.highlight && (
                           <p className="mb-4 text-[12px] text-[var(--color-hero-subtext)]/60">
-                            One-time $199 setup fee
+                            $49 one-time setup fee
                           </p>
                         )}
 
