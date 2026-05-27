@@ -257,49 +257,49 @@ The website free-check route now writes the same shared model as future onboardi
 
 ## Visibility Report Artifact Shape
 
-The report artifact should be a 2026 local visibility readiness matrix, not a generic audit.
+The shared report engine has two depths.
 
-It compares:
+Prospect reports are sales assets. They should show a small, credible 2026 AI/search readiness gap and make Get Found the obvious next step.
 
-- what the business shows publicly
-- what nearby competitors show
-- what Google/Search/AI systems can understand from those signals
-- what GMF can fix now through Get Found
-- what stays locked for Stay Found or Always Ready
+Client reports are proof assets. They should show the full baseline, work completed, blockers, movement, and next actions.
 
-Prospect reports are sales assets. Their job is to make the first paid step clear without overwhelming the owner.
+Research basis:
+
+- Google's AI features guidance says AI Mode and AI Overviews use standard Search fundamentals: crawlable/indexable pages, helpful visible content, page experience, structured data that matches visible content, and current Business Profile data.
+- Google's local ranking guidance centers on relevance, distance, and prominence. GMF can improve the controllable parts: complete profile information, hours, reviews/replies, photos, website clarity, and consistency.
+- Google I/O 2026 expanded AI Mode, conversational follow-up, and local agentic behavior such as booking/calling in select service categories. The report should show whether the business gives Google/AI enough clear public evidence to recommend it.
+- BrightLocal 2026 research shows reviews and AI recommendations both matter, but reviews should be one signal in the prospect report, not the whole report.
 
 Prospect report sections:
 
-1. Quick read: one score and one plain-English summary.
-2. 2026 visibility matrix.
-3. Competitor gap.
-4. Locked Get Found fixes.
-5. Later-plan locked features.
-6. Recommended next action.
+1. Quick read: one score, one sentence, one primary gap.
+2. What Google/AI can understand: profile facts, website facts, service/location clarity.
+3. Competitor contrast: two or three competitors, one sentence each.
+4. Proof freshness: newest visible review/activity summarized lightly.
+5. Locked roadmap: what Get Found unlocks.
+6. Recommended next action: Get Found checkout or fit call.
 
 Prospect matrix columns:
 
-| Signal | Plain-English description | Your business | Competitors showing it | Competitor gap | Get Found fix |
-|---|---|---|---:|---|---|
-| Google profile completeness | Google needs clean facts before it trusts the listing. | Missing service detail | 3 of 3 | Competitors show clearer services/categories. | Included |
-| Business facts match | Website and profile facts should tell the same story. | Needs confirmation | 2 of 3 | Competitors look more consistent. | Included |
-| Review freshness | Recent reviews prove the business is active now. | Weak | 2 of 3 | Competitors have newer reviews. | First campaign included |
-| Review volume/rating | Reviews are public proof customers and AI can see. | Behind leader | 3 of 3 | Top competitor has more proof. | First campaign included |
-| Website AI readability | AI systems need clear service/location facts they can reuse. | Weak | 1 of 3 | One competitor has clearer service pages. | Baseline fixes/handoff |
-| Local visibility map | Shows where the business appears across the service area. | Limited | 2 of 3 | Competitors show broader visibility. | Baseline snapshot |
+| Signal | Why it matters now | Your visible status | Competitor clue | Unlocked with Get Found |
+|---|---|---|---|---|
+| Google profile clarity | Google needs complete business facts before it can confidently match the business. | Pass / weak / missing | Competitors show clearer categories, services, hours, or photos. | Profile cleanup |
+| Website/profile match | AI and Search trust the business more when the site and profile agree. | Pass / weak / missing | Competitors have cleaner matching facts. | Fact sync |
+| Service + location clarity | AI Mode handles longer, specific questions, so services and locations must be obvious. | Pass / weak / missing | Competitors explain services more clearly. | Baseline site fixes |
+| Public proof freshness | Recent visible proof reduces buyer doubt. | Pass / weak / missing | Competitors look more active. | First review path |
+| AI/search readiness | Google says AI features use standard Search fundamentals plus crawlable, visible, useful content. | Pass / weak / missing | Competitors provide clearer answer-ready content. | Before/after snapshot |
 
-Prospect locked cards should be greyed out and labeled by availability:
+Prospect reports should not include full review tables, response-rate analysis, sentiment summaries, private feedback, or recurring-service metrics. That depth is for clients after signup.
 
-- Included with Get Found: profile cleanup, fact sync, review link capture, first review request path, before/after snapshot, baseline Google Maps visibility check.
-- Available with Stay Found: monthly drift checks, recurring review requests, monthly one-page visibility report.
-- Available with Always Ready: deeper AI answer monitoring, strategy, guarded review replies, voice/readiness workflows.
+Prospect locked cards:
 
-Client reports are proof assets. Their job is to show what changed, what is still blocked, and what happens next.
+- Included with Get Found: profile cleanup, website/profile fact sync, review link capture, first review request path, before/after snapshot.
+- Available after Get Found: monthly visibility checks, recurring review requests, monthly report, deeper AI answer monitoring, guarded reply/voice readiness.
 
 Client baseline reports show:
 
 - starting status
+- full matrix with evidence
 - healthy signals
 - blockers
 - GMF work now
@@ -308,15 +308,14 @@ Client baseline reports show:
 
 Client recurring reports show:
 
-- review count change
-- average rating change
-- new reviews
+- visibility movement
+- profile fixes completed
+- website/profile consistency changes
+- Google post/profile activity
+- review count change and freshness
 - review requests sent
 - private feedback captured
 - unanswered reviews resolved
-- profile fixes completed
-- posts published
-- visibility benchmark notes
 - competitor gap
 - recommended next actions
 

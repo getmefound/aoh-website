@@ -261,73 +261,59 @@ Rule:
 
 ## Visibility Report Artifact Format
 
-Use this shape for prospect free checks, campaign replies, client baselines, and recurring client reports.
+Use different depth for prospects and clients.
 
-The report is not just a score. It is a 2026 local visibility readiness matrix. It should compare the business against what Google/Search/AI systems now need to confidently understand, trust, and recommend a local business.
+Prospects get a conversion report: just enough proof to understand the gap and start Get Found.
+
+Clients get the full operating report: baseline, fixes, proof, movement, blockers, and next actions.
+
+Research basis:
+
+- Google says AI Mode and AI Overviews still rely on Search fundamentals: crawlable/indexable content, helpful visible text, page experience, structured data that matches visible content, and up-to-date Business Profile data.
+- Google says local results are mainly based on relevance, distance, and prominence. GMF can improve the controllable parts: complete profile information, current hours, reviews/replies, photos, website clarity, and business-data consistency.
+- Google I/O 2026 made Search more agentic and conversational, including local booking/calling behavior in select service categories. The report should show whether Google/AI has enough confidence to recommend or act on the business.
+- BrightLocal's 2026 consumer research shows reviews still matter, but the prospect report should not become a review report. Use review freshness as one proof signal, not the whole artifact.
 
 Customer-facing language stays plain. Do not say AEO, GEO, entity optimization, or heatmap unless Mike specifically approves that wording. Say "AI search visibility," "Google Maps visibility," "business facts," "review freshness," and "what competitors show."
 
 ### Prospect Report Layout
 
-Purpose: sell the problem and make Get Found feel like the obvious first fix.
+Purpose: create belief and urgency without giving away a full implementation plan.
 
-Required sections:
+Keep the prospect report to one page or one short screen:
 
-- header: business name, location, report context, prepared date
-- quick read: one plain-English sentence and one score
-- 2026 visibility matrix
-- competitor gap
-- locked Get Found fixes
-- recommended next step
+1. Quick read: one score, one sentence, one primary gap.
+2. What Google/AI can understand: profile facts, website facts, service/location clarity.
+3. Competitor contrast: 2-3 competitors, one sentence each, not a full audit.
+4. Proof freshness: newest visible review or visible activity, summarized lightly.
+5. Locked roadmap: what Get Found unlocks after signup.
+6. Clear next step: Get Found checkout or fit call.
 
-The matrix should use these columns:
+Prospect matrix columns:
 
-| Column | Meaning |
-|---|---|
-| Signal | What was checked. |
-| Plain-English description | Why this matters in 2026 search/AI discovery. |
-| Your business | Current status for the prospect. |
-| Competitors showing it | How many visible competitors show the same signal, such as `2 of 3`. |
-| Competitor gap | What competitors have that the prospect lacks. |
-| Get Found fix | Whether this is included, partially included, or a later-plan item. |
+| Signal | Why it matters now | Your visible status | Competitor clue | Unlocked with Get Found |
+|---|---|---|---|---|
+| Google profile clarity | Google needs complete business facts before it can confidently match you. | Pass / weak / missing | Competitors show clearer categories, services, hours, or photos. | Profile cleanup |
+| Website/profile match | AI and Search trust the business more when the site and profile agree. | Pass / weak / missing | Competitors have cleaner matching facts. | Fact sync |
+| Service + location clarity | AI Mode handles longer, specific questions, so services and locations must be obvious. | Pass / weak / missing | Competitors explain services more clearly. | Baseline site fixes |
+| Public proof freshness | Recent visible proof reduces buyer doubt. | Pass / weak / missing | Competitors look more active. | First review path |
+| AI/search readiness | Google says AI features use standard Search fundamentals plus crawlable, visible, useful content. | Pass / weak / missing | Competitors provide clearer answer-ready content. | Before/after snapshot |
 
-Example rows:
+Do not include every review metric in the prospect version. Avoid review count tables, rating trend tables, response-rate tables, sentiment summaries, private feedback, or monthly operational metrics. Those belong after signup.
 
-| Signal | Plain-English description | Your business | Competitors showing it | Competitor gap | Get Found fix |
-|---|---|---|---:|---|---|
-| Google profile completeness | Google needs clean facts before it trusts the listing. | Missing service detail | 3 of 3 | Competitors show clearer services and categories. | Included |
-| Business facts match | Google and AI trust the business more when website and profile facts match. | Phone/hours need confirmation | 2 of 3 | Competitors look more consistent. | Included |
-| Review freshness | Recent reviews prove the business is still active. | Last review is old | 2 of 3 | Competitors have newer reviews. | First campaign included |
-| Review volume/rating | Reviews are the public proof customers and AI systems can see. | Behind local leader | 3 of 3 | Top competitor has more proof. | First campaign included |
-| Website AI readability | AI systems need clear service/location facts they can reuse. | Weak or missing | 1 of 3 | One competitor has clearer service pages. | Baseline fixes/handoff |
-| Local visibility map | Shows where the business appears across the service area. | Limited coverage | 2 of 3 | Competitors show broader visibility. | Baseline snapshot |
+Prospect locked cards should sell the first step:
 
-Prospect reports may show locked grey feature cards. These are not fake features; they are work GMF can perform after signup.
-
-Locked cards for Get Found:
-
-- profile cleanup
-- website/profile fact sync
-- review link capture
-- first review request path
-- before/after snapshot
-- baseline Google Maps visibility check
-
-Locked cards for later plans:
-
-- monthly visibility drift checks: Stay Found
-- recurring review requests: Stay Found
-- monthly one-page visibility report: Stay Found
-- deeper AI answer monitoring and strategy: Always Ready
-- guarded review reply or voice workflows: Always Ready, approval-gated
+- Included with Get Found: profile cleanup, website/profile fact sync, review link capture, first review request path, before/after snapshot.
+- Available after Get Found: monthly visibility checks, recurring review requests, monthly report, deeper AI answer monitoring, guarded reply/voice readiness.
 
 ### Client Report Layout
 
-Purpose: prove work, reduce uncertainty, and show the next useful action without making the client feel sold to.
+Purpose: prove work, reduce uncertainty, and show the next useful action.
 
 Client baseline reports should show:
 
 - starting score/status
+- full matrix with evidence
 - what is already healthy
 - what is blocked by missing access or client action
 - what GMF is doing now
@@ -336,19 +322,18 @@ Client baseline reports should show:
 
 Recurring client reports should show:
 
-- review count change
-- average rating change
-- new reviews
+- visibility movement
+- profile fixes completed
+- website/profile consistency changes
+- Google post/profile activity
+- review count change and freshness
 - review requests sent
 - private feedback captured
 - unanswered reviews resolved
-- profile fixes completed
-- posts published
-- visibility benchmark notes
 - competitor gap
 - recommended next actions
 
-Client reports should not use locked grey cards as the main sales device. If an upgrade opportunity exists, Reporter lists it as one plain "next opportunity" after proof. Account Manager judges timing, Sales Manager decides the angle, and Sales Rep handles any approved upgrade conversation.
+Client reports should not use locked grey cards as the main sales device. If an upgrade opportunity exists, Reporter lists it as one plain "next opportunity" after proof. Account Manager judges timing, Sales Manager decides the relationship timing, and Sales Manager decides the sales angle.
 
 ## Workflow Ownership
 

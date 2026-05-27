@@ -19,10 +19,10 @@ const companyRows = [
   {
     label: "WHAT",
     value:
-      "GetMeFound fixes your Google listing, reviews, and AI visibility — done for you every month.",
+      "GetMeFound fixes your Google listing, reviews, and AI visibility — done for you, starting with a one-time foundation fix.",
   },
   {
-    label: "TOOLS",
+    label: "HOW",
     value: "Our team handles it while you focus on running your business.",
   },
   {
@@ -243,13 +243,14 @@ export default function AboutPage() {
                 §03
               </p>
               <h2 className="mb-7 max-w-2xl text-[clamp(1.8rem,5vw,2.8rem)] font-bold leading-[1.1] text-text-body">
-                The way customers find local businesses just changed. Most are completely invisible
-                across the new channels.
+                In May 2026, Google replaced Search with AI. Most local businesses are invisible
+                to it.
               </h2>
               <p className="mb-8 max-w-2xl text-base leading-relaxed text-text-muted md:text-lg">
-                45% of your future customers now use AI to find local businesses — up from 6% just
-                one year ago. We make sure they find YOU — on Google, Maps, ChatGPT, and AI
-                Overviews — so when AI gets asked, it names you.
+                Google AI Mode has over a billion monthly users and is now the default experience —
+                the search box is gone. AI doesn&apos;t show ten results. It picks one or two
+                businesses and recommends them by name. If your profile isn&apos;t ready, it skips
+                you entirely. We make sure it doesn&apos;t.
               </p>
 
               {/* Channel tags */}
@@ -264,7 +265,7 @@ export default function AboutPage() {
                 ))}
               </div>
               <p className="mt-5 text-sm leading-relaxed text-text-muted">
-                We make sure your business shows up across all of them.
+                Businesses that act first get picked before competitors adapt.
               </p>
               <div className="mt-4">
                 <Link
@@ -340,18 +341,18 @@ export default function AboutPage() {
                 §05
               </p>
               <h2 className="mb-5 text-3xl font-bold text-hero-text md:text-4xl">
-                Easiest way to reach us is to just write.
+                Questions? Just reach out.
               </h2>
               <p className="mx-auto mb-8 max-w-lg text-base leading-relaxed text-hero-subtext/70 md:text-lg">
-                Questions, curiosity, or want to know if GetMeFound makes sense for your business —
-                reach out.
+                Partnerships, curiosity, or want to know if GetMeFound makes sense for your
+                business — we answer within a few hours.
               </p>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link
-                  href={AUDIT_HREF}
+                  href="/contact"
                   className="group inline-flex items-center gap-2 rounded-xl bg-(--color-accent) px-8 py-4 text-base font-semibold text-(--color-accent-text) transition-all hover:bg-(--color-accent-hover) hover:-translate-y-0.5 hover:shadow-xl hover:shadow-(--color-accent)/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 >
-                  See if AI recommends you
+                  Send a message
                   <span
                     aria-hidden="true"
                     className="transition-transform group-hover:translate-x-0.5"
@@ -360,10 +361,10 @@ export default function AboutPage() {
                   </span>
                 </Link>
                 <Link
-                  href="/contact"
+                  href={AUDIT_HREF}
                   className="inline-flex items-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-hero-text ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-white/20"
                 >
-                  Send a message →
+                  See if AI recommends you →
                 </Link>
               </div>
             </Reveal>
