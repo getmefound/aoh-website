@@ -96,6 +96,8 @@ Verified behavior:
 - `Manager` can create/update items.
 - `Reporter` can create/update items.
 - `Scout` is blocked from writing directly.
+- Manager can notify Slack when a job is sent by adding `--notify-slack`.
+- Slack job notifications go to `#04-gmf-ops` through `SLACK_BOT_TOKEN`.
 
 The import-ready row remains saved in `docs/client-ops-ledger/monday-prospecting-core-setup-import.csv` as fallback documentation.
 
@@ -117,4 +119,10 @@ Create or update the first human-needed item:
 
 ```bash
 npm run monday:agent-job -- --action create --role Manager --name "Refresh Smartlead API access" --group "Human Needed" --status "Human Needed" --owner Mike --agent-owner "Manager / Systems Director" --system Smartlead --human-needed yes --priority High --due 2026-05-27 --budget 0 --proof "https://github.com/mje-gmf/website/blob/main/docs/client-ops-ledger/prospecting-smartlead-preflight-current.md" --proof-text "Smartlead preflight report" --next-action "Refresh the Smartlead API key, add it locally and in production, then rerun npm run prospecting:preflight." --upsert
+```
+
+Notify Slack when Manager sends a new job:
+
+```bash
+npm run monday:agent-job -- --action create --role Manager --name "Build prospecting Mission Control reports" --group "Agent Working" --status "Agent Working" --agent-owner "Reporter / Systems Director" --system "Mission Control" --human-needed no --notify-slack --upsert
 ```

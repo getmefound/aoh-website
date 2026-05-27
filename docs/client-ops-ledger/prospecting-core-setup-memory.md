@@ -89,3 +89,5 @@ npm run monday:agent-job
 or a future approved internal endpoint.
 
 Other agents must route owner-visible updates through Manager.
+
+Manager should notify Slack only when a job is sent/assigned or when human involvement is needed. Use `--notify-slack` on the controlled Monday writer for job-sent notices. Routine status changes can stay in Monday unless Mike asks.

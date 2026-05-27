@@ -5,6 +5,7 @@ import { existsSync, readFileSync } from "node:fs";
 const API_URL = "https://api.monday.com/v2";
 const ALLOWED_ROLES = new Set(["Manager", "Systems Director", "Reporter"]);
 const DEFAULT_BOARD_NAME = "Agents Jobs";
+const DEFAULT_SLACK_JOB_CHANNEL_ID = "C0ATTA4NBR8"; // #04-gmf-ops
 
 const GROUPS = [
   "Human Needed",
@@ -111,6 +112,7 @@ async function main() {
       ? await updateItem({ token, boardId: board.id, item: existing, columns: setup.columns, args })
       : await createItem({ token, boardId: board.id, groups: setup.groups, columns: setup.columns, args });
 
+    await maybeNotifySlack({ args, action: existing ? "update" : "create", role, board, item });
     console.log(JSON.stringify({ ok: true, action, board: pickBoard(board), item, writerRole: role }, null, 2));
     return;
   }
@@ -122,6 +124,7 @@ async function main() {
     if (!item) throw new Error("Item not found. Provide --item-id or --name.");
 
     const updated = await updateItem({ token, boardId: board.id, item, columns: setup.columns, args });
+    await maybeNotifySlack({ args, action, role, board, item: updated });
     console.log(JSON.stringify({ ok: true, action, board: pickBoard(board), item: updated, writerRole: role }, null, 2));
     return;
   }
@@ -407,6 +410,48 @@ Examples:
   npm run monday:agent-job -- --action setup --role Manager
   npm run monday:agent-job -- --action list
   npm run monday:agent-job -- --action create --role Manager --name "Refresh Smartlead API access" --group "Human Needed" --status "Human Needed" --owner Mike --agent-owner "Manager / Systems Director" --system Smartlead --human-needed yes --priority High --due 2026-05-27 --budget 0 --proof "https://github.com/mje-gmf/website/blob/main/docs/client-ops-ledger/prospecting-smartlead-preflight-current.md" --proof-text "Smartlead preflight report" --next-action "Refresh the Smartlead API key, add it locally and in production, then rerun npm run prospecting:preflight." --upsert
+  npm run monday:agent-job -- --action create --role Manager --name "Build prospecting Mission Control reports" --group "Agent Working" --status "Agent Working" --agent-owner "Reporter / Systems Director" --system "Mission Control" --human-needed no --notify-slack --upsert
   npm run monday:agent-job -- --action update --role Reporter --item-id 123 --status Done --human-needed no --notes "Proof attached."
 `);
+}
+
+async function maybeNotifySlack({ args, action, role, board, item }) {
+  const shouldNotify = Boolean(args["notify-slack"]) || process.env.MONDAY_NOTIFY_SLACK_ON_JOB_WRITE === "true";
+  if (!shouldNotify) return;
+
+  const botToken = process.env.SLACK_BOT_TOKEN?.trim();
+  if (!botToken) {
+    console.warn("Slack notification skipped: SLACK_BOT_TOKEN is not set.");
+    return;
+  }
+
+  const channel = process.env.SLACK_AGENT_JOBS_CHANNEL_ID?.trim() || DEFAULT_SLACK_JOB_CHANNEL_ID;
+  const humanNeeded = args["human-needed"] ? booleanLabel(args["human-needed"]) : "No";
+  const owner = args["agent-owner"] || role;
+  const system = args.system || "Agent Jobs";
+  const status = args.status || (action === "create" ? "Sent" : "Updated");
+  const mondayBoardUrl = `https://monday.com/boards/${board.id}`;
+
+  const message = [
+    `*Manager job ${action === "create" ? "sent" : "updated"}*`,
+    `- Job: ${item.name}`,
+    `- Status: ${status}`,
+    `- Agent owner: ${owner}`,
+    `- System: ${system}`,
+    `- Human needed: ${humanNeeded}`,
+    `- Inspect: ${mondayBoardUrl}`,
+  ].join("\n");
+
+  const response = await fetch("https://slack.com/api/chat.postMessage", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${botToken}`,
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify({ channel, text: message }),
+  });
+  const body = await response.json().catch(async () => ({ ok: false, error: await response.text() }));
+  if (!response.ok || !body.ok) {
+    console.warn(`Slack notification skipped: ${body.error || response.status}`);
+  }
 }
