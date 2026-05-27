@@ -259,6 +259,97 @@ Rule:
 
 - Reporter does not send reports directly. Sales Rep sends prospect reports. Account Manager sends client reports.
 
+## Visibility Report Artifact Format
+
+Use this shape for prospect free checks, campaign replies, client baselines, and recurring client reports.
+
+The report is not just a score. It is a 2026 local visibility readiness matrix. It should compare the business against what Google/Search/AI systems now need to confidently understand, trust, and recommend a local business.
+
+Customer-facing language stays plain. Do not say AEO, GEO, entity optimization, or heatmap unless Mike specifically approves that wording. Say "AI search visibility," "Google Maps visibility," "business facts," "review freshness," and "what competitors show."
+
+### Prospect Report Layout
+
+Purpose: sell the problem and make Get Found feel like the obvious first fix.
+
+Required sections:
+
+- header: business name, location, report context, prepared date
+- quick read: one plain-English sentence and one score
+- 2026 visibility matrix
+- competitor gap
+- locked Get Found fixes
+- recommended next step
+
+The matrix should use these columns:
+
+| Column | Meaning |
+|---|---|
+| Signal | What was checked. |
+| Plain-English description | Why this matters in 2026 search/AI discovery. |
+| Your business | Current status for the prospect. |
+| Competitors showing it | How many visible competitors show the same signal, such as `2 of 3`. |
+| Competitor gap | What competitors have that the prospect lacks. |
+| Get Found fix | Whether this is included, partially included, or a later-plan item. |
+
+Example rows:
+
+| Signal | Plain-English description | Your business | Competitors showing it | Competitor gap | Get Found fix |
+|---|---|---|---:|---|---|
+| Google profile completeness | Google needs clean facts before it trusts the listing. | Missing service detail | 3 of 3 | Competitors show clearer services and categories. | Included |
+| Business facts match | Google and AI trust the business more when website and profile facts match. | Phone/hours need confirmation | 2 of 3 | Competitors look more consistent. | Included |
+| Review freshness | Recent reviews prove the business is still active. | Last review is old | 2 of 3 | Competitors have newer reviews. | First campaign included |
+| Review volume/rating | Reviews are the public proof customers and AI systems can see. | Behind local leader | 3 of 3 | Top competitor has more proof. | First campaign included |
+| Website AI readability | AI systems need clear service/location facts they can reuse. | Weak or missing | 1 of 3 | One competitor has clearer service pages. | Baseline fixes/handoff |
+| Local visibility map | Shows where the business appears across the service area. | Limited coverage | 2 of 3 | Competitors show broader visibility. | Baseline snapshot |
+
+Prospect reports may show locked grey feature cards. These are not fake features; they are work GMF can perform after signup.
+
+Locked cards for Get Found:
+
+- profile cleanup
+- website/profile fact sync
+- review link capture
+- first review request path
+- before/after snapshot
+- baseline Google Maps visibility check
+
+Locked cards for later plans:
+
+- monthly visibility drift checks: Stay Found
+- recurring review requests: Stay Found
+- monthly one-page visibility report: Stay Found
+- deeper AI answer monitoring and strategy: Always Ready
+- guarded review reply or voice workflows: Always Ready, approval-gated
+
+### Client Report Layout
+
+Purpose: prove work, reduce uncertainty, and show the next useful action without making the client feel sold to.
+
+Client baseline reports should show:
+
+- starting score/status
+- what is already healthy
+- what is blocked by missing access or client action
+- what GMF is doing now
+- what proof will be compared later
+- next client ask, if any
+
+Recurring client reports should show:
+
+- review count change
+- average rating change
+- new reviews
+- review requests sent
+- private feedback captured
+- unanswered reviews resolved
+- profile fixes completed
+- posts published
+- visibility benchmark notes
+- competitor gap
+- recommended next actions
+
+Client reports should not use locked grey cards as the main sales device. If an upgrade opportunity exists, Reporter lists it as one plain "next opportunity" after proof. Account Manager judges timing, Sales Manager decides the angle, and Sales Rep handles any approved upgrade conversation.
+
 ## Workflow Ownership
 
 Get Found:

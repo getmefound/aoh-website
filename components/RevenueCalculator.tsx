@@ -276,30 +276,23 @@ function RevenueCalculatorInner() {
                   }}
                 >
                   <option value="">— Select your industry —</option>
-                  <option value="lawncare">Lawn Care / Landscaping</option>
-                  <option value="plumbing">Plumbing</option>
-                  <option value="hvac">HVAC</option>
-                  <option value="electrician">Electrician</option>
-                  <option value="contractor">General Contractor</option>
-                  <option value="roofer">Roofer</option>
-                  <option value="painter">Painter</option>
-                  <option value="cleaning">Cleaning Service</option>
-                  <option value="petgroomer">Pet Grooming</option>
-                  <option value="vet">Veterinary Practice</option>
-                  <option value="autoshop">Auto Repair Shop</option>
-                  <option value="funeral">Funeral Home</option>
-                  <option value="moving">Moving Company</option>
-                  <option value="seniorliving">Senior Living Facility</option>
-                  <option value="marketing">Marketing Consultant</option>
-                  <option value="b2b">B2B Service Business</option>
                   <option value="dental">Dental Practice</option>
-                  <option value="legalfirm">Law Firm / Attorney</option>
+                  <option value="chiro">Chiropractor</option>
                   <option value="therapist">Therapist / Counselor</option>
                   <option value="accountant">Accountant / CPA</option>
-                  <option value="chiro">Chiropractor</option>
+                  <option value="legalfirm">Law Firm / Attorney</option>
+                  <option value="realestate">Real Estate Agent</option>
                   <option value="salon">Salon / Barbershop</option>
                   <option value="spa">Spa / Massage</option>
-                  <option value="realestate">Real Estate Agent</option>
+                  <option value="vet">Veterinary Practice</option>
+                  <option value="petgroomer">Pet Grooming</option>
+                  <option value="autoshop">Auto Repair Shop</option>
+                  <option value="cleaning">Cleaning Service</option>
+                  <option value="lawncare">Lawn Care / Landscaping</option>
+                  <option value="painter">Painter</option>
+                  <option value="electrician">Electrician</option>
+                  <option value="contractor">General Contractor</option>
+                  <option value="moving">Moving Company</option>
                 </select>
               </div>
 

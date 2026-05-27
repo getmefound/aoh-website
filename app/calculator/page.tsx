@@ -32,7 +32,7 @@ export default function CalculatorPage() {
         <section className="bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]">
           <div className="mx-auto max-w-3xl px-6 py-12 md:py-16 text-center">
             <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
-              Lost-Revenue Calculator
+              Revenue Potential Calculator
             </p>
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
               See what your business could earn with better visibility.

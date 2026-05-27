@@ -255,6 +255,71 @@ Shared report events live in Supabase `visibility_report_events`.
 
 The website free-check route now writes the same shared model as future onboarding baselines. That keeps prospecting and onboarding connected without confusing who owns the relationship.
 
+## Visibility Report Artifact Shape
+
+The report artifact should be a 2026 local visibility readiness matrix, not a generic audit.
+
+It compares:
+
+- what the business shows publicly
+- what nearby competitors show
+- what Google/Search/AI systems can understand from those signals
+- what GMF can fix now through Get Found
+- what stays locked for Stay Found or Always Ready
+
+Prospect reports are sales assets. Their job is to make the first paid step clear without overwhelming the owner.
+
+Prospect report sections:
+
+1. Quick read: one score and one plain-English summary.
+2. 2026 visibility matrix.
+3. Competitor gap.
+4. Locked Get Found fixes.
+5. Later-plan locked features.
+6. Recommended next action.
+
+Prospect matrix columns:
+
+| Signal | Plain-English description | Your business | Competitors showing it | Competitor gap | Get Found fix |
+|---|---|---|---:|---|---|
+| Google profile completeness | Google needs clean facts before it trusts the listing. | Missing service detail | 3 of 3 | Competitors show clearer services/categories. | Included |
+| Business facts match | Website and profile facts should tell the same story. | Needs confirmation | 2 of 3 | Competitors look more consistent. | Included |
+| Review freshness | Recent reviews prove the business is active now. | Weak | 2 of 3 | Competitors have newer reviews. | First campaign included |
+| Review volume/rating | Reviews are public proof customers and AI can see. | Behind leader | 3 of 3 | Top competitor has more proof. | First campaign included |
+| Website AI readability | AI systems need clear service/location facts they can reuse. | Weak | 1 of 3 | One competitor has clearer service pages. | Baseline fixes/handoff |
+| Local visibility map | Shows where the business appears across the service area. | Limited | 2 of 3 | Competitors show broader visibility. | Baseline snapshot |
+
+Prospect locked cards should be greyed out and labeled by availability:
+
+- Included with Get Found: profile cleanup, fact sync, review link capture, first review request path, before/after snapshot, baseline Google Maps visibility check.
+- Available with Stay Found: monthly drift checks, recurring review requests, monthly one-page visibility report.
+- Available with Always Ready: deeper AI answer monitoring, strategy, guarded review replies, voice/readiness workflows.
+
+Client reports are proof assets. Their job is to show what changed, what is still blocked, and what happens next.
+
+Client baseline reports show:
+
+- starting status
+- healthy signals
+- blockers
+- GMF work now
+- client action needed
+- proof that will be compared later
+
+Client recurring reports show:
+
+- review count change
+- average rating change
+- new reviews
+- review requests sent
+- private feedback captured
+- unanswered reviews resolved
+- profile fixes completed
+- posts published
+- visibility benchmark notes
+- competitor gap
+- recommended next actions
+
 ## Orphaned Report Workflow
 
 An orphaned report is a free visibility report that was requested and delivered, but the prospect did not sign up.
