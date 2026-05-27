@@ -51,7 +51,7 @@ The customer is not buying a simple errand. They are trusting you with appearanc
 
 That is also why broad praise is not enough. "Great place" helps, but a recent review that mentions the consultation, the front desk, the treatment room, or the follow-up gives a nervous customer something concrete to believe. It gives AI search clearer language too. The more clearly customers describe the experience, the easier it is for Google AI to understand what the med spa is known for.
 
-The strategy says 45% of consumers now use AI for local recommendations, up from 6% one year ago. It also says AI platforms often need around 150+ reviews before recommending a business by name.
+45% of consumers now use AI for local recommendations, up from 6% one year ago. AI platforms often need around 150+ reviews before recommending a business by name.
 
 That does not mean every med spa needs to hit that number tomorrow. It means the direction matters. If your competitor is collecting recent reviews and your profile is quiet, they are building trust while you are standing still.
 
@@ -92,4 +92,4 @@ For a med spa, that can be the difference between being skipped and being recomm
 
 GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
 
-[See if AI recommends you →](/report/ai-visibility)
+[See if AI recommends you →](/report/ai-visibility) · [See pricing →](/pricing)

@@ -75,8 +75,10 @@ If the honest answer is "not many," you do not need another dashboard. You need 
 
 AI search is making this more important, not less. Google AI needs clear, current signals before it can confidently recommend a business. Those signals do not stay clean by accident.
 
-## Want this done for you?
+## Ready to fix it?
 
-GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
+GetMeFound handles your Google profile, reviews, and AI visibility — done for you, no contract. Get Found is a one-time setup, done in 48 hours. No subscription required.
 
-[See if AI recommends you →](/report/ai-visibility)
+[Get Found for $149 →](/checkout/get-found-refresh)
+
+[See if AI recommends you first →](/report/ai-visibility)

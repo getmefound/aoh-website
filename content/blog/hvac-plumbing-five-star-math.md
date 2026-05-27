@@ -54,7 +54,7 @@ For HVAC, plumbing, roofing, electrical, and similar service businesses, the str
 
 Those reviews answer the fears customers actually have. They also give Google AI clearer reasons to recommend you.
 
-The strategy says review signals are a high-value factor for AI search. It also says Google Business Profile signals carry major weight in local discovery. Plain English: your Google profile and reviews are not side projects. They are part of how customers decide who to call.
+Review signals are one of the highest-value factors for AI search. Google Business Profile signals also carry major weight in local discovery. Plain English: your Google profile and reviews are not side projects. They are part of how customers decide who to call.
 
 ## The fix is boring, which is why it works
 
@@ -87,4 +87,4 @@ For trades, this matters because customers move fast. If Google AI and the custo
 
 GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
 
-[See if AI recommends you →](/report/ai-visibility)
+[See if AI recommends you →](/report/ai-visibility) · [See pricing →](/pricing)

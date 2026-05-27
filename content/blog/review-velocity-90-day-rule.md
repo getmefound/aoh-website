@@ -75,4 +75,4 @@ That is what customers need to see. That is also what Google AI needs to underst
 
 GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
 
-[See if AI recommends you →](/report/ai-visibility)
+[See if AI recommends you →](/report/ai-visibility) · [See pricing →](/pricing)

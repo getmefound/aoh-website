@@ -37,7 +37,7 @@ It wants to know:
 
 If those pieces do not match, AI search gets less confident. Less confidence means someone else gets recommended.
 
-The strategy behind GetMeFound is built on that exact problem. Most local businesses are not broken. They are unclear to Google AI.
+GetMeFound is built on that exact problem. Most local businesses are not broken. They are unclear to Google AI.
 
 ## What changed for local businesses
 
@@ -45,7 +45,7 @@ Google still matters. Your Google Business Profile still matters. Reviews still 
 
 What changed is how those pieces are being used.
 
-Google AI now decides who to recommend before many customers ever click. BrightLocal 2026 data in our strategy says 45% of consumers now use AI for local recommendations, up from 6% one year ago. That is not a small behavior change. That is the market moving.
+Google AI now decides who to recommend before many customers ever click. BrightLocal's 2026 research found that 45% of consumers now use AI for local recommendations, up from 6% one year ago. That is not a small behavior change. That is the market moving.
 
 AI search rewards businesses that look complete, active, and consistent. It is not enough to have a nice website if your Google listing is thin. It is not enough to have old reviews if nothing fresh has happened in months. It is not enough to have a phone number on one page and a different one somewhere else.
 
@@ -76,4 +76,4 @@ You do the work customers pay you for. We handle the visibility work that helps 
 
 GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
 
-[See if AI recommends you →](/report/ai-visibility)
+[See if AI recommends you →](/report/ai-visibility) · [See pricing →](/pricing)

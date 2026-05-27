@@ -37,9 +37,9 @@ Pet owners notice old reviews. AI search notices too.
 
 A profile with good reviews from three years ago may still look loved, but it does not look current. A profile with steady recent reviews looks alive.
 
-The GetMeFound strategy says AI platforms often need around 150+ reviews before recommending a business by name. Most small groomers are not there yet, and that is okay. The point is to start building the proof now before competitors own the local recommendation.
+AI platforms often need around 150+ reviews before recommending a business by name. Most small groomers are not there yet, and that is okay. The point is to start building the proof now before competitors own the local recommendation.
 
-Google also says complete and accurate information helps local businesses show in local results. For a groomer, that means the basics need to be clear: services, hours, location, phone number, and website details all matching.
+Google's own guidance confirms that complete and accurate information helps local businesses show in local results. For a groomer, that means the basics need to be clear: services, hours, location, phone number, and website details all matching.
 
 ## What the business should look like online
 
@@ -71,4 +71,4 @@ For pet groomers, that consistency is what turns happy customers into visible pr
 
 GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
 
-[See if AI recommends you →](/report/ai-visibility)
+[See if AI recommends you →](/report/ai-visibility) · [See pricing →](/pricing)

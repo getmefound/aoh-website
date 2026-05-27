@@ -58,7 +58,7 @@ Reviews are one of the strongest signals because they come from customers.
 
 A business with recent reviews looks active. A business that responds to reviews looks attentive. A business with clear service language and a complete Google profile looks easier to trust.
 
-The GetMeFound strategy uses the 150+ review mark as a key threshold because review depth matters. But the total number is only part of it. The reviews also need to keep coming in.
+The 150+ review mark matters because depth matters. But the total number is only part of it. The reviews also need to keep coming in.
 
 AI search is not only asking, "Was this business good once?"
 
@@ -70,7 +70,7 @@ Many local businesses still have half-finished Google profiles, old photos, stal
 
 That creates an opening for the businesses that clean up the basics first.
 
-Google AI and other AI search tools are becoming a normal part of how customers choose local services. GetMeFound's strategy notes that 45% of consumers already use AI tools to help make local decisions.
+Google AI and other AI search tools are becoming a normal part of how customers choose local services. 45% of consumers already use AI tools to help make local decisions.
 
 If your business looks clearer, fresher, and easier to understand than the competitors around you, you have a better chance of being the name AI search recommends.
 
@@ -78,4 +78,4 @@ If your business looks clearer, fresher, and easier to understand than the compe
 
 GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
 
-[See if AI recommends you →](/report/ai-visibility)
+[See if AI recommends you →](/report/ai-visibility) · [See pricing →](/pricing)

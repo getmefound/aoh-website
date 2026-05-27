@@ -52,7 +52,7 @@ Google AI needs to understand:
 - Whether patients are leaving recent reviews
 - Whether the practice replies like it is paying attention
 
-The strategy says Google uses relevance, distance, and prominence for local businesses. It also says Google profile signals, website signals, and review signals are high-value signals for AI search.
+Google uses relevance, distance, and prominence for local businesses. Google profile signals, website signals, and review signals are high-value factors for AI search.
 
 Plain English: if the practice looks complete, active, and consistent, it is easier for AI search to recommend.
 
@@ -72,4 +72,4 @@ That is the part a busy practice needs. Not another tool. The work done.
 
 GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
 
-[See if AI recommends you →](/report/ai-visibility)
+[See if AI recommends you →](/report/ai-visibility) · [See pricing →](/pricing)

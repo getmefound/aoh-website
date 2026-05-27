@@ -289,6 +289,31 @@ Prospect matrix columns:
 | Public proof freshness | Recent visible proof reduces buyer doubt. | Pass / weak / missing | Competitors look more active. | First review path |
 | AI/search readiness | Google says AI features use standard Search fundamentals plus crawlable, visible, useful content. | Pass / weak / missing | Competitors provide clearer answer-ready content. | Before/after snapshot |
 
+Internal prospect scoring rubric:
+
+Score the prospect and top visible competitors with the same lightweight 100-point rubric.
+
+Do not show this full rubric in the prospect-facing report. Reporter uses it to calculate the score consistently.
+
+| Signal | Points |
+|---|---:|
+| Google profile clarity | 20 |
+| Website/profile match | 20 |
+| Service + location clarity | 20 |
+| Public proof freshness | 20 |
+| AI/search readiness | 20 |
+
+Status bands:
+
+| Points | Label |
+|---:|---|
+| 16-20 | Strong |
+| 11-15 | Fair |
+| 6-10 | Weak |
+| 0-5 | Missing |
+
+Prospect reports show only the prospect score, local competitor average, top visible competitor score, and 2-3 short competitor clues. They should not show the full scoring rubric or a full competitor audit.
+
 Prospect reports should not include full review tables, response-rate analysis, sentiment summaries, private feedback, or recurring-service metrics. That depth is for clients after signup.
 
 Prospect locked cards:

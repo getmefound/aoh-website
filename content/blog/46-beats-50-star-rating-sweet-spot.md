@@ -36,7 +36,7 @@ A strong review profile has a few pieces working together:
 
 The strategy is simple: do good work, ask consistently, reply professionally, and keep your Google profile fresh.
 
-Google says complete and accurate business information helps local businesses show in local results. The strategy also notes that AI platforms often need around 150+ reviews before they are comfortable recommending a business by name. That does not mean a smaller business is doomed. It means every month of review activity matters.
+Google says complete and accurate business information helps local businesses show in local results. AI platforms often need around 150+ reviews before they are comfortable recommending a business by name. That does not mean a smaller business is doomed. It means every month of review activity matters.
 
 ## One imperfect review is not the problem
 
@@ -68,8 +68,10 @@ The goal is not a perfect number. The goal is a profile that looks active, clear
 
 That is what gets you found.
 
-## Want this done for you?
+## Ready to fix it?
 
-GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
+GetMeFound handles your Google profile, reviews, and AI visibility — done for you, no contract. Get Found is a one-time setup, done in 48 hours. No subscription required.
 
-[See if AI recommends you →](/report/ai-visibility)
+[Get Found for $149 →](/checkout/get-found-refresh)
+
+[See if AI recommends you first →](/report/ai-visibility)

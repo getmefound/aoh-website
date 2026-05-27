@@ -48,7 +48,7 @@ They want to see:
 - Consistent directory listings
 - Ongoing activity
 
-The strategy says AI platforms often need around 150+ reviews before they recommend a business by name. It also says 45% of consumers now use AI for local recommendations. That means review collection is not just a nice add-on anymore. It is part of whether AI search trusts you enough to recommend you.
+AI platforms often need around 150+ reviews before recommending a business by name. 45% of consumers now use AI for local recommendations. That means review collection is not just a nice add-on anymore. It is part of whether AI search trusts you enough to recommend you.
 
 A tool sitting unused does not fix that.
 
@@ -84,8 +84,10 @@ Google AI does not care that you intended to run the system. It only sees whethe
 
 GetMeFound exists because most owners would rather pay for the outcome than pay for software they have to babysit.
 
-## Want this done for you?
+## Ready to fix it?
 
-GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
+GetMeFound handles your Google profile, reviews, and AI visibility — done for you, no contract. Get Found is a one-time setup, done in 48 hours. No subscription required.
 
-[See if AI recommends you →](/report/ai-visibility)
+[Get Found for $149 →](/checkout/get-found-refresh)
+
+[See if AI recommends you first →](/report/ai-visibility)
