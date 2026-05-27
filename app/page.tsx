@@ -14,7 +14,7 @@ import { ICON_PATHS } from "@/lib/icon-paths";
 import { faqPageSchema } from "@/lib/faq";
 
 export const metadata: Metadata = {
-  title: "GetMeFound — Be the Business AI Recommends",
+  title: "GetMeFound — Get Found by Google's AI in 48 Hours",
   description:
     "Done-for-you Google visibility, reviews, and AI search presence for local businesses. No contracts. Live in 48 hours.",
   alternates: { canonical: "/" },

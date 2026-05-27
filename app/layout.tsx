@@ -27,16 +27,16 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL("https://getmefound.ai"),
   title: {
-    default: "GetMeFound - AI Search Visibility for Local Businesses",
+    default: "GetMeFound — Google’s AI Picks Who Gets Found",
     template: "%s - GetMeFound",
   },
   description:
-    "GetMeFound helps local businesses get found and recommended in Google, Maps, AI search, and near-me moments.",
+    "Google’s AI now recommends one or two local businesses — not ten pages. We make yours the one it picks. Done for you in 48 hours. No contract.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "GetMeFound - Be the local business AI recommends.",
+    title: "GetMeFound — Google Doesn’t Rank You Anymore. It Picks You.",
     description:
-      "AI search visibility, Google Business Profile cleanup, reviews, and local trust signals for service businesses.",
+      "Done-for-you Google visibility, reviews, and AI search presence for local businesses. No contracts. Live in 48 hours.",
     url: "https://getmefound.ai",
     siteName: "GetMeFound",
     type: "website",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "GetMeFound - Be the local business AI recommends.",
+    title: "GetMeFound — Google Doesn’t Rank You Anymore. It Picks You.",
     description:
-      "AI search visibility, Google Business Profile cleanup, reviews, and local trust signals for service businesses.",
+      "Done-for-you Google visibility, reviews, and AI search presence for local businesses. No contracts. Live in 48 hours.",
   },
   robots: {
     index: true,
@@ -66,7 +66,7 @@ const organizationSchema = {
   name: "GetMeFound",
   url: "https://getmefound.ai",
   description:
-    "GetMeFound helps local businesses get found and recommended in Google, Maps, AI search, and near-me moments.",
+    "Google's AI now picks who gets found. We make sure it picks your business. Done-for-you setup in 48 hours.",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "support",
