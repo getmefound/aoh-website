@@ -39,8 +39,9 @@ export async function POST(request: Request) {
   }
 
   const extracted = await readCbcUploadedRecords(false);
+  const profile = mergeChatCase(extracted.casePatch, body?.profile ?? {});
   const model = envValue("CBC_OPENAI_MODEL") || "gpt-5.5";
-  const prompt = buildCbcChatPrompt(question, body?.profile ?? {}, extracted.sourcePreview);
+  const prompt = buildCbcChatPrompt(question, profile, extracted.sourcePreview);
 
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
@@ -119,6 +120,14 @@ function buildCbcChatPrompt(question: string, profile: CbcChatCase, sourcePrevie
     "UPLOADED FILE EXCERPTS",
     sourcePreview || "No readable uploaded-file excerpts were available.",
   ].join("\n");
+}
+
+function mergeChatCase(extracted: CbcChatCase, saved: CbcChatCase) {
+  const merged: CbcChatCase = { ...extracted };
+  for (const [key, value] of Object.entries(saved) as Array<[keyof CbcChatCase, string | undefined]>) {
+    if (typeof value === "string" && value.trim()) merged[key] = value;
+  }
+  return merged;
 }
 
 function extractOpenAiText(data: OpenAiResponse | null) {
