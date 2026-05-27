@@ -1,6 +1,6 @@
 ---
-title: "HVAC and plumbing: why 5-star math beats Yelp ads"
-description: "Emergency-service customers don't browse. They pick the first business they trust. Here's why reviews decide which business they call before they even open the phone book."
+title: "Why trades need AI-ready reviews, not more ads — GetMeFound"
+description: "HVAC and plumbing calls go to the business customers trust first. GetMeFound — done for you, no contract."
 date: "2026-04-30"
 category: "Industry"
 coverImage: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=80&auto=format&fit=crop"
@@ -11,71 +11,80 @@ author:
 tags: ["HVAC", "Plumbing", "Reviews"]
 ---
 
-## What an emergency customer is actually doing
+## The emergency customer does not browse
 
-It's Saturday afternoon, 89 degrees. The AC just quit. The kids are getting cranky. The homeowner pulls out their phone.
+When the AC quits or a pipe starts leaking, the customer is not doing deep research.
 
-They don't browse. They don't compare quotes. They don't read your "about us" page. They type "AC repair near me" and they look at *exactly* two things:
+They want a safe choice fast.
 
-- Is this business open right now?
-- Do their reviews say they're not going to rip me off?
+They open Google or ask an AI search tool. They look for a business that feels real, active, nearby, and trusted. If Google AI recommends a plumber by name, that business has a huge advantage before the customer ever compares options.
 
-That's the whole decision. They tap the first business that passes both filters. That business gets the call. Everyone else doesn't.
+That is why reviews matter so much for trades. Reviews reduce fear.
 
-If that wasn't you, it almost certainly wasn't because they didn't like your services. It was because they never got that far.
+The customer is asking:
 
-## The Yelp ads trap
+- Will they show up?
+- Will they be fair?
+- Do other homeowners trust them?
+- Are they still active right now?
 
-Most HVAC and plumbing owners have at some point paid for Yelp ads. The pitch is compelling — appear at the top, beat your competitors. The reality is usually different.
+If your Google profile answers those questions better than the next business, you get a better shot at the call.
 
-Yelp ads have a few problems specifically for trade services:
+## Paid ads do not fix a weak trust profile
 
-- **Yelp's local share is small.** Most emergency searches happen on Google, not Yelp
-- **The cost-per-lead is high.** $30 to $80 per call lead is common in this category
-- **The leads aren't exclusive.** The same emergency customer is calling four businesses
-- **Cancelling is painful.** Yelp's contract structure has burned more than a few owners
+Paid ads can put your name in front of people. They cannot make the customer trust you.
 
-Even when Yelp ads work — and sometimes they do — they stop working the day you stop paying. You're renting visibility. Every month is a fresh bill for the same lead flow.
+That trust comes from the public signals around your business: your Google Business Profile, recent reviews, clear services, accurate hours, and a website that matches your Google listing.
 
-Reviews are the opposite. You "pay" once, in the form of asking the customer at the end of the job. The review keeps pulling in calls for years. It also makes your Google profile rank higher than the businesses paying Yelp.
+Google AI is now part of that decision. It checks whether your business looks complete and consistent before recommending it. If your profile is half-filled, your reviews are stale, or your website says something different than your Google listing, AI search has less reason to trust you.
 
-## Why 5-star math compounds for trades
+That is the problem GetMeFound fixes.
 
-Trade services are a high-trust, high-decision-speed category. The customer needs the work done *now*. They're scared of getting overcharged. They want a recommendation they can trust in 30 seconds.
+## What a strong trade profile looks like
 
-A profile that says "4.8 stars, 142 reviews, most recent yesterday" reads as *the safe choice*. That phrase — the safe choice — is doing most of the work. The customer who's panicked about their leaking pipe doesn't have time to vet you carefully. They're outsourcing the vetting to your reviews.
+For HVAC, plumbing, roofing, electrical, and similar service businesses, the strongest reviews are specific.
 
-Here's what 5-star math looks like compounded over time:
+"They came out fast."
 
-- **Month 1**: 4 to 6 reviews from your existing job flow. Profile starts looking active
-- **Months 2 to 3**: Map ranking starts shifting upward. You start appearing in the local 3-pack for searches you weren't winning before
-- **Months 3 to 6**: New-customer calls increase. These are the customers who weren't finding you because you were ranked 8th, and now you're ranked 3rd
-- **Month 6+**: The phone is ringing differently. Most of the new business is from search, not ads
+"They explained the price before starting."
 
-The first three months don't look dramatic. Month four and after is when the math starts showing up in your bank account.
+"They did not try to upsell me."
 
-## The review patterns that matter most for trades
+"They fixed it the same day."
 
-For HVAC, plumbing, roofing, and other trade services, the reviews that move customers the most are the ones that handle the two big fears:
+Those reviews answer the fears customers actually have. They also give Google AI clearer reasons to recommend you.
 
-**Fear 1: They're going to overcharge me.** A review that says "they showed up, gave me a fair quote, didn't try to upsell me" beats five generic "great service!" reviews
+The strategy says review signals are a high-value factor for AI search. It also says Google Business Profile signals carry major weight in local discovery. Plain English: your Google profile and reviews are not side projects. They are part of how customers decide who to call.
 
-**Fear 2: They're going to do shoddy work I'll have to redo.** A review like "called them back six months later for an unrelated issue and the original fix was still perfect" is gold
+## The fix is boring, which is why it works
 
-You don't write these reviews. Your customers do. But you only get them if you ask the customer at the end of the job, when they're still relieved that you fixed the problem.
+The fix is not a clever ad campaign.
 
-Most owners forget to ask in the moment. The truck pulls away, the customer goes back inside, and the moment is gone. Two days later they've moved on. The review never gets written.
+The fix is making sure the basics happen every time:
 
-## The mechanical fix
+- Your Google profile is complete and accurate
+- Your website shows the same services, hours, phone number, and service area
+- Customers get a simple review ask after the job
+- Reviews get professional replies
+- Trusted directory listings show the same business information
+- The profile stays active every month
 
-Send the customer a text within 30 minutes of leaving the job. One sentence: "Thanks for trusting us with that call today. If you have 30 seconds, here's the review link." One tap, review form opens, they write a sentence, done.
+Most owners already know they should do these things. The issue is time. A service owner is running trucks, schedules, parts, customers, and calls. The review ask gets missed. The Google profile gets old. The website says last year's hours.
 
-That's it. That's the entire system. And that's exactly what our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> service runs for HVAC, plumbing, roofing, and other trades.
+AI search does not care why it happened. It just sees a less reliable business picture.
 
-If you have 8 service calls a week and you ask after each one, with a 30 to 40% conversion rate on the ask, you'll add 12 to 16 new reviews a month. Steady. In 6 to 9 months your profile looks completely different. The map ranking moves. The phone rings differently.
+## What GetMeFound does
 
-You don't need Yelp ads. You don't need to pay for leads. You don't need to learn marketing. You need the ask to actually happen, every job, automatically.
+Get Found fixes the foundation in one setup. We clean up the Google profile, make the website match it, submit the core trusted directory listings, send the first review request campaign, and show the before-and-after score.
 
-And while you're at it — those emergency calls that come in after hours when you're already on another job? Our <a href="/pricing#relay" target="_blank" rel="noopener noreferrer">Relay</a> AI voice agent catches those too, so they don't bleed to the next plumber on the list.
+Stay Found keeps the profile from going quiet. That means fresh Google activity, monthly review requests, business info checks, staged directory listings, and a monthly visibility report.
 
-<a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">See how Review Automation works for trades</a>. Or [check what your current pace is leaving on the table](/#calculator).
+No dashboard. No contract. No guessing what changed.
+
+For trades, this matters because customers move fast. If Google AI and the customer both see you as the clear, current, trusted choice, you have a better chance of getting the call.
+
+## Want this done for you?
+
+GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
+
+[See if AI recommends you →](/report/ai-visibility)

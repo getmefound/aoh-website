@@ -78,6 +78,8 @@ const nextConfig: NextConfig = {
       { source: "/rankings/", destination: "/pricing#always-ready", permanent: true },
       { source: "/success-stories", destination: "/blog", permanent: true },
       { source: "/success-stories/", destination: "/blog", permanent: true },
+      { source: "/blog/after-hours-calls-ai-receptionist", destination: "/blog", permanent: true },
+      { source: "/blog/after-hours-calls-ai-receptionist/", destination: "/blog", permanent: true },
       { source: "/blog/google-vs-chatgpt-where-buyers-land", destination: "/blog/why-chatgpt-recommends-by-name", permanent: true },
       { source: "/blog/google-vs-chatgpt-where-buyers-land/", destination: "/blog/why-chatgpt-recommends-by-name", permanent: true },
       { source: "/blog/what-chatgpt-sees-when-it-looks-at-your-business", destination: "/blog/why-chatgpt-recommends-by-name", permanent: true },

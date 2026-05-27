@@ -1,6 +1,6 @@
 ---
-title: "Med spas: how one missing review can cost you four bookings"
-description: "The math in this industry is brutal. Your average ticket is high, your customer's decision is emotional, and they're reading every review before they walk in. Here's the cost of asking."
+title: "How stale reviews cost med spas bookings — GetMeFound"
+description: "Med spa bookings depend on recent trust signals, not old praise. GetMeFound — done for you, no contract."
 date: "2026-05-02"
 category: "Industry"
 coverImage: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&q=80&auto=format&fit=crop"
@@ -8,62 +8,88 @@ author:
   name: "Mike Egidio"
   role: "Founder, GetMeFound"
   avatar: "/team/mike.jpg"
-tags: ["Med Spa", "Reviews", "Local Search"]
+tags: ["Med Spa", "Reviews", "AI Search"]
 ---
 
-## The customer who almost booked you
+## A med spa customer is not just shopping
 
-A woman in her thirties is on her phone Tuesday night. She's been thinking about Botox for six months. She finally decided this is the week. She types your category into Google. Three med spas come up.
+A med spa customer is making a trust decision.
 
-She taps yours first because you're geographically closest. Your star rating is fine. Reviews look mostly good. But the most recent review is from eight months ago. She scrolls. The one before that is from a year and a half ago.
+They are thinking about their face, their skin, their money, and whether they will regret walking into the wrong place. That makes reviews more than a nice signal. Reviews are proof that real people felt safe enough to come in, get treated, and talk about it afterward.
 
-She backs out of your profile.
+Now add AI search to that decision.
 
-She taps the second one. 4.8 stars, 73 reviews, the most recent is from last week. She reads three of them. She books a consultation.
+A customer can ask Google AI or ChatGPT, "What is a good med spa near me?" The answer may name a few places. If your med spa has old reviews, an incomplete Google profile, or information that does not match your website, AI search has less reason to recommend you.
 
-That was a $400 first appointment, and probably the start of a $2,000-per-year client relationship. Lost in 90 seconds, before you knew she existed.
+That is how bookings get lost before your phone ever rings.
 
-## Why the math is uniquely brutal in this category
+This is not about scaring people into marketing. It is about matching how customers already choose. A person comparing med spas wants the place that feels current, careful, and easy to trust. If the visible proof is old, they keep looking. If another med spa has recent reviews, clear service details, current photos, and answers that match across Google and the website, that business feels like the safer call.
 
-Med spa pricing is high. A first-time Botox visit is $300 to $600 depending on units. A laser treatment package is $1,500 to $4,000. A monthly membership client is $200 to $500 a month for two or three years.
+## Stale reviews create doubt
 
-That means a *single* lost first-time client isn't a small loss. Conservatively, the lifetime value of a new med spa client is between $1,500 and $4,000. Not in promo numbers — in actual revenue across the first two years.
+An old review is not worthless. But it does not answer the question a nervous customer is asking.
 
-Now stack the math. If a stale review profile costs you one customer a week — and that's a conservative estimate based on what I see in our audits — you're losing $80,000 to $200,000 a year. Not in marketing dollars. In customers who came to your front door and turned around.
+They want to know:
 
-## The "four bookings" claim, explained
+- Are people still going there?
+- Are clients happy recently?
+- Does the med spa respond professionally?
+- Is the Google profile current?
+- Does the website match what Google says?
 
-A single missing review — the one your last patient meant to leave but you never asked for — is doing more damage than it looks like.
+If your last review was months ago, the customer fills in the blank. Maybe the business slowed down. Maybe the team changed. Maybe the experience is not the same.
 
-That review wasn't going to bring you one customer. It was going to:
+That may be unfair. But local customers make fast decisions with the signals they can see.
 
-1. **Push your most-recent-review date forward**, which kept your profile looking active
-2. **Get you past whatever 25- or 50-review threshold** mattered for the next 10 customers who would have skimmed your page
-3. **Add one specific, story-shaped review** that helped a nervous first-time client believe you
-4. **Boost your map ranking** enough to be one of the three businesses that comes up when somebody searches in your area
+AI search works the same way. It looks for confidence. Fresh reviews, a complete Google Business Profile, and consistent business information make the business easier to understand and recommend.
 
-Each of those is worth bookings. Stack them and you're looking at four-ish appointments a single review could have moved. Multiply that by every review you didn't ask for last year, and the picture gets uncomfortable.
+## Why med spas feel this harder
 
-## Why owners in this industry are uniquely bad at asking
+Some categories can survive a thin profile longer than others. Med spas have less room for doubt.
 
-Med spa owners — the good ones — are usually clinical people first. RN, PA, MD. They got into this because they're good at the work, not because they wanted to be marketers.
+The customer is not buying a simple errand. They are trusting you with appearance, comfort, and safety. They read reviews differently. A specific review about a clean space, a careful consultation, or a provider who explained options calmly can matter more than a generic five-star note.
 
-So review asks feel weird. "Hey, would you mind reviewing the Botox I just gave you?" feels gross. It feels like you're chasing somebody for a favor right after they paid you a lot of money.
+That is also why broad praise is not enough. "Great place" helps, but a recent review that mentions the consultation, the front desk, the treatment room, or the follow-up gives a nervous customer something concrete to believe. It gives AI search clearer language too. The more clearly customers describe the experience, the easier it is for Google AI to understand what the med spa is known for.
 
-I get it. But here's the reframe: your customer just had a great experience. They're glowing — figuratively, sometimes literally. They want to tell people about it. They just don't *think* to. A short text 30 minutes after they leave — "Glad we got to see you today! If you have 30 seconds, here's the review link." — converts because it's a nudge, not a request.
+The strategy says 45% of consumers now use AI for local recommendations, up from 6% one year ago. It also says AI platforms often need around 150+ reviews before recommending a business by name.
 
-The best med spa owners I know have stopped asking entirely. They have a system that texts every patient after every appointment. They never have to do it themselves. They never have to feel awkward. Reviews keep coming in, the profile stays fresh, the booking calendar stays full.
+That does not mean every med spa needs to hit that number tomorrow. It means the direction matters. If your competitor is collecting recent reviews and your profile is quiet, they are building trust while you are standing still.
 
-## What the next 90 days could look like
+That trust compounds. One fresh review helps the next customer feel better. A steady pattern of fresh reviews helps the whole profile feel alive. Over time, the med spa with the clearer, fresher story becomes easier for both people and AI search to choose.
 
-If your med spa has decent reviews but they've gone quiet, the path back is fast.
+## What fixing it looks like
 
-In a typical pattern we see with our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> service:
+Fixing it is not about begging for reviews.
 
-- **Month 1**: 4 to 8 new reviews come in from the existing patient flow
-- **Month 2**: Map ranking starts shifting. Profile views go up
-- **Month 3**: Booking calls start increasing. New consults from cold Google searches start showing up
+It is about building a steady, simple system:
 
-You're not paying for more ads. You're not training your front desk. Review Automation makes sure the patients you already have go from "thought about leaving a review" to "actually left one." It runs in the background while you work.
+- Make sure the Google profile is complete
+- Make sure the website and Google listing match
+- Ask real clients for reviews after appointments
+- Reply to reviews in a calm, professional voice
+- Keep services, hours, photos, and details current
+- Check the business information across trusted directory listings
 
-<a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">See how Review Automation works for med spas</a> — or [get a free check](/#calculator) on what your current profile is leaving on the table.
+GetMeFound handles this without giving you another system to manage.
+
+Get Found is the first setup. We clean up the profile, match the website to it, submit the core trusted directory listings, and send the first review request campaign.
+
+Stay Found keeps the work going. Each month, we help keep the profile active, send review requests, check for drift, and send a plain-English visibility report.
+
+## The owner test
+
+Pull up your Google profile like a first-time client would.
+
+Look at the most recent review date. Look at your services. Look at your hours. Then open your website and check whether the same information is there.
+
+If anything feels old, thin, or mismatched, that is what a customer sees. It is also what Google AI sees.
+
+The good news is that this is fixable. You do not need a brand-new brand. You need the trust signals around the business cleaned up and kept active.
+
+For a med spa, that can be the difference between being skipped and being recommended.
+
+## Want this done for you?
+
+GetMeFound fixes your Google profile, reviews, and AI visibility — done for you, no contract. Most local businesses see their likelihood of being found improve within the first month.
+
+[See if AI recommends you →](/report/ai-visibility)
