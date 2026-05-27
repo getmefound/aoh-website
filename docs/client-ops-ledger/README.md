@@ -36,6 +36,7 @@ The ledger is intentionally spreadsheet-first. Mike should be able to open it, s
 | `slack-agent-command-runbook.md` | How Mike talks to Manager, GHL Expert, Sales Manager, and approval gates through Slack-ready commands. |
 | `prospecting-core-setup-memory.md` | Durable memory for Mike's prospecting operating preference: core setup first, Manager only interrupts for human-needed blockers. |
 | `prospecting-cold-email-operating-plan.md` | Current cold email prospecting plan and first Smartlead readiness gate. |
+| `agent-jobs-operating-structure.md` | Scalable Monday/agent job structure for prospecting, signup, onboarding, recurring runs, reporting, upkeep, and upsell. |
 | `monday-prospecting-core-setup.md` | Monday board shape and first human-needed prospecting job. |
 | `monday-prospecting-core-setup-import.csv` | Monday-ready first job import row for Smartlead API access. |
 | `agent-jobs-template.csv` | Starter job queue format for agent work, budgets, approvals, and next actions. |
@@ -58,7 +59,8 @@ The ledger is intentionally spreadsheet-first. Mike should be able to open it, s
 9. Use `ghl-exit-migration-plan.md` as the source of truth for downgrading to $97, exporting GHL, rebuilding Review Automation/AI Visibility/Reach outside GHL, and cancellation gates.
 10. Use `mike-daily-agent-quickstart.md` for daily Slack usage, then `slack-agent-command-runbook.md`, `npm run agent:brief`, and `npm run morning:brief` for deeper setup and command details.
 11. Keep the Obsidian synced note `AOH Agent Model Routing and Morning Brief.md` current when model/provider or Morning Brief ownership changes.
-12. Move to a real database only after the spreadsheet becomes painful, likely around 15-25 active clients.
+12. Use `agent-jobs-operating-structure.md` before adding more Monday boards, groups, or recurring agent jobs.
+13. Move to a real database only after the spreadsheet becomes painful, likely around 15-25 active clients.
 
 ## Higher-Level Truth
 

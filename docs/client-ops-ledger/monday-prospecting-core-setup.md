@@ -1,25 +1,30 @@
 # Monday Prospecting Core Setup
 
-Status: live Monday board connected
+Status: live Monday board connected; expanding into company-wide Agent Jobs board
 Owner: Manager
 Recorded: 2026-05-27
 
 ## Board
 
-Board name: GMF Prospecting Jobs
+Board name: Agents Jobs
 
 Live board name: Agents Jobs
 
 Live board ID: `18415045648`
 
-Purpose: owner-visible work board for prospecting jobs, approvals, blockers, due dates, and proof links.
+Purpose: owner-visible work board for prospecting, signup, onboarding, launch, recurring runs, reports, upkeep, upsell, incidents, approvals, blockers, due dates, and proof links.
 
 ## Suggested Groups
 
 - Human Needed
-- Agent Working
-- Waiting On System
-- Ready For Review
+- 01 Prospecting - Cold Email
+- 02 Sales & Signup
+- 03 Client Onboarding
+- 04 Launch / First 14 Days
+- 05 Recurring Runs
+- 06 Client Success / Reports
+- 07 Upsell / Expansion
+- 08 Systems / Incidents
 - Done
 
 ## Suggested Columns
@@ -36,6 +41,19 @@ Purpose: owner-visible work board for prospecting jobs, approvals, blockers, due
 | Proof Link | Link/Text | Report, commit, trace, or runbook proof |
 | Next Action | Long Text | What happens next |
 | Notes | Long Text | Short context |
+| Client ID | Text | Stable client/account ID |
+| Client Name | Text | Business/client name |
+| Lifecycle | Status | Journey stage |
+| Service Line | Status | Offer/service line |
+| Job Type | Status | Work type |
+| Cadence | Status | One-time, daily, weekly, monthly, or event-triggered |
+| Risk Level | Status | Low, medium, high |
+| Approval Type | Status | None, Mike, client, technical, spend |
+| Reviewer | Text | Auditor/reviewer role |
+| Client Folder | Text | VPS/Drive/client folder path |
+| Source / Trigger | Text | Why the job exists |
+| Mission Control | Link | Owner-facing report/view |
+| Langfuse Trace | Link | Agent trace/debug proof when needed |
 
 ## Item #1
 
@@ -69,7 +87,7 @@ Notes: This is the first prospecting job because live Smartlead sends must not r
 |---|---:|---|---|
 | Refresh Smartlead API access | `12115656169` | Human Needed | Human Needed |
 | Connect Monday API to agents | `12115707896` | Done | Done |
-| Build prospecting Mission Control reports | `12115719355` | Agent Working | Agent Working |
+| Build prospecting Mission Control reports | `12115719355` | 01 Prospecting - Cold Email | Agent Working |
 
 ## Current Integration Status
 
@@ -124,5 +142,7 @@ npm run monday:agent-job -- --action create --role Manager --name "Refresh Smart
 Notify Slack when Manager sends a new job:
 
 ```bash
-npm run monday:agent-job -- --action create --role Manager --name "Build prospecting Mission Control reports" --group "Agent Working" --status "Agent Working" --agent-owner "Reporter / Systems Director" --system "Mission Control" --human-needed no --notify-slack --upsert
+npm run monday:agent-job -- --action create --role Manager --name "Build prospecting Mission Control reports" --group "01 Prospecting - Cold Email" --status "Agent Working" --agent-owner "Reporter / Systems Director" --system "Mission Control" --lifecycle "01 Prospecting - Cold Email" --service-line "Prospecting" --job-type "Reporting" --human-needed no --notify-slack --upsert
 ```
+
+Full journey structure: `docs/client-ops-ledger/agent-jobs-operating-structure.md`.

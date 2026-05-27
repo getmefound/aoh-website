@@ -9,9 +9,14 @@ const DEFAULT_SLACK_JOB_CHANNEL_ID = "C0ATTA4NBR8"; // #04-gmf-ops
 
 const GROUPS = [
   "Human Needed",
-  "Agent Working",
-  "Waiting on System",
-  "Ready for Review",
+  "01 Prospecting - Cold Email",
+  "02 Sales & Signup",
+  "03 Client Onboarding",
+  "04 Launch / First 14 Days",
+  "05 Recurring Runs",
+  "06 Client Success / Reports",
+  "07 Upsell / Expansion",
+  "08 Systems / Incidents",
   "Done",
 ];
 
@@ -27,6 +32,19 @@ const COLUMNS = [
   ["proofLink", "Proof Link", "link"],
   ["nextAction", "Next Action", "long_text"],
   ["budget", "Budget USD", "numbers"],
+  ["clientId", "Client ID", "text"],
+  ["clientName", "Client Name", "text"],
+  ["lifecycle", "Lifecycle", "status"],
+  ["serviceLine", "Service Line", "status"],
+  ["jobType", "Job Type", "status"],
+  ["cadence", "Cadence", "status"],
+  ["riskLevel", "Risk Level", "status"],
+  ["approvalType", "Approval Type", "status"],
+  ["reviewer", "Reviewer", "text"],
+  ["folderPath", "Client Folder", "text"],
+  ["sourceTrigger", "Source / Trigger", "text"],
+  ["missionControl", "Mission Control", "link"],
+  ["langfuseTrace", "Langfuse Trace", "link"],
 ];
 
 main().catch((error) => {
@@ -292,6 +310,19 @@ function buildColumnValues({ columns, args }) {
   if (args.proof) values[columns.proofLink.id] = linkValue(args.proof, args["proof-text"] || "Proof");
   if (args["next-action"]) values[columns.nextAction.id] = String(args["next-action"]);
   if (args.budget !== undefined) values[columns.budget.id] = String(args.budget);
+  if (args["client-id"]) values[columns.clientId.id] = String(args["client-id"]);
+  if (args["client-name"]) values[columns.clientName.id] = String(args["client-name"]);
+  if (args.lifecycle) values[columns.lifecycle.id] = { label: String(args.lifecycle) };
+  if (args["service-line"]) values[columns.serviceLine.id] = { label: String(args["service-line"]) };
+  if (args["job-type"]) values[columns.jobType.id] = { label: String(args["job-type"]) };
+  if (args.cadence) values[columns.cadence.id] = { label: String(args.cadence) };
+  if (args.risk) values[columns.riskLevel.id] = { label: String(args.risk) };
+  if (args["approval-type"]) values[columns.approvalType.id] = { label: String(args["approval-type"]) };
+  if (args.reviewer) values[columns.reviewer.id] = String(args.reviewer);
+  if (args["folder-path"]) values[columns.folderPath.id] = String(args["folder-path"]);
+  if (args["source-trigger"]) values[columns.sourceTrigger.id] = String(args["source-trigger"]);
+  if (args["mission-control"]) values[columns.missionControl.id] = linkValue(args["mission-control"], args["mission-control-text"] || "Mission Control");
+  if (args["langfuse-trace"]) values[columns.langfuseTrace.id] = linkValue(args["langfuse-trace"], args["langfuse-trace-text"] || "Langfuse trace");
   return values;
 }
 
@@ -299,9 +330,8 @@ function pickGroup({ groups, args }) {
   if (args.group && groups[String(args.group)]) return groups[String(args.group)];
   if (args["human-needed"] && booleanLabel(args["human-needed"]) === "Yes") return groups["Human Needed"];
   if (args.status && same(args.status, "Done")) return groups.Done;
-  if (args.status && same(args.status, "Ready for Review")) return groups["Ready for Review"];
-  if (args.status && same(args.status, "Waiting on System")) return groups["Waiting on System"];
-  return groups["Agent Working"];
+  if (args.lifecycle && groups[String(args.lifecycle)]) return groups[String(args.lifecycle)];
+  return groups["08 Systems / Incidents"];
 }
 
 async function monday(token, query, variables = {}) {
@@ -410,7 +440,7 @@ Examples:
   npm run monday:agent-job -- --action setup --role Manager
   npm run monday:agent-job -- --action list
   npm run monday:agent-job -- --action create --role Manager --name "Refresh Smartlead API access" --group "Human Needed" --status "Human Needed" --owner Mike --agent-owner "Manager / Systems Director" --system Smartlead --human-needed yes --priority High --due 2026-05-27 --budget 0 --proof "https://github.com/mje-gmf/website/blob/main/docs/client-ops-ledger/prospecting-smartlead-preflight-current.md" --proof-text "Smartlead preflight report" --next-action "Refresh the Smartlead API key, add it locally and in production, then rerun npm run prospecting:preflight." --upsert
-  npm run monday:agent-job -- --action create --role Manager --name "Build prospecting Mission Control reports" --group "Agent Working" --status "Agent Working" --agent-owner "Reporter / Systems Director" --system "Mission Control" --human-needed no --notify-slack --upsert
+  npm run monday:agent-job -- --action create --role Manager --name "Build prospecting Mission Control reports" --group "01 Prospecting - Cold Email" --status "Agent Working" --agent-owner "Reporter / Systems Director" --system "Mission Control" --lifecycle "01 Prospecting - Cold Email" --service-line "Prospecting" --job-type "Reporting" --human-needed no --notify-slack --upsert
   npm run monday:agent-job -- --action update --role Reporter --item-id 123 --status Done --human-needed no --notes "Proof attached."
 `);
 }
