@@ -11,43 +11,49 @@ const STEPS = [
     title: "We check what AI sees",
     body: "Your Google profile, website, and directories — reviewed against what AI actually looks for.",
     icon: (
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
         <circle cx="11" cy="11" r="8" />
         <path d="m21 21-4.3-4.3" />
       </svg>
     ),
-    accentColor: "text-amber-400",
-    iconBg: "bg-amber-400/10",
-    iconRing: "ring-amber-400/20",
+    accentColor: "text-amber-500",
+    iconBg: "bg-amber-500/15",
+    iconRing: "ring-amber-500/30",
     borderColor: "#f59e0b",
+    cardBg: "bg-amber-50/60",
+    numberColor: "text-amber-400/20",
   },
   {
     number: "02",
-    title: "We fix what’s invisible",
+    title: "We fix what's invisible",
     body: "Listings corrected, website matched, directories synced, first review requests sent.",
     icon: (
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
       </svg>
     ),
     accentColor: "text-[var(--color-accent)]",
-    iconBg: "bg-accent/10",
-    iconRing: "ring-accent/20",
+    iconBg: "bg-accent/15",
+    iconRing: "ring-accent/30",
     borderColor: "var(--color-accent)",
+    cardBg: "bg-green-50/60",
+    numberColor: "text-green-400/20",
   },
   {
     number: "03",
     title: "You see the difference",
     body: null,
     icon: (
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
       </svg>
     ),
-    accentColor: "text-emerald-400",
-    iconBg: "bg-emerald-400/10",
-    iconRing: "ring-emerald-400/20",
-    borderColor: "#34d399",
+    accentColor: "text-emerald-500",
+    iconBg: "bg-emerald-500/15",
+    iconRing: "ring-emerald-500/30",
+    borderColor: "#10b981",
+    cardBg: "bg-emerald-50/60",
+    numberColor: "text-emerald-400/20",
   },
 ];
 
@@ -64,16 +70,16 @@ function StepCard({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24, scale: 0.95 }}
+      initial={{ opacity: 0, y: 20, scale: 0.96 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{
         duration: 0.5,
         delay: index * 0.15,
         ease: [0.2, 0.8, 0.2, 1],
       }}
-      className="group relative flex flex-col rounded-2xl border border-border bg-(--color-bg-elevated) overflow-hidden shadow-lg shadow-slate-950/5 transition-shadow hover:shadow-xl h-full"
+      className={`group relative flex flex-col rounded-2xl border border-border/60 ${step.cardBg} overflow-hidden shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5 h-full`}
     >
-      {/* Animated top border */}
+      {/* Top accent border */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={inView ? { scaleX: 1 } : {}}
@@ -82,9 +88,9 @@ function StepCard({
         style={{ backgroundColor: step.borderColor }}
       />
 
-      <div className="p-6 flex flex-col flex-1">
+      <div className="p-5 flex flex-col flex-1">
         {/* Number + Icon row */}
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between mb-3">
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={inView ? { scale: 1, opacity: 1 } : {}}
@@ -95,17 +101,17 @@ function StepCard({
               stiffness: 200,
               damping: 12,
             }}
-            className={`flex h-12 w-12 items-center justify-center rounded-xl ring-1 ${step.iconBg} ${step.iconRing} ${step.accentColor}`}
+            className={`flex h-11 w-11 items-center justify-center rounded-xl ring-1 ${step.iconBg} ${step.iconRing} ${step.accentColor}`}
           >
             {step.icon}
           </motion.div>
-          <span className="font-mono text-4xl font-black text-text-body/[0.06] select-none">
+          <span className={`font-mono text-4xl font-black ${step.numberColor} select-none`}>
             {step.number}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-bold text-text-body mb-2">
+        <h3 className="text-base font-bold text-text-body mb-1.5">
           {step.title}
         </h3>
 
@@ -115,25 +121,24 @@ function StepCard({
             {step.body}
           </p>
         ) : (
-          /* Step 3: mini before/after visual */
           <div className="flex-1 flex flex-col">
-            <p className="text-sm text-text-muted mb-3">
+            <p className="text-sm text-text-muted mb-2">
               Before/after report in 48 hours:
             </p>
-            <div className="flex items-center gap-3 rounded-xl bg-(--color-bg-page) border border-border px-4 py-3">
+            <div className="flex items-center gap-3 rounded-lg bg-white/80 border border-border/50 px-3 py-2">
               <div className="text-center">
-                <span className="block text-xs text-text-muted/70 mb-0.5">Before</span>
-                <span className="block text-2xl font-black text-red-400/80">
+                <span className="block text-[10px] text-text-muted/70 mb-0.5">Before</span>
+                <span className="block text-xl font-black text-red-400/80">
                   <AnimatedNumber value={12} suffix="%" duration={800} />
                 </span>
               </div>
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-text-muted/40 shrink-0">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-text-muted/40 shrink-0">
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
               <div className="text-center">
-                <span className="block text-xs text-text-muted/70 mb-0.5">After</span>
-                <span className="block text-2xl font-black text-emerald-400">
+                <span className="block text-[10px] text-text-muted/70 mb-0.5">After</span>
+                <span className="block text-xl font-black text-emerald-500">
                   <AnimatedNumber value={89} suffix="%" duration={1200} />
                 </span>
               </div>
@@ -150,7 +155,7 @@ export function HowItWorks() {
     <section
       id="how-it-works"
       aria-labelledby="hiw-title"
-      className="scroll-mt-20 border-y border-border bg-(--color-bg-page) py-10 md:py-14"
+      className="scroll-mt-20 border-y border-border bg-(--color-bg-page) py-8 md:py-12"
     >
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
@@ -159,24 +164,24 @@ export function HowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
-          className="mx-auto max-w-2xl text-center mb-12"
+          className="mx-auto max-w-2xl text-center mb-8"
         >
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-text-muted mb-3">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-text-muted mb-2">
             Get Found / $149
           </p>
           <h2
             id="hiw-title"
-            className="text-3xl font-bold leading-tight text-text-body md:text-4xl"
+            className="text-2xl font-bold leading-tight text-text-body md:text-3xl"
           >
             Done for you. Done in 48 hours.
           </h2>
-          <p className="mt-3 text-base leading-relaxed text-text-muted max-w-lg mx-auto">
+          <p className="mt-2 text-sm leading-relaxed text-text-muted max-w-lg mx-auto md:text-base">
             We check what Google and AI see. We fix what&apos;s holding you back. You get the proof.
           </p>
         </motion.div>
 
         {/* Horizontal step cards */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {STEPS.map((step, i) => (
             <StepCard key={step.number} step={step} index={i} />
           ))}
@@ -188,11 +193,11 @@ export function HowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
-          className="mt-10 flex flex-col items-center gap-5 sm:flex-row sm:justify-center"
+          className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
         >
           <Link
             href="/checkout/get-found-refresh"
-            className="inline-flex items-center gap-2 rounded-xl bg-accent px-7 py-3.5 text-base font-semibold text-(--color-accent-text) transition hover:-translate-y-0.5 hover:bg-(--color-accent-hover) hover:shadow-lg hover:shadow-(--color-accent)/25"
+            className="inline-flex items-center gap-2 rounded-xl bg-accent px-7 py-3 text-base font-semibold text-(--color-accent-text) transition hover:-translate-y-0.5 hover:bg-(--color-accent-hover) hover:shadow-lg hover:shadow-(--color-accent)/25"
           >
             Get Found for $149
             <span aria-hidden="true">-&gt;</span>
