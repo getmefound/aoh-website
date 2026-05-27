@@ -1,6 +1,6 @@
 # Systems Director Readiness Check
 
-Generated: 2026-05-27T11:06:38.486Z
+Generated: 2026-05-27T11:07:14.105Z
 Owner agent: Systems Director
 Reviewer: Auditor
 Human approver: Mike
@@ -23,7 +23,7 @@ Human approver: Mike
 
 | Area | Status | Finding | Proof | Next action |
 |---|---|---|---|---|
-| GitHub | PASS | Local repo is on main, points at the GMF GitHub repo, and has no local-only changes. | ## main...origin/main [ahead 1] |  |
+| GitHub | PASS | Local repo is on main, points at the GMF GitHub repo, and has no local-only changes. | ## main...origin/main |  |
 | GitHub archive | PASS | Old AOH repo is still present as an archive remote. | Remote: aoh-archive |  |
 | Runbooks | PASS | Recovery docs are present and point at the current GMF repo/docs path. | docs/SYSTEMS_DIRECTOR_BACKUP_SECURITY_RUNBOOK.md<br>docs/BACKUP_READINESS_CHECKLIST.md<br>docs/LAPTOP_DEATH_RECOVERY.md<br>docs/GETMEFOUND_STACK_STATUS.md |  |
 | Vercel link | PASS | Local project is linked to the active GetMeFound Vercel project. | project=getmefound; projectId=prj_NyxkjegahECBSR2MYZ4wTGVG0tMb; orgId=team_3K7fCmjAF4RxcNGqxfDgoY53 |  |
