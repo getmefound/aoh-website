@@ -1,21 +1,20 @@
 # Systems Director Readiness Check
 
-Generated: 2026-05-27T10:56:16.644Z
+Generated: 2026-05-27T11:06:38.486Z
 Owner agent: Systems Director
 Reviewer: Auditor
 Human approver: Mike
 
 ## Summary
 
-- Pass: 9
-- Warn: 5
+- Pass: 10
+- Warn: 4
 - Fail: 0
 - Skipped: 0
 
 
 ## Watch Items
 
-- GitHub: Repo needs attention: local working tree has uncommitted changes.
 - Vercel domains: Production and legacy domains are both still present in the Vercel team.
 - Supabase backups: Supabase backup/PITR status cannot be proven from this repo alone.
 - VPS backups: Hostinger VPS backup/snapshot status cannot be proven from this repo alone.
@@ -24,7 +23,7 @@ Human approver: Mike
 
 | Area | Status | Finding | Proof | Next action |
 |---|---|---|---|---|
-| GitHub | WARN | Repo needs attention: local working tree has uncommitted changes. | ## main...origin/main<br> M .gitignore<br> M ANTIGRAVITY_START_HERE.md<br> M docs/BACKUP_READINESS_CHECKLIST.md<br> M docs/LAPTOP_DEATH_RECOVERY.md<br> M package.json<br>?? .github/workflows/systems-director-readiness.yml<br>?? docs/SYSTEMS_DIRECTOR_BACKUP_SECURITY_RUNBOOK.md<br>?? docs/client-ops-ledger/systems-director-readiness-current.md<br>?? scripts/systems-director-readiness.mjs | Codex should separate intentional work from scratch files, then commit/push finished changes. |
+| GitHub | PASS | Local repo is on main, points at the GMF GitHub repo, and has no local-only changes. | ## main...origin/main [ahead 1] |  |
 | GitHub archive | PASS | Old AOH repo is still present as an archive remote. | Remote: aoh-archive |  |
 | Runbooks | PASS | Recovery docs are present and point at the current GMF repo/docs path. | docs/SYSTEMS_DIRECTOR_BACKUP_SECURITY_RUNBOOK.md<br>docs/BACKUP_READINESS_CHECKLIST.md<br>docs/LAPTOP_DEATH_RECOVERY.md<br>docs/GETMEFOUND_STACK_STATUS.md |  |
 | Vercel link | PASS | Local project is linked to the active GetMeFound Vercel project. | project=getmefound; projectId=prj_NyxkjegahECBSR2MYZ4wTGVG0tMb; orgId=team_3K7fCmjAF4RxcNGqxfDgoY53 |  |
