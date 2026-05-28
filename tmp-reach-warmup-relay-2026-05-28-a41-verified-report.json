@@ -1,0 +1,199 @@
+[
+  {
+    "email": "c.holder@ctvetcenter.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "invalid",
+    "flags": [
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "webmaster@veternet.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "unknown",
+    "flags": [],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "info@vec.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "catchall",
+    "flags": [
+      "smtp_connectable",
+      "accepts_all",
+      "role_account",
+      "has_dns"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "trina@foothillvet.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "invalid",
+    "flags": [
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "justina_marie54@hotmail.com",
+    "decision": "keep",
+    "provider": "neverbounce",
+    "status": "valid",
+    "flags": [
+      "free_email_host",
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "mooschue@gmail.com",
+    "decision": "keep",
+    "provider": "neverbounce",
+    "status": "valid",
+    "flags": [
+      "free_email_host",
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "andrew.triolo@vcaantech.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "catchall",
+    "flags": [
+      "smtp_connectable",
+      "accepts_all",
+      "has_dns",
+      "has_dns_mx"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "amykauz@yahoo.com",
+    "decision": "keep",
+    "provider": "neverbounce",
+    "status": "valid",
+    "flags": [
+      "free_email_host",
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "tcoronado@aetcenter.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "unknown",
+    "flags": [
+      "has_dns",
+      "has_dns_mx",
+      "connect_fails"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "ravenribbs@gmail.com",
+    "decision": "keep",
+    "provider": "neverbounce",
+    "status": "valid",
+    "flags": [
+      "free_email_host",
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "mpapero3@aol.com",
+    "decision": "keep",
+    "provider": "neverbounce",
+    "status": "valid",
+    "flags": [
+      "free_email_host",
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "twilightgo@aol.com",
+    "decision": "keep",
+    "provider": "neverbounce",
+    "status": "valid",
+    "flags": [
+      "free_email_host",
+      "has_dns",
+      "smtp_connectable"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "info@unitedveterinarycenter.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "unknown",
+    "flags": [],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "david@veg.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "unknown",
+    "flags": [
+      "smtp_connectable",
+      "has_dns",
+      "has_dns_mx"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "bloodbank@veg.vet",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "unknown",
+    "flags": [
+      "smtp_connectable",
+      "has_dns",
+      "has_dns_mx"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "asheville@veg.vet",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "unknown",
+    "flags": [
+      "smtp_connectable",
+      "has_dns",
+      "has_dns_mx"
+    ],
+    "suggestedCorrection": ""
+  },
+  {
+    "email": "sales@salemvalleyvet.com",
+    "decision": "remove",
+    "provider": "neverbounce",
+    "status": "invalid",
+    "flags": [
+      "smtp_connectable",
+      "role_account",
+      "has_dns",
+      "has_dns_mx"
+    ],
+    "suggestedCorrection": ""
+  }
+]
