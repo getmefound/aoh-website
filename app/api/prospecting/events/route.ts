@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { classifyCampaignReply, normalizeCampaignLane } from "@/lib/campaign-reply-router";
 import { createAgentTask, logEmailEvent } from "@/lib/ops-store";
 import { updateVisibilityReportsByEmail } from "@/lib/visibility-reports";
+import { supabaseRest } from "@/lib/supabase-rest";
+import { sendSmartleadThreadReply } from "@/lib/smartlead";
 
 type ProspectingEventKind =
   | "reply"
@@ -23,6 +25,11 @@ type ProspectingEvent = {
   replyText: string;
   campaignLane: ReturnType<typeof normalizeCampaignLane>;
   providerId: string;
+  campaignId: string;
+  leadId: string;
+  emailStatsId: string;
+  replyMessageId: string;
+  replyReceivedAt: string;
   rawEventType: string;
   payload: Record<string, unknown>;
 };
@@ -146,7 +153,25 @@ async function applyEventEffects(event: ProspectingEvent, decision: ReturnType<t
   });
   effects.push({ action: `log_email_event:${emailEventType}`, ok: emailLog.ok, detail: emailLog.ok ? undefined : emailLog.error });
 
+  if (event.email && event.kind === "reply" && event.campaignLane === "gmf_visibility") {
+    const reportReply = await handleGmfReportReply(event, decision);
+    effects.push(...reportReply);
+  }
+
   if (event.email && decision.shouldSuppressContact) {
+    const suppressionUpdate = await updateProspectingLeadByEmail(event.email, {
+      pipeline_stage: "suppressed",
+      status: event.kind === "hard_bounce" ? "hard_bounced" : event.kind === "complaint" ? "complained" : "suppressed",
+      last_reply_intent: decision.intent,
+      last_reply_at: new Date().toISOString(),
+      last_reply_text: event.replyText.slice(0, 1000),
+      smartlead_campaign_id: event.campaignId || "",
+      smartlead_lead_id: event.leadId || "",
+      smartlead_email_stats_id: event.emailStatsId || "",
+      updated_at: new Date().toISOString(),
+    });
+    effects.push({ action: "prospecting_pipeline_suppressed", ok: suppressionUpdate.ok, detail: suppressionUpdate.ok ? undefined : suppressionUpdate.error });
+
     const reportUpdate = await updateVisibilityReportsByEmail({
       email: event.email,
       reportStatus: event.kind === "hard_bounce" || event.kind === "complaint" ? "blocked" : "closed",
@@ -164,6 +189,14 @@ async function applyEventEffects(event: ProspectingEvent, decision: ReturnType<t
   }
 
   if (event.email && (event.kind === "form_fill" || event.kind === "purchase")) {
+    const pipelineUpdate = await updateProspectingLeadByEmail(event.email, {
+      pipeline_stage: event.kind === "purchase" ? "purchased" : "form_fill",
+      status: event.kind === "purchase" ? "purchased_get_found" : "form_fill",
+      last_reply_intent: event.kind,
+      updated_at: new Date().toISOString(),
+    });
+    effects.push({ action: "prospecting_pipeline_form_or_purchase", ok: pipelineUpdate.ok, detail: pipelineUpdate.ok ? undefined : pipelineUpdate.error });
+
     const reportUpdate = await updateVisibilityReportsByEmail({
       email: event.email,
       reportStatus: event.kind === "purchase" ? "closed" : "sent",
@@ -180,7 +213,8 @@ async function applyEventEffects(event: ProspectingEvent, decision: ReturnType<t
     effects.push({ action: "update_visibility_reports_by_email", ok: reportUpdate.ok, detail: reportUpdate.ok ? undefined : reportUpdate.error });
   }
 
-  if (decision.shouldCreateHumanTask) {
+  const positiveReportSent = effects.some((effect) => effect.action === "smartlead_reply_report_url" && effect.ok);
+  if (decision.shouldCreateHumanTask && !positiveReportSent) {
     const task = await createAgentTask({
       title: `Prospecting reply/event needs Sales Rep - ${event.businessName || event.email || "unknown"}`,
       kind: "gmf_prospecting_event",
@@ -200,6 +234,176 @@ async function applyEventEffects(event: ProspectingEvent, decision: ReturnType<t
 
   return effects;
 }
+
+async function handleGmfReportReply(event: ProspectingEvent, decision: ReturnType<typeof decideEvent>) {
+  const effects: Array<{ action: string; ok: boolean; detail?: string }> = [];
+  const positiveIntent = isStrictPositiveReportRequest(event.replyText);
+  const now = new Date().toISOString();
+
+  if (!positiveIntent) {
+    const stage = await updateProspectingLeadByEmail(event.email, {
+      pipeline_stage: "manual_review",
+      last_reply_intent: decision.intent,
+      last_reply_at: now,
+      last_reply_text: event.replyText.slice(0, 1000),
+      smartlead_campaign_id: event.campaignId || "",
+      smartlead_lead_id: event.leadId || "",
+      smartlead_email_stats_id: event.emailStatsId || "",
+      updated_at: now,
+    });
+    effects.push({ action: "prospecting_pipeline_manual_review", ok: stage.ok, detail: stage.ok ? undefined : stage.error });
+    return effects;
+  }
+
+  const lead = await getProspectingLeadForReply(event.email);
+  effects.push({ action: "lookup_prospecting_lead", ok: lead.ok, detail: lead.ok ? undefined : lead.error });
+  if (!lead.ok) {
+    await createReportReplyTask(event, "Could not find prospecting lead/report URL for a positive reply.");
+    effects.push({ action: "route_positive_reply_manual", ok: true, detail: "missing_prospecting_lead" });
+    return effects;
+  }
+
+  const reportUrl = lead.data.report_url?.trim();
+  if (!reportUrl) {
+    await createReportReplyTask(event, "Positive reply matched, but the prospecting lead has no report_url.");
+    const stage = await updateProspectingLeadByEmail(event.email, {
+      pipeline_stage: "manual_review",
+      last_reply_intent: "positive_missing_report_url",
+      last_reply_at: now,
+      last_reply_text: event.replyText.slice(0, 1000),
+      updated_at: now,
+    });
+    effects.push({ action: "prospecting_pipeline_manual_review", ok: stage.ok, detail: stage.ok ? "missing_report_url" : stage.error });
+    return effects;
+  }
+
+  if (!event.campaignId || !event.emailStatsId) {
+    await createReportReplyTask(event, "Positive reply matched, but SmartLead campaign_id or email_stats_id was missing from the webhook.");
+    const stage = await updateProspectingLeadByEmail(event.email, {
+      pipeline_stage: "manual_review",
+      last_reply_intent: "positive_missing_smartlead_thread_id",
+      last_reply_at: now,
+      last_reply_text: event.replyText.slice(0, 1000),
+      updated_at: now,
+    });
+    effects.push({ action: "prospecting_pipeline_manual_review", ok: stage.ok, detail: stage.ok ? "missing_smartlead_thread_id" : stage.error });
+    return effects;
+  }
+
+  const reply = renderReportReply({
+    ownerFirstName: lead.data.owner_first_name || "there",
+    businessName: lead.data.business_name || event.businessName || "your business",
+    reportUrl,
+  });
+
+  const smartlead = await sendSmartleadThreadReply({
+    campaignId: event.campaignId,
+    emailStatsId: event.emailStatsId,
+    emailBody: reply,
+    toEmail: event.email,
+    toFirstName: lead.data.owner_first_name || "",
+    replyMessageId: event.replyMessageId || "",
+    replyEmailBody: event.replyText || "",
+    replyEmailTime: event.replyReceivedAt || now,
+  });
+  effects.push({ action: "smartlead_reply_report_url", ok: smartlead.ok, detail: smartlead.ok ? undefined : smartlead.error });
+
+  const stage = await updateProspectingLeadByEmail(event.email, {
+    pipeline_stage: smartlead.ok ? "report_sent" : "manual_review",
+    status: smartlead.ok ? "report_sent" : "held",
+    last_reply_intent: smartlead.ok ? "positive_report_sent" : "positive_report_send_failed",
+    last_reply_at: now,
+    last_reply_text: event.replyText.slice(0, 1000),
+    smartlead_campaign_id: event.campaignId,
+    smartlead_lead_id: event.leadId || "",
+    smartlead_email_stats_id: event.emailStatsId,
+    report_sent_at: smartlead.ok ? now : null,
+    updated_at: now,
+  });
+  effects.push({ action: "prospecting_pipeline_report_sent", ok: stage.ok, detail: stage.ok ? undefined : stage.error });
+
+  if (!smartlead.ok) {
+    await createReportReplyTask(event, `SmartLead report reply failed: ${smartlead.error}`);
+  }
+
+  return effects;
+}
+
+function isStrictPositiveReportRequest(replyText: string) {
+  const text = replyText.trim().toLowerCase();
+  if (!text) return false;
+  if (matchesAnyText(text, AMBIGUOUS_OR_OBJECTION_PATTERNS)) return false;
+  return matchesAnyText(text, POSITIVE_REPORT_PATTERNS);
+}
+
+async function getProspectingLeadForReply(email: string) {
+  const query = `select=email,business_name,owner_first_name,report_url,pipeline_stage&email=eq.${encodeURIComponent(email)}&limit=1`;
+  const result = await supabaseRest<Array<{ email: string; business_name: string; owner_first_name: string; report_url: string; pipeline_stage: string }>>(
+    "prospecting_leads",
+    { query },
+  );
+  if (!result.ok) return result;
+  const row = result.data[0];
+  return row ? { ok: true as const, status: result.status, data: row } : { ok: false as const, status: 404, error: "Prospecting lead not found." };
+}
+
+async function updateProspectingLeadByEmail(email: string, body: Record<string, unknown>) {
+  return supabaseRest("prospecting_leads", {
+    method: "PATCH",
+    query: `email=eq.${encodeURIComponent(email)}`,
+    body,
+    prefer: "return=minimal",
+  });
+}
+
+async function createReportReplyTask(event: ProspectingEvent, reason: string) {
+  return createAgentTask({
+    title: `Positive GMF reply needs Sales Rep - ${event.businessName || event.email}`,
+    kind: "gmf_positive_reply_manual",
+    priority: "high",
+    source: "smartlead/prospecting-events",
+    payload: {
+      email: event.email,
+      businessName: event.businessName || null,
+      campaignId: event.campaignId || null,
+      leadId: event.leadId || null,
+      emailStatsId: event.emailStatsId || null,
+      replyText: event.replyText || null,
+      reason,
+      nextAction: "Sales Rep sends the report manually in-thread only after verifying the report URL and SmartLead thread identifiers.",
+    },
+  });
+}
+
+function renderReportReply(input: { ownerFirstName: string; businessName: string; reportUrl: string }) {
+  return `Hi ${input.ownerFirstName},
+
+Awesome - here's your free visibility report for ${input.businessName}:
+${input.reportUrl}
+
+It shows your AI Visibility Score, what's helping or hurting you on Google and with AI like ChatGPT and Gemini, and what's fixable. About two minutes to scan - no account needed.
+
+A few items are locked (the deeper technical work we handle with Get Found), but you'll see plenty for free.
+
+Take a look and let me know what jumps out - happy to answer anything.
+
+- Mike`;
+}
+
+function matchesAnyText(text: string, patterns: RegExp[]) {
+  return patterns.some((pattern) => pattern.test(text));
+}
+
+const POSITIVE_REPORT_PATTERNS = [
+  /^(yes|yep|yeah|sure|ok|okay|please|absolutely|send it|send over|send me it|send me the report|send the report|please send|sounds good|i'?d like to see it|i would like to see it|interested)\.?$/i,
+  /\b(yes|yep|yeah|sure|okay|send it|please send|send over)\b/i,
+  /\b(yes please|sure send|send it over|send me the free report|please send the report|would love to see it|happy to take a look)\b/i,
+];
+
+const AMBIGUOUS_OR_OBJECTION_PATTERNS = [
+  /\?$/,
+  /\b(how much|price|cost|who is this|what is this|why|call me|book|schedule|demo|unsubscribe|stop|remove|not interested|no thanks|already|later|maybe|info|details|more information)\b/i,
+];
 
 function emailEventTypeFor(event: ProspectingEvent, decision: ReturnType<typeof decideEvent>) {
   if (event.kind === "opt_out" || decision.intent === "optout") return "unsubscribe";
@@ -244,6 +448,31 @@ function normalizeProspectingEvent(body: Record<string, unknown>): ProspectingEv
       pickString(body, ["id", "event_id", "eventId", "lead_id", "leadId", "message_id", "messageId"]) ??
       pickNestedString(body, ["lead", "id"]) ??
       "",
+    campaignId:
+      pickString(body, ["campaign_id", "campaignId"]) ??
+      pickNestedString(body, ["campaign", "id"]) ??
+      pickNestedString(body, ["data", "campaign_id"]) ??
+      "",
+    leadId:
+      pickString(body, ["lead_id", "leadId"]) ??
+      pickNestedString(body, ["lead", "id"]) ??
+      pickNestedString(body, ["data", "lead_id"]) ??
+      "",
+    emailStatsId:
+      pickString(body, ["email_stats_id", "emailStatsId", "email_statsid"]) ??
+      pickNestedString(body, ["email_stats", "id"]) ??
+      pickNestedString(body, ["emailStats", "id"]) ??
+      pickNestedString(body, ["reply", "email_stats_id"]) ??
+      pickNestedString(body, ["data", "email_stats_id"]) ??
+      "",
+    replyMessageId:
+      pickString(body, ["reply_message_id", "replyMessageId", "message_id", "messageId"]) ??
+      pickNestedString(body, ["reply", "message_id"]) ??
+      "",
+    replyReceivedAt:
+      pickString(body, ["reply_received_at", "received_at", "timestamp"]) ??
+      pickNestedString(body, ["reply", "received_at"]) ??
+      "",
     rawEventType: rawEventType || "",
     payload: safePayload(body),
   };
@@ -265,12 +494,15 @@ function normalizeEventKind(rawEventType: string, replyText: string): Prospectin
 function authorize(req: NextRequest): { ok: true } | { ok: false; status: number; error: string } {
   const expected =
     process.env.GMF_PROSPECTING_EVENTS_TOKEN?.trim() ||
-    process.env.CAMPAIGN_REPLY_ROUTER_TOKEN?.trim();
+    process.env.CAMPAIGN_REPLY_ROUTER_TOKEN?.trim() ||
+    process.env.GMF_INTERNAL_API_TOKEN?.trim();
   const testBypass = process.env.REPORT_TEST_BYPASS_TOKEN?.trim();
   const provided =
     req.headers.get("x-gmf-prospecting-events-token")?.trim() ??
     req.headers.get("x-campaign-reply-router-token")?.trim() ??
-    req.headers.get("authorization")?.replace(/^Bearer\s+/i, "").trim();
+    req.headers.get("authorization")?.replace(/^Bearer\s+/i, "").trim() ??
+    req.nextUrl.searchParams.get("token")?.trim() ??
+    req.nextUrl.searchParams.get("gmf_token")?.trim();
 
   if (expected) {
     return provided === expected
@@ -285,7 +517,7 @@ function authorize(req: NextRequest): { ok: true } | { ok: false; status: number
   return {
     ok: false,
     status: 503,
-    error: "GMF_PROSPECTING_EVENTS_TOKEN or CAMPAIGN_REPLY_ROUTER_TOKEN is not configured.",
+    error: "GMF_PROSPECTING_EVENTS_TOKEN, CAMPAIGN_REPLY_ROUTER_TOKEN, or GMF_INTERNAL_API_TOKEN is not configured.",
   };
 }
 

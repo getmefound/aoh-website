@@ -20,11 +20,11 @@ Auditor: Systems Director / Sender / Auditor
 
 | Campaign | Status | Leads | Senders | Sequences | Daily Cap | Aggregate |
 |---|---|---:|---:|---:|---:|---|
-| GetMeFound - CT Med Spa Visibility Seed - 2026-06-01 (3379589) | PAUSED | 3 | 3 | 1 | 3 | HOLD |
+| GMF Visibility Engine Seed - 2026-06-01 (3379589) | PAUSED | 3 | 3 | 4 | 3 | PASS |
 
 ## Findings
 
-### GetMeFound - CT Med Spa Visibility Seed - 2026-06-01 (3379589)
+### GMF Visibility Engine Seed - 2026-06-01 (3379589)
 
 | Status | Check | Detail |
 |---|---|---|
@@ -49,8 +49,17 @@ Auditor: Systems Director / Sender / Auditor
 | PASS | sender mike@getmefoundlocal.com | No tracking domain is set. |
 | PASS | sender mike@getmefoundlocal.com | Mailbox cap is 20/day. |
 | PASS | sequence 1 | Opt-out/stop language exists. |
-| HOLD | sequence 1 | Add physical mailing address: 13727 SW 152nd St. #1236, Miami, FL 33177. |
+| PASS | sequence 2 | Opt-out/stop language exists. |
+| PASS | sequence 3 | Opt-out/stop language exists. |
+| PASS | sequence 4 | Opt-out/stop language exists. |
+| PASS | sequence 1 | Physical mailing address exists. |
+| PASS | sequence 2 | Physical mailing address exists. |
+| PASS | sequence 3 | Physical mailing address exists. |
+| PASS | sequence 4 | Physical mailing address exists. |
 | PASS | sequence 1 | Link count is 0. |
+| PASS | sequence 2 | Link count is 0. |
+| PASS | sequence 3 | Link count is 0. |
+| PASS | sequence 4 | Link count is 0. |
 
 ## Operating Interpretation
 

@@ -36,7 +36,7 @@ async function main() {
   const verified = verifyEmails ? await verifyLeadEmails(withCompetitors, config) : withCompetitors;
   const warmup = readSmartleadWarmup(config);
   const capacity = computeSmartleadCapacity(warmup, config);
-  const evaluated = verified.map((lead) => evaluateLead(lead, config));
+  const evaluated = await evaluateLeadsWithVisibilityScore(verified, config, args);
   const sendable = assignSenders(evaluated.filter((lead) => lead.status === "ready"), capacity, config);
   const sequence = buildSequencePacket(config, capacity);
   const nurture = buildNurturePacket(config);
@@ -215,6 +215,7 @@ function normalizeLead(row, config) {
     latestReviewDate,
     daysSinceLastReview,
     businessStatus: pick(row, ["business_status", "status", "place_status"]),
+    placeId: pick(row, ["place_id", "google_place_id", "placeId", "google_id"]),
     locationLink: pick(row, ["location_link", "place_link", "google_maps_url"]),
     competitorName: pick(row, ["competitor_name", "nearby_competitor_name"]),
     competitorReviewCount: parseCount(pick(row, ["competitor_review_count", "nearby_competitor_review_count"])),
@@ -343,6 +344,112 @@ function computeDaysSinceReview(dateStr) {
   return NaN;
 }
 
+async function evaluateLeadsWithVisibilityScore(rows, config, args) {
+  const client = buildVisibilityScoreClient(config, args);
+  const evaluated = [];
+  for (const lead of rows) {
+    evaluated.push(await evaluateLead(lead, config, client));
+  }
+  return evaluated;
+}
+
+function buildVisibilityScoreClient(config, args) {
+  const rawUrl =
+    String(args["score-api-url"] ?? "").trim() ||
+    process.env.GMF_VISIBILITY_SCORE_URL?.trim() ||
+    `${String(process.env.GMF_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || config.brand?.baseUrl || "https://getmefound.ai").replace(/\/+$/, "")}/api/visibility-score`;
+  return {
+    url: rawUrl,
+    token: process.env.GMF_INTERNAL_API_TOKEN?.trim() || "",
+    timeoutMs: boundedNumber(args["score-timeout-ms"], 5_000, 120_000, 45_000),
+  };
+}
+
+async function fetchVisibilityScore(lead, client) {
+  if (!client.token) {
+    return { ok: false, blocker: "missing_visibility_score_api_token", status: "error" };
+  }
+
+  const body = {
+    business_name: lead.name,
+    city: lead.city || lead.sourceGeo || lead.state,
+    category: lead.category || lead.sourceCategory,
+    place_id: lead.placeId || "",
+    website: lead.website || "",
+    contact_email: lead.email || "",
+    source: "gmf_cold_outreach_pipeline",
+  };
+
+  const response = await fetch(client.url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${client.token}`,
+      "x-api-key": client.token,
+    },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(client.timeoutMs),
+  }).catch((error) => ({
+    ok: false,
+    status: 0,
+    text: async () => error instanceof Error ? error.message : "Unknown visibility-score fetch error.",
+  }));
+
+  const text = await response.text().catch(() => "");
+  const payload = parseJson(text) ?? {};
+  if (!response.ok) {
+    return {
+      ok: false,
+      blocker: `visibility_score_api_${response.status || "network_error"}`,
+      status: "error",
+      payload,
+      error: text.slice(0, 300),
+    };
+  }
+
+  if (payload.status === "insufficient_data") {
+    return { ok: false, blocker: "visibility_score_insufficient_data", status: "insufficient_data", payload };
+  }
+
+  const missing = [];
+  if (!payload.worst_gap) missing.push("worst_gap");
+  if (!payload.gap_hook) missing.push("gap_hook");
+  if (!payload.report_url) missing.push("report_url");
+  if (!Number.isFinite(Number(payload.visibility_score))) missing.push("visibility_score");
+  if (missing.length) {
+    return {
+      ok: false,
+      blocker: `visibility_score_missing_${missing.join("_")}`,
+      status: "insufficient_data",
+      payload,
+    };
+  }
+
+  return { ok: true, status: "ok", payload };
+}
+
+function signalStatusFromScore(score, id) {
+  const signal = asArray(score?.signals).find((item) => Number(item?.id) === id);
+  return typeof signal?.status === "string" ? signal.status : "";
+}
+
+function signalStatusesFromScore(score) {
+  return Object.fromEntries(
+    asArray(score?.signals)
+      .filter((item) => Number.isFinite(Number(item?.id)))
+      .map((item) => [String(item.id), item.status ?? ""]),
+  );
+}
+
+function segmentFromWorstGap(worstGap) {
+  const key = String(worstGap ?? "");
+  if (key === "behind_nearby_competitor") return { id: "behind_nearby_competitor", label: "behind a nearby competitor", severity: 0.95 };
+  if (key === "few_reviews") return { id: "very_few_reviews", label: "very few reviews", severity: 0.9 };
+  if (key === "missing_hours" || key === "few_photos") return { id: "missing_hours_photos", label: "missing hours/photos", severity: 0.8 };
+  if (key === "no_website" || key === "thin_profile" || key === "stale_reviews") return { id: "weak_ai_search_readiness", label: "weak AI/search readiness", severity: 0.7 };
+  return { id: key || "", label: key || "", severity: 0.5 };
+}
+
 function deriveOwnerFirstName(email, contactName) {
   // Try contact name first
   if (contactName) {
@@ -367,8 +474,8 @@ function capitalize(str) {
 // ─── Supabase upsert ─────────────────────────────────────────────────────────
 
 async function writeLeadsToSupabase(rows) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() || process.env.SUPABASE_SECRET_KEY?.trim();
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()?.replace(/\/+$/, "");
+  const key = process.env.SUPABASE_SECRET_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
   if (!url || !key) {
     console.warn("[supabase] SUPABASE_URL or SERVICE_ROLE_KEY not set — skipping Supabase write.");
@@ -387,6 +494,7 @@ async function writeLeadsToSupabase(rows) {
     country: row.country || "US",
     category: row.category || "",
     status: row.status || "evaluated",
+    pipeline_stage: row.pipelineStage || (row.status === "ready" ? "cold" : row.status || "evaluated"),
     blockers: row.blockers || "",
     source_tier: row.sourceTier || "",
     source_tier_label: row.sourceTierLabel || "",
@@ -404,7 +512,10 @@ async function writeLeadsToSupabase(rows) {
     latest_review_date: row.latestReviewDate || "",
     worst_gap: row.worstGap || "",
     gap_hook: row.gapHook || "",
+    report_url: row.reportUrl || "",
     visibility_score: Number.isFinite(row.visibilityScore) ? row.visibilityScore : null,
+    grades: row.grades && typeof row.grades === "object" ? row.grades : {},
+    signal_statuses: row.signalStatuses && typeof row.signalStatuses === "object" ? row.signalStatuses : {},
     signal_missing_hours: row.signalMissingHours || "",
     signal_no_website: row.signalNoWebsite || "",
     signal_thin_profile: row.signalThinProfile || "",
@@ -415,10 +526,23 @@ async function writeLeadsToSupabase(rows) {
     competitor_review_count: Number.isFinite(row.competitorReviewCount) ? row.competitorReviewCount : null,
     email_verification_status: row.emailVerificationStatus || "",
     email_verification_flags: row.emailVerificationFlags || "",
+    place_id: row.placeId || "",
+    smartlead_campaign_id: row.smartleadCampaignId || "",
+    smartlead_lead_id: row.smartleadLeadId || "",
+    smartlead_email_stats_id: row.smartleadEmailStatsId || "",
+    last_reply_intent: row.lastReplyIntent || "",
+    last_reply_at: row.lastReplyAt || null,
+    report_sent_at: row.reportSentAt || null,
+    metadata: {
+      sourceCategory: row.sourceCategory || "",
+      locationLink: row.locationLink || "",
+      visibilityScoreSource: "api_visibility_score",
+      matchedByWebsiteEndpoint: Boolean(row.reportUrl),
+    },
     updated_at: new Date().toISOString(),
   }));
 
-  const endpoint = `${url}/rest/v1/prospecting_leads`;
+  const endpoint = `${supabaseRestBaseUrl(url)}/prospecting_leads?on_conflict=email`;
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
@@ -478,76 +602,95 @@ function competitorKeys(row) {
   ].filter((key) => !key.includes("||"));
 }
 
-function evaluateLead(lead, config) {
+async function evaluateLead(lead, config, scoreClient) {
   const blockers = validateBaseLead(lead, config);
 
-  // New 6-gap scoring (Steps 2-4 of spec)
-  const gapSignals = scoreGapSignals(lead);
-  const worstGap = blockers.length ? null : pickWorstGap(gapSignals);
-  const gapHook = worstGap ? renderGapHook(worstGap, lead) : "";
-  const visibilityScore = computeVisibilityScore(gapSignals);
+  let score = null;
+  let matched = null;
+  let scoreBlocker = "";
 
-  if (!worstGap && !blockers.length) {
-    blockers.push("no_safe_single_worst_gap");
-  }
-
-  // Legacy segment (kept for backward compat with existing CSV consumers)
-  const segment = blockers.length ? null : chooseWorstGap(lead, config);
-  if (!segment && !blockers.length && worstGap) {
-    // gap found via new logic but not legacy — acceptable; new path wins
-  }
-  if (segment) {
-    for (const field of segment.requiredFields) {
-      if (fieldMissing(lead[field])) blockers.push(`missing_personalization_${field}`);
+  if (!blockers.length) {
+    score = await fetchVisibilityScore(lead, scoreClient);
+    if (!score.ok) {
+      scoreBlocker = score.blocker || "visibility_score_failed";
+      blockers.push(scoreBlocker);
+    } else {
+      matched = score.payload?.matched_business ?? null;
     }
   }
 
-  const copy = (segment || worstGap) ? buildLeadCopy({ lead, segment: segment ?? { id: worstGap, label: worstGap, observation: gapHook, whyLine: "" }, config }) : null;
-  if (copy) blockers.push(...validateCopy(copy, config));
+  const scorePayload = score?.ok ? score.payload : null;
+  const worstGap = scorePayload?.worst_gap ?? "";
+  const gapHook = scorePayload?.gap_hook ?? "";
+  const visibilityScore = Number(scorePayload?.visibility_score);
+  const segment = scorePayload ? segmentFromWorstGap(worstGap) : null;
+  const reportUrl = scorePayload?.report_url ?? "";
+  const grades = scorePayload?.grades ?? {};
+  const signalStatuses = scorePayload ? signalStatusesFromScore(scorePayload) : {};
+  const reviewCount = Number.isFinite(Number(matched?.review_count)) ? Number(matched.review_count) : lead.reviewCount;
+  const rating = Number.isFinite(Number(matched?.rating)) ? Number(matched.rating) : lead.rating;
+  const photosCount = Number.isFinite(Number(matched?.photos_count)) ? Number(matched.photos_count) : lead.photosCount;
+  const daysSinceLastReview = Number.isFinite(Number(matched?.days_since_last_review))
+    ? Number(matched.days_since_last_review)
+    : lead.daysSinceLastReview;
+  const hoursPresent = typeof matched?.hours_present === "boolean" ? matched.hours_present : lead.hoursPresent;
+  const category = matched?.category || lead.category;
+  const website = matched?.website || lead.website;
 
   const status =
     blockers.length === 0
       ? "ready"
       : blockers.length === 1 && blockers[0] === "email_not_verified"
         ? "needs_verification"
-        : "held";
+        : scoreBlocker === "visibility_score_insufficient_data" || scoreBlocker.startsWith("visibility_score_missing_")
+          ? "suppressed"
+          : "held";
 
   return {
     ...lead,
+    reviewCount,
+    rating,
+    photosCount,
+    hoursPresent,
+    daysSinceLastReview,
+    category,
+    website,
     status,
+    pipelineStage: status === "ready" ? "cold" : status === "suppressed" ? "suppressed" : "held",
     blockers: blockers.join(";"),
-    // New gap fields
-    worstGap: worstGap ?? "",
+    worstGap,
     gapHook,
     visibilityScore,
-    signalMissingHours: gapSignals.missing_hours,
-    signalNoWebsite: gapSignals.no_website,
-    signalThinProfile: gapSignals.thin_profile,
-    signalStaleReviews: gapSignals.stale_reviews,
-    signalFewReviews: gapSignals.few_reviews,
-    signalFewPhotos: gapSignals.few_photos,
-    // Legacy segment fields
-    segment: segment?.id ?? worstGap ?? "",
-    singleGap: segment?.label ?? worstGap ?? "",
+    grades,
+    signalStatuses,
+    reportUrl,
+    signalMissingHours: signalStatusFromScore(scorePayload, 13),
+    signalNoWebsite: signalStatusFromScore(scorePayload, 6),
+    signalThinProfile: signalStatusFromScore(scorePayload, 11) || signalStatusFromScore(scorePayload, 12),
+    signalStaleReviews: signalStatusFromScore(scorePayload, 2),
+    signalFewReviews: signalStatusFromScore(scorePayload, 1),
+    signalFewPhotos: signalStatusFromScore(scorePayload, 14),
+    segment: segment?.id ?? "",
+    singleGap: segment?.label ?? "",
     severity: segment?.severity ?? 0,
-    observation: segment?.observation ?? gapHook ?? "",
+    observation: gapHook,
     whyLine: segment?.whyLine ?? "",
-    email1SubjectA: copy?.subjects.step1[0] ?? "",
-    email1SubjectB: copy?.subjects.step1[1] ?? "",
-    email1SubjectC: copy?.subjects.step1[2] ?? "",
-    email1Body: copy?.bodies.step1 ?? "",
-    email2SubjectA: copy?.subjects.step2[0] ?? "",
-    email2SubjectB: copy?.subjects.step2[1] ?? "",
-    email2SubjectC: copy?.subjects.step2[2] ?? "",
-    email2Body: copy?.bodies.step2 ?? "",
-    email3SubjectA: copy?.subjects.step3[0] ?? "",
-    email3SubjectB: copy?.subjects.step3[1] ?? "",
-    email3SubjectC: copy?.subjects.step3[2] ?? "",
-    email3Body: copy?.bodies.step3 ?? "",
-    email4SubjectA: copy?.subjects.step4[0] ?? "",
-    email4SubjectB: copy?.subjects.step4[1] ?? "",
-    email4SubjectC: copy?.subjects.step4[2] ?? "",
-    email4Body: copy?.bodies.step4 ?? "",
+    email1SubjectA: "",
+    email1SubjectB: "",
+    email1SubjectC: "",
+    email1Body: "",
+    email2SubjectA: "",
+    email2SubjectB: "",
+    email2SubjectC: "",
+    email2Body: "",
+    email3SubjectA: "",
+    email3SubjectB: "",
+    email3SubjectC: "",
+    email3Body: "",
+    email4SubjectA: "",
+    email4SubjectB: "",
+    email4SubjectC: "",
+    email4Body: "",
     ctaUrl: ctaUrl(config),
   };
 }
@@ -709,29 +852,29 @@ function buildSequencePacket(config, capacity) {
         step: 1,
         dayOffset: 0,
         purpose: "Observation",
-        subjectVariants: ["Quick visibility note for {{company_name}}", "{{category}} visibility in {{city}}", "Found a Google profile gap"],
-        bodyTemplate: "Lead with {{observation}}, explain why it matters, one CTA to the Visibility Engine report.",
+        subjectVariants: ["quick {{business_name}} note", "{{owner_first_name}}, quick one"],
+        bodyTemplate: "No link. Lead with {{gap_hook}} and ask for a YES reply to receive the free report.",
       },
       {
         step: 2,
-        dayOffset: 2,
+        dayOffset: 3,
         purpose: "Competitor comparison",
-        subjectVariants: ["Your nearby visibility gap", "{{company_name}} vs nearby options", "Worth fixing before competitors do"],
-        bodyTemplate: "Use competitor count only when present; otherwise suppress or use the lead-level generated safe body.",
+        subjectVariants: ["{{business_name}} in {{city}}", "who AI is picking"],
+        bodyTemplate: "No link. Circle back with the one-or-two local recommendations angle and ask for YES.",
       },
       {
         step: 3,
-        dayOffset: 5,
+        dayOffset: 7,
         purpose: "AI-search angle",
-        subjectVariants: ["AI is picking fewer local options", "Google AI, ChatGPT, Claude, Gemini", "The visibility window is early"],
-        bodyTemplate: "Explain first-mover urgency and signal engineering without ranking guarantees.",
+        subjectVariants: ["is {{business_name}} invisible to AI?", "best {{category}} in {{city}}?"],
+        bodyTemplate: "No link. Explain AI answer behavior and ask for YES.",
       },
       {
         step: 4,
-        dayOffset: 9,
+        dayOffset: 11,
         purpose: "Breakup",
-        subjectVariants: ["Should I close the loop?", "Last note on {{company_name}}", "Useful or not right now?"],
-        bodyTemplate: "Short close-the-loop note. Stop on reply, opt-out, form fill, purchase, hard bounce, or complaint.",
+        subjectVariants: ["closing this out", "last one on {{business_name}}"],
+        bodyTemplate: "No link. Short close-the-loop note. Stop on reply, opt-out, form fill, purchase, hard bounce, or complaint.",
       },
     ],
   };
@@ -912,10 +1055,15 @@ function exportCandidateRow(row) {
     competitor_name: row.competitorName,
     competitor_review_count: numberOrBlank(row.competitorReviewCount),
     email_verification_status: row.emailVerificationStatus,
+    place_id: row.placeId,
+    pipeline_stage: row.pipelineStage,
     // New gap fields
     worst_gap: row.worstGap,
     gap_hook: row.gapHook,
+    report_url: row.reportUrl,
     visibility_score: numberOrBlank(row.visibilityScore),
+    grades_json: JSON.stringify(row.grades ?? {}),
+    signal_statuses_json: JSON.stringify(row.signalStatuses ?? {}),
     signal_missing_hours: row.signalMissingHours,
     signal_no_website: row.signalNoWebsite,
     signal_thin_profile: row.signalThinProfile,
@@ -937,6 +1085,8 @@ function exportReadyRow(row) {
     email: row.email,
     first_name: row.ownerFirstName,
     company_name: row.name,
+    owner_first_name: row.ownerFirstName,
+    business_name: row.name,
     phone_number: row.phone,
     website: row.website,
     location: [row.city, row.state].filter(Boolean).join(", "),
@@ -951,10 +1101,14 @@ function exportReadyRow(row) {
     competitor_name: row.competitorName,
     competitor_review_count: numberOrBlank(row.competitorReviewCount),
     niche_tier: row.sourceTier,
+    pipeline_stage: row.pipelineStage,
     // New gap fields — synced as SmartLead custom fields
     worst_gap: row.worstGap,
     gap_hook: row.gapHook,
+    report_url: row.reportUrl,
     visibility_score: numberOrBlank(row.visibilityScore),
+    grades_json: JSON.stringify(row.grades ?? {}),
+    signal_statuses_json: JSON.stringify(row.signalStatuses ?? {}),
     signal_missing_hours: row.signalMissingHours,
     signal_no_website: row.signalNoWebsite,
     signal_thin_profile: row.signalThinProfile,
@@ -1066,7 +1220,8 @@ Still not live-send complete: Smartlead draft setup should remain paused until \
 | Leads evaluated | ${evaluated.length} |
 | Ready for Smartlead upload | ${sendable.length} |
 | Needs verification | ${counts.needs_verification ?? 0} |
-| Held/suppressed | ${counts.held ?? 0} |
+| Held | ${counts.held ?? 0} |
+| Suppressed | ${counts.suppressed ?? 0} |
 
 ## Smartlead Capacity
 
@@ -1115,9 +1270,9 @@ ${heldReasons.map((item) => `- ${item.reason}: ${item.count}`).join("\n") || "- 
 - LinkedIn outbound is excluded for this ICP.
 - No HighLevel AI feature was enabled.
 - No per-review Outscraper scraper ran across the full list.
-- Records missing safe personalization are held before send.
+- Scoring calls \`/api/visibility-score\`; records returning \`insufficient_data\` or missing safe personalization are suppressed before send.
 - Cold emails use outreach domains only; \`getmefound.ai\` is blocked for cold prospecting senders.
-- Every generated body has one CTA link, clear opt-out language, and the physical mailing address.
+- Cold-email bodies contain no links; the CTA is a reply-YES request. Report URLs are stored as merge fields for the positive-reply auto-response.
 - Volume must stay below 48-hour Get Found fulfillment capacity before scale.
 
 ## Credentials/APIs Needed
@@ -1301,6 +1456,11 @@ function ctaUrl(config) {
   const base = String(config.brand?.baseUrl ?? "https://getmefound.ai").replace(/\/+$/, "");
   const path = String(config.brand?.ctaPath ?? "/lp/get-found");
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+function supabaseRestBaseUrl(rawUrl) {
+  const clean = String(rawUrl ?? "").replace(/\/+$/, "");
+  return clean.endsWith("/rest/v1") ? clean : `${clean}/rest/v1`;
 }
 
 function readJson(path) {

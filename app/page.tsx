@@ -74,16 +74,16 @@ const teaserCards: TeaserCard[] = [
   },
   {
     name: "Always Ready",
-    tagline: "Google's AI will call your business. Make sure it reaches one that can answer.",
+    tagline: "Never miss another customer — human or AI. An AI agent answers your calls 24/7, gives real prices and hours, and books the appointment.",
     price: "$299",
     cadence: "/month",
     bullets: [
-      "AI agent trained on your services, pricing, and hours — answers 24/7",
-      "Full content + entity management across Google, ChatGPT, Claude, and Gemini",
-      "Monthly AI-answer monitoring and visibility check",
+      "AI agent answers calls 24/7 with your real services, pricing, and hours",
+      "Google is getting ready to call businesses on customers' behalf — we get yours ready to answer",
+      "Full content + entity management; approval-gated, nothing goes live without your okay",
     ],
-    href: "/checkout/always-ready",
-    cta: "Get Always Ready",
+    href: "/pricing#always-ready",
+    cta: "Join Early Access →",
     iconPaths: ICON_PATHS.phone,
     jobLabel: "Always Ready",
   },
@@ -326,8 +326,8 @@ export default function Home() {
 
             <Reveal delay={0.18}>
               <div className="mx-auto mt-7 max-w-261 text-center">
-                <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-hero-subtext/65">
-                  MOST COMPLETE PLAN
+                <span className="inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300">
+                  Early Access
                 </span>
               </div>
               <div className="mx-auto mt-3 grid max-w-261 gap-5 rounded-4xl bg-[#0f2430] p-6 text-white ring-1 ring-white/10 md:grid-cols-[1.1fr_0.9fr] md:p-8">
@@ -335,9 +335,9 @@ export default function Home() {
                   <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
                     {alwaysReadyCard.jobLabel}
                   </p>
-                  <h3 className="text-3xl font-bold leading-tight">Be the business AI finds, recommends, and calls.</h3>
+                  <h3 className="text-3xl font-bold leading-tight">Never miss another customer — human or AI.</h3>
                   <p className="mt-3 max-w-xl text-sm leading-7 text-white/72 md:text-base">
-                    Google is already turning Search into an AI action layer. Always Ready prepares your facts, content, and phone readiness before Google, ChatGPT, Claude, and other AI systems recommend or call your business.
+                    An AI agent answers your calls 24/7, gives real prices and hours, and books the appointment. Google is getting ready to call businesses on customers&apos; behalf — we get yours ready to answer.
                   </p>
                   <a
                     href={GOOGLE_AI_CALLING_URL}
@@ -358,38 +358,30 @@ export default function Home() {
                   </ul>
                 </div>
 
-                <div className="rounded-[1.75rem] bg-(--color-bg-dark-card) p-5 ring-1 ring-white/10 shadow-2xl shadow-black/25 md:self-start md:-rotate-1">
+                <div className="rounded-[1.75rem] bg-(--color-bg-dark-card) p-5 ring-1 ring-sky-400/20 shadow-2xl shadow-black/25 md:self-start md:-rotate-1">
                   <div className="flex items-start justify-between gap-3">
                     <h4 className="text-2xl font-black text-hero-text">{alwaysReadyCard.name}</h4>
-                    <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-accent/15 px-3 py-1 ring-1 ring-accent/40">
-                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
-                      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-accent">
-                        Most Complete
+                    <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-sky-400/15 px-3 py-1 ring-1 ring-sky-400/40">
+                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300">
+                        Early Access
                       </span>
                     </span>
                   </div>
-                  <div className="mt-5 flex items-end gap-1">
-                    <span className="text-6xl font-black text-accent">{alwaysReadyCard.price}</span>
-                    <span className="pb-1 text-base font-semibold text-hero-subtext/60">{alwaysReadyCard.cadence}</span>
+                  <div className="mt-4 flex items-end gap-1">
+                    <span className="text-5xl font-black text-sky-300">{alwaysReadyCard.price}</span>
+                    <span className="pb-1 text-sm font-semibold text-hero-subtext/50">{alwaysReadyCard.cadence}</span>
+                    <span className="ml-2 pb-1 text-[10px] text-hero-subtext/40">indicative</span>
                   </div>
                   <Link
                     href={alwaysReadyCard.href}
-                    className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-accent px-5 py-3 text-sm font-bold text-(--color-accent-text) transition hover:bg-(--color-accent-hover)"
+                    className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-sky-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-sky-300"
                   >
                     {alwaysReadyCard.cta}
-                    <span aria-hidden="true"> →</span>
                   </Link>
-                  <p className="mt-2 text-center text-[11px] text-hero-subtext/45">
-                    No contract · Cancel anytime
+                  <p className="mt-2 text-center text-[11px] text-hero-subtext/40">
+                    No buy button yet — join the list to be first.
                   </p>
-                  <div className="mt-3 text-center">
-                    <Link
-                      href="/pricing#always-ready"
-                      className="text-xs font-semibold text-accent opacity-70 hover:opacity-100 transition-opacity"
-                    >
-                      See what&apos;s included →
-                    </Link>
-                  </div>
                 </div>
               </div>
             </Reveal>

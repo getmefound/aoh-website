@@ -1,28 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LogoOnlyNav } from "@/components/LogoOnlyNav";
-import { CheckoutButton } from "@/components/checkout/CheckoutButton";
+import { AlwaysReadyWaitlist } from "@/components/sections/AlwaysReadyWaitlist";
 
 export const metadata: Metadata = {
-  title: "Always Ready — Full-Service Visibility & AI Voice Management",
+  title: "Always Ready — Early Access | GetMeFound",
   description:
-    "Everything in Stay Found plus an AI voice agent, full content management, and a monthly strategy call. $299/mo. No contract.",
+    "An AI agent answers your calls 24/7, gives real prices and hours, and books the appointment. Join the early-access list.",
   alternates: { canonical: "/always-ready" },
 };
 
 const WHAT_YOU_GET = [
-  "Everything in Stay Found",
-  "AI voice agent trained on your services, pricing, hours, and FAQs",
-  "Voice and phone readiness for AI and customer inquiries",
+  "AI agent answers calls 24/7 with your real services, pricing, and hours",
+  "Handles booking requests and routes complex calls to you",
+  "Everything in Stay Found — reviews, signals, monthly report",
   "Full Google profile content management and local content planning",
   "Monthly 30-minute strategy call",
-  "Monthly AI answer visibility check",
-];
-
-const USE_THIS_IF = [
-  "You want AI assistants to recommend you by name when people ask for your service.",
-  "You need someone handling your entire Google and content presence, not just monitoring it.",
-  "You want a monthly strategy call to know exactly what's moving and what to fix next.",
+  "Monthly AI answer visibility check across Google, ChatGPT, Claude, Gemini",
 ];
 
 export default function AlwaysReadyPage() {
@@ -32,30 +26,36 @@ export default function AlwaysReadyPage() {
 
       {/* Hero */}
       <section className="mx-auto max-w-3xl px-6 py-16 md:py-24 text-center">
-        <p className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-accent">
-          Most complete plan
-        </p>
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-sky-400/15 px-4 py-1.5 ring-1 ring-sky-400/30">
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+          <span className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-sky-300">
+            Early Access
+          </span>
+        </div>
+
         <h1 className="text-[clamp(2.4rem,7vw,4rem)] font-bold leading-[1.05] tracking-tight">
-          Always visible.{" "}
-          <span className="text-accent">Always recommended.</span>
+          Never miss another customer —{" "}
+          <span className="text-sky-300">human or AI.</span>
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-hero-subtext/80 md:text-xl max-w-xl mx-auto">
-          Full-service visibility management — Google, reviews, AI voice, and content — so your business is the answer every time someone asks.
+          An AI agent answers your calls 24/7, gives real prices and hours, and books the appointment.
+          Google is getting ready to call businesses on customers&apos; behalf — we get yours ready to answer.
         </p>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <div className="text-4xl font-bold">$299<span className="text-2xl text-hero-subtext/60">/mo</span></div>
-          <div className="text-hero-subtext/70 text-sm leading-snug text-left">
-            cancel anytime<br />
-            <span className="text-hero-subtext/50">no contract · no setup fee</span>
+        <div className="mt-8 flex items-center justify-center gap-3">
+          <div className="text-4xl font-bold text-sky-300">$299<span className="text-2xl text-hero-subtext/50">/mo</span></div>
+          <div className="text-hero-subtext/50 text-xs text-left">
+            indicative pricing<br />
+            <span className="text-hero-subtext/35">no buy button yet</span>
           </div>
         </div>
 
-        <div className="mt-8 max-w-sm mx-auto">
-          <CheckoutButton slug="always-ready" label="Get Always Ready →" />
+        <div className="mt-10 max-w-sm mx-auto">
+          <AlwaysReadyWaitlist source="always-ready-page" variant="card" />
         </div>
-        <p className="mt-3 text-xs text-hero-subtext/50">
-          Secure checkout via Stripe · No contract · Cancel anytime
+
+        <p className="mt-4 text-xs text-hero-subtext/40">
+          Approval-gated — nothing goes live without your sign-off.
         </p>
       </section>
 
@@ -68,7 +68,7 @@ export default function AlwaysReadyPage() {
           <ul className="space-y-3">
             {WHAT_YOU_GET.map((item) => (
               <li key={item} className="flex gap-3 text-base text-hero-subtext/90 leading-relaxed">
-                <span className="text-accent flex-shrink-0 mt-0.5 font-bold">✓</span>
+                <span className="text-sky-300 flex-shrink-0 mt-0.5 font-bold">✓</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -76,44 +76,40 @@ export default function AlwaysReadyPage() {
         </div>
       </section>
 
-      {/* Is this for you */}
+      {/* Google citation */}
       <section className="border-t border-white/10">
-        <div className="mx-auto max-w-2xl px-6 py-14">
-          <h2 className="mb-6 text-sm font-bold uppercase tracking-wider text-accent">
-            Use this if
-          </h2>
-          <ul className="space-y-3">
-            {USE_THIS_IF.map((item) => (
-              <li key={item} className="flex gap-3 text-base text-hero-subtext/80 leading-relaxed">
-                <span className="text-hero-subtext/40 flex-shrink-0 mt-0.5">→</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-10 rounded-xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-sm text-hero-subtext/70 leading-relaxed">
-              <strong className="text-hero-text">Not sure this is the right level?</strong>{" "}
-              Start with{" "}
-              <Link href="/checkout/get-found-refresh" className="text-accent underline underline-offset-2 hover:no-underline">
-                Get Found ($149 one-time)
-              </Link>{" "}
-              to fix the basics first, then upgrade when you&apos;re ready.
+        <div className="mx-auto max-w-2xl px-6 py-12">
+          <blockquote className="rounded-2xl border border-sky-300/20 bg-sky-300/8 p-5 text-sm leading-7 text-white/80">
+            <a
+              href="https://blog.google/products-and-platforms/products/search/deep-search-business-calling-google-search/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-sky-200 underline decoration-sky-200/40 underline-offset-4 hover:text-white transition-colors"
+            >
+              Google says Search can &ldquo;call businesses to get pricing and availability information on your behalf.&rdquo;
+            </a>
+            <p className="mt-3 text-white/55 text-xs">
+              We&apos;re not getting ahead of Google — we&apos;re getting you ready. Nothing goes live without your explicit sign-off.
             </p>
-          </div>
+          </blockquote>
         </div>
       </section>
 
       {/* Bottom CTA */}
       <section className="border-t border-white/10 bg-(--color-hero-bg) py-14">
         <div className="mx-auto max-w-sm px-6 text-center">
-          <CheckoutButton slug="always-ready" label="Get Always Ready →" />
-          <p className="mt-4 text-xs text-hero-subtext/50">
-            $299/mo · no setup fee · cancel anytime
+          <p className="mb-6 text-sm text-hero-subtext/60 leading-relaxed">
+            Not ready for Always Ready yet? Start with Get Found to fix your AI-visibility basics first.
           </p>
           <Link
+            href="/checkout/get-found-refresh"
+            className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--color-accent)] px-6 py-3 text-sm font-bold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)]"
+          >
+            Start with Get Found — $149
+          </Link>
+          <Link
             href="/pricing"
-            className="mt-6 block text-sm text-hero-subtext/50 hover:text-hero-text transition-colors"
+            className="mt-4 block text-sm text-hero-subtext/40 hover:text-hero-text transition-colors"
           >
             ← Compare all plans
           </Link>

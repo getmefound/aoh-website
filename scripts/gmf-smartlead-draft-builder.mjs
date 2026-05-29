@@ -26,11 +26,12 @@ async function main() {
   const outbox = String(config.reporting?.outbox ?? "docs/client-ops-ledger/outbox");
   mkdirSync(outbox, { recursive: true });
 
-  const readyCsv = String(args.csv ?? latestPath("tmp-gmf-prospecting-smartlead-ready-*.csv"));
+  const sequenceOnly = Boolean(args["sequence-only"]);
+  const readyCsv = sequenceOnly ? "" : String(args.csv ?? latestPath("tmp-gmf-prospecting-smartlead-ready-*.csv"));
   const sequenceJson = String(args.sequence ?? latestPath(`${outbox.replaceAll("\\", "/")}/gmf-prospecting-sequence-*.json`));
-  const rows = readCsv(readyCsv);
+  const rows = sequenceOnly ? [] : readCsv(readyCsv);
   const sequence = readJson(sequenceJson);
-  const validation = validatePacket({ rows, sequence, config });
+  const validation = validatePacket({ rows, sequence, config, sequenceOnly });
   const payloads = buildPayloads({ rows, sequence, config, args, date });
   const apply = Boolean(args.apply);
   const canApply = apply && isApplyApproved(args);
@@ -54,7 +55,7 @@ async function main() {
     {
       ok: validation.blockers.length === 0,
       mode: canApply ? "apply" : "dry_run",
-      readyCsv: resolve(readyCsv),
+      readyCsv: readyCsv ? resolve(readyCsv) : "",
       sequenceJson: resolve(sequenceJson),
       leadCount: rows.length,
       blockers: validation.blockers,
@@ -83,37 +84,46 @@ function buildPayloads({ rows, sequence, config, args, date }) {
       status: "DRAFTED",
     },
     sequence: {
-      sequences: buildSequencesFromRows(rows),
+      sequences: buildGapBasedSequences(config),
     },
     leads: {
-      lead_list: rows.map((row) => ({
-        email: row.email,
-        company_name: row.company_name,
-        phone_number: row.phone_number,
-        website: row.website,
-        company_url: row.website,
-        location: row.location,
-        custom_fields: {
-          city: row.city,
-          state: row.state,
-          category: row.category,
-          niche_tier: row.niche_tier,
-          segment: row.segment,
-          single_gap: row.single_gap,
-          review_count: row.review_count,
-          rating: row.rating,
-          photos_count: row.photos_count,
-          hours_present: row.hours_present,
-          competitor_name: row.competitor_name,
-          competitor_review_count: row.competitor_review_count,
-          observation: row.observation,
-          why_line: row.why_line,
-          cta_url: row.cta_url,
-          assigned_sender: row.assigned_sender,
-          assigned_sender_domain: row.assigned_sender_domain,
-          launch_batch: `GMF Visibility Engine ${date}`,
-        },
-      })),
+      lead_list: rows.map((row) => {
+        const businessName = leadField(row, "business_name", "company_name", "name");
+        const ownerFirstName = leadField(row, "owner_first_name", "first_name") || "there";
+        return {
+          email: row.email,
+          first_name: ownerFirstName,
+          company_name: businessName,
+          phone_number: leadField(row, "phone_number", "phone"),
+          website: row.website,
+          company_url: row.website,
+          location: row.location || [row.city, row.state].filter(Boolean).join(", "),
+          custom_fields: {
+            owner_first_name: ownerFirstName,
+            business_name: businessName,
+            city: row.city,
+            state: row.state,
+            category: row.category,
+            niche_tier: row.niche_tier,
+            segment: row.segment,
+            single_gap: row.single_gap,
+            worst_gap: row.worst_gap,
+            gap_hook: row.gap_hook,
+            visibility_score: row.visibility_score,
+            report_url: row.report_url,
+            review_count: row.review_count,
+            days_since_last_review: row.days_since_last_review,
+            rating: row.rating,
+            photos_count: row.photos_count,
+            hours_present: row.hours_present,
+            competitor_name: row.competitor_name,
+            competitor_review_count: row.competitor_review_count,
+            assigned_sender: row.assigned_sender,
+            assigned_sender_domain: row.assigned_sender_domain,
+            launch_batch: `GMF Visibility Engine ${date}`,
+          },
+        };
+      }),
       settings: {
         ignore_global_block_list: false,
         ignore_unsubscribe_list: false,
@@ -148,42 +158,69 @@ function buildPayloads({ rows, sequence, config, args, date }) {
   };
 }
 
-function buildSequencesFromRows(rows) {
-  const first = rows[0] ?? {};
-  const steps = [
-    ["email1_subject_a", "email1_body", 1, 0],
-    ["email2_subject_a", "email2_body", 2, 2],
-    ["email3_subject_a", "email3_body", 3, 5],
-    ["email4_subject_a", "email4_body", 4, 9],
+function buildGapBasedSequences(config) {
+  const footer = `Mike Egidio | GetMeFound, a service of AI Outsource Hub LLC | ${config.brand?.physicalAddress ?? "[mailing address]"} | Not interested? Reply "STOP" and I'll remove you.`;
+  const withFooter = (body) => `${body.trim()}\n\n${footer}`;
+  return [
+    {
+      seq_number: 1,
+      subject: "quick {{business_name}} note",
+      email_body: withFooter(`Hi {{owner_first_name}},
+
+{{gap_hook}}
+
+Here's why it matters: Google and AI like ChatGPT now pick just one or two local {{category}}s to recommend, and it's the most complete, active profile that wins, not the biggest.
+
+I put together a free report showing exactly where {{business_name}} stands. Want it? Just reply "YES."
+
+- Mike`),
+      seq_delay_details: { delay_in_days: 0 },
+    },
+    {
+      seq_number: 2,
+      subject: "{{business_name}} in {{city}}",
+      email_body: withFooter(`Hi {{owner_first_name}},
+
+Circling back on {{business_name}}. When someone in {{city}} asks Google or ChatGPT for a {{category}}, they get one or two names, and a few of your competitors are set up to be those names. The gap closes fast.
+
+Want the free report showing where you stand? Reply "YES."
+
+- Mike`),
+      seq_delay_details: { delay_in_days: 3 },
+    },
+    {
+      seq_number: 3,
+      subject: "is {{business_name}} invisible to AI?",
+      email_body: withFooter(`Hi {{owner_first_name}},
+
+More people skip Google's list and just ask AI "best {{category}} in {{city}}?" It names one or two businesses based on signals most owners never see, and right now {{business_name}} likely isn't one of them.
+
+I'll show you what AI sees, free. Reply "YES."
+
+- Mike`),
+      seq_delay_details: { delay_in_days: 4 },
+    },
+    {
+      seq_number: 4,
+      subject: "closing this out",
+      email_body: withFooter(`Hi {{owner_first_name}},
+
+I've nudged a couple times about {{business_name}}'s visibility, so I'll leave it here. If you ever want that free report, just reply "YES" and it's yours. Either way, all the best.
+
+- Mike`),
+      seq_delay_details: { delay_in_days: 4 },
+    },
   ];
-
-  return steps.map(([subjectKey, bodyKey, seqNumber, delay]) => ({
-    seq_number: seqNumber,
-    subject: first[subjectKey] || fallbackSubject(seqNumber),
-    email_body: mergeBodyTemplate(bodyKey),
-    seq_delay_details: { delay_in_days: delay },
-  }));
 }
 
-function mergeBodyTemplate(bodyKey) {
-  return `{{${bodyKey}}}`;
-}
-
-function fallbackSubject(seqNumber) {
-  if (seqNumber === 1) return "Quick visibility note for {{company_name}}";
-  if (seqNumber === 2) return "Your nearby visibility gap";
-  if (seqNumber === 3) return "AI is picking fewer local options";
-  return "Should I close the loop?";
-}
-
-function validatePacket({ rows, sequence, config }) {
+function validatePacket({ rows, sequence, config, sequenceOnly }) {
   const blockers = [];
   const warnings = [];
   const forbiddenDomains = new Set((config.smartlead?.forbiddenSenderDomains ?? []).map((item) => String(item).toLowerCase()));
   const address = String(config.brand?.physicalAddress ?? "");
   const ctaPath = String(config.brand?.ctaPath ?? "/lp/get-found");
 
-  if (!rows.length) blockers.push("ready_csv_empty");
+  if (!sequenceOnly && !rows.length) blockers.push("ready_csv_empty");
   if (!sequence?.smartleadSettings) warnings.push("sequence_packet_missing_smartlead_settings");
 
   const emails = new Set();
@@ -192,26 +229,31 @@ function validatePacket({ rows, sequence, config }) {
     if (!isEmail(row.email)) blockers.push(`${label}:invalid_email`);
     if (emails.has(row.email)) blockers.push(`${label}:duplicate_email`);
     emails.add(row.email);
-    if (!row.company_name) blockers.push(`${label}:missing_company_name`);
+    if (!leadField(row, "business_name", "company_name", "name")) blockers.push(`${label}:missing_business_name`);
+    if (!leadField(row, "owner_first_name", "first_name")) blockers.push(`${label}:missing_owner_first_name`);
     if (!row.website) blockers.push(`${label}:missing_website`);
     if (!row.segment) blockers.push(`${label}:missing_segment`);
-    if (!row.observation) blockers.push(`${label}:missing_observation`);
-    if (!row.why_line) blockers.push(`${label}:missing_why_line`);
-    if (!row.cta_url?.includes(ctaPath)) blockers.push(`${label}:cta_not_lp_get_found`);
+    if (!row.gap_hook) blockers.push(`${label}:missing_gap_hook`);
+    if (!isUrl(row.report_url)) blockers.push(`${label}:missing_report_url`);
     if (!row.assigned_sender) blockers.push(`${label}:missing_assigned_sender`);
     const senderDomain = String(row.assigned_sender_domain || row.assigned_sender.split("@").at(1) || "").toLowerCase();
     if (forbiddenDomains.has(senderDomain)) blockers.push(`${label}:forbidden_sender_domain`);
 
-    for (const key of ["email1_body", "email2_body", "email3_body", "email4_body"]) {
-      const body = String(row[key] ?? "");
-      if (!body) blockers.push(`${label}:${key}_missing`);
-      if (!body.includes(address)) blockers.push(`${label}:${key}_missing_physical_address`);
-      if (!/\breply\s+"?stop"?\b|\bopt[- ]?out\b|\bunsubscribe\b/i.test(body)) blockers.push(`${label}:${key}_missing_opt_out`);
-      if (!body.includes(ctaPath)) blockers.push(`${label}:${key}_missing_cta`);
-      if (countLinks(body) > 1) blockers.push(`${label}:${key}_too_many_links`);
-      if (/\btestimonial\b|\bcase stud(y|ies)\b|\bour customers\b|\bguaranteed ranking\b|\brank #?1\b/i.test(body)) {
-        blockers.push(`${label}:${key}_disallowed_claim`);
-      }
+    if (/\b(canada| ca\b|ontario|quebec|british columbia|alberta)\b/i.test(`${row.country ?? ""} ${row.address ?? ""}`)) {
+      blockers.push(`${label}:excluded_canada`);
+    }
+  }
+
+  for (const step of buildGapBasedSequences(config)) {
+    const key = `sequence_${step.seq_number}`;
+    const body = String(step.email_body ?? "");
+    if (!body) blockers.push(`${key}_missing`);
+    if (!body.includes(address)) blockers.push(`${key}_missing_physical_address`);
+    if (!/\breply\s+"?stop"?\b|\bopt[- ]?out\b|\bunsubscribe\b/i.test(body)) blockers.push(`${key}_missing_opt_out`);
+    if (body.includes(ctaPath)) blockers.push(`${key}_cold_email_contains_cta_link`);
+    if (countLinks(body) > 0) blockers.push(`${key}_cold_email_contains_link`);
+    if (/\btestimonial\b|\bcase stud(y|ies)\b|\bour customers\b|\bguaranteed ranking\b|\brank #?1\b/i.test(body)) {
+      blockers.push(`${key}_disallowed_claim`);
     }
   }
 
@@ -246,34 +288,43 @@ async function applySmartleadDraft({ payloads, args, rows }) {
   });
 
   const existingSequences = normalizeArray(await smartleadGet(`/campaigns/${campaign.id}/sequences`, apiKey));
-  if (!existingSequences.length) {
-    actions.push({ step: "add_sequences", response: await smartleadPost(`/campaigns/${campaign.id}/sequences`, apiKey, payloads.sequence) });
-  } else {
-    actions.push({ step: "add_sequences", skipped: true, reason: "sequence_already_exists" });
-  }
+  const existingByStep = new Map(existingSequences.map((item) => [Number(item.seq_number), item.id ?? item.seq_id ?? item.sequence_id]));
+  const sequencePayload = {
+    sequences: payloads.sequence.sequences.map((item) => ({
+      id: existingByStep.get(Number(item.seq_number)) ?? null,
+      ...item,
+    })),
+  };
+  actions.push({ step: "replace_existing_sequences", existingCount: existingSequences.length, response: await smartleadPost(`/campaigns/${campaign.id}/sequences`, apiKey, sequencePayload) });
 
-  actions.push({
-    step: "link_sender_accounts",
-    response: await smartleadPost(`/campaigns/${campaign.id}/email-accounts`, apiKey, {
-      email_account_ids: senderAccounts.map((account) => account.id),
-    }),
-  });
-
-  const existingLeads = normalizeLeads(await smartleadGet(`/campaigns/${campaign.id}/leads`, apiKey));
-  const existingEmails = new Set(existingLeads.map((lead) => normalizeEmail(lead.email)));
-  const missingRows = rows.filter((row) => !existingEmails.has(normalizeEmail(row.email)));
-  if (missingRows.length) {
-    const addLeadResponse = await smartleadPost(`/campaigns/${campaign.id}/leads`, apiKey, {
-      ...payloads.leads,
-      lead_list: payloads.leads.lead_list.filter((lead) => missingRows.some((row) => same(row.email, lead.email))),
+  if (!args["sequence-only"]) {
+    actions.push({
+      step: "link_sender_accounts",
+      response: await smartleadPost(`/campaigns/${campaign.id}/email-accounts`, apiKey, {
+        email_account_ids: senderAccounts.map((account) => account.id),
+      }),
     });
-    actions.push({ step: "add_leads", count: missingRows.length, response: addLeadResponse });
-  } else {
-    actions.push({ step: "add_leads", skipped: true, reason: "target_leads_already_exist" });
   }
 
-  actions.push({ step: "update_schedule", response: await smartleadPost(`/campaigns/${campaign.id}/schedule`, apiKey, payloads.schedule) });
-  actions.push({ step: "update_settings", response: await smartleadPost(`/campaigns/${campaign.id}/settings`, apiKey, payloads.settings) });
+  if (!args["sequence-only"]) {
+    const existingLeads = normalizeLeads(await smartleadGet(`/campaigns/${campaign.id}/leads`, apiKey));
+    const existingEmails = new Set(existingLeads.map((lead) => normalizeEmail(lead.email)));
+    const missingRows = rows.filter((row) => !existingEmails.has(normalizeEmail(row.email)));
+    if (missingRows.length) {
+      const addLeadResponse = await smartleadPost(`/campaigns/${campaign.id}/leads`, apiKey, {
+        ...payloads.leads,
+        lead_list: payloads.leads.lead_list.filter((lead) => missingRows.some((row) => same(row.email, lead.email))),
+      });
+      actions.push({ step: "add_leads", count: missingRows.length, response: addLeadResponse });
+    } else {
+      actions.push({ step: "add_leads", skipped: true, reason: "target_leads_already_exist" });
+    }
+
+    actions.push({ step: "update_schedule", response: await smartleadPost(`/campaigns/${campaign.id}/schedule`, apiKey, payloads.schedule) });
+  }
+  const settings = args["sequence-only"] ? { ...payloads.settings } : payloads.settings;
+  if (args["sequence-only"]) delete settings.max_leads_per_day;
+  actions.push({ step: "update_settings", response: await smartleadPost(`/campaigns/${campaign.id}/settings`, apiKey, settings) });
   actions.push({ step: "activate_campaign", skipped: true, reason: "GMF builder never activates campaigns; run deliverability audit and get Mike approval first." });
 
   return actions;
@@ -303,10 +354,10 @@ Live sends: no
 
 ## Inputs
 
-- Ready CSV: \`${resolve(readyCsv)}\`
+- Ready CSV: \`${readyCsv ? resolve(readyCsv) : "sequence-only"}\`
 - Sequence packet: \`${resolve(sequenceJson)}\`
 - Campaign name: ${payloads.campaign.name}
-- CTA required: \`${config.brand?.ctaPath ?? "/lp/get-found"}\`
+- Cold-email CTA: reply \`YES\` (no cold-email links); report URL is synced only as a SmartLead custom field for the positive-reply auto-response.
 
 ## Validation
 
@@ -383,6 +434,16 @@ async function smartleadPost(path, apiKey, body) {
     method: "POST",
     headers: { accept: "application/json", "content-type": "application/json" },
     body: JSON.stringify(body),
+  });
+  return parseSmartleadResponse(path, response);
+}
+
+async function smartleadDelete(path, apiKey) {
+  const url = new URL(`${API_BASE}${path}`);
+  url.searchParams.set("api_key", apiKey);
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: { accept: "application/json" },
   });
   return parseSmartleadResponse(path, response);
 }
@@ -503,6 +564,23 @@ function isEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value ?? ""));
 }
 
+function isUrl(value) {
+  try {
+    const url = new URL(String(value ?? ""));
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+function leadField(row, ...keys) {
+  for (const key of keys) {
+    const value = row?.[key];
+    if (value != null && String(value).trim()) return String(value).trim();
+  }
+  return "";
+}
+
 function normalizeEmail(value) {
   return String(value ?? "").trim().toLowerCase();
 }
@@ -596,6 +674,10 @@ Use explicit files:
 Apply to SmartLead as a paused/drafted setup only:
   $env:GMF_SMARTLEAD_APPLY_OK='yes'
   npm run gmf:smartlead-draft -- --apply --approval-note "Auditor approved paused draft setup only"
+
+Replace only the paused campaign drip without uploading leads:
+  $env:GMF_SMARTLEAD_APPLY_OK='yes'
+  npm run gmf:smartlead-draft -- --sequence-only --campaign-id 3379589 --apply --approval-note "Replace old drip with gap-based no-link sequence"
 
 This script never activates a campaign.
 `);

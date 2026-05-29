@@ -38,7 +38,7 @@ Mike talks to Manager by Slack DM. Manager runs the business interface, assigns 
 | [x] | Start friend test-client pilot | Manager | Auditor | Southington Lawn Service LLC intake and evidence docs started | No |
 | [x] | Verify Monday live board connection | Systems Director | Manager | Monday list/setup command succeeded against `Agents Jobs` board `18415045648` | No |
 | [x] | Push active SOP/pilot work into Monday | Manager | Reporter | Monday items created for Southington pilot and owner command rhythm | No |
-| [ ] | Verify Southington GBP access | Profile Manager / Systems Director | Auditor | Partial proof captured in `docs/sops/live-pilots/2026-05-28-southington-profile-manager-access-and-fact-proof.md`; authenticated role/profile proof still pending | No, unless authenticated access path fails or public edit approval is needed |
+| [ ] | Verify Southington GBP access | Profile Manager / Systems Director | Auditor | Partial proof captured in `docs/sops/live-pilots/2026-05-28-southington-profile-manager-access-and-fact-proof.md`; repeatable verifier path now uses `npm run gbp:access-verify` plus authorized browser-session fallback | No, unless one-time GMF account authorization, corrected client access, or public edit approval is needed |
 | [ ] | Complete Southington minimum intake | Account Manager | Manager | Contact, emails, phone, Yardbook services, review URL, and place ID captured; website, service area/address rule, hours, and priority services still need agent verification | No, until Account/Profile Manager exhaust public, client-originated, and GBP-accessible facts |
 | [x] | Run Southington baseline visibility scan | Reporter | Auditor | `docs/sops/live-pilots/2026-05-27-southington-baseline-visibility-report.md` stored and Monday updated | No |
 | [x] | Run Southington GBP audit | Profile Manager | Auditor | `docs/sops/live-pilots/2026-05-27-southington-gbp-audit-proposed-edits.md` stored and Monday updated | Mike approval before public edits |
@@ -62,7 +62,7 @@ Mike talks to Manager by Slack DM. Manager runs the business interface, assigns 
 | Systems Director | Monday connection, board schema, environment readiness | Monday board verified: `Agents Jobs` / `18415045648` |
 | Systems Director / Manager | Gmail evidence path and access safety | Gmail connector read/search verified; no passwords/2FA/raw codes; live sends approval-gated |
 | Account Manager | Friend test-client intake and client-facing asks | Southington minimum intake completion from public facts first |
-| Profile Manager | GBP access, GBP audit, review link, profile facts | Southington review link and partial facts captured; authenticated GBP role/profile proof still open |
+| Profile Manager | GBP access, GBP audit, review link, profile facts | Southington review link and partial facts captured; authenticated GBP role/profile proof routed through API/browser verifier lane |
 | Reporter | Baseline visibility report, owner dashboard, proof summaries | Southington baseline report task in Monday |
 | Auditor | Proof gates, risky action blocks, public-edit guardrails | Evidence review before Done |
 | Coach | SOP structure, training, updates from live pilots | Skill-gap training protocol added and SOP 178 drafted |
@@ -144,8 +144,8 @@ Every active item should show:
 
 1. Auditor reviews the Southington baseline, GBP audit, AI Search readiness audit, and fact-sync artifacts.
 2. Manager continues owner-needed communication in Slack DM; routine status stays in Monday/Mission Control/proof artifacts.
-3. Systems Director/Profile Manager follows `docs/sops/live-pilots/2026-05-28-gbp-read-only-verification-path.md` to establish or use a safe authenticated read-only GBP verification path; current workspace tools do not expose a GBP API/client/session.
-4. Profile Manager matches the authenticated profile to place ID `ChIJxypnrEz5KkYRgxXufgych38` and verifies accepted invite/role for `mike@getmefound.ai`, clean profile URL, review count/rating, hours, website, address/service-area setting, services, and profile notes.
+3. Systems Director/Profile Manager follows `docs/sops/live-pilots/2026-05-28-gbp-read-only-verification-path.md` to establish or use the safe authenticated read-only GBP verification path.
+4. Profile Manager runs `npm run gbp:access-verify -- --place-id ChIJxypnrEz5KkYRgxXufgych38 --business-name "Southington Lawn Service LLC"` or uses the authorized browser-session fallback, then verifies accepted invite/role for the configured GMF access email, clean profile URL, review count/rating, hours, website, address/service-area setting, services, and profile notes.
 5. Account Manager completes remaining intake facts from Profile Manager output, Yardbook, client-originated Gmail facts, Yahoo Local, and public sources before any owner ask.
 6. Manager asks Mike only if Profile Manager cannot access the profile after the authenticated access path is exhausted, the profile is wrong, client approval is needed for a public edit, or a risk/approval item appears.
 7. Auditor reviews before any SOP moves from Drafted to Active or before any public Google edit.

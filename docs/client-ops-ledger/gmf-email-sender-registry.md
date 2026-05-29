@@ -30,7 +30,7 @@ Use a Google Group or Collaborative Inbox only when there are multiple humans wh
 
 Use Resend for app-generated sending and logging, with `reply-to` set to a monitored role alias. Resend is not the inbox.
 
-Important: an email alias is not a separate Google Account. Do not rely on an alias for Google Business Profile manager access, Google login, Drive ownership, Workspace admin, or vendor account ownership. For those, use the real Google account `mike@getmefound.ai` unless a paid admin account is later approved.
+Important: an email alias is not a separate Google Account. Do not rely on an alias for Google Business Profile manager access, Google login, Drive ownership, Workspace admin, or vendor account ownership. For GBP access, use the real paid Google Workspace account `profile@getmefound.ai`. Keep `mike@getmefound.ai` for owner identity and backup/admin control, not routine profile work.
 
 ## Recommended Paid Sales Seat
 
@@ -75,7 +75,7 @@ Research basis:
 | `sales@getmefound.ai` | Alias / internal routing | optional alias/group | Sales Rep / Sales Manager | Internal routing or catch-all for people who type sales@ | Avoid as primary external sender |
 | `reports@getmefound.ai` | Role mailbox | optional alias/group | Sales Rep / Reporter | Report-specific replies if separate from sales inbox | Optional; do not use until monitored |
 | `clients@getmefound.ai` | Role mailbox | recommended alias/group | Account Manager | Client onboarding, setup updates, recaps | Create as alias/group before use |
-| `profile@getmefound.ai` | Role mailbox | recommended alias/group | Account Manager / Profile Manager | GBP access instructions and profile-work replies | Account Manager sends; Profile Manager supplies facts |
+| `profile@getmefound.ai` | Paid GBP/Profile mailbox | verified real Workspace user; send/receive/reply proof passed 2026-05-29 | Account Manager / Profile Manager / Systems Director | Official Google Business Profile manager invite account and profile-work replies | Use as the default client GBP Manager invite; do not replace with alias |
 | `reviews@getmefound.ai` | Role mailbox | recommended alias/group | Reviews Manager / Account Manager | Review-request replies and feedback routing | Create as alias/group before use |
 | `partners@getmefound.ai` | Role mailbox | recommended alias/group | Sales Rep / Sales Manager | Partner applicant replies | `GMF_PARTNER_REPLY_TO_EMAIL` should point here once monitored |
 | `billing@getmefound.ai` | Role mailbox | recommended alias/group | Manager / Systems Director | Billing questions and failed-payment replies | Create as alias/group before use |

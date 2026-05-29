@@ -8,7 +8,7 @@ Reviewer: Auditor
 
 This engine prepares cold-email prospecting and nurture for GetMeFound, positioned as The Visibility Engine.
 
-It does not send live email. It builds the safe packet agents need before SmartLead upload: target config, low-cost sourcing rules, email verification, one-gap segmentation, copy, sender-capacity checks, nurture plan, and proof reports.
+It does not send live email. It builds the safe packet agents need before SmartLead upload: target config, low-cost sourcing rules, email verification, endpoint-based visibility scoring, one-gap segmentation, sender-capacity checks, nurture plan, and proof reports.
 
 The broader Sales Manager acquisition doctrine lives in `docs/GMF_SALES_MANAGER_ACQUISITION_PLAYBOOK.md`. Cold email is the first validation channel, not the whole acquisition system.
 
@@ -18,7 +18,8 @@ The broader Sales Manager acquisition doctrine lives in `docs/GMF_SALES_MANAGER_
 - NeverBounce verification exists in `scripts/verify-reach-emails.mjs`.
 - SmartLead warmup and readiness checks exist in `scripts/smartlead-warmup-report.mjs` and `scripts/prospecting-smartlead-preflight.mjs`.
 - SmartLead deliverability audit exists in `scripts/smartlead-deliverability-audit.mjs`.
-- Reply routing exists in `lib/campaign-reply-router.ts` and now includes the GMF visibility lane, interested/not interested/opt-out/OOO classes, and sequence-stop flags.
+- `/api/visibility-score` is the source of truth for cold-email `worst_gap`, `gap_hook`, score, grades, signals, and `report_url`.
+- Reply routing exists in `lib/campaign-reply-router.ts` and `/api/prospecting/events`; positive report requests can auto-reply in the same SmartLead thread when SmartLead thread IDs and `report_url` are present.
 - Homepage free visibility report automation exists separately through `/api/audit-request`.
 
 ## New Files
@@ -28,6 +29,7 @@ The broader Sales Manager acquisition doctrine lives in `docs/GMF_SALES_MANAGER_
 - `scripts/gmf-smartlead-draft-builder.mjs`: builds and validates a paused SmartLead draft packet from the ready CSV; dry-run by default and never activates campaigns.
 - `scripts/gmf-prospecting-guardrails.mjs`: reads metrics and recommends subdomain pauses when bounce, complaint, or opt-out rates cross thresholds.
 - `app/api/prospecting/events/route.ts`: guarded SmartLead/prospecting event intake for replies, opt-outs, bounces, complaints, form fills, and purchases.
+- `supabase/migrations/002-prospecting-pipeline-view.sql`: adds queryable pipeline fields and `prospecting_pipeline_view`.
 
 ## Command
 
@@ -73,14 +75,14 @@ npm run gmf:guardrails
 2. Engine normalizes fields and dedupes by email, website, or business/location.
 3. Engine blocks excluded niches: home services, dental, legal, realtors, and configured no-fit terms.
 4. Engine keeps only businesses with website, email, valid verification, operational status, and review count below the ICP threshold.
-5. Engine assigns one worst gap: very few reviews, behind a nearby competitor, missing hours/photos, or weak AI/search readiness.
-6. Engine suppresses any row with missing personalization for its selected gap.
-7. Coach copy is generated as four plain-text touches with subject variants, one CTA, no testimonials, no ranking guarantees, opt-out language, and the physical address.
+5. For each verified lead, Engine calls `/api/visibility-score` with `business_name`, `city`, `category`, `place_id` or `website`; it does not compute gaps locally.
+6. If the endpoint returns `insufficient_data` or misses `worst_gap`, `gap_hook`, score, or `report_url`, Engine suppresses the row before send.
+7. SmartLead uses four plain-text touches with no cold-email links. CTA is reply `YES`; `report_url` is stored as a custom field for the positive-reply auto-response.
 8. Sender capacity is read from the SmartLead warmup snapshot. It blocks `getmefound.ai` and uses only warmed outreach domains.
 9. Outputs are written for Auditor review.
 10. Sender may only upload the ready CSV into a paused SmartLead draft after Auditor approves the packet.
 11. Live send still requires Mike approval for the exact campaign, list count, inboxes, cap, send window, and copy packet.
-12. SmartLead events post to `/api/prospecting/events` with `GMF_PROSPECTING_EVENTS_TOKEN`; replies and stop events are logged, suppressed where needed, and routed to Sales Rep tasks.
+12. SmartLead events post to `/api/prospecting/events` with `GMF_PROSPECTING_EVENTS_TOKEN`; positive intent replies receive the report URL in-thread, ambiguous replies route to Sales Rep, and opt-outs/bounces are suppressed.
 13. Guardrail reports review sends, clicks, replies, form fills, purchases, bounces, complaints, and opt-outs by niche, segment, and subdomain.
 14. Sales Manager reviews the weekly acquisition scorecard before scaling: channel, niche, message, deliverability, fulfillment capacity, and upgrade/churn signals.
 
@@ -96,12 +98,15 @@ npm run gmf:guardrails
 - `docs/client-ops-ledger/outbox/gmf-prospecting-metrics-template-YYYY-MM-DD.csv`
 - `docs/client-ops-ledger/gmf-smartlead-draft-current.md`
 - `docs/client-ops-ledger/gmf-prospecting-guardrails-current.md`
+- Supabase view: `public.prospecting_pipeline_view`
 
 ## Required Credentials
 
 - `OUTSCRAPER_API_KEY`: paid base Google Maps scrape only. Full-list Reviews Scraper is blocked.
 - `NOBOUNCE_API_KEY` or `NEVERBOUNCE_API_KEY`: email verification. Existing MVP uses NeverBounce.
 - `SMARTLEAD_API_KEY`: read warmup/capacity and later create/update paused campaigns after approval.
+- `GMF_INTERNAL_API_TOKEN`: authorizes the prospecting engine to call `/api/visibility-score`.
+- `NEXT_PUBLIC_SUPABASE_URL` plus `SUPABASE_SECRET_KEY`: writes `prospecting_leads` and pipeline stage updates.
 - `GMF_PROSPECTING_EVENTS_TOKEN`: protects the SmartLead/prospecting event webhook. `CAMPAIGN_REPLY_ROUTER_TOKEN` can be reused if needed.
 
 ## Live-Send Gates
@@ -111,7 +116,7 @@ Do not send unless all are true:
 - `npm run smartlead:warmup-report` is current.
 - `npm run prospecting:preflight` passes.
 - `npm run gmf:prospecting -- --input <csv> --verify` produces a non-empty ready CSV.
-- Auditor approves the ready CSV, copy, footer, one-link rule, suppression, and stop rules.
+- Auditor approves the ready CSV, no-link copy, footer, reply-YES rule, suppression, and stop rules.
 - SmartLead campaign stays paused/drafted until the final approval packet is complete.
 - `npm run smartlead:deliverability-audit -- --campaign-id <id>` returns PASS or Auditor explicitly clears a WATCH.
 - Mike gives final live-send approval.

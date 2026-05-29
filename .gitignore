@@ -76,6 +76,7 @@ tmp-getmefound-*
 !/scripts/gmf-prospecting-engine.mjs
 !/scripts/gmf-smartlead-draft-builder.mjs
 !/scripts/gmf-prospecting-guardrails.mjs
+!/scripts/gbp-access-verifier.mjs
 !/scripts/monday-agent-jobs.mjs
 !/scripts/agent-command-center.mjs
 !/scripts/manager-agent-eval.mjs

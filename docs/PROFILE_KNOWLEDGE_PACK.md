@@ -26,6 +26,33 @@ The correct review request flow is:
 
 ## Access Options
 
+### Configured GMF access email
+
+The active invite address is the configured GMF GBP access email.
+
+Current active GBP invite account:
+
+- `profile@getmefound.ai`
+- real paid Workspace user
+- send/receive/reply proof passed 2026-05-29
+
+Current app code reads:
+
+1. `NEXT_PUBLIC_GMF_GBP_INVITE_EMAIL`
+2. `NEXT_PUBLIC_AOH_GBP_INVITE_EMAIL`
+3. fallback `profile@getmefound.ai`
+
+Use `profile@getmefound.ai` in client instructions and proof unless Systems Director changes `NEXT_PUBLIC_GMF_GBP_INVITE_EMAIL`.
+
+### Agent-owned verification lanes
+
+Profile verifies access before Manager asks Mike:
+
+1. API/OAuth lane: run `npm run gbp:access-verify -- --place-id <place_id> --business-name "<business name>"`.
+2. Authorized browser-session lane: use the controlled signed-in GMF Google account/session and inspect Business Profile settings -> People and access.
+
+Agents never ask for or store passwords, 2FA codes, browser cookies, raw login links, or magic links. If the account itself needs one-time authorization, Systems Director documents the blocker; that does not become a per-client manual verification habit.
+
 ### Individual manager invite
 
 Client invites the official GMF Google account as Manager.

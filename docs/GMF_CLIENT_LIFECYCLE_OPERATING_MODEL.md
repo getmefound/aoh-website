@@ -46,7 +46,7 @@ Manager:
 - asks Mike only for owner-level decisions
 - keeps Monday and Mission Control aligned
 
-Manager should not assign GBP execution work until `admin@getmefound.ai` is added as Manager on the Google Business Profile. Manager may still assign safe setup work such as client ID, client folder, client hub, baseline scan, and onboarding checklist.
+Manager should not assign public GBP execution work until the configured GMF GBP access email is verified as Manager on the Google Business Profile. Manager may still assign safe setup work such as client ID, client folder, client hub, baseline scan, agent-owned access verification, and onboarding checklist.
 
 ### Sales Manager
 
@@ -443,7 +443,7 @@ Manager may assign safe setup immediately:
 
 Manager should not assign execution work blocked by missing access:
 
-- no GBP edits until `admin@getmefound.ai` is accepted as Manager
+- no GBP edits until the configured GMF GBP access email is accepted as Manager
 - no review request sends until review link, customer list, suppressions, and proof checks are ready
 - no SMS until A2P/consent/STOP/HELP readiness is confirmed
 - no public client claim or profile change without proof and approval path
@@ -453,11 +453,12 @@ Manager should not assign execution work blocked by missing access:
 If Google Business Profile manager access is missing:
 
 1. Profile Manager records blocker: `gbp_access`.
-2. Profile Manager records exact needed action: "Invite `admin@getmefound.ai` as Manager in Google Business Profile."
-3. Manager keeps GBP execution unassigned or blocked.
-4. Account Manager emails the client.
-5. Account Manager follows up every two business days while blocked, with no more than one ask per email.
-6. Once access is confirmed, Manager assigns Profile Manager execution.
+2. Profile Manager first runs the read-only verifier or authorized browser-session lane.
+3. If the profile is not visible, Profile Manager records exact needed action: "Invite the configured GMF GBP access email as Manager in Google Business Profile."
+4. Manager keeps public GBP edits blocked but keeps safe setup/access verification moving.
+5. Account Manager emails the client.
+6. Account Manager follows up every two business days while blocked, with no more than one ask per email.
+7. Once access is confirmed, Manager assigns Profile Manager execution.
 
 ## Client Communication Rules
 

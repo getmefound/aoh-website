@@ -36,6 +36,8 @@ const nextConfig: NextConfig = {
           has: [{ type: "host" as const, value: host }],
         },
       ]),
+      { source: "/checkout/always-ready", destination: "/pricing#always-ready", permanent: false },
+      { source: "/checkout/always-ready/", destination: "/pricing#always-ready", permanent: false },
       { source: "/checkout/review-power", destination: "/checkout/stay-found", permanent: true },
       { source: "/checkout/review-power/", destination: "/checkout/stay-found", permanent: true },
       { source: "/checkout/get-chosen", destination: "/checkout/stay-found", permanent: true },

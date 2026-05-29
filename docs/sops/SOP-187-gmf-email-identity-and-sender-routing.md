@@ -71,7 +71,7 @@ Define which email identity GMF agents use so the business can operate without c
 | `support@getmefound.ai` | Public support/contact fallback | Already used across site/docs |
 | `admin@getmefound.ai` | Platform/admin invites only if a real mailbox or alias exists | Must be monitored before use |
 | `clients@getmefound.ai` | Client onboarding, setup updates, monthly recaps | Account Manager lane |
-| `profile@getmefound.ai` | GBP/access-related client instructions if separate from clients inbox | Account Manager sends; Profile Manager supplies facts |
+| `profile@getmefound.ai` | Official GBP/profile-access Google account | Real paid Workspace user; use for client GBP Manager invites and profile-work replies |
 | `reviews@getmefound.ai` | Review-request replies and feedback routing | Reviews Manager/Account Manager lane |
 | `partners@getmefound.ai` | Partner applications and partner support | Sales Rep/Sales Manager lane |
 | `billing@getmefound.ai` | Billing questions, receipts, failed payments | Manager/Systems Director lane |

@@ -1268,7 +1268,7 @@ ${address(actor)}, recorded: GBP access account candidate is \`${account}\`.
 
 Next move is not on you:
 
-Profile Manager must use existing Southington GBP access first and verify:
+Profile Manager must use the agent-owned GBP verifier lane first and verify:
 
 - clean profile URL
 - accepted role for \`${account}\`
@@ -1276,7 +1276,7 @@ Profile Manager must use existing Southington GBP access first and verify:
 - review link
 - website, hours, address/service-area setting, category, and services
 
-I will ask you only if Profile Manager cannot access the profile, finds the wrong profile, or needs public edit/client-facing approval.`;
+Systems Director owns the OAuth/API or authorized browser-session path. I will ask you only for one-time account authorization, a corrected access issue agents cannot clear, or public edit/client-facing approval.`;
 }
 
 function buildAgentRoleResponse(agentKey: AgentKey, actor: UserContext) {

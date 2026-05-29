@@ -47,6 +47,7 @@
     "review:integration-health-smoke": "node scripts/review-integration-health-smoke.mjs",
     "report:ops-smoke": "node scripts/report-flow-smoke.mjs",
     "gbp:readonly-preflight": "node scripts/gbp-readonly-preflight.mjs",
+    "gbp:access-verify": "node scripts/gbp-access-verifier.mjs",
     "agent:watchdog": "node scripts/manager-agent-watchdog.mjs",
     "agent:business-audit": "node scripts/business-improvement-audit.mjs",
     "morning:brief": "node scripts/morning-brief.mjs",

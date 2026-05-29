@@ -1,12 +1,12 @@
 # SOP 181 - Waiting State SLA And Timer Control
 
-Status: Drafted
-Version: 0.1
+Status: Active
+Version: 0.3
 Owner: Manager
 Reviewer: Auditor
 Approver: Manager
-Effective date: Set when Active
-Next review: Set when Active
+Effective date: 2026-05-29
+Next review: 2026-06-05
 Source of truth: `docs/sops/SOP-181-waiting-state-sla-and-timer-control.md`
 
 ## Purpose
@@ -52,6 +52,8 @@ If the next step belongs to an agent or reviewer, the job is not waiting. Use on
 | `Ready For Review` | Auditor/reviewer must pass, hold, or request changes | Reviewer, handoff acknowledgment, due time |
 | `Access Investigation` | Agent is still exhausting OAuth/API/browser/public/source paths | Agent owner, timer, exhausted-path proof |
 | `Blocked - Queue Control` | The row lacks owner, proof, timer, or execution path | Manager/System Director rescue |
+
+Any row with `Waiting State`, `Expected Receive`, `Escalate At`, `Next Owner`, or `Unlock Proof` is timer-enforced even when the visible Monday status is `Agent Working`. `Agent Working` is not allowed to hide a missed receive time.
 
 ## True Waiting Labels
 
@@ -100,6 +102,7 @@ Every waiting job must have:
    - runtime late: SOP 179
    - skill gap: SOP 178
 10. Update Monday/Mission Control after every timer action.
+11. If the row remains agent-owned after the expected receive time passes, Manager moves it to timer-watch and prepares rescue before escalation. If the escalation time passes without proof, Manager either reroutes/repairs internally or converts the item to a precise owner-needed ask only after exhaustion.
 
 ## Timing Defaults
 
@@ -158,9 +161,9 @@ If a waiting state is being used for internal agent/reviewer work, or has no own
 |---|---|
 | Desktop review | Pass |
 | Dry run | Pass |
-| Live pilot | In progress - Monday rows corrected so agent-owned work is not labeled waiting on 2026-05-28 |
-| Audit | Pending |
-| Release | Pending |
+| Live pilot | Passed with watch |
+| Audit | Watch |
+| Release | Active |
 
 ## Changelog
 
@@ -168,6 +171,7 @@ If a waiting state is being used for internal agent/reviewer work, or has no own
 |---|---|---|---|
 | 0.1 | 2026-05-28 | Created global waiting-state timer control after owner asked for non-stopping operation at 50+ client scale | Manager |
 | 0.2 | 2026-05-28 | Restricted Waiting to true external/timed dependencies; internal handoffs now use Agent Working, Ready For Review, or Access Investigation | Manager |
+| 0.3 | 2026-05-29 | Activated timer enforcement for Agent Working rows that carry queue-control fields so work cannot hide behind active status | Manager |
 
 ## Source Documents
 

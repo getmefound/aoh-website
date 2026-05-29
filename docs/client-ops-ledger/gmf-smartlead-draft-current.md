@@ -9,7 +9,7 @@ Live sends: no
 - Ready CSV: `C:\Users\micha\Documents\aoh-website\tmp-gmf-prospecting-smartlead-ready-2026-05-29.csv`
 - Sequence packet: `C:\Users\micha\Documents\aoh-website\docs\client-ops-ledger\outbox\gmf-prospecting-sequence-2026-05-29.json`
 - Campaign name: GMF Visibility Engine Seed - 2026-06-01
-- CTA required: `/lp/get-found`
+- Cold-email CTA: reply `YES` (no cold-email links); report URL is synced only as a SmartLead custom field for the positive-reply auto-response.
 
 ## Validation
 
@@ -37,7 +37,7 @@ By tier:
 - tier_3: 1
 
 By segment:
-- behind_nearby_competitor: 1
+- very_few_reviews: 1
 - missing_hours_photos: 1
 - weak_ai_search_readiness: 1
 

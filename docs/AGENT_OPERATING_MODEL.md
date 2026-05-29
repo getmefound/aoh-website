@@ -180,7 +180,7 @@ Manager must:
 - check prerequisites before assigning execution work
 - ask Mike only after the responsible agent has exhausted existing access/tools and drafted the smallest needed client/owner request
 
-Manager should not assign GBP execution work until `admin@getmefound.ai` is added as Manager on the client Google Business Profile. Manager may still assign safe setup work such as client ID, folder, hub shell, public baseline scan, and onboarding checklist.
+Manager should not assign public GBP execution work until the configured GMF GBP access email is verified as able to manage the client Google Business Profile. Current app code reads `NEXT_PUBLIC_GMF_GBP_INVITE_EMAIL`, then `NEXT_PUBLIC_AOH_GBP_INVITE_EMAIL`, then defaults to `mike@getmefound.ai`; Systems Director may later move this to a dedicated account such as `profile@getmefound.ai` or `admin@getmefound.ai`. Manager may still assign safe setup work such as client ID, folder, hub shell, public baseline scan, access verification, and onboarding checklist.
 
 ### Sales Manager
 
@@ -207,6 +207,8 @@ Specialist agents do not email clients directly. They record blockers, proof, an
 Owns Google-facing visibility.
 
 Profile Manager handles Google Business Profile access, profile health, review link capture, categories/services, monthly drift checks, and Get Found/Stay Found execution.
+
+Profile Manager must verify client GBP access through an agent-owned lane before asking Mike: the read-only OAuth/API verifier (`npm run gbp:access-verify`) when configured, or a controlled authorized browser session for the configured GMF GBP access email. Mike is not the normal profile verifier for each client.
 
 ### Reviews Manager
 
@@ -374,6 +376,7 @@ Monthly:
 - `docs/GMF_AGENT_TRAINING_PACK.md`
 - `docs/MANAGER_ROUTING_SKILL_PACK.md`
 - `docs/PROFILE_KNOWLEDGE_PACK.md`
+- `docs/PROFILE_MANAGER_GBP_ACCESS_VERIFIER_SKILL_PACK.md`
 - `docs/REVIEW_AUTOMATION_AGENT_SKILLS.md`
 - `docs/CLIENT_REVIEW_AUTOMATION_ONBOARDING.md`
 - `docs/GMF_PARTNER_PROGRAM.md`

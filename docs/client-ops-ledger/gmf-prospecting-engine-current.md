@@ -37,7 +37,8 @@ Still not live-send complete: Smartlead draft setup should remain paused until `
 | Leads evaluated | 4 |
 | Ready for Smartlead upload | 3 |
 | Needs verification | 0 |
-| Held/suppressed | 1 |
+| Held | 1 |
+| Suppressed | 0 |
 
 ## Smartlead Capacity
 
@@ -65,7 +66,7 @@ By niche tier:
 - Beauty and personal care: 1
 
 By segment:
-- behind_nearby_competitor: 1
+- very_few_reviews: 1
 - missing_hours_photos: 1
 - weak_ai_search_readiness: 1
 
@@ -94,9 +95,9 @@ By assigned sender domain:
 - LinkedIn outbound is excluded for this ICP.
 - No HighLevel AI feature was enabled.
 - No per-review Outscraper scraper ran across the full list.
-- Records missing safe personalization are held before send.
+- Scoring calls `/api/visibility-score`; records returning `insufficient_data` or missing safe personalization are suppressed before send.
 - Cold emails use outreach domains only; `getmefound.ai` is blocked for cold prospecting senders.
-- Every generated body has one CTA link, clear opt-out language, and the physical mailing address.
+- Cold-email bodies contain no links; the CTA is a reply-YES request. Report URLs are stored as merge fields for the positive-reply auto-response.
 - Volume must stay below 48-hour Get Found fulfillment capacity before scale.
 
 ## Credentials/APIs Needed

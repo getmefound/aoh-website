@@ -4,7 +4,7 @@ import { ReviewAutomationIntakeForm } from "@/components/ReviewAutomationIntakeF
 const inviteEmail =
   process.env.NEXT_PUBLIC_GMF_GBP_INVITE_EMAIL?.trim() ||
   process.env.NEXT_PUBLIC_AOH_GBP_INVITE_EMAIL?.trim() ||
-  "mike@getmefound.ai";
+  "profile@getmefound.ai";
 
 export const metadata: Metadata = {
   title: "Client Setup Intake - GetMeFound",

@@ -1,6 +1,6 @@
 # GBP Read-Only Verification Path
 
-Status: Systems Director draft
+Status: Active operating path
 Created: 2026-05-28
 Owner: Systems Director
 Reviewer: Auditor
@@ -22,7 +22,7 @@ Known:
 - Captured place ID: `ChIJxypnrEz5KkYRgxXufgych38`
 - Proof file: `docs/sops/live-pilots/2026-05-28-southington-profile-manager-access-and-fact-proof.md`
 
-Still open:
+Still open for Southington:
 
 - accepted Manager role for `mike@getmefound.ai` or `admin@getmefound.ai`
 - exact profile/dashboard URL
@@ -32,18 +32,18 @@ Still open:
 - primary category and services shown in GBP
 - website field
 
-Mike is not needed yet. Systems Director/Profile Manager must first establish the authenticated read-only path below.
+Mike is not the per-client verifier. Systems Director/Profile Manager must first use or establish the authenticated read-only path below.
 
 Queue-control rescue now active: `docs/sops/live-pilots/2026-05-28-southington-gbp-access-gap-stuck-rescue.md`
 
 | Field | Value |
 |---|---|
-| Waiting state | `Waiting on Authenticated Access Path` |
+| Waiting state | `Agent-owned access investigation` |
 | Current owner | Systems Director / Profile Manager |
 | Next owner | Auditor after authenticated proof |
-| Expected receive | 2026-05-29 12:00 PM ET |
-| Escalate/check by | 2026-05-29 3:00 PM ET |
-| Missed timer action | Document Path A/Path B failure state and route owner-needed Slack DM only if required |
+| Expected receive | 2026-05-29 8:00 PM ET |
+| Escalate/check by | 2026-05-29 10:00 PM ET |
+| Missed timer action | Systems Director repairs OAuth/browser verifier lane or documents exactly why one-time account authorization is required |
 
 ## Official Google Constraints
 
@@ -130,6 +130,18 @@ npm run gbp:readonly-preflight
 
 This command is intentionally safe: it checks for required OAuth environment variable names and retests the Southington review-link redirect/place ID. It does not call authenticated GBP APIs, print secret values, store tokens, or write Google data.
 
+Authenticated verifier command:
+
+```bash
+npm run gbp:access-verify -- --place-id ChIJxypnrEz5KkYRgxXufgych38 --business-name "Southington Lawn Service LLC"
+```
+
+This command is also read-only. If OAuth credentials are configured, it obtains an access token, lists accessible accounts/locations, matches the target profile by `metadata.place_id`, attempts a read-only admin/role check, and writes a sanitized proof report. If OAuth credentials are not configured, it writes an infrastructure blocker report instead of asking Mike to check manually.
+
+Current verifier report:
+
+- `docs/client-ops-ledger/gbp-access-verifier-current.md`
+
 2026-05-28 preflight result:
 
 - `GOOGLE_GBP_CLIENT_ID`: missing
@@ -147,7 +159,7 @@ Short-term fallback if API approval is not ready.
 
 Allowed:
 
-- Profile Manager signs into the authorized GMF Google account through a normal browser session.
+- Profile Manager uses a controlled, authorized GMF Google account browser session.
 - Profile Manager opens Business Profile manager/search UI.
 - Profile Manager records only non-sensitive proof:
   - profile name
@@ -162,8 +174,14 @@ Not allowed:
 - extracting browser cookies
 - storing Google session tokens
 - asking for or storing passwords
-- using Mike's personal browser profile without explicit permission
+- using Mike's personal browser profile as the normal operating path
 - making public edits while verifying
+
+Operating interpretation:
+
+- "Agent can log in" means Systems Director has created an authorized account/session path once. It does not mean agents know or store Mike's password.
+- The browser session is an agent tool lane, like Smartlead or Monday access. Mike should not be asked to inspect every client.
+- If Google prompts for security/2FA on the GMF account, that is a one-time account authorization blocker, not a per-client GBP verification blocker.
 
 Done proof:
 
@@ -193,12 +211,13 @@ Not enough for Done:
 
 ## Southington Next Action
 
-1. Systems Director decides whether current GMF systems can support Path A soon.
-2. If Path A is not ready, Profile Manager uses Path B only through a normal authorized sign-in, not by scraping local browser cookies.
+1. Systems Director runs `npm run gbp:access-verify` for Southington.
+2. If API OAuth is missing or fails, Systems Director assigns Profile Manager to the authorized browser-session lane.
 3. Profile Manager matches the profile to place ID `ChIJxypnrEz5KkYRgxXufgych38`.
 4. Profile Manager records the role, clean profile URL, rating/count, hours, website, address/service-area, category, and services.
 5. Auditor reviews the proof.
-6. Manager asks Mike only if both Path A and Path B fail, or if public edit/client-facing approval is needed.
+6. Account Manager routes a corrected client access request if the profile is not visible to the configured GMF GBP access email.
+7. Manager asks Mike only for one-time GMF account authorization, credential/action approval, or public edit approval after the agent-owned lanes are exhausted.
 
 ## Auditor Guardrails
 

@@ -68,7 +68,8 @@ Rule:
 - use Gmail search/read as a safe evidence source for inbox facts, access invites, vendor notices, receipts, prior instructions, and client-originated details before interrupting Mike
 - never ask for or record passwords, recovery codes, 2FA codes, raw login links, or unrelated personal email content
 - treat outbound email as live-send work that requires the responsible SOP and approval gate
-- do not assign GBP execution work until `admin@getmefound.ai` is accepted as Manager on the client Google Business Profile
+- do not assign public GBP execution work until the configured GMF GBP access email is accepted as Manager on the client Google Business Profile
+- verify GBP access through the read-only verifier or controlled authorized browser-session lane before asking Mike
 - safe setup work can begin before access: client ID, folder, hub shell, magic-link access, public baseline scan, and onboarding checklist
 - client hubs use magic-link access only; do not create password-based client hub access
 

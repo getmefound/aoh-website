@@ -87,7 +87,7 @@ Manager assigns work, watches blockers, and only brings Mike decisions that need
 
 Sales Rep owns prospect emails and free report follow-up before payment. Account Manager owns client communication after payment. Specialist agents own narrow jobs and do not email prospects or clients directly.
 
-Manager should not assign execution work until prerequisites are met. Example: Profile Manager should not be assigned Google Business Profile edits until `admin@getmefound.ai` is accepted as Manager on the client profile. Manager may still assign safe setup work such as client ID, client folder, client hub shell, and public baseline scan.
+Manager should not assign public execution work until prerequisites are met. Example: Profile Manager should not be assigned Google Business Profile edits until the configured GMF GBP access email is verified as Manager on the client profile. Manager may still assign safe setup work such as client ID, client folder, client hub shell, public baseline scan, and agent-owned access verification.
 
 Auditor checks quality and safety before work is marked done.
 

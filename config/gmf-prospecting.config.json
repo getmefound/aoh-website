@@ -153,7 +153,7 @@
     "fields": ["name", "email", "phone", "website", "address", "category", "rating", "review_count", "photos_count", "hours_present", "latest_review_date", "business_status"]
   },
   "filters": {
-    "requireWebsite": false,
+    "requireWebsite": true,
     "requireValidEmail": true,
     "maxReviewCount": 25,
     "minCompetitorReviewGap": 25,
@@ -168,6 +168,8 @@
     "suppressedStatuses": ["invalid", "disposable", "catchall", "unknown", "risky", "bad_syntax", "api_error"]
   },
   "smartlead": {
+    "primaryCampaignId": 3379589,
+    "primaryCampaignName": "GetMeFound - CT Med Spa Visibility Seed - 2026-06-01",
     "useBrandDomainForColdEmail": false,
     "forbiddenSenderDomains": ["getmefound.ai"],
     "senderDomainPool": [

@@ -10,6 +10,7 @@ import { ICON_PATHS } from "@/lib/icon-paths";
 import { MockReviewPanel } from "@/components/ui/MockReviewPanel";
 import { MockAIVisibilityPanel } from "@/components/ui/MockAIVisibilityPanel";
 import { MockRelayPanel } from "@/components/ui/MockRelayPanel";
+import { AlwaysReadyWaitlist } from "@/components/sections/AlwaysReadyWaitlist";
 import { pageBreadcrumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -343,14 +344,22 @@ export default function PricingPage() {
           className="bg-[var(--color-hero-bg)] text-white scroll-mt-32"
         >
           <div className="mx-auto max-w-6xl px-6 py-12 md:py-16 text-center">
-            <p className="mb-3 font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-accent)]">
-              Step 3 of 3
-            </p>
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <p className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-accent)]">
+                Step 3 of 3
+              </p>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-400/15 px-3 py-1 ring-1 ring-sky-400/40">
+                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300">
+                  Early Access
+                </span>
+              </span>
+            </div>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
               Always ready.
             </h2>
             <p className="text-base md:text-lg text-white/75 leading-relaxed max-w-2xl mx-auto">
-              Voice readiness, Google profile content, website facts, and AI answer checks keep the business ready for calls, searches, and AI recommendations.
+              Never miss another customer — human or AI. An AI agent answers your calls 24/7, gives real prices and hours, and books the appointment.
             </p>
           </div>
         </section>
@@ -363,14 +372,20 @@ export default function PricingPage() {
           <div className="relative z-10 mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
             <Reveal delay={0.05}>
               <div className="max-w-2xl">
-                <p className="mb-3 font-mono text-xs uppercase tracking-[0.25em] text-sky-300">
-                  03 - Always Ready
-                </p>
+                <div className="mb-3 flex items-center gap-3">
+                  <p className="font-mono text-xs uppercase tracking-[0.25em] text-sky-300">
+                    03 - Always Ready
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-400/15 px-3 py-1 ring-1 ring-sky-400/40">
+                    <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300">Early Access</span>
+                  </span>
+                </div>
                 <h2 className="text-3xl font-bold leading-tight md:text-5xl">
-                  Be the business AI finds, recommends, and calls.
+                  Never miss another customer — human or AI.
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-white/75 md:text-lg">
-                  Google replaced search results with AI-assisted actions. Always Ready prepares your business facts, content, phone readiness, and escalation rules so Google, ChatGPT, Claude, and other AI systems can recommend or call on your behalf.
+                  An AI agent answers your calls 24/7, gives real prices and hours, and books the appointment. Google is getting ready to call businesses on customers&apos; behalf — we get yours ready to answer.
                 </p>
 
                 <blockquote className="mt-6 rounded-3xl border border-sky-300/25 bg-sky-300/10 p-5 text-sm leading-7 text-white/85">
@@ -408,55 +423,37 @@ export default function PricingPage() {
 
             <Reveal delay={0.12}>
               <div className="space-y-5 lg:sticky lg:top-32">
-                <div className="rounded-[2rem] bg-amber-300 p-6 text-slate-950 shadow-2xl shadow-black/35 ring-1 ring-amber-100/70 lg:-rotate-1">
+                <div className="rounded-[2rem] bg-[#0d1f2e] p-6 text-white shadow-2xl shadow-black/35 ring-1 ring-sky-400/20 lg:-rotate-1">
                   <div className="mb-5 flex items-start justify-between gap-4">
                     <div>
-                      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-slate-700">
+                      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-sky-300">
                         AI readiness plan
                       </p>
-                      <h3 className="mt-2 text-2xl font-black">Always Ready</h3>
+                      <h3 className="mt-2 text-2xl font-black text-white">Always Ready</h3>
                     </div>
-                    <span className="rounded-full bg-slate-950 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-amber-200">
-                      Advanced
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-400/15 px-3 py-1 ring-1 ring-sky-400/40">
+                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-sky-300">Early Access</span>
                     </span>
                   </div>
 
-                  <div className="mb-5 flex items-end gap-1">
-                    <span className="text-5xl font-black">$299</span>
-                    <span className="pb-1 text-base font-semibold text-slate-700">/mo</span>
-                    <span className="ml-auto pb-1 text-sm font-semibold text-slate-700">No contract</span>
+                  <div className="mb-2 flex items-end gap-1">
+                    <span className="text-5xl font-black text-sky-300">$299</span>
+                    <span className="pb-1 text-base font-semibold text-white/60">/mo</span>
+                    <span className="ml-2 pb-1 text-[10px] text-white/35">indicative</span>
                   </div>
+                  <p className="mb-5 text-xs text-white/40">No buy button yet — join the list to be first.</p>
 
-                  <p className="mb-5 text-sm leading-6 text-slate-700">
-                    For owners who want our team to manage reputation, visibility, content, and AI call readiness together.
-                  </p>
-
-                  <div className="grid gap-2 text-sm">
-                    {["Everything in Stay Found", "Voice readiness buildout", "Monthly strategy call"].map((item) => (
-                      <div key={item} className="flex items-center gap-2 rounded-2xl bg-white/55 px-3 py-2 font-semibold">
-                        <span aria-hidden="true">✓</span>
+                  <div className="grid gap-2 text-sm mb-5">
+                    {["Everything in Stay Found", "AI agent answers calls 24/7", "Monthly strategy call"].map((item) => (
+                      <div key={item} className="flex items-center gap-2 rounded-2xl bg-white/8 px-3 py-2 font-semibold text-white/80">
+                        <span aria-hidden="true" className="text-sky-400">✓</span>
                         <span>{item}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-6 grid gap-2">
-                    <Link
-                      href="/checkout/always-ready"
-                      className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
-                    >
-                      Start Always Ready
-                    </Link>
-                    <Link
-                      href={BOOKING_HREF}
-                      className="inline-flex items-center justify-center rounded-2xl border border-slate-950/20 px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-white/50"
-                    >
-                      Book a Call
-                    </Link>
-                    <p className="mt-1 text-center text-[11px] text-slate-600">
-                      No contract · Cancel anytime
-                    </p>
-                  </div>
+                  <AlwaysReadyWaitlist source="always-ready-waitlist-pricing" variant="dark" />
                 </div>
 
                 <div className="rounded-3xl bg-white/[0.05] p-5 ring-1 ring-white/10">

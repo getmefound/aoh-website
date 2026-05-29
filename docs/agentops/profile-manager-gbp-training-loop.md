@@ -1,34 +1,55 @@
 # Profile Manager GBP Training Loop
 
-Status: v1 client-zero
+Status: v2 scalable access lane
 Owner: Profile Manager
 Reviewer: Manager
-Last updated: 2026-05-21
+Last updated: 2026-05-29
 
 ## Plain-English Goal
 
-Train the Google Business Profile agent on AOH first.
+Train the Google Business Profile agent on GMF/AOH first, then reuse the same access proof path for clients.
 
 The agent should learn how to get access, inspect the profile, draft a safe update, and explain the process to a business owner before AOH asks a client to do the same thing.
 
 ## What The Agent Must Know
 
 - "GMB" is the old common name. Use "Google Business Profile" or "GBP" with clients.
-- AOH access is already confirmed for the client-zero test.
-- The client should add the AOH business-domain Google login under Business Profile settings -> People and access.
+- The client should add the configured GMF GBP access email under Business Profile settings -> People and access.
 - Default access is Manager.
 - No one should share a Google password.
 - Manager access is enough for normal profile work.
 - Owner access is only for admin/ownership work and needs separate approval.
+- Mike is not the per-client verifier. Profile Manager verifies through API/OAuth or an authorized GMF browser session.
+- If Profile lacks the skill or path, Profile says `Training requested` and Systems Director/Coach repairs the lane.
 - Public profile changes, posts, photos, services, and description edits need Mike approval during the AOH test.
 - GHL Expert helps only if the profile needs to connect into HighLevel.
 - HighLevel AI features stay OFF unless Mike manually approves them.
 
-## AOH Client-Zero Run
+## Agent-Owned Access Verification Run
+
+1. Confirm the configured GMF GBP access email from env/docs.
+2. Run the read-only verifier when OAuth is configured:
+
+```bash
+npm run gbp:access-verify -- --place-id <place_id> --business-name "<business name>"
+```
+
+3. If the verifier reports `api_oauth_env_missing` or API access failure, use the authorized browser-session lane.
+4. In the browser lane, open Google Business Profile with the controlled GMF account/session and verify:
+   - exact profile name
+   - place/profile identity
+   - People and access role/invite state
+   - review count/rating
+   - website, hours, category, services, address/service area, photos
+5. Store only non-sensitive proof. No passwords, codes, cookies, tokens, or personal account screenshots.
+6. If the profile is not visible to the configured GMF access email, Account Manager sends the corrected client access request.
+7. Manager asks Mike only for one-time account authorization, destructive credential/action approval, or public publish/edit approval.
+
+## AOH/GMF Client-Zero Run
 
 Current input needed:
 
-- AOH Business Profile link or search name
+- Business Profile link/search name from existing docs or public search
 - final public-publish approval only
 
 Profile Manager run:

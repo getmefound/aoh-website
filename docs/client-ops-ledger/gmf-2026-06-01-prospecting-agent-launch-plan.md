@@ -18,6 +18,18 @@ Sales Manager acquisition doctrine is now the owner for channel strategy. Cold e
 
 Persistent doctrine: `docs/GMF_SALES_MANAGER_ACQUISITION_PLAYBOOK.md`.
 
+## Copy Intake Update - Claude Code Nurture Emails
+
+2026-05-29 owner routing note: Mike is having Claude Code create the nurture emails now. Sales Manager must treat those incoming emails as the source copy packet for nurture and follow-up work rather than drafting a competing sequence.
+
+Agent handling:
+
+- Sales Manager owns whether the incoming Claude Code sequence fits the offer ladder, ICP, and launch goals.
+- Coach edits only for GMF voice, no-testimonial rule, authority/specificity, one CTA, opt-out/compliance language, and claim safety.
+- Sender uses only the Auditor-approved version when building Smartlead/Resend sequences.
+- Auditor blocks any live send until CAN-SPAM footer, physical address, suppression, stop rules, sender lane, and no-unsupported-claims checks pass.
+- Reporter records the final approved copy packet and which workflow uses it: cold prospecting, post-form-fill nurture, post-report nurture, or Get Found to Stay Found upsell.
+
 ## Inspection Report: Exists Vs Missing
 
 This inspection was completed before writing new prospecting code.
