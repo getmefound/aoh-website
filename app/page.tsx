@@ -8,7 +8,6 @@ import { VisibilityCheck } from "@/components/sections/VisibilityCheck";
 import { FounderNote } from "@/components/sections/FounderNote";
 import { GetFoundCloseBlock } from "@/components/sections/GetFoundCloseBlock";
 import { VisibilityEngine } from "@/components/sections/VisibilityEngine";
-import { SignalStack } from "@/components/sections/SignalStack";
 import { Reveal } from "@/components/Reveal";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
@@ -218,8 +217,6 @@ export default function Home() {
         <VisibilityEngine />
 
         <VisibilityCheck />
-
-        <SignalStack />
 
         {/* Service tiers */}
         <section className="pt-10 pb-8 md:pt-14 md:pb-10 bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]">
