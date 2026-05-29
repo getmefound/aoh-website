@@ -38,6 +38,7 @@
     "gmf:prospecting": "node scripts/gmf-prospecting-engine.mjs",
     "gmf:smartlead-draft": "node scripts/gmf-smartlead-draft-builder.mjs",
     "gmf:guardrails": "node scripts/gmf-prospecting-guardrails.mjs",
+    "gmf:launch-nonstop": "node scripts/gmf-launch-nonstop-runner.mjs",
     "monday:agent-job": "node scripts/monday-agent-jobs.mjs",
     "ghl:smoke-97": "node scripts/ghl-post-downgrade-smoke.mjs",
     "review:storage-check": "node scripts/review-storage-check.mjs",

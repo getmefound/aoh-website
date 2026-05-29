@@ -16,7 +16,7 @@ type Totals = {
   unsubscribed: number;
 };
 
-type ViewKey = "owner" | "agents" | "prospecting" | "sources";
+type ViewKey = "owner" | "agents" | "prospecting" | "costs" | "sources";
 
 type OwnerAction = {
   id: string;
@@ -32,11 +32,11 @@ type OwnerAction = {
 };
 
 const nicheRanking = [
-  ["Medical spas / aesthetic clinics", "Primary Monday recommendation", "30 max if QA supports it"],
-  ["Dentists / cosmetic and implant dental", "Strong second test", "More compliance review"],
-  ["Pet grooming / boarding / daycare", "Reply-friendly fallback", "Lower ticket"],
-  ["HVAC / plumbing / roofing", "High-value future lane", "Needs fresh QA batch"],
-  ["Assisted living / senior living", "High value, sensitive", "Dedicated careful copy"],
+  ["Pet care", "Primary Monday validation lane", "Grooming, daycare, boarding, training"],
+  ["Specialty fitness / wellness", "Second lane after pet-care proof", "Yoga, pilates, barre, martial arts"],
+  ["Beauty / personal care", "Third lane with careful copy", "Lash, brow, spray tan, massage, esthetics"],
+  ["Tutoring / music / swim schools", "Test bucket", "Use only after first proof loop"],
+  ["Specialty auto / event vendors", "Test bucket", "Detailing, tint, local event vendors"],
 ];
 
 export function MorningBriefExperience({
@@ -111,12 +111,24 @@ export function MorningBriefExperience({
               <ScoreTile label="Agents active" value={mondayOverview.totals.inProgress.toString()} tone="accent" />
               <ScoreTile label="Human-needed Monday" value={mondayOverview.totals.humanNeeded.toString()} tone={mondayOverview.totals.humanNeeded ? "warm" : "muted"} />
               <ScoreTile label="Agent Ness grade" value={brief.businessAudit.efficiencyScore} tone="warm" />
+              <ScoreTile label="Est. daily cost" value={brief.costPulse.dailyEstimateLabel} tone="warm" />
+              <ScoreTile
+                label="Token monitor"
+                value={brief.costPulse.tokenTelemetryStatus}
+                tone={brief.costPulse.tokenTelemetryStatus === "Live" ? "accent" : "warm"}
+              />
+              <ScoreTile
+                label="Launch runner"
+                value={brief.launchRunner.status}
+                tone={brief.launchRunner.ok ? "accent" : "warm"}
+              />
             </div>
           </div>
         </div>
       </header>
 
       <OwnerContextStrip brief={brief} weather={weather} />
+      <CostPulseStrip costPulse={brief.costPulse} />
 
       <section className="bg-[#fffaf0]/90 backdrop-blur" style={{ borderBottom: "1px solid rgba(148, 163, 184, 0.2)" }}>
         <div className="mx-auto max-w-7xl px-4 py-5 md:px-8">
@@ -178,7 +190,13 @@ export function MorningBriefExperience({
         }}
       >
         <div className="mx-auto max-w-7xl px-4 py-6 md:px-8">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
+            <LiveStateCard
+              label="Launch runner"
+              value={brief.launchRunner.status}
+              detail={launchRunnerDetail(brief)}
+              tone={brief.launchRunner.ok ? "accent" : "warm"}
+            />
             <LiveStateCard label="Smartlead campaign" value="Paused" detail="No prospect sends before approval." tone="warm" />
             <LiveStateCard label="Outreach inboxes" value="Healthy" detail="3 inboxes ready; 0 spam; 100 reputation." tone="accent" />
             <LiveStateCard label="Casey mailbox" value="Owner gate" detail="First-login and reply proof still needed." tone="danger" />
@@ -193,10 +211,11 @@ export function MorningBriefExperience({
             <p className="text-sm font-semibold text-slate-500">Operating view</p>
             <h2 className="mt-1 text-2xl font-semibold text-slate-950">Morning control surface</h2>
           </div>
-          <div className="grid grid-cols-2 gap-1 rounded-lg border border-slate-200 bg-white p-1 shadow-sm md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-1 rounded-lg border border-slate-200 bg-white p-1 shadow-sm md:grid-cols-5">
             <TabButton active={view === "owner"} onClick={() => setView("owner")} label="Owner" />
             <TabButton active={view === "agents"} onClick={() => setView("agents")} label="Agents" />
             <TabButton active={view === "prospecting"} onClick={() => setView("prospecting")} label="Prospecting" />
+            <TabButton active={view === "costs"} onClick={() => setView("costs")} label="Costs" />
             <TabButton active={view === "sources"} onClick={() => setView("sources")} label="Sources" />
           </div>
         </div>
@@ -204,6 +223,7 @@ export function MorningBriefExperience({
         {view === "owner" ? <OwnerView brief={brief} slackSignals={slackSignals} /> : null}
         {view === "agents" ? <AgentsView brief={brief} mondayOverview={mondayOverview} activeRows={activeWithoutOwner} /> : null}
         {view === "prospecting" ? <ProspectingView totals={totals} /> : null}
+        {view === "costs" ? <CostView brief={brief} /> : null}
         {view === "sources" ? <SourcesView brief={brief} slackSignals={slackSignals} mondayOverview={mondayOverview} weather={weather} /> : null}
       </section>
     </main>
@@ -246,6 +266,35 @@ function OwnerContextStrip({ brief, weather }: { brief: MorningBriefData; weathe
   );
 }
 
+function CostPulseStrip({ costPulse }: { costPulse: MorningBriefData["costPulse"] }) {
+  return (
+    <section className="bg-white/80 backdrop-blur" style={{ borderBottom: "1px solid rgba(148, 163, 184, 0.2)" }}>
+      <div className="mx-auto max-w-7xl px-4 py-5 md:px-8">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <ContextCard
+            label="Cost owner"
+            value={costPulse.owner}
+            detail={`${costPulse.reviewer} verifies; ${costPulse.improvementOwner} flags waste and better operating ideas.`}
+            tone="sky"
+          />
+          <ContextCard
+            label="Estimated spend so far"
+            value={costPulse.spentEstimateLabel}
+            detail={`${costPulse.dailyEstimateLabel}/day from the local recurring-agent cost ledger.`}
+            tone="violet"
+          />
+          <ContextCard
+            label="Needed by 6/1"
+            value={costPulse.remainingToLaunchLabel}
+            detail={`${costPulse.launchDaysRemaining} day(s) of estimated run cost plus the capped Outscraper test budget.`}
+            tone="sun"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function OwnerView({ brief, slackSignals }: { brief: MorningBriefData; slackSignals: SlackOwnerSignals }) {
   return (
     <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.05fr_0.95fr]">
@@ -266,6 +315,42 @@ function OwnerView({ brief, slackSignals }: { brief: MorningBriefData; slackSign
         <div className="mt-4 grid grid-cols-1 gap-3">
           <SignalCard label="Main constraint" value={brief.businessAudit.mainConstraint} />
           <SignalCard label="Slack owner asks" value={slackSignals.signals.length ? `${slackSignals.signals.length} recent ask(s) found` : slackSignals.error || "No recent owner-needed Slack asks found."} />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function CostView({ brief }: { brief: MorningBriefData }) {
+  const costPulse = brief.costPulse;
+
+  return (
+    <div className="space-y-7">
+      <section>
+        <SectionTitle label="Systems Director" title="Token and tool cost monitor" />
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <ScoreTile label="Token telemetry" value={costPulse.tokenTelemetryStatus} tone={costPulse.tokenTelemetryStatus === "Live" ? "accent" : "warm"} />
+          <ScoreTile label="Est. daily burn" value={costPulse.dailyEstimateLabel} tone="warm" />
+          <ScoreTile label="Est. build spend" value={costPulse.spentEstimateLabel} tone="muted" />
+          <ScoreTile label="By launch" value={costPulse.remainingToLaunchLabel} tone="accent" />
+        </div>
+      </section>
+
+      <section>
+        <SectionTitle label="Vendor pulse" title="What is actual, estimated, or paused" />
+        <div className="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-5">
+          {costPulse.vendors.map((vendor) => (
+            <CostVendorCard key={vendor.name} vendor={vendor} />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <SectionTitle label="Operating notes" title="Cost control rules" />
+        <div className="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {costPulse.notes.map((note) => (
+            <TextCard key={note} text={note} />
+          ))}
         </div>
       </section>
     </div>
@@ -315,8 +400,8 @@ function ProspectingView({ totals }: { totals: Totals }) {
       <section>
         <SectionTitle label="Monday launch" title="Smartlead decision packet" />
         <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <LiveStateCard label="Recommended niche" value="Med spas" detail="Single-niche launch; do not mix copy unless approved." tone="accent" />
-          <LiveStateCard label="Recommended cap" value="30 total" detail="10 per warmed inbox; 45 is aggressive; 60 is not recommended." tone="warm" />
+          <LiveStateCard label="Recommended niche" value="Pet care" detail="Single-niche validation lane before scaling across other ICPs." tone="accent" />
+          <LiveStateCard label="Recommended cap" value="Warmup-paced" detail="Respect SmartLead warmup state; no hardcoded daily volume." tone="warm" />
           <LiveStateCard label="Launch state" value="Paused" detail="Mike approval required before resume, cap change, or list expansion." tone="danger" />
         </div>
       </section>
@@ -365,6 +450,9 @@ function SourcesView({
     brief.statsFile,
     brief.businessAudit.sourceFile,
     brief.ownerContext.sourceFile,
+    brief.costPulse.sourceFile,
+    brief.launchRunner.sourceFile,
+    ...brief.costPulse.proofFiles,
     ...brief.proofUsed,
   ].filter(Boolean);
 
@@ -477,6 +565,30 @@ function SignalCard({ label, value }: { label: string; value: string }) {
     <article className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
       <p className="text-sm font-semibold text-slate-500">{label}</p>
       <p className="mt-2 break-words text-sm leading-6 text-slate-700">{value}</p>
+    </article>
+  );
+}
+
+function CostVendorCard({ vendor }: { vendor: MorningBriefData["costPulse"]["vendors"][number] }) {
+  const tone: "danger" | "warm" | "accent" | "muted" =
+    vendor.status === "Live" || vendor.status === "Guarded"
+      ? "accent"
+      : vendor.status === "Paused" || vendor.status === "Limited"
+        ? "warm"
+        : "muted";
+
+  return (
+    <article className={`min-w-0 rounded-lg border bg-white p-4 shadow-sm ${borderTone(tone)}`}>
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <p className="text-sm font-semibold text-slate-500">{vendor.owner}</p>
+        <span className={chipTone(tone)}>{vendor.status}</span>
+      </div>
+      <h3 className="mt-3 break-words text-base font-semibold text-slate-950">{vendor.name}</h3>
+      <p className={`mt-3 break-words text-2xl font-semibold ${textTone(tone)}`}>{vendor.value}</p>
+      <p className="mt-3 break-words text-sm leading-6 text-slate-600">{vendor.detail}</p>
+      <code className="mt-4 block min-w-0 break-all rounded-md bg-slate-50 px-2 py-1 text-xs text-slate-500">
+        {vendor.proof}
+      </code>
     </article>
   );
 }
@@ -697,6 +809,14 @@ function buildOwnerActions({
   return actions.slice(0, 6);
 }
 
+function launchRunnerDetail(brief: MorningBriefData) {
+  const waits = brief.launchRunner.artificialWaits.length;
+  const blockers = brief.launchRunner.trueBlockers.length;
+  if (!brief.launchRunner.generatedAt) return "No current proof file yet; Systems Director runner is being scheduled.";
+  if (waits || blockers) return `${waits} artificial wait(s), ${blockers} true blocker(s). Last proof ${shortIso(brief.launchRunner.generatedAt)}.`;
+  return `No artificial waits detected. Last proof ${shortIso(brief.launchRunner.generatedAt)}.`;
+}
+
 function shortDate(value: string) {
   const match = value.match(/^\d{4}-\d{2}-(\d{2})T(\d{2}):(\d{2})/);
   if (!match) return value;
@@ -704,6 +824,18 @@ function shortDate(value: string) {
   const suffix = hour >= 12 ? "PM" : "AM";
   const hour12 = hour % 12 || 12;
   return `May ${match[1]}, ${hour12}:${match[3]} ${suffix} ET`;
+}
+
+function shortIso(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(date);
 }
 
 function stepList(source: string | undefined, fallback: string[]) {

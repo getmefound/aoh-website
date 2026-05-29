@@ -318,7 +318,7 @@ Where to look:
 
 DM status:
 
-- Automatic Manager DMs are not wired yet.
+- Owner-needed Manager DMs are wired through the Monday Human Needed path.
 - Manager should not proactively DM Mike unless human involvement is required.
 - Daily owner status belongs in Mission Control, Monday, or on-demand Slack commands.
 - Do not DM every agent action; that becomes noise fast.

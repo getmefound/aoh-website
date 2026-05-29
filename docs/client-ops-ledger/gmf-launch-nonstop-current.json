@@ -1,0 +1,146 @@
+{
+  "ok": true,
+  "status": "running",
+  "generatedAt": "2026-05-29T18:13:11.025Z",
+  "durationMs": 2203,
+  "launchDate": "2026-06-01",
+  "artificialWaits": [],
+  "trueBlockers": [],
+  "scheduled": {
+    "vercelCron": true,
+    "githubWorkflow": true,
+    "agentSlackCron": true
+  },
+  "files": {
+    "freeReportFlow": true,
+    "launchCronRoute": true,
+    "stripeWebhook": true,
+    "stripeWebhookFulfillmentTask": true,
+    "checkoutRoute": true,
+    "prospectingConfig": true,
+    "smartleadDraft": true,
+    "guardrails": true,
+    "watchdog": true
+  },
+  "credentials": [
+    {
+      "name": "SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SECRET_KEY",
+      "present": true,
+      "requiredForLaunch": true,
+      "reason": "needed for report queue, fulfillment task, and launch heartbeat writes"
+    },
+    {
+      "name": "RESEND_API_KEY",
+      "present": true,
+      "requiredForLaunch": true,
+      "reason": "needed for automated visibility report email delivery"
+    },
+    {
+      "name": "OUTSCRAPER_API_KEY",
+      "present": true,
+      "requiredForLaunch": true,
+      "reason": "needed for GBP enrichment and prospecting source data"
+    },
+    {
+      "name": "NEVERBOUNCE_API_KEY or NOBOUNCE_API_KEY",
+      "present": true,
+      "requiredForLaunch": true,
+      "reason": "needed for email verification before sends"
+    },
+    {
+      "name": "SMARTLEAD_API_KEY",
+      "present": true,
+      "requiredForLaunch": true,
+      "reason": "needed for SmartLead campaign/account readiness"
+    },
+    {
+      "name": "MONDAY_API_TOKEN",
+      "present": true,
+      "requiredForLaunch": false,
+      "reason": "needed for live Monday watchdog classification"
+    },
+    {
+      "name": "CRON_SECRET",
+      "present": true,
+      "requiredForLaunch": false,
+      "reason": "needed to authenticate Vercel cron requests"
+    },
+    {
+      "name": "OPENAI billing telemetry",
+      "present": false,
+      "requiredForLaunch": false,
+      "reason": "needed for exact token spend, not for launch execution"
+    }
+  ],
+  "commands": [
+    {
+      "id": "gmf_prospecting",
+      "required": true,
+      "ok": true,
+      "status": 0,
+      "command": "C:\\Program Files\\nodejs\\node.exe scripts/gmf-prospecting-engine.mjs --fixture",
+      "summary": "\"nurtureJson\": \"C:\\\\Users\\\\micha\\\\Documents\\\\aoh-website\\\\docs\\\\client-ops-ledger\\\\outbox\\\\gmf-prospecting-nurture-2026-05-29.json\", | \"metricsTemplateCsv\": \"C:\\\\Users\\\\micha\\\\Documents\\\\aoh-website\\\\docs\\\\client-ops-ledger\\\\outbox\\\\gmf-prospecting-metrics-template-2026-05-29.csv\" | } | }"
+    },
+    {
+      "id": "smartlead_draft",
+      "required": true,
+      "ok": true,
+      "status": 0,
+      "command": "C:\\Program Files\\nodejs\\node.exe scripts/gmf-smartlead-draft-builder.mjs",
+      "summary": "\"currentReport\": \"C:\\\\Users\\\\micha\\\\Documents\\\\aoh-website\\\\docs\\\\client-ops-ledger\\\\gmf-smartlead-draft-current.md\" | }, | \"actions\": [] | }"
+    },
+    {
+      "id": "guardrails",
+      "required": true,
+      "ok": true,
+      "status": 0,
+      "command": "C:\\Program Files\\nodejs\\node.exe scripts/gmf-prospecting-guardrails.mjs",
+      "summary": "\"pauseCsv\": \"C:\\\\Users\\\\micha\\\\Documents\\\\aoh-website\\\\docs\\\\client-ops-ledger\\\\outbox\\\\gmf-prospecting-pause-recommendations-2026-05-29.csv\", | \"summaryJson\": \"C:\\\\Users\\\\micha\\\\Documents\\\\aoh-website\\\\docs\\\\client-ops-ledger\\\\outbox\\\\gmf-prospecting-guardrails-2026-05-29.json\" | } | }"
+    },
+    {
+      "id": "agent_watchdog",
+      "required": false,
+      "ok": true,
+      "status": 0,
+      "command": "C:\\Program Files\\nodejs\\node.exe scripts/manager-agent-watchdog.mjs --json",
+      "summary": "\"nextAction\": \"Sales Manager/Auditor require deliverability audit PASS before asking Mike for final live-send approval. WATCH needs Auditor exception; HOLD blocks launch.\" | } | ] | }"
+    }
+  ],
+  "workstreams": [
+    {
+      "id": "signup_to_fulfillment",
+      "owner": "Systems Director + Profile Manager",
+      "status": "running_capable",
+      "nextAction": "Paid Get Found checkout creates an internal fulfillment task immediately.",
+      "proof": "lib/free-visibility-report.ts"
+    },
+    {
+      "id": "free_visibility_report",
+      "owner": "Website Automation + Systems Director",
+      "status": "running_capable",
+      "nextAction": "Homepage form runs automated report email; launch cron rescues stale under-5-minute failures.",
+      "proof": "app/api/audit-request/route.ts + app/api/launch/nonstop/route.ts"
+    },
+    {
+      "id": "cold_email_prep",
+      "owner": "Sales Manager + Scout + Sender + Auditor",
+      "status": "proof_refreshed",
+      "nextAction": "Keep refreshing prospecting engine, SmartLead draft, and guardrails until live-send approval packet is ready.",
+      "proof": "docs/client-ops-ledger/gmf-prospecting-engine-current.md"
+    },
+    {
+      "id": "stuck_work_rescue",
+      "owner": "Manager + Systems Director",
+      "status": "scheduled",
+      "nextAction": "Every active/waiting item must be runnable, scheduled, manual-audit, access-blocked, or owner-needed with proof.",
+      "proof": "scripts/manager-agent-watchdog.mjs"
+    },
+    {
+      "id": "live_runtime",
+      "owner": "Systems Director",
+      "status": "scheduled",
+      "nextAction": "Vercel cron checks live queues every 15 minutes; GitHub Actions refreshes launch proof every 15 minutes.",
+      "proof": "vercel.json + .github/workflows/gmf-launch-nonstop.yml"
+    }
+  ]
+}

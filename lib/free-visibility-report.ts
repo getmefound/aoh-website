@@ -354,6 +354,7 @@ export async function recordFreeVisibilityPurchase(input: {
   const runId = input.runId?.trim();
   const email = input.email?.trim().toLowerCase();
   const leadStatus = input.productSlug === "get-found-refresh" ? "purchased_get_found" : "purchased";
+  const isGetFound = input.productSlug === "get-found-refresh";
   const promises: Array<Promise<unknown>> = [];
 
   if (runId) {
@@ -385,6 +386,29 @@ export async function recordFreeVisibilityPurchase(input: {
         leadStatus,
         nextAction: "Stop nurture, start paid onboarding, and trigger Stay Found upsell only after the 48-hour before/after proof is delivered.",
         blocker: "",
+      }),
+    );
+  }
+
+  if (isGetFound) {
+    promises.push(
+      createAgentTask({
+        title: `Get Found fulfillment - ${email || runId || input.sessionId}`,
+        kind: "get_found_fulfillment",
+        priority: "high",
+        source: "stripe/checkout.session.completed",
+        payload: {
+          runId: runId || null,
+          email: email || null,
+          productSlug: input.productSlug,
+          stripeSessionId: input.sessionId,
+          sla: "48h",
+          owner: "Profile Manager",
+          reviewer: "Auditor",
+          nextAction:
+            "Start paid Get Found fulfillment immediately: confirm business record, verify access path, create before snapshot, perform approved visibility fixes, and prepare before/after proof within 48 hours.",
+          stopCondition: "Only pause for authenticated access, client-owned approval, vendor/platform delay, or documented risk.",
+        },
       }),
     );
   }

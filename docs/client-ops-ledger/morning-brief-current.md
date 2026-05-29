@@ -14,6 +14,7 @@ Prepared by: Elon / Manager
 - Monday is the owner-visible action queue for human-needed work, active agents, timers, handoffs, and proof.
 - Slack DM is the Manager owner-needed channel; routine progress stays in Monday, Mission Control, and proof reports.
 - Email/calendar access remains approval-gated; Casey can send, but do not use Casey for live prospect or client communication until Auditor clears recovery, signature, reply routing, and deliverability gates.
+- Launch nonstop runner is now the Systems Director proof loop: Vercel checks live queues every 15 minutes, GitHub refreshes safe launch proof every 15 minutes, and Morning Brief shows artificial waits/blockers.
 
 ## Needs Mike Today
 
@@ -29,6 +30,22 @@ Prepared by: Elon / Manager
 - Multi-agent business dashboards should show decision queues first, then agent work, then proof; owners should not have to hunt through logs.
 - Human-in-the-loop agent dashboards commonly center approval queues, audit trails, scheduling, and constraint enforcement.
 - Dashboard research points to action-first hierarchy: top-left should answer what needs attention now, with supporting context below.
+
+## Cost And Token Pulse
+
+- Systems Director owns daily token/tool-cost monitoring; Auditor verifies anomalies and Agent Ness recommends efficiency improvements.
+- Current status: limited, not green. Local proof shows `OPENAI_API_KEY`, but no OpenAI billing/admin telemetry or token observability feed is configured for actual token spend.
+- Estimated recurring agent/job ledger cost: about $7.27/day.
+- Estimated build/operating spend through 2026-05-29: about $114.97 from the local scheduled-job estimate ledger, not vendor invoices.
+- Estimated additional operating/data spend needed through 2026-06-01: about $24.81 if existing tools stay active and Outscraper remains capped at the configured $3/run.
+
+## Launch Nonstop Pulse
+
+- Status: running as of the latest local proof run.
+- Artificial waits detected: 0.
+- True launch blockers detected from local/secret-name evidence: 0.
+- Current runner proof: `docs/client-ops-ledger/gmf-launch-nonstop-current.md`.
+- Runtime rule: if code/proof work can run, it runs; only access, client, vendor/platform, owner approval, spend/risk, or safety timers may wait.
 
 ## Agents Feeding This Brief
 
@@ -55,5 +72,7 @@ Do not resume Smartlead yet. Systems Director/Sales Manager are rebuilding the 6
 - docs/client-ops-ledger/smartlead-monday-max-send-approval-packet.md
 - docs/client-ops-ledger/casey-mailbox-setup-current.md
 - docs/client-ops-ledger/business-improvement-audit-current.md
+- docs/client-ops-ledger/cost-token-monitor-current.md
+- docs/client-ops-ledger/gmf-launch-nonstop-current.md
 - docs/client-ops-ledger/prospecting-smartlead-preflight-current.md
 - docs/client-ops-ledger/smartlead-warmup-current.csv

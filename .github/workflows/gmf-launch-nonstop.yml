@@ -1,0 +1,75 @@
+name: GMF Launch Nonstop Runner
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gmf-launch-nonstop
+  cancel-in-progress: true
+
+jobs:
+  launch-nonstop:
+    name: Refresh launch proof and watchdog status
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: America/New_York
+      MONDAY_API_TOKEN: ${{ secrets.MONDAY_API_TOKEN }}
+      MONDAY_AGENT_JOBS_BOARD_ID: ${{ secrets.MONDAY_AGENT_JOBS_BOARD_ID || vars.MONDAY_AGENT_JOBS_BOARD_ID }}
+      OUTSCRAPER_API_KEY: ${{ secrets.OUTSCRAPER_API_KEY }}
+      NEVERBOUNCE_API_KEY: ${{ secrets.NEVERBOUNCE_API_KEY }}
+      NOBOUNCE_API_KEY: ${{ secrets.NOBOUNCE_API_KEY }}
+      SMARTLEAD_API_KEY: ${{ secrets.SMARTLEAD_API_KEY }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || vars.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      CRON_SECRET: ${{ secrets.CRON_SECRET }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run launch nonstop runner
+        id: nonstop
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run gmf:launch-nonstop -- --json 2>&1 | tee gmf-launch-nonstop-run.json
+
+      - name: Commit launch proof
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "GMF Systems Director"
+          git config user.email "actions@github.com"
+          git add docs/client-ops-ledger/gmf-launch-nonstop-current.md
+          git add docs/client-ops-ledger/gmf-launch-nonstop-current.json
+          git add -f docs/client-ops-ledger/outbox/gmf-launch-nonstop-*.md
+          git add -f docs/client-ops-ledger/outbox/manager-agent-watchdog-*.md || true
+          git add docs/client-ops-ledger/gmf-prospecting-engine-current.md || true
+          git add docs/client-ops-ledger/gmf-smartlead-draft-current.md || true
+          git add docs/client-ops-ledger/gmf-prospecting-guardrails-current.md || true
+          if git diff --cached --quiet; then
+            echo "No launch nonstop changes to commit."
+          else
+            git commit -m "Record GMF launch nonstop status"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

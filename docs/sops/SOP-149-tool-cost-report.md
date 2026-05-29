@@ -1,9 +1,9 @@
 ﻿# SOP 149 - Tool cost report
 
 Status: Drafted
-Version: 0.2
+Version: 0.3
 Owner: Systems Director
-Reviewer: Coach/Auditor
+Reviewer: Auditor
 Approver: SOP owner
 Effective date: Set when Active
 Next review: Set when Active
@@ -19,27 +19,41 @@ Make the `Tool cost report` workflow repeatable, auditable, and safe to delegate
 
 ## Scope
 
-This SOP covers the work from trigger through expected output for the covered master-map row(s). It is a first-pass controlled draft and must pass SOP 000 testing gates before it can become Active.
+This SOP covers daily and month-end cost visibility for AI tokens, recurring agent jobs, prospecting data, sending infrastructure, email delivery, database/runtime tools, and related vendor spend. It is a controlled draft and must pass SOP 000 testing gates before it can become Active.
 
 ## Trigger
 
-Month end
+- Daily morning brief
+- Month end
+- New vendor/API connection
+- New paid campaign, cap increase, or scale decision
+- Unexpected usage, billing alert, failed cost check, or suspected runaway agent loop
 
 ## Expected Output
 
-GHL, Smartlead, Resend, Supabase, Vercel, AI cost view
+- Morning Brief cost/token pulse
+- Current estimated vs. actual spend status
+- OpenAI/token telemetry status
+- SmartLead, Outscraper, NoBounce/NeverBounce, Resend, Supabase, Vercel, and AI cost view
+- Any Mike-needed spend approval, cap increase, billing risk, or anomaly clearly routed
 
 ## Roles
 
 | Role | Responsibility |
 |---|---|
-| Owner | Systems Director owns the outcome and keeps this SOP current |
-| Operator | Performs the work and reports gaps or blockers |
-| Reviewer | Coach/Auditor checks proof, quality, and risk controls |
+| Owner | Systems Director owns daily token/tool-cost monitoring and keeps this SOP current |
+| Operator | Systems Director or assigned cost-monitor agent performs checks and reports gaps or blockers |
+| Reviewer | Auditor checks proof, quality, missing telemetry, and risk controls |
+| Improvement Owner | Agent Ness reviews waste, inefficient loops, and recurring cost/process improvements |
 | Approver | SOP owner approves activation or material changes |
 
 ## Hard Rules
 
+- Do not mark token or vendor spend green unless actual telemetry or invoice evidence is connected.
+- Label estimates as estimates. Do not present local estimates as vendor invoices.
+- Do not expose secret values, API keys, OAuth tokens, passwords, signing secrets, or sensitive billing details in docs, Slack, Monday, or Mission Control.
+- Do not delete, rotate, revoke, downgrade, or replace credentials without explicit Mike approval and the credential-safety checklist.
+- Do not increase spend caps, run paid enrichment at scale, resume prospect sends, or add paid seats/domains without the required approval gate.
 - Do not perform client/prospect-facing action unless this SOP and required approvals allow it.
 - Do not guarantee rankings, reviews, revenue, Google outcomes, AI visibility, approval timelines, or deliverability results.
 - Stop and route risk before acting when billing, legal/privacy, reputation, access, deliverability, public claims, or live sends are involved.
@@ -47,15 +61,25 @@ GHL, Smartlead, Resend, Supabase, Vercel, AI cost view
 
 ## Procedure
 
-1. Confirm the system, environment, owner, access boundary, and risk class before changing anything.
-2. Check current configuration, logs, secrets, webhooks, integrations, backups, and rollback path where relevant.
-3. Make only approved, scoped changes; do not expose secrets or enable paid/AI features without authorization.
-4. Verify with a read-only check, dry run, smoke test, or controlled test record.
-5. Record proof, rollback notes, blockers, and next owner.
+1. Load the Morning Brief cost pulse and confirm the owner, reviewer, and improvement owner are visible.
+2. Check whether actual token telemetry is available: OpenAI billing/admin API, usage export, Langfuse-style trace costs, or another approved token ledger.
+3. If actual telemetry is missing, mark OpenAI/token status `Limited` and keep using local estimates only as estimates.
+4. Check the local recurring-job ledger in `lib/control/job-costs.ts` for estimated daily burn, total estimate, job owner, and status.
+5. Check prospecting budget controls in `config/gmf-prospecting.config.json`, including Outscraper run cap, review-scraper ban, NoBounce/NeverBounce verification, and SmartLead pause/approval state.
+6. Check vendor/runtime status without exposing secrets: SmartLead, Outscraper, NoBounce/NeverBounce, Resend, Supabase, Vercel, Slack, Gmail, and OpenAI.
+7. Compare actual telemetry, if available, against estimates. Flag unexplained variance, runaway loops, failed retries, duplicate sends, or unexpected paid API calls.
+8. Record the daily result in `docs/client-ops-ledger/cost-token-monitor-current.md` and surface the summary on Morning Brief.
+9. If there is a spend/cap/billing/credential risk, Manager escalates the smallest exact owner-needed ask to Mike by Slack DM.
+10. Agent Ness turns repeated waste or inefficient process into a business-improvement recommendation.
 
 ## Required Proof
 
-- Expected output: GHL, Smartlead, Resend, Supabase, Vercel, AI cost view
+- Morning Brief cost/token pulse visible
+- `docs/client-ops-ledger/cost-token-monitor-current.md`
+- Local estimate source: `lib/control/job-costs.ts`
+- Prospecting cap source: `config/gmf-prospecting.config.json`
+- Token telemetry source and status, or explicit `Limited` note if actual telemetry is not connected
+- SmartLead/Outscraper/NoBounce/NeverBounce/Resend/Supabase/Vercel/OpenAI status evidence where available
 - Work record or Monday item
 - Date/time, owner, and status
 - Configuration/check result, non-secret logs, and rollback note when relevant
@@ -69,6 +93,8 @@ GHL, Smartlead, Resend, Supabase, Vercel, AI cost view
 - Output/proof link
 - Next owner and due date
 - Exception or escalation reason, if any
+- Whether the number is actual telemetry, vendor invoice, or local estimate
+- Whether Mike approval is needed for spend, cap, credential, or billing action
 
 ## Communication Rule
 
@@ -91,8 +117,8 @@ Escalate to Mike only for pricing, offers, refunds, billing, commissions, tool s
 
 | Gate | Status |
 |---|---|
-| Desktop review | Pending |
-| Dry run | Pending |
+| Desktop review | In progress |
+| Dry run | In progress |
 | Live pilot | Pending |
 | Audit | Pending |
 | Release | Pending |
@@ -103,6 +129,7 @@ Escalate to Mike only for pricing, offers, refunds, billing, commissions, tool s
 |---|---|---|---|
 | 0.1 | 2026-05-27 | Initial controlled scaffold from SOP master map | Coach |
 | 0.2 | 2026-05-27 | Expanded into first-pass role-specific controlled draft | Coach |
+| 0.3 | 2026-05-29 | Added daily Morning Brief token/tool-cost monitor ownership, actual-vs-estimate rules, and Agent Ness improvement loop | Systems Director |
 
 ## Source Documents
 

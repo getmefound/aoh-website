@@ -45,12 +45,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Bad request." }, { status: 400 });
   }
 
-  const { businessName, email, website, turnstileToken } = body as {
+  const { businessName, email, website, turnstileToken, source, utmSource, utmMedium, utmCampaign } = body as {
     businessName?: unknown;
     email?: unknown;
     website?: unknown;
     turnstileToken?: unknown;
+    source?: unknown;
+    utmSource?: unknown;
+    utmMedium?: unknown;
+    utmCampaign?: unknown;
   };
+
+  const resolvedSource = typeof source === "string" && source.trim().length > 0
+    ? source.trim().slice(0, 120)
+    : "homepage";
 
   if (typeof website === "string" && website.trim().length > 0) {
     return NextResponse.json({ ok: true });
@@ -153,7 +161,7 @@ export async function POST(req: NextRequest) {
     businessName: normalizedName,
     contactEmail: normalizedEmail,
     reportType: "ai_visibility",
-    source: "homepage-free-visibility-check",
+    source: resolvedSource,
     campaign: "organic",
     auditUrl: checkoutUrl,
     metadata: {
@@ -161,6 +169,9 @@ export async function POST(req: NextRequest) {
       ipHint: ip,
       emailVerification: verification,
       submittedAt,
+      utmSource: typeof utmSource === "string" ? utmSource.trim().slice(0, 120) : undefined,
+      utmMedium: typeof utmMedium === "string" ? utmMedium.trim().slice(0, 120) : undefined,
+      utmCampaign: typeof utmCampaign === "string" ? utmCampaign.trim().slice(0, 120) : undefined,
     },
     deliveryMode: "automated",
   });

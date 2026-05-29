@@ -43,7 +43,8 @@ export function Navbar() {
     pathname === "/mike-mc" ||
     pathname.startsWith("/mike-mc/") ||
     pathname === "/control" ||
-    pathname.startsWith("/control/");
+    pathname.startsWith("/control/") ||
+    pathname.startsWith("/lp/");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);

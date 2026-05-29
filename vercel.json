@@ -6,6 +6,10 @@
       "schedule": "* * * * *"
     },
     {
+      "path": "/api/launch/nonstop",
+      "schedule": "*/15 * * * *"
+    },
+    {
       "path": "/api/review-automation/integration-health/cron",
       "schedule": "10 13 * * *"
     }

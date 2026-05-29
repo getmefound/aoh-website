@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
+import { formatUsd, SCHEDULED_JOB_COSTS, totalCost } from "./job-costs";
 
 const LEDGER_DIR = "docs/client-ops-ledger";
 const OUTBOX_DIR = `${LEDGER_DIR}/outbox`;
@@ -7,6 +8,10 @@ const CURRENT_BRIEF_PATH = `${LEDGER_DIR}/morning-brief-current.md`;
 const OUTREACH_STATS_PATH = `${LEDGER_DIR}/outreach-email-stats-current.csv`;
 const BUSINESS_AUDIT_PATH = `${LEDGER_DIR}/business-improvement-audit-current.md`;
 const OWNER_CONTEXT_PATH = `${LEDGER_DIR}/owner-morning-context-current.md`;
+const COST_REPORT_PATH = "docs/sops/SOP-149-tool-cost-report.md";
+const COST_PULSE_PATH = `${LEDGER_DIR}/cost-token-monitor-current.md`;
+const LAUNCH_RUNNER_JSON_PATH = `${LEDGER_DIR}/gmf-launch-nonstop-current.json`;
+const PROSPECTING_CONFIG_PATH = "config/gmf-prospecting.config.json";
 const DEFAULT_OWNER_DM_CHANNEL_ID = "D0ATLRTCP2P";
 const DEFAULT_WEATHER_LOCATION = {
   label: "Madison, CT",
@@ -82,6 +87,53 @@ export type OwnerMorningContext = {
   sourceFile: string;
 };
 
+export type CostPulseVendor = {
+  name: string;
+  owner: string;
+  status: "Live" | "Limited" | "Guarded" | "Paused" | "Estimated";
+  value: string;
+  detail: string;
+  proof: string;
+};
+
+export type CostPulse = {
+  date: string;
+  owner: string;
+  reviewer: string;
+  improvementOwner: string;
+  status: "Live" | "Limited" | "Watch";
+  tokenTelemetryStatus: "Live" | "Limited" | "Missing";
+  dailyEstimateUsd: number;
+  dailyEstimateLabel: string;
+  spentEstimateUsd: number;
+  spentEstimateLabel: string;
+  remainingToLaunchUsd: number;
+  remainingToLaunchLabel: string;
+  launchDate: string;
+  launchDaysRemaining: number;
+  sourceFile: string;
+  proofFiles: string[];
+  notes: string[];
+  vendors: CostPulseVendor[];
+};
+
+export type LaunchRunnerStatus = {
+  ok: boolean;
+  status: string;
+  generatedAt: string;
+  launchDate: string;
+  artificialWaits: string[];
+  trueBlockers: string[];
+  workstreams: Array<{
+    id: string;
+    owner: string;
+    status: string;
+    nextAction: string;
+    proof: string;
+  }>;
+  sourceFile: string;
+};
+
 export type MorningWeather = {
   ok: boolean;
   location: string;
@@ -106,6 +158,8 @@ export type MorningBriefData = {
   stats: OutreachEmailStat[];
   businessAudit: BusinessAuditSummary;
   ownerContext: OwnerMorningContext;
+  costPulse: CostPulse;
+  launchRunner: LaunchRunnerStatus;
   archive: BriefArchiveItem[];
   currentFile: string;
   statsFile: string;
@@ -116,6 +170,8 @@ export function getMorningBriefData(): MorningBriefData {
   const stats = readCsv(OUTREACH_STATS_PATH).map(toOutreachEmailStat);
   const businessAudit = readBusinessAudit();
   const ownerContext = readOwnerMorningContext();
+  const costPulse = readCostPulse();
+  const launchRunner = readLaunchRunnerStatus();
   const archive = getBriefArchive();
 
   return {
@@ -130,6 +186,8 @@ export function getMorningBriefData(): MorningBriefData {
     stats,
     businessAudit,
     ownerContext,
+    costPulse,
+    launchRunner,
     archive,
     currentFile: CURRENT_BRIEF_PATH,
     statsFile: OUTREACH_STATS_PATH,
@@ -342,6 +400,149 @@ function readOwnerMorningContext(): OwnerMorningContext {
   };
 }
 
+function readCostPulse(): CostPulse {
+  const date = process.env.MORNING_BRIEF_COST_DATE?.trim() || todayEastern();
+  const asOf = dateAtUtcNoon(date);
+  const launchDate = "2026-06-01";
+  const launchDaysRemaining = daysBetween(date, launchDate);
+  const dailyEstimateUsd = round(SCHEDULED_JOB_COSTS.reduce((sum, job) => sum + job.dailyCostUsd, 0));
+  const spentEstimateUsd = round(SCHEDULED_JOB_COSTS.reduce((sum, job) => sum + totalCost(job, asOf), 0));
+  const prospectingRunCapUsd = readProspectingRunCapUsd();
+  const remainingToLaunchUsd = round(dailyEstimateUsd * launchDaysRemaining + prospectingRunCapUsd);
+  const hasOpenAiUsageKey = hasConfiguredEnv("OPENAI_API_KEY");
+  const hasOpenAiBillingTelemetry = hasConfiguredEnv("OPENAI_ADMIN_KEY", "LANGFUSE_PUBLIC_KEY", "LANGFUSE_SECRET_KEY");
+  const tokenTelemetryStatus: CostPulse["tokenTelemetryStatus"] = hasOpenAiBillingTelemetry
+    ? "Live"
+    : hasOpenAiUsageKey
+      ? "Limited"
+      : "Missing";
+
+  const vendors: CostPulseVendor[] = [
+    {
+      name: "OpenAI token usage",
+      owner: "Systems Director",
+      status: tokenTelemetryStatus === "Missing" ? "Limited" : tokenTelemetryStatus,
+      value: tokenTelemetryStatus,
+      detail: hasOpenAiBillingTelemetry
+        ? "Billing or token telemetry key is configured for daily actual-cost checks."
+        : hasOpenAiUsageKey
+          ? "Runtime API key is configured, but actual org/token spend telemetry is not connected yet."
+          : "No OpenAI runtime or billing telemetry key is visible to this runtime.",
+      proof: hasOpenAiBillingTelemetry ? "Runtime telemetry env check" : COST_REPORT_PATH,
+    },
+    {
+      name: "Scheduled agent jobs",
+      owner: "Systems Director",
+      status: "Estimated",
+      value: `${formatUsd(dailyEstimateUsd)}/day`,
+      detail: `${SCHEDULED_JOB_COSTS.length} recurring jobs are tracked from the local cost ledger; invoices are not yet reconciled here.`,
+      proof: "lib/control/job-costs.ts",
+    },
+    {
+      name: "Outscraper and lead data",
+      owner: "Sales Manager + Systems Director",
+      status: "Guarded",
+      value: `Capped ${formatUsd(prospectingRunCapUsd)}`,
+      detail: "Prospecting config uses base Google Maps scrape only, no bulk review scraper, and requires approval above the run cap.",
+      proof: PROSPECTING_CONFIG_PATH,
+    },
+    {
+      name: "SmartLead sending",
+      owner: "Sales Manager",
+      status: "Paused",
+      value: "No live sends",
+      detail: "Drafts and preflights can run. Prospect sends stay paused until the Auditor packet and Mike approval are recorded.",
+      proof: "docs/client-ops-ledger/gmf-smartlead-draft-current.md",
+    },
+    {
+      name: "Resend, Supabase, Vercel",
+      owner: "Systems Director",
+      status: "Limited",
+      value: "Runtime checks",
+      detail: "Keys and smoke checks are tracked, but vendor invoice telemetry is not yet pulled into the brief.",
+      proof: COST_REPORT_PATH,
+    },
+  ];
+
+  return {
+    date,
+    owner: "Systems Director",
+    reviewer: "Auditor",
+    improvementOwner: "Agent Ness",
+    status: tokenTelemetryStatus === "Live" ? "Live" : "Limited",
+    tokenTelemetryStatus,
+    dailyEstimateUsd,
+    dailyEstimateLabel: formatUsd(dailyEstimateUsd),
+    spentEstimateUsd,
+    spentEstimateLabel: formatUsd(spentEstimateUsd),
+    remainingToLaunchUsd,
+    remainingToLaunchLabel: formatUsd(remainingToLaunchUsd),
+    launchDate,
+    launchDaysRemaining,
+    sourceFile: COST_PULSE_PATH,
+    proofFiles: [COST_REPORT_PATH, COST_PULSE_PATH, "lib/control/job-costs.ts", PROSPECTING_CONFIG_PATH],
+    notes: [
+      "Systems Director owns token and vendor cost monitoring every morning.",
+      "Auditor checks for missing telemetry, unexpected spend, and cost/risk drift.",
+      "Agent Ness turns repeated cost waste or inefficient agent loops into improvement recommendations.",
+      "Actual OpenAI token spend is limited until an org billing feed, OpenAI admin key, or token telemetry provider is connected.",
+    ],
+    vendors,
+  };
+}
+
+function readLaunchRunnerStatus(): LaunchRunnerStatus {
+  const raw = readText(LAUNCH_RUNNER_JSON_PATH);
+  if (!raw) {
+    return {
+      ok: false,
+      status: "not_run",
+      generatedAt: "",
+      launchDate: "2026-06-01",
+      artificialWaits: ["Launch nonstop runner has not written its current proof file yet."],
+      trueBlockers: [],
+      workstreams: [],
+      sourceFile: LAUNCH_RUNNER_JSON_PATH,
+    };
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as Partial<LaunchRunnerStatus>;
+    return {
+      ok: Boolean(parsed.ok),
+      status: String(parsed.status ?? "unknown"),
+      generatedAt: String(parsed.generatedAt ?? ""),
+      launchDate: String(parsed.launchDate ?? "2026-06-01"),
+      artificialWaits: Array.isArray(parsed.artificialWaits) ? parsed.artificialWaits.map(String) : [],
+      trueBlockers: Array.isArray(parsed.trueBlockers) ? parsed.trueBlockers.map(String) : [],
+      workstreams: Array.isArray(parsed.workstreams)
+        ? parsed.workstreams.map((item) => {
+            const record = item && typeof item === "object" ? (item as Record<string, unknown>) : {};
+            return {
+              id: String(record.id ?? "unknown"),
+              owner: String(record.owner ?? "Unassigned"),
+              status: String(record.status ?? "unknown"),
+              nextAction: String(record.nextAction ?? ""),
+              proof: String(record.proof ?? ""),
+            };
+          })
+        : [],
+      sourceFile: LAUNCH_RUNNER_JSON_PATH,
+    };
+  } catch {
+    return {
+      ok: false,
+      status: "parse_error",
+      generatedAt: "",
+      launchDate: "2026-06-01",
+      artificialWaits: ["Launch nonstop runner proof file could not be parsed."],
+      trueBlockers: [],
+      workstreams: [],
+      sourceFile: LAUNCH_RUNNER_JSON_PATH,
+    };
+  }
+}
+
 function toSlackOwnerSignal(text: string, ts: string, source: string): SlackOwnerSignal | null {
   const clean = text.trim();
   if (!/\bowner-needed\b/i.test(clean)) return null;
@@ -459,7 +660,22 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function number(value: string | number | undefined): number {
+function readProspectingRunCapUsd(): number {
+  try {
+    const parsed = JSON.parse(readText(PROSPECTING_CONFIG_PATH)) as {
+      outscraper?: { maxSpendPerRunUsd?: unknown };
+    };
+    return number(parsed.outscraper?.maxSpendPerRunUsd);
+  } catch {
+    return 0;
+  }
+}
+
+function hasConfiguredEnv(...names: string[]): boolean {
+  return names.some((name) => Boolean(process.env[name]?.trim()));
+}
+
+function number(value: unknown): number {
   const numeric = Number(value);
   return Number.isFinite(numeric) ? numeric : 0;
 }
@@ -504,4 +720,17 @@ function todayEastern() {
   const month = parts.find((part) => part.type === "month")?.value ?? "01";
   const day = parts.find((part) => part.type === "day")?.value ?? "01";
   return `${year}-${month}-${day}`;
+}
+
+function dateAtUtcNoon(value: string) {
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return new Date();
+  return new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12));
+}
+
+function daysBetween(startDate: string, endDate: string) {
+  const start = dateAtUtcNoon(startDate).getTime();
+  const end = dateAtUtcNoon(endDate).getTime();
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return 0;
+  return Math.max(0, Math.ceil((end - start) / 86_400_000));
 }

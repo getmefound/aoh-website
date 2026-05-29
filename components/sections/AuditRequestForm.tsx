@@ -14,7 +14,23 @@ declare global {
   }
 }
 
-export function AuditRequestForm() {
+interface AuditRequestFormProps {
+  /** Lead source tag — defaults to "homepage". Passed through to the API and stored on the lead. */
+  source?: string;
+  /** Override the submit button label */
+  submitLabel?: string;
+  /** Override the form card heading */
+  heading?: string;
+  /** Override the form card subheading */
+  subheading?: string;
+}
+
+export function AuditRequestForm({
+  source = "homepage",
+  submitLabel,
+  heading,
+  subheading,
+}: AuditRequestFormProps) {
   const [businessName, setBusinessName] = useState("");
   const [email, setEmail] = useState("");
   const [pending, setPending] = useState(false);
@@ -56,6 +72,12 @@ export function AuditRequestForm() {
       return;
     }
 
+    // Capture UTM params at submit time — avoids Suspense requirement
+    const sp = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+    const utmSource = sp?.get("utm_source") ?? "";
+    const utmMedium = sp?.get("utm_medium") ?? "";
+    const utmCampaign = sp?.get("utm_campaign") ?? "";
+
     setPending(true);
     try {
       const res = await fetch("/api/audit-request", {
@@ -66,6 +88,10 @@ export function AuditRequestForm() {
           email: email.trim(),
           website: honeypot,
           turnstileToken: turnstileTokenRef.current,
+          source,
+          utmSource,
+          utmMedium,
+          utmCampaign,
         }),
       });
       const data = (await res.json().catch(() => ({}))) as {
@@ -101,10 +127,10 @@ export function AuditRequestForm() {
           Your free visibility check is on its way.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-white/55">
-          We received your request for <span className="font-semibold text-white/80">{businessName}</span>. Your personalized Visibility Engine report is being sent to <span className="font-semibold text-white/80">{email}</span> now - usually within 5 minutes.
+          We received your request for <span className="font-semibold text-white/80">{businessName}</span>. Your personalized Visibility Engine report is being sent to <span className="font-semibold text-white/80">{email}</span> — usually within 5 minutes.
         </p>
         <p className="mt-4 text-xs text-white/35">
-          Check spam if you don&apos;t see it. Questions? Email{" "}
+          Check spam if you don&apos;t see it. Questions?{" "}
           <a href="mailto:support@getmefound.ai" className="text-[var(--color-accent)] hover:underline">
             support@getmefound.ai
           </a>
@@ -116,10 +142,10 @@ export function AuditRequestForm() {
   return (
     <div className="rounded-2xl border border-white/10 bg-(--color-bg-dark-card) p-8">
       <h2 className="text-2xl font-bold text-(--color-hero-text)">
-        See where your business actually stands.
+        {heading ?? "See where your business actually stands."}
       </h2>
       <p className="mt-1.5 text-sm text-white/55">
-        Free. We&apos;ll email your personalized Visibility Engine report in under 5 minutes.
+        {subheading ?? "Free. We’ll email your personalized Visibility Engine report in under 5 minutes."}
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
@@ -181,7 +207,7 @@ export function AuditRequestForm() {
           disabled={pending}
           className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/25 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
         >
-          {pending ? "Checking..." : <>Send my free visibility check <span aria-hidden="true">{"->"}</span></>}
+          {pending ? "Checking..." : <>{submitLabel ?? "Check if AI can find you"} <span aria-hidden="true">→</span></>}
         </button>
 
         {error && (
@@ -191,8 +217,7 @@ export function AuditRequestForm() {
         )}
 
         <p className="text-[11px] leading-relaxed text-white/35 text-center">
-          No password needed. We never touch your email hosting.{" "}
-          <span className="text-white/50">Google access is manager-only - you stay the owner.</span>
+          Free · takes 30 seconds · no account needed
         </p>
 
         {TURNSTILE_SITE_KEY && (

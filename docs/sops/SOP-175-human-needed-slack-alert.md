@@ -1,12 +1,12 @@
 ﻿# SOP 175 - Human-needed Slack alert
 
-Status: Drafted
-Version: 0.5
+Status: Active
+Version: 0.6
 Owner: Manager
 Reviewer: Auditor
 Approver: Manager
-Effective date: Set when Active
-Next review: Set when Active
+Effective date: 2026-05-29
+Next review: 2026-06-05
 Source of truth: `docs/sops/SOP-175-human-needed-slack-alert.md`
 
 ## Purpose
@@ -59,6 +59,19 @@ Slack DM to Mike only when needed
 7. Record pass/watch/blocker status, next owner, what was already tried, and Slack DM proof/link if available.
 8. Follow up until the blocker is cleared or explicitly parked.
 
+## Runtime Controls
+
+- Monday writer: `scripts/monday-agent-jobs.mjs`
+- Watchdog: `scripts/manager-agent-watchdog.mjs`
+- Slack Manager route: `app/api/agent/slack/route.ts`
+- Owner-needed command: `npm run agent:command -- --command "Manager, what do you need from me"`
+
+The Monday writer rejects a human-needed job unless the owner ask includes numbered owner steps and a clear done marker such as `Done when:` or `Done criteria:`. When a row is set to `Human Needed`, the writer adds owner-needed instructions to the Monday item and attempts a Manager Slack DM to Mike. Routine job writes do not DM Mike unless `MANAGER_ALLOW_ROUTINE_DM=true`.
+
+The watchdog classifies stalled or waiting work. If an item is marked `Human Needed`, its required action is for Manager to send the smallest exact Slack DM ask with exhaustion proof. If a timer is overdue, Manager must reroute, train, repair, document access failure, or convert the row into a precise owner-needed DM only after exhaustion.
+
+The Manager Slack route answers owner-needed/status questions in Mike's DM and keeps the owner-needed lane separate from shared ops-channel chatter.
+
 ## Delivery Failure Handling
 
 If Slack returns `messages_tab_disabled`, `channel_not_found`, `not_in_channel`, or another DM delivery error:
@@ -107,11 +120,11 @@ Escalate to Mike only after the owner-ask exhaustion gate passes and the remaini
 
 | Gate | Status |
 |---|---|
-| Desktop review | Pending |
-| Dry run | Pending |
-| Live pilot | Pending |
-| Audit | Pending |
-| Release | Pending |
+| Desktop review | Passed |
+| Dry run | Passed |
+| Live pilot | Passed with watch |
+| Audit | Watch |
+| Release | Active |
 
 ## Changelog
 
@@ -122,6 +135,7 @@ Escalate to Mike only after the owner-ask exhaustion gate passes and the remaini
 | 0.3 | 2026-05-27 | Updated Manager human-needed alerts to Slack DM only | Manager |
 | 0.4 | 2026-05-27 | Added handling for Manager bot DM failure and ChatGPT/user-authored message false positives | Manager |
 | 0.5 | 2026-05-27 | Added universal owner-ask exhaustion gate before any Manager ask to Mike | Manager |
+| 0.6 | 2026-05-29 | Activated SOP and documented Monday writer, watchdog, and Manager Slack runtime controls | Manager |
 
 ## Source Documents
 

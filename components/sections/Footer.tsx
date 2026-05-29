@@ -41,7 +41,8 @@ export function Footer() {
     pathname === "/mike-mc" ||
     pathname.startsWith("/mike-mc/") ||
     pathname === "/control" ||
-    pathname.startsWith("/control/")
+    pathname.startsWith("/control/") ||
+    pathname.startsWith("/lp/")
   ) return null;
   const isSpanish = pathname === "/es" || pathname.startsWith("/es/");
   const isLegalPage =
