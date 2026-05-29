@@ -3,31 +3,23 @@ import Link from "next/link";
 const ITEMS = [
   {
     q: "What exactly do you do for $149?",
-    a: "We fix everything Google and AI check before picking a local business to recommend. That means correcting your Google listing: hours, services, photos, service area, and business description. We update your website so it matches your Google listing exactly. We submit your business to the top directories so your information is consistent everywhere. And we send your first review request campaign to your past customers. Everything is done within 48 hours. You get a before/after report showing exactly what changed.",
+    a: "We fix everything Google AI, ChatGPT, and Claude check before recommending a local business. That means correcting your Google listing — hours, services, photos, service area, and description — making your website match it exactly, submitting your business to the top directories, and sending your first review request campaign to past customers. Everything is done within 48 hours. You get a before/after report showing exactly what changed.",
   },
   {
     q: "Will you break my email?",
-    a: "No. This is the first thing we check. Your email and your website are two completely separate things, like your phone number and your mailing address. Before we touch anything, we check exactly where your email lives. If it is on Google Workspace, Microsoft 365, or similar, moving or updating your website does nothing to your email. We verify this upfront before any work starts.",
+    a: "No. Your email and your website are completely separate — like your phone number and your mailing address. Before we touch anything, we verify exactly where your email lives. If it's on Google Workspace, Microsoft 365, or similar, updating your website does nothing to your email. We check this first, before any work starts.",
   },
   {
     q: "Do I need to give you my passwords?",
-    a: "We need access to two things: your Google Business listing and your website backend. For Google, you add us as a manager on your listing. You stay the owner, we just get permission to make updates. For your website, you give us a login. You can remove our access any time. We never share access with anyone outside our team.",
+    a: "You add us as a manager on your Google Business listing — you stay the owner and can remove us any time. For your website, you give us a login with only what we need. We never share your access with anyone outside our team.",
   },
   {
     q: "Is there a contract?",
-    a: "No contract, ever. Get Found is a one-time payment. Stay Found and Always Ready are month-to-month. Cancel any time, no notice required, no cancellation fee. We keep clients by getting results, not by trapping them.",
-  },
-  {
-    q: "Why can't I just do this myself?",
-    a: "You can fix your Google listing. What's harder is engineering all 13+ interdependent signals AI cross-checks before it trusts you — entity consistency across dozens of directories, structured data crawlers can actually parse, review velocity patterns, website-to-profile fact alignment, and more. Most owners fix one or two things and stop. AI sees the inconsistency in the signals they didn't touch and uses it against them. We run all of them as a system, keep them current as AI silently refreshes its answers, and show you what changed. That's the work.",
-  },
-  {
-    q: "How long before I see results?",
-    a: "The fixes from Get Found go live within 48 hours. Google typically takes 1 to 2 weeks to fully register the changes across its systems. Review activity builds over 30 to 60 days as your first review campaign gets responses. We show you the before/after report so you can see exactly what changed from day one.",
+    a: "No contract, ever. Get Found is a one-time payment. Stay Found and Always Ready are month-to-month. Cancel any time, no notice required, no cancellation fee.",
   },
   {
     q: "Do you guarantee results?",
-    a: "We do not guarantee a specific position in search results or a specific number of reviews. Nobody can honestly do that. What we guarantee is that every fix in your report gets done, done correctly, and done within 48 hours. If something is not right, we fix it.",
+    a: "We don't guarantee a specific Google ranking or a specific number of reviews — nobody honest can. What we guarantee is the work: every fix in your report gets done, done correctly, and done within 48 hours. If something isn't right, we fix it at no charge.",
   },
 ] as const;
 

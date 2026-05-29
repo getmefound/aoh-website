@@ -4,10 +4,7 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { HomepageFAQ } from "@/components/sections/HomepageFAQ";
 import { ReportTransformation } from "@/components/sections/ReportTransformation";
-import { VisibilityCheck } from "@/components/sections/VisibilityCheck";
 import { FounderNote } from "@/components/sections/FounderNote";
-import { GetFoundCloseBlock } from "@/components/sections/GetFoundCloseBlock";
-import { VisibilityEngine } from "@/components/sections/VisibilityEngine";
 import { Reveal } from "@/components/Reveal";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
@@ -106,7 +103,7 @@ export default function Home() {
         tabIndex={-1}
         className="flex flex-1 flex-col focus:outline-none"
       >
-        {/* Hero */}
+        {/* §1 — HERO (dark) */}
         <section
           aria-label="Hero"
           className="overflow-hidden bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
@@ -151,13 +148,9 @@ export default function Home() {
                   AI now recommends one or two local businesses — not ten pages. We make sure it finds yours. Done in 48 hours.
                 </p>
 
-                {/* Pills */}
+                {/* Trust chips */}
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {[
-                    "Done for you",
-                    "No contract",
-                    "48 hours",
-                  ].map((pill) => (
+                  {["Done for you", "No contract", "48 hours"].map((pill) => (
                     <span
                       key={pill}
                       className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.10] bg-white/[0.05] px-3 py-1 text-xs font-medium text-[var(--color-hero-subtext)]"
@@ -179,7 +172,8 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="mt-7 flex flex-wrap gap-3">
+                {/* Single primary CTA */}
+                <div className="mt-7">
                   <Link
                     href="/#free-audit"
                     className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30 sm:w-auto"
@@ -187,12 +181,6 @@ export default function Home() {
                     Check if AI can find you
                     <span aria-hidden="true">→</span>
                   </Link>
-                  <a
-                    href="#how-it-works"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-3.5 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20 sm:w-auto"
-                  >
-                    How it works
-                  </a>
                 </div>
 
                 <p className="mt-3 font-mono text-xs text-[var(--color-hero-subtext)]/60">
@@ -204,35 +192,51 @@ export default function Home() {
                 <HeroVisualAI />
               </div>
             </div>
-
           </div>
         </section>
 
+        {/* §2 + §3 — PROOF BLOCK + FREE-CHECK FORM (dark — one of only two dark sections) */}
         <ReportTransformation />
 
-        <FounderNote />
-
+        {/* §4 — HOW IT WORKS — THE VISIBILITY ENGINE (light) */}
         <HowItWorks />
 
-        <VisibilityEngine />
+        {/* §5 — TRUST / FOUNDER STRIP (cream tint) */}
+        <div className="bg-[var(--color-bg-elevated)]">
+          <FounderNote />
+          {/* Guarantee line */}
+          <div className="mx-auto max-w-4xl border-t border-[var(--color-border)] px-6 py-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-[var(--color-text-muted)]">
+                <span className="font-semibold text-[var(--color-text-body)]">Work guarantee:</span>{" "}
+                If any fix in your report isn&apos;t done correctly, we fix it — no charge, no questions.{" "}
+                <Link href="/guarantee" className="text-[var(--color-accent)] underline underline-offset-2 hover:opacity-80 transition-opacity">
+                  Full policy →
+                </Link>
+              </p>
+              <p className="text-xs text-[var(--color-text-muted)]/60 sm:text-right sm:shrink-0">
+                No contract · Cancel anytime
+              </p>
+            </div>
+          </div>
+        </div>
 
-        <VisibilityCheck />
-
-        {/* Service tiers */}
-        <section className="pt-10 pb-8 md:pt-14 md:pb-10 bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]">
+        {/* §6 — PRICING (light — NOT dark) */}
+        <section className="pt-10 pb-8 md:pt-14 md:pb-10 bg-[var(--color-bg-page)] text-[var(--color-text-body)]">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                Get found. Stay found. Build trust.
+                Get found. Stay found.
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-hero-text)] mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-body)] mb-4">
                 Pick the level that fits where you are.
               </h2>
-              <p className="text-lg text-[var(--color-hero-subtext)]/75 max-w-2xl mx-auto">
+              <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
                 We run the Google profile, review path, and AI visibility basics. You stay focused on your business.
               </p>
             </div>
 
+            {/* Get Found + Stay Found */}
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
               {primaryTeaserCards.map((p, i) => (
                 <Reveal key={p.name} delay={i * 0.08}>
@@ -245,7 +249,6 @@ export default function Home() {
                   >
                     <Spotlight className="flex h-full flex-col rounded-2xl">
                       <BackgroundBeams />
-
                       <div className="relative z-10 flex h-full flex-col p-8 md:p-10">
                         <div className="mb-4 flex flex-wrap items-center gap-2">
                           <span className="inline-flex w-fit items-center rounded-full border border-[var(--color-hero-border)] bg-white/5 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-hero-subtext)]">
@@ -260,7 +263,6 @@ export default function Home() {
                             </span>
                           )}
                         </div>
-
                         <div className="mb-6 flex items-start justify-between gap-4">
                           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent)]/15 text-[var(--color-accent)] ring-1 ring-[var(--color-accent)]/30">
                             <AnimatedIcon paths={p.iconPaths} size={22} />
@@ -270,30 +272,21 @@ export default function Home() {
                             <span className="text-base text-[var(--color-hero-subtext)]">{p.cadence}</span>
                           </div>
                         </div>
-
-                        <h3 className="text-2xl font-bold text-[var(--color-hero-text)] mb-2">
-                          {p.name}
-                        </h3>
-                        <p className="text-base text-[var(--color-accent)] font-medium mb-3">
-                          {p.tagline}
-                        </p>
-
+                        <h3 className="text-2xl font-bold text-[var(--color-hero-text)] mb-2">{p.name}</h3>
+                        <p className="text-base text-[var(--color-accent)] font-medium mb-3">{p.tagline}</p>
                         {p.highlight && (
                           <p className="mb-4 text-[12px] text-[var(--color-hero-subtext)]/60">
                             $49 one-time setup fee
                           </p>
                         )}
-
                         <ul className="mb-3 space-y-2">
                           {p.bullets.map((b) => (
                             <li key={b} className="flex items-start gap-2 text-sm text-[var(--color-hero-subtext)]">
-                              <span className="text-[var(--color-accent)] flex-shrink-0 mt-0.5">✓</span>
+                              <span className="text-[var(--color-accent)] shrink-0 mt-0.5">✓</span>
                               <span>{b}</span>
                             </li>
                           ))}
                         </ul>
-
-
                         <div className="mt-auto">
                           <Link
                             href={p.href}
@@ -321,64 +314,68 @@ export default function Home() {
               ))}
             </div>
 
+            {/* Always Ready — Early Access */}
             <Reveal delay={0.18}>
               <div className="mx-auto mt-7 max-w-261 text-center">
-                <span className="inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300">
+                <span className="inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-600">
                   Early Access
                 </span>
               </div>
-              <div className="mx-auto mt-3 grid max-w-261 gap-5 rounded-4xl bg-[#0f2430] p-6 text-white ring-1 ring-white/10 md:grid-cols-[1.1fr_0.9fr] md:p-8">
-                <div>
-                  <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
-                    {alwaysReadyCard.jobLabel}
-                  </p>
-                  <h3 className="text-3xl font-bold leading-tight">Never miss another customer — human or AI.</h3>
-                  <p className="mt-3 max-w-xl text-sm leading-7 text-white/72 md:text-base">
-                    An AI agent answers your calls 24/7, gives real prices and hours, and books the appointment. Google is getting ready to call businesses on customers&apos; behalf — we get yours ready to answer.
-                  </p>
-                  <a
-                    href={GOOGLE_AI_CALLING_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex text-sm font-semibold leading-6 text-sky-200 underline decoration-sky-200/45 underline-offset-4 transition hover:text-white"
-                  >
-                    Google says Search can &quot;call businesses to get pricing and availability information on your behalf.&quot;
-                  </a>
+              <div className="mx-auto mt-3 max-w-261 rounded-4xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-6 md:p-8">
+                <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
+                  <div>
+                    <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sky-600">
+                      {alwaysReadyCard.jobLabel}
+                    </p>
+                    <h3 className="text-2xl font-bold leading-tight text-[var(--color-text-body)] md:text-3xl">
+                      Never miss another customer — human or AI.
+                    </h3>
+                    <p className="mt-3 max-w-xl text-sm leading-7 text-[var(--color-text-muted)] md:text-base">
+                      An AI agent answers your calls 24/7, gives real prices and hours, and books the appointment. Google is getting ready to call businesses on customers&apos; behalf — we get yours ready to answer.
+                    </p>
+                    <a
+                      href={GOOGLE_AI_CALLING_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex text-sm font-semibold leading-6 text-sky-700 underline decoration-sky-700/45 underline-offset-4 transition hover:text-sky-900"
+                    >
+                      Google says Search can &quot;call businesses to get pricing and availability information on your behalf.&quot;
+                    </a>
+                    <ul className="mt-5 grid gap-2 text-sm text-[var(--color-text-muted)] sm:grid-cols-2">
+                      {alwaysReadyCard.bullets.map((item) => (
+                        <li key={item} className="flex gap-2">
+                          <span aria-hidden="true" className="text-sky-600">+</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                  <ul className="mt-5 grid gap-2 text-sm text-white/74 sm:grid-cols-2">
-                    {alwaysReadyCard.bullets.map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <span aria-hidden="true" className="text-sky-300">+</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="rounded-[1.75rem] bg-(--color-bg-dark-card) p-5 ring-1 ring-sky-400/20 shadow-2xl shadow-black/25 md:self-start md:-rotate-1">
-                  <div className="flex items-start justify-between gap-3">
-                    <h4 className="text-2xl font-black text-hero-text">{alwaysReadyCard.name}</h4>
-                    <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-sky-400/15 px-3 py-1 ring-1 ring-sky-400/40">
-                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
-                      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300">
-                        Early Access
+                  <div className="rounded-[1.75rem] border border-sky-400/20 bg-[var(--color-bg-dark-card)] p-5 ring-1 ring-sky-400/10 shadow-lg md:self-start md:-rotate-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <h4 className="text-2xl font-black text-[var(--color-hero-text)]">{alwaysReadyCard.name}</h4>
+                      <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-sky-400/15 px-3 py-1 ring-1 ring-sky-400/40">
+                        <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300">
+                          Early Access
+                        </span>
                       </span>
-                    </span>
+                    </div>
+                    <div className="mt-4 flex items-end gap-1">
+                      <span className="text-5xl font-black text-sky-300">{alwaysReadyCard.price}</span>
+                      <span className="pb-1 text-sm font-semibold text-[var(--color-hero-subtext)]/50">{alwaysReadyCard.cadence}</span>
+                      <span className="ml-2 pb-1 text-[10px] text-[var(--color-hero-subtext)]/35">indicative</span>
+                    </div>
+                    <Link
+                      href={alwaysReadyCard.href}
+                      className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-sky-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-sky-300"
+                    >
+                      {alwaysReadyCard.cta}
+                    </Link>
+                    <p className="mt-2 text-center text-[11px] text-[var(--color-hero-subtext)]/40">
+                      No buy button yet — join the list to be first.
+                    </p>
                   </div>
-                  <div className="mt-4 flex items-end gap-1">
-                    <span className="text-5xl font-black text-sky-300">{alwaysReadyCard.price}</span>
-                    <span className="pb-1 text-sm font-semibold text-hero-subtext/50">{alwaysReadyCard.cadence}</span>
-                    <span className="ml-2 pb-1 text-[10px] text-hero-subtext/40">indicative</span>
-                  </div>
-                  <Link
-                    href={alwaysReadyCard.href}
-                    className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-sky-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-sky-300"
-                  >
-                    {alwaysReadyCard.cta}
-                  </Link>
-                  <p className="mt-2 text-center text-[11px] text-hero-subtext/40">
-                    No buy button yet — join the list to be first.
-                  </p>
                 </div>
               </div>
             </Reveal>
@@ -391,7 +388,7 @@ export default function Home() {
                 See full plan details
                 <span aria-hidden="true">→</span>
               </Link>
-              <p className="mt-2 text-xs text-[var(--color-hero-subtext)]/65">
+              <p className="mt-2 text-xs text-[var(--color-text-muted)]">
                 Not sure what invisibility is costing you?{" "}
                 <Link
                   href="/calculator"
@@ -404,8 +401,10 @@ export default function Home() {
           </div>
         </section>
 
+        {/* §7 — FAQ (light) */}
         <HomepageFAQ />
 
+        {/* §8 — FINAL CTA (dark — second of only two dark sections) */}
         <FinalCta />
       </main>
     </>

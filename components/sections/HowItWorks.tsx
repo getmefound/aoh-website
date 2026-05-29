@@ -7,8 +7,8 @@ import { useRef } from "react";
 const STEPS = [
   {
     number: "01",
-    step: "Map",
-    title: "We map what AI sees",
+    step: "Find",
+    title: "We find what's stopping AI",
     body: "We check your business against everything AI looks at before it picks who to recommend.",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
@@ -27,7 +27,7 @@ const STEPS = [
   },
   {
     number: "02",
-    step: "Align",
+    step: "Fix",
     title: "We fix what AI distrusts",
     body: "We add the code that makes AI read your business the right way — and fix the conflicting details that make it skip you.",
     icon: (
@@ -46,8 +46,8 @@ const STEPS = [
   },
   {
     number: "03",
-    step: "Amplify",
-    title: "You see the difference",
+    step: "Prove",
+    title: "You see the proof",
     body: null,
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
@@ -186,7 +186,7 @@ export function HowItWorks() {
             Done for you. Done in 48 hours.
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-text-muted max-w-lg mx-auto md:text-base">
-            We run your business through the Visibility Engine — mapping what AI sees, fixing what it distrusts, and proving the lift. In 48 hours.
+            We run your business through the Visibility Engine — find what&apos;s stopping AI from picking you, fix it, and prove the lift. In 48 hours.
           </p>
         </motion.div>
 
