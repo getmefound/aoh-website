@@ -75,7 +75,7 @@ const teaserCards: TeaserCard[] = [
     cadence: "/month",
     bullets: [
       "AI agent answers calls 24/7 with your real services, pricing, and hours",
-      "Google is getting ready to call businesses on customers' behalf — we get yours ready to answer",
+      "Books appointments straight into your calendar — no missed jobs, no voicemail.",
       "Full content + entity management; approval-gated, nothing goes live without your okay",
     ],
     href: "/pricing#always-ready",
@@ -368,7 +368,7 @@ export default function Home() {
                     </div>
                     <Link
                       href={alwaysReadyCard.href}
-                      className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-sky-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-sky-300"
+                      className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[var(--color-accent)] px-5 py-3 text-sm font-bold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)]"
                     >
                       {alwaysReadyCard.cta}
                     </Link>
