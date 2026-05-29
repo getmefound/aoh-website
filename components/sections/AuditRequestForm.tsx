@@ -88,12 +88,26 @@ export function AuditRequestForm() {
   if (submitted) {
     return (
       <div
-        className="rounded-2xl border border-white/10 bg-(--color-bg-dark-card) p-8"
+        className="rounded-2xl border border-[var(--color-accent)]/20 bg-(--color-bg-dark-card) p-8"
         role="status"
         aria-live="polite"
       >
-        <p className="text-lg font-bold text-(--color-hero-text)">
-          On its way — check your inbox shortly.
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-accent)]/15">
+          <svg className="h-6 w-6 text-[var(--color-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <p className="text-xl font-bold text-(--color-hero-text)">
+          Your free visibility check is on its way.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-white/55">
+          We received your request for <span className="font-semibold text-white/80">{businessName}</span>. Our team will send your personalized visibility report to <span className="font-semibold text-white/80">{email}</span> — usually within one business day.
+        </p>
+        <p className="mt-4 text-xs text-white/35">
+          Check spam if you don&apos;t see it. Questions? Email{" "}
+          <a href="mailto:support@getmefound.ai" className="text-[var(--color-accent)] hover:underline">
+            support@getmefound.ai
+          </a>
         </p>
       </div>
     );
@@ -105,7 +119,7 @@ export function AuditRequestForm() {
         See where your business actually stands.
       </h2>
       <p className="mt-1.5 text-sm text-white/55">
-        Free. In your inbox within 24 hours.
+        Free. We&apos;ll email your personalized report within one business day.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
@@ -175,6 +189,11 @@ export function AuditRequestForm() {
             {error}
           </p>
         )}
+
+        <p className="text-[11px] leading-relaxed text-white/35 text-center">
+          No password needed. We never touch your email hosting.{" "}
+          <span className="text-white/50">Google access is manager-only — you stay the owner.</span>
+        </p>
 
         {TURNSTILE_SITE_KEY && (
           <>

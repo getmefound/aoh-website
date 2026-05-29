@@ -114,8 +114,8 @@ export function ReportTransformation() {
                   Hartford, CT 06103 · General Dentistry
                 </p>
               </div>
-              <span className="shrink-0 rounded-full border border-error/30 bg-error/10 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-error">
-                Sample
+              <span className="shrink-0 rounded-full border border-amber-500/40 bg-amber-500/10 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-amber-600">
+                Illustrative example
               </span>
             </div>
 

@@ -1,6 +1,6 @@
 # Casey Mailbox Setup Proof
 
-Status: Verification in progress
+Status: Send proof verified; live-use gates still in progress
 Owner: Systems Director
 Reviewer: Auditor
 Started: 2026-05-28
@@ -21,6 +21,10 @@ Sales Manager may not use the mailbox for live prospect, partner, or client comm
 - Google/Workspace instruction email to `mike@getmefound.ai` has not yet been found in the connected Gmail search.
 - Internal test email was sent to `casey@getmefound.ai` on 2026-05-28 from the connected Gmail account.
 - No delivery-failure/bounce email was visible in the connected Gmail search as of 2026-05-28T20:18:51-04:00.
+- Mike reported on 2026-05-29 that the Casey proof email was sent.
+- Systems Director searched the approved Gmail connector on 2026-05-29 for `from:casey@getmefound.ai`, `to:mike@getmefound.ai`, and `Casey mailbox proof`; no matching received proof was visible in the connected mailbox. The connector did show the older sent test from `4egidio@gmail.com` to Casey, so the remaining gap appears to be inbox-coverage/target-mailbox visibility, not proof that Casey failed to send.
+- Mike resent/forwarded the Casey proof path to the connected inbox on 2026-05-29. Systems Director verified a message from `casey@getmefound.ai` to `4egidio@gmail.com` with subject `Casey mailbox proof` in the approved Gmail connector at 2026-05-29T11:58:28Z. The message is in `INBOX` / Primary after Mike marked it not spam.
+- Deliverability note: the proof message initially landed in spam. Keep Casey out of live prospect/client use until signature, reply routing, and deliverability warmup/monitoring are cleared.
 
 ## Required Proof Gates
 
@@ -28,7 +32,7 @@ Sales Manager may not use the mailbox for live prospect, partner, or client comm
 |---|---|---|---|
 | Account exists | Systems Director | Watch | No bounce to internal test; authenticated Workspace proof still required |
 | Receive test | Systems Director | Watch | No bounce visible; authenticated inbox confirmation still required |
-| Send test | Systems Director | Pending | Send a harmless internal reply/test from Casey after safe login is available |
+| Send test | Systems Director | Verified | Approved Gmail connector shows `Casey mailbox proof` from `casey@getmefound.ai` to connected inbox; no private body content stored |
 | Recovery owner | Systems Director | Pending | Recovery/admin control confirmed without storing recovery secrets |
 | Calendar available | Systems Director | Pending | Calendar can accept fit-call use or booking routing is documented |
 | Signature | Sales Manager / Auditor | Pending | Signature identifies GMF and does not create fake human proof |
@@ -44,6 +48,6 @@ Sales Manager may not use the mailbox for live prospect, partner, or client comm
 
 ## Next Action
 
-Systems Director watches for delivery failure or instruction email, then verifies authenticated mailbox access and recovery hygiene before enabling live sends or Resend reply-to.
+Systems Director records Casey send proof as verified, then continues agent-owned checks for recovery/admin hygiene, signature, calendar/reply routing, and deliverability monitoring. No live prospect, partner, or client communication may use Casey until Auditor clears SOP 187 live-use approval.
 
 Because the temporary password was shared in chat, live use requires a clean credential state: password reset or password-manager control, recovery admin confirmation, and no stored secret values in docs, Slack, Monday, or proof.

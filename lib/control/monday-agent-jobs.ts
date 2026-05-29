@@ -13,6 +13,8 @@ type MondayItem = {
   column_values: Array<{
     id: string;
     text?: string | null;
+    value?: string | null;
+    type?: string | null;
   }>;
 };
 
@@ -134,7 +136,7 @@ async function getBoardDetail(token: string, boardId: string): Promise<MondayBoa
             id
             name
             group { title }
-            column_values { id text }
+            column_values { id text value type }
           }
         }
       }
@@ -164,7 +166,7 @@ async function monday<T>(token: string, query: string, variables = {}): Promise<
 }
 
 function toJobRow(item: MondayItem, columns: MondayColumn[]): MondayAgentJobRow {
-  const valuesById = new Map(item.column_values.map((value) => [value.id, value.text ?? ""]));
+  const valuesById = new Map(item.column_values.map((value) => [value.id, readColumnText(value)]));
   const idByTitle = new Map(columns.map((column) => [normalize(column.title), column.id]));
   const value = (title: string) => valuesById.get(idByTitle.get(normalize(title)) ?? "") ?? "";
 
@@ -254,4 +256,16 @@ function same(a: string, b: string) {
 
 function normalize(value: string) {
   return String(value ?? "").trim().toLowerCase();
+}
+
+function readColumnText(columnValue: MondayItem["column_values"][number]) {
+  if (columnValue.type === "long_text" && columnValue.value) {
+    try {
+      const value = JSON.parse(columnValue.value) as { text?: unknown };
+      if (typeof value.text === "string") return value.text;
+    } catch {
+      // Fall back to monday's text representation below.
+    }
+  }
+  return columnValue.text ?? "";
 }

@@ -483,7 +483,7 @@ export default function PricingPage() {
         <CtaBlock
           headline="Not sure where to start?"
           subline="Start with Get Found. It gives your business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, or voice readiness."
-          buttonHref="/report/ai-visibility"
+          buttonHref="/#free-audit"
         />
       </PageBody>
       <BackToTopButton />

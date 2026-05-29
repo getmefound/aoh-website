@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { existsSync, readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 
 const API_URL = "https://api.monday.com/v2";
 const ALLOWED_ROLES = new Set(["Manager", "Systems Director", "Reporter"]);
@@ -70,6 +71,7 @@ async function main() {
     printHelp();
     return;
   }
+  hydrateFileArgs(args);
 
   const action = String(args.action ?? "list").toLowerCase();
   const role = normalizeRole(args.role);
@@ -106,6 +108,7 @@ async function main() {
   if (action === "list") {
     const detail = await getBoardDetail({ token, boardId: board.id });
     const columnKeysById = buildColumnKeysById(detail.columns);
+    const columnTypesById = buildColumnTypesById(detail.columns);
     console.log(
       JSON.stringify(
         {
@@ -116,7 +119,7 @@ async function main() {
             id: item.id,
             name: item.name,
             group: item.group?.title ?? "",
-            values: buildItemValues({ item, columnKeysById }),
+            values: buildItemValues({ item, columnKeysById, columnTypesById }),
           })),
         },
         null,
@@ -265,6 +268,8 @@ async function createItem({ token, boardId, groups, columns, args }) {
       values: JSON.stringify(values),
     },
   );
+  await updateLongTextColumns({ token, boardId, itemId: data.create_item.id, columns, args });
+  await maybePostOwnerInstructionUpdate({ token, itemId: data.create_item.id, args });
   return pickItem(data.create_item);
 }
 
@@ -288,6 +293,7 @@ async function updateItem({ token, boardId, item, columns, args }) {
       },
     );
   }
+  await updateLongTextColumns({ token, boardId, itemId: item.id, columns, args });
 
   if (args.group) {
     const setup = await ensureSetup({ token, boardId });
@@ -302,6 +308,8 @@ async function updateItem({ token, boardId, item, columns, args }) {
     );
   }
 
+  await maybePostOwnerInstructionUpdate({ token, itemId: item.id, args });
+
   return pickItem(item);
 }
 
@@ -314,12 +322,10 @@ function buildColumnValues({ columns, args }) {
   if (args.status) values[columns.status.id] = { label: String(args.status) };
   if (args.due) values[columns.dueDate.id] = { date: String(args.due) };
   if (args.priority) values[columns.priority.id] = { label: String(args.priority) };
-  if (args.notes) values[columns.notes.id] = String(args.notes);
   if (args["agent-owner"]) values[columns.agentOwner.id] = String(args["agent-owner"]);
   if (args.system) values[columns.system.id] = String(args.system);
   if (args["human-needed"]) values[columns.humanNeeded.id] = { label: booleanLabel(args["human-needed"]) };
   if (args.proof) values[columns.proofLink.id] = linkValue(args.proof, args["proof-text"] || "Proof");
-  if (args["next-action"]) values[columns.nextAction.id] = String(args["next-action"]);
   if (args.budget !== undefined) values[columns.budget.id] = String(args.budget);
   if (args["client-id"]) values[columns.clientId.id] = String(args["client-id"]);
   if (args["client-name"]) values[columns.clientName.id] = String(args["client-name"]);
@@ -340,17 +346,40 @@ function buildColumnValues({ columns, args }) {
   if (args["next-owner"]) values[columns.nextOwner.id] = String(args["next-owner"]);
   if (args["handoff-ack"]) values[columns.handoffAck.id] = { label: String(args["handoff-ack"]) };
   if (args["ack-at"]) values[columns.ackAt.id] = String(args["ack-at"]);
-  if (args["unlock-proof"]) values[columns.unlockProof.id] = String(args["unlock-proof"]);
   if (args["runtime-state"]) values[columns.runtimeState.id] = { label: String(args["runtime-state"]) };
   if (args["last-watchdog"]) values[columns.lastWatchdog.id] = String(args["last-watchdog"]);
   return values;
 }
 
+async function updateLongTextColumns({ token, boardId, itemId, columns, args }) {
+  const updates = [];
+  if (args.notes !== undefined) updates.push([columns.notes.id, args.notes]);
+  if (args["next-action"] !== undefined) updates.push([columns.nextAction.id, args["next-action"]]);
+  if (args["unlock-proof"] !== undefined) updates.push([columns.unlockProof.id, args["unlock-proof"]]);
+
+  for (const [columnId, text] of updates) {
+    await monday(
+      token,
+      `mutation ($board: ID!, $item: ID!, $column: String!, $value: JSON!) {
+        change_column_value(
+          board_id: $board,
+          item_id: $item,
+          column_id: $column,
+          value: $value
+        ) { id }
+      }`,
+      { board: String(boardId), item: String(itemId), column: columnId, value: JSON.stringify({ text: String(text) }) },
+    );
+  }
+}
+
 function validateQueueStateArgs(args) {
   const status = String(args.status ?? "").trim();
+  const group = String(args.group ?? "").trim();
   const waitingState = String(args["waiting-state"] ?? "").trim();
   const combined = `${status} ${waitingState}`.toLowerCase();
   const humanNeeded = args["human-needed"] === undefined ? "" : booleanLabel(args["human-needed"]);
+  const setsHumanNeeded = isSettingHumanNeeded({ humanNeeded, status, group });
 
   if (/waiting on agent|waiting on proof review/.test(combined)) {
     throw new Error(
@@ -369,6 +398,79 @@ function validateQueueStateArgs(args) {
       "Invalid queue state: authenticated access path work is Agent Working / Access Investigation until a client, owner, or vendor must act.",
     );
   }
+
+  if (setsHumanNeeded) {
+    if (!hasNumberedSteps(args["next-action"])) {
+      throw new Error(
+        "Invalid human-needed job: --next-action must contain numbered owner steps, e.g. `1. Open...` `2. Decide...` `3. Reply...`.",
+      );
+    }
+
+    if (!hasCompletionMarker(args["next-action"]) && !hasCompletionMarker(args["unlock-proof"])) {
+      throw new Error(
+        "Invalid human-needed job: --next-action or --unlock-proof must say what counts as done, e.g. `Done when:` or `Done criteria:`.",
+      );
+    }
+  }
+}
+
+function isSettingHumanNeeded({ humanNeeded, status, group }) {
+  return humanNeeded === "Yes" || /^human needed$/i.test(status) || /^human needed$/i.test(group);
+}
+
+function hasNumberedSteps(value) {
+  return String(value ?? "")
+    .split(/\r?\n/)
+    .filter((line) => /^\s*\d+[.)]\s+\S+/.test(line)).length >= 2;
+}
+
+function hasCompletionMarker(value) {
+  return /\b(done when|done criteria|complete when|completion proof|counts as done)\b/i.test(String(value ?? ""));
+}
+
+async function maybePostOwnerInstructionUpdate({ token, itemId, args }) {
+  if (args["skip-owner-update"]) return;
+  const status = String(args.status ?? "").trim();
+  const group = String(args.group ?? "").trim();
+  const humanNeeded = args["human-needed"] === undefined ? "" : booleanLabel(args["human-needed"]);
+  if (!isSettingHumanNeeded({ humanNeeded, status, group })) return;
+  if (!args["next-action"]) return;
+
+  const body = buildOwnerInstructionUpdate({ nextAction: args["next-action"], unlockProof: args["unlock-proof"] });
+  const marker = ownerInstructionMarker(body);
+  const existing = await getItemUpdateBodies({ token, itemId });
+  if (existing.some((updateBody) => updateBody.includes(marker))) return;
+
+  await monday(
+    token,
+    `mutation ($item: ID!, $body: String!) {
+      create_update(item_id: $item, body: $body) { id }
+    }`,
+    { item: String(itemId), body: `${body}\n\nOwner-step sync: ${marker}` },
+  );
+}
+
+async function getItemUpdateBodies({ token, itemId }) {
+  const data = await monday(
+    token,
+    `query ($ids: [ID!]) {
+      items(ids: $ids) {
+        updates(limit: 10) { body }
+      }
+    }`,
+    { ids: [String(itemId)] },
+  );
+  return data.items?.[0]?.updates?.map((update) => String(update.body ?? "")) ?? [];
+}
+
+function buildOwnerInstructionUpdate({ nextAction, unlockProof }) {
+  const parts = ["Owner-needed instructions", String(nextAction).trim()];
+  if (unlockProof) parts.push(String(unlockProof).trim());
+  return parts.filter(Boolean).join("\n\n");
+}
+
+function ownerInstructionMarker(body) {
+  return createHash("sha256").update(String(body)).digest("hex").slice(0, 12);
 }
 
 function buildColumnKeysById(columns) {
@@ -378,15 +480,31 @@ function buildColumnKeysById(columns) {
   );
 }
 
-function buildItemValues({ item, columnKeysById }) {
+function buildColumnTypesById(columns) {
+  return Object.fromEntries(columns.map((column) => [column.id, column.type]));
+}
+
+function buildItemValues({ item, columnKeysById, columnTypesById }) {
   const values = {};
   for (const columnValue of item.column_values) {
-    const text = columnValue.text ?? "";
+    const text = readColumnText(columnValue, columnTypesById[columnValue.id]);
     values[columnValue.id] = text;
     const key = columnKeysById[columnValue.id];
     if (key) values[key] = text;
   }
   return values;
+}
+
+function readColumnText(columnValue, columnType) {
+  if (columnType === "long_text" && columnValue.value) {
+    try {
+      const value = JSON.parse(columnValue.value);
+      if (typeof value?.text === "string") return value.text;
+    } catch {
+      // Fall back to monday's text representation below.
+    }
+  }
+  return columnValue.text ?? "";
 }
 
 function pickGroup({ groups, args }) {
@@ -435,6 +553,18 @@ function parseArgs(argv) {
     }
   }
   return args;
+}
+
+function hydrateFileArgs(args) {
+  for (const [target, fileArg] of [
+    ["notes", "notes-file"],
+    ["next-action", "next-action-file"],
+    ["unlock-proof", "unlock-proof-file"],
+  ]) {
+    if (args[fileArg] === undefined) continue;
+    const path = String(args[fileArg]);
+    args[target] = readFileSync(path, "utf8").trimEnd();
+  }
 }
 
 function loadEnv(path) {
@@ -506,7 +636,7 @@ Allowed writer roles:
 Examples:
   npm run monday:agent-job -- --action setup --role Manager
   npm run monday:agent-job -- --action list
-  npm run monday:agent-job -- --action create --role Manager --name "Refresh Smartlead API access" --group "Human Needed" --status "Human Needed" --owner Mike --agent-owner "Manager / Systems Director" --system Smartlead --human-needed yes --priority High --due 2026-05-27 --budget 0 --proof "https://github.com/mje-gmf/website/blob/main/docs/client-ops-ledger/prospecting-smartlead-preflight-current.md" --proof-text "Smartlead preflight report" --next-action "Refresh the Smartlead API key, add it locally and in production, then rerun npm run prospecting:preflight." --upsert
+  npm run monday:agent-job -- --action create --role Manager --name "Refresh Smartlead API access" --group "Human Needed" --status "Human Needed" --owner Mike --agent-owner "Manager / Systems Director" --system Smartlead --human-needed yes --priority High --due 2026-05-27 --budget 0 --proof "https://github.com/mje-gmf/website/blob/main/docs/client-ops-ledger/prospecting-smartlead-preflight-current.md" --proof-text "Smartlead preflight report" --next-action-file tmp-owner-steps.txt --upsert
   npm run monday:agent-job -- --action update --role Manager --item-id 123 --status "Agent Working" --waiting-state "Agent-owned access investigation" --runtime-state "Access Investigation" --expected-receive "2026-05-29T12:00:00-04:00" --escalate-at "2026-05-29T15:00:00-04:00" --next-owner "Profile Manager / Systems Director" --unlock-proof "Authenticated read-only proof or documented access-path exhaustion"
   npm run monday:agent-job -- --action create --role Manager --name "Build prospecting Mission Control reports" --group "01 Prospecting - Cold Email" --status "Agent Working" --agent-owner "Reporter / Systems Director" --system "Mission Control" --lifecycle "01 Prospecting - Cold Email" --service-line "Prospecting" --job-type "Reporting" --human-needed no --upsert
   npm run monday:agent-job -- --action update --role Reporter --item-id 123 --status Done --human-needed no --notes "Proof attached."

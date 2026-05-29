@@ -146,10 +146,10 @@ export function Navbar() {
 
             {!isLegalPage ? (
               <Link
-                href={withLocale("/contact")}
+                href={withLocale("/#free-audit")}
                 className="group hidden md:inline-flex items-center gap-1.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-5 py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-[var(--color-accent)]/30 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               >
-                {"See if AI recommends you"}
+                {"Get free visibility check"}
                 <span
                   aria-hidden="true"
                   className="transition-transform duration-200 group-hover:translate-x-0.5"
@@ -246,11 +246,11 @@ export function Navbar() {
                   </Link>
                   {!isLegalPage ? (
                     <Link
-                      href={withLocale("/contact")}
+                      href={withLocale("/#free-audit")}
                       onClick={() => setMobileOpen(false)}
                       className="mt-3 block w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-4 py-3 rounded-lg font-semibold text-center transition-colors"
                     >
-                      {"See if AI recommends you"}
+                      {"Get free visibility check"}
                     </Link>
                   ) : null}
                 </div>

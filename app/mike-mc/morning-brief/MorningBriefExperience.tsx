@@ -22,6 +22,7 @@ type OwnerAction = {
   id: string;
   title: string;
   ask: string;
+  steps: string[];
   source: string;
   owner: string;
   due: string;
@@ -68,8 +69,15 @@ export function MorningBriefExperience({
   }).format(new Date());
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#f4f7fb] text-slate-950">
-      <header className="border-b border-slate-200 bg-white">
+    <main
+      className="min-h-screen overflow-x-hidden text-slate-950"
+      style={{
+        backgroundImage:
+          "linear-gradient(90deg, rgba(15, 23, 42, 0.025) 1px, transparent 1px), linear-gradient(180deg, rgba(15, 23, 42, 0.02) 1px, transparent 1px), linear-gradient(180deg, #f9fbff 0%, #eef7f6 36%, #f8f5ee 72%, #f4f7fb 100%)",
+        backgroundSize: "56px 56px, 56px 56px, 100% 100%",
+      }}
+    >
+      <header className="bg-white/90 backdrop-blur" style={{ borderBottom: "1px solid rgba(148, 163, 184, 0.22)" }}>
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-6 md:px-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <nav className="flex flex-wrap gap-2" aria-label="Mission Control">
@@ -110,13 +118,13 @@ export function MorningBriefExperience({
 
       <OwnerContextStrip brief={brief} weather={weather} />
 
-      <section className="border-b border-slate-200 bg-[#fffaf0]">
+      <section className="bg-[#fffaf0]/90 backdrop-blur" style={{ borderBottom: "1px solid rgba(148, 163, 184, 0.2)" }}>
         <div className="mx-auto max-w-7xl px-4 py-5 md:px-8">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start">
             <p className="font-semibold text-amber-900">Start here</p>
             <p className="min-w-0 break-words text-sm leading-6 text-amber-950">
               {topAction
-                ? `${topAction.title}: ${topAction.ask}`
+                ? `${topAction.title}: ${topAction.steps[0] || topAction.ask}`
                 : "No owner action is currently marked as required. Agents continue the queue and escalate only true decisions."}
             </p>
           </div>
@@ -162,7 +170,13 @@ export function MorningBriefExperience({
         )}
       </section>
 
-      <section className="border-y border-slate-200 bg-white">
+      <section
+        className="bg-white/80 backdrop-blur"
+        style={{
+          borderBottom: "1px solid rgba(148, 163, 184, 0.22)",
+          borderTop: "1px solid rgba(148, 163, 184, 0.22)",
+        }}
+      >
         <div className="mx-auto max-w-7xl px-4 py-6 md:px-8">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
             <LiveStateCard label="Smartlead campaign" value="Paused" detail="No prospect sends before approval." tone="warm" />
@@ -201,7 +215,7 @@ function OwnerContextStrip({ brief, weather }: { brief: MorningBriefData; weathe
   const calendar = brief.ownerContext.calendar;
 
   return (
-    <section className="border-b border-slate-200 bg-[#eef7f6]">
+    <section className="bg-[#eef7f6]/85 backdrop-blur" style={{ borderBottom: "1px solid rgba(148, 163, 184, 0.2)" }}>
       <div className="mx-auto max-w-7xl px-4 py-5 md:px-8">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <ContextCard
@@ -403,6 +417,18 @@ function OwnerActionCard({ action }: { action: OwnerAction }) {
         <span className={chipTone(action.tone)}>{action.status}</span>
       </div>
       <p className="mt-4 break-words text-sm leading-6 text-slate-700">{action.ask}</p>
+      {action.steps.length ? (
+        <div className="mt-5 rounded-lg border border-slate-200 bg-slate-50/80 p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Steps to complete</p>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-slate-700">
+            {action.steps.map((step, index) => (
+              <li key={`${action.id}-${index}`} className="break-words">
+                {step}
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : null}
       <dl className="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
         <div>
           <dt className="font-semibold text-slate-500">Owner</dt>
@@ -564,8 +590,18 @@ function buildOwnerActions({
       id: "casey-mailbox",
       title: "Secure Casey mailbox",
       ask:
+        caseyRow?.nextAction ||
         caseySignal?.action ||
         "Complete Casey first-login security/reply proof, or approve a monitored fallback reply path for Monday launch.",
+      steps: stepList(
+        caseyRow?.nextAction || caseySignal?.action,
+        [
+          "Sign in to casey@getmefound.ai and complete the first-login security prompts.",
+          "Confirm recovery/admin settings are secure inside Google Workspace.",
+          "Send one reply from Casey to the internal test email so Systems Director can verify the mailbox can answer clients.",
+          "Tell Elon whether Casey is approved for Monday replies or whether to use the monitored fallback reply path.",
+        ],
+      ),
       source: caseySignal ? "Slack DM + Monday" : "Monday",
       owner: "Mike, then Systems Director",
       due: caseyRow?.expectedReceive ? shortDate(caseyRow.expectedReceive) : "Today",
@@ -576,16 +612,37 @@ function buildOwnerActions({
   }
 
   const smartleadRows = rows.filter((row) => /smartlead/i.test(row.name));
-  if (smartleadRows.length) {
+  for (const row of smartleadRows) {
+    const isSeedLaunch = /seed launch/i.test(row.name);
     actions.push({
-      id: "smartlead-approval",
-      title: "Decide Monday prospecting launch",
-      ask: "Review the five-niche packet, then approve med-spa-only, choose another niche, approve a split test, or hold. Campaign stays paused until this decision.",
+      id: `smartlead-${row.id}`,
+      title: isSeedLaunch ? "Approve Smartlead seed launch" : "Decide Monday prospecting launch",
+      ask:
+        row.nextAction ||
+        (isSeedLaunch
+          ? "Review the max-safe send packet, then approve resume campaign 3379589 or hold."
+          : "Review the five-niche packet, then approve med-spa-only, choose another niche, approve a split test, or hold."),
+      steps: stepList(
+        row.nextAction,
+        isSeedLaunch
+          ? [
+              "Open the max-safe send approval packet from the proof link.",
+              "Confirm whether to resume campaign 3379589 or hold.",
+              "If resuming, approve niche, lead count, per-inbox cap, send window, and follow-up state.",
+              "Reply to Elon with the approval sentence or hold reason.",
+            ]
+          : [
+              "Open the five-niche packet from the proof link.",
+              "Review the recommended first lane, target profile, and send cap.",
+              "Tell Elon one exact decision: med-spa-only, another niche, split test, or hold.",
+              "Do not approve any live sends unless the decision includes the niche and cap.",
+            ],
+      ),
       source: "Monday",
       owner: "Mike + Elon",
-      due: shortDate(smartleadRows[0].expectedReceive) || "Today",
+      due: shortDate(row.expectedReceive) || "Today",
       status: "Approval needed",
-      proof: smartleadRows[0].proofText,
+      proof: row.proofText,
       tone: "warm",
     });
   }
@@ -596,6 +653,7 @@ function buildOwnerActions({
       id: `monday-${row.id}`,
       title: row.name,
       ask: row.nextAction || row.proofText || "Review this Monday owner-needed row.",
+      steps: stepList(row.nextAction, ["Open the Monday item.", "Follow the Next Action instructions.", "Tell Elon the decision or completion proof."]),
       source: "Monday",
       owner: row.nextOwner || row.agentOwner || "Mike",
       due: shortDate(row.expectedReceive) || "Today",
@@ -611,6 +669,7 @@ function buildOwnerActions({
       id: `slack-${signal.title}`,
       title: signal.title,
       ask: signal.action,
+      steps: stepList(signal.action, ["Open the Manager Slack DM.", "Complete the requested owner step.", "Reply to Elon with the result."]),
       source: signal.source,
       owner: "Mike",
       due: signal.timestamp || "Today",
@@ -626,6 +685,7 @@ function buildOwnerActions({
       id: `brief-${item}`,
       title: "Morning brief ask",
       ask: item,
+      steps: stepList(item, ["Review this morning brief ask.", "Make the decision or complete the owner step.", "Tell Elon the result."]),
       source: "Morning brief",
       owner: "Mike",
       due: "Today",
@@ -644,6 +704,21 @@ function shortDate(value: string) {
   const suffix = hour >= 12 ? "PM" : "AM";
   const hour12 = hour % 12 || 12;
   return `May ${match[1]}, ${hour12}:${match[3]} ${suffix} ET`;
+}
+
+function stepList(source: string | undefined, fallback: string[]) {
+  const parsed = parseNumberedSteps(source);
+  return parsed.length >= 2 ? parsed : fallback;
+}
+
+function parseNumberedSteps(source: string | undefined) {
+  if (!source) return [];
+  return source
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => /^\d+[.)]\s+/.test(line))
+    .map((line) => line.replace(/^\d+[.)]\s+/, "").trim())
+    .filter(Boolean);
 }
 
 function formatWeatherNumber(value: number | undefined) {

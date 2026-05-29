@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const breadcrumb = pageBreadcrumbs("About", "/about");
 
-const AUDIT_HREF = "/report/ai-visibility";
+const AUDIT_HREF = "/#free-audit";
 const MIKE_LINKEDIN = "https://www.linkedin.com/in/mikeegidio/";
 
 const companyRows = [
@@ -355,34 +355,32 @@ export default function AboutPage() {
                 Partnerships, curiosity, or want to know if GetMeFound makes sense for your
                 business — we answer within a few hours.
               </p>
-              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row flex-wrap">
+              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link
-                  href="/contact"
+                  href={AUDIT_HREF}
                   className="group inline-flex items-center gap-2 rounded-xl bg-(--color-accent) px-8 py-4 text-base font-semibold text-(--color-accent-text) transition-all hover:bg-(--color-accent-hover) hover:-translate-y-0.5 hover:shadow-xl hover:shadow-(--color-accent)/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 >
-                  Send a message
-                  <span
-                    aria-hidden="true"
-                    className="transition-transform group-hover:translate-x-0.5"
-                  >
-                    →
-                  </span>
+                  Get my free visibility check
+                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
                 </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-hero-text ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-white/20"
+                >
+                  Send a message →
+                </Link>
+              </div>
+              <p className="mt-4 text-sm text-hero-subtext/40">
+                Prefer a call?{" "}
                 <a
                   href="https://calendly.com/mike-getmefound/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-hero-text ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-white/20"
+                  className="text-hero-subtext/60 underline underline-offset-2 hover:text-hero-subtext/80 transition-colors"
                 >
-                  Book a call →
+                  Book 30 minutes →
                 </a>
-                <Link
-                  href={AUDIT_HREF}
-                  className="inline-flex items-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-hero-text ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-white/20"
-                >
-                  See if AI recommends you →
-                </Link>
-              </div>
+              </p>
             </Reveal>
           </div>
         </section>

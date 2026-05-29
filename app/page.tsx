@@ -5,6 +5,8 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { HomepageFAQ } from "@/components/sections/HomepageFAQ";
 import { ReportTransformation } from "@/components/sections/ReportTransformation";
 import { VisibilityCheck } from "@/components/sections/VisibilityCheck";
+import { FounderNote } from "@/components/sections/FounderNote";
+import { GetFoundCloseBlock } from "@/components/sections/GetFoundCloseBlock";
 import { Reveal } from "@/components/Reveal";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
@@ -178,7 +180,7 @@ export default function Home() {
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   <Link
-                    href="/report/ai-visibility"
+                    href="/#free-audit"
                     className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30 sm:w-auto"
                   >
                     Check if AI can find you
@@ -206,6 +208,8 @@ export default function Home() {
         </section>
 
         <ReportTransformation />
+
+        <FounderNote />
 
         <HowItWorks />
 

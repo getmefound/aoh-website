@@ -67,7 +67,7 @@ export function Footer() {
           Be the business AI recommends.
         </p>
         <Link
-          href="/report/ai-visibility"
+          href="/#free-audit"
           className="inline-flex items-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-accent-text)] transition-all hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5"
         >
           See if AI recommends you →
