@@ -222,26 +222,26 @@ export default function PartnersPage() {
             {[
               {
                 svgPath: "M10.5 10.5l3 3M6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z",
-                title: "Visibility check",
-                desc: "They see exactly where they stand vs. local competitors — before and after",
+                title: "AI visibility check",
+                desc: "Exactly where they stand vs. local competitors — scored on the signals AI checks.",
                 color: "#60a5fa",
               },
               {
                 svgPath: "M4 2h8l2 2v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1zm2 6l2 2 3-3",
-                title: "Profile cleanup",
-                desc: "Google Business Profile cleaned up and synced so AI can trust it",
+                title: "Crawlability + schema",
+                desc: "AI crawlability + schema added so Google AI, ChatGPT, and Claude can read and trust them.",
                 color: "#4ade80",
               },
               {
                 svgPath: "M8 2l1.5 3.5L13 6l-2.5 2.5.5 3.5L8 10.5 5 12l.5-3.5L3 6l3.5-.5L8 2z",
-                title: "Review jumpstart",
-                desc: "First review request path prepared for real customers, with safe send proof",
+                title: "Review-velocity engine",
+                desc: "Switched on — recent reviews start flowing automatically (recency beats total count).",
                 color: "#fbbf24",
               },
               {
                 svgPath: "M2 14V9h3v5M7 14V6h3v8M12 14V3h3v11",
-                title: "Proof report",
-                desc: "Before/after snapshot showing exactly what changed and what improved",
+                title: "Before/after report",
+                desc: "All 20 signals AI checks — scored before and after, delivered in 48 hours.",
                 color: "#a855f8",
               },
             ].map(({ svgPath, title, desc, color }) => (
@@ -394,11 +394,11 @@ export default function PartnersPage() {
               <div className="px-6 py-5" style={{ backgroundColor: "var(--color-bg-elevated)" }}>
                 <p className="text-base leading-relaxed" style={{ color: "var(--color-text-body)" }}>
                   &ldquo;Real talk &mdash; if someone searches for your type of business right now,
-                  is AI recommending you? Probably not, and it&apos;s not your fault. Google Search
-                  is becoming more AI-driven and most local businesses have no idea. There&apos;s a service
-                  called GetMeFound &mdash; $149, they clean up your Google profile and fix your AI visibility signals,
-                  and they help set up the first safe review request path.
-                  No monthly fee. Link is below.&rdquo;
+                  is Google AI recommending you? Probably not. Google replaced traditional search with AI &mdash;
+                  ChatGPT, Claude, and Gemini now pick one or two local businesses instead of showing ten results.
+                  Most local profiles fail the signals AI checks. A service called GetMeFound fixes that &mdash;
+                  $149, they engineer the crawlability, schema, and review-velocity signals so AI can read
+                  and recommend you. One-time, no contract. Link is below.&rdquo;
                 </p>
               </div>
             </div>
@@ -419,12 +419,14 @@ export default function PartnersPage() {
               <div className="px-6 py-5" style={{ backgroundColor: "var(--color-bg-elevated)" }}>
                 <p className="text-base leading-relaxed" style={{ color: "var(--color-text-body)" }}>
                   &ldquo;Something worth flagging if you run a local business or know someone who does:
-                  Google Search is becoming more AI-driven and conversational. Instead of only matching keywords,
-                  it needs complete, trustworthy business facts before it can confidently recommend a local company.
-                  Most local profiles are too incomplete for that. A service called GetMeFound fixes this.
-                  They clean up your Google Business Profile, sync your info, set up your first review
-                  request path, and show you the before/after proof &mdash; all for a
-                  one-time $149. No subscription, no contract. If you&apos;ve been getting fewer calls lately
+                  Google replaced its traditional search with AI. Instead of showing ten results,
+                  Google AI, ChatGPT, Claude, and Gemini now pick one or two local businesses to recommend.
+                  Most local profiles don&apos;t pass the signals AI checks &mdash; crawlability, schema,
+                  entity consistency, review velocity &mdash; and the owners have no idea.
+                  A service called GetMeFound fixes this. They engineer the signals AI checks,
+                  rebuild your Google profile for those signals, switch on your review-velocity path,
+                  and give you a before/after report scoring all 20 AI signals &mdash;
+                  all for a one-time $149. No contract. If you&apos;ve been getting fewer calls lately
                   and can&apos;t figure out why, this is probably it. Check it out: [YOUR LINK]&rdquo;
                 </p>
               </div>
@@ -496,6 +498,52 @@ export default function PartnersPage() {
         </div>
       </section>
 
+      {/* Program terms */}
+      <section
+        style={{ backgroundColor: "var(--color-bg-page)", borderBottomColor: "var(--color-border)" }}
+        className="border-b py-14 md:py-16"
+      >
+        <div className="mx-auto max-w-4xl px-6">
+          <p className="mb-4 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)] text-center">
+            Attribution &amp; program terms
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div className="rounded-2xl border p-5" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-elevated)" }}>
+              <p className="font-bold text-sm mb-3" style={{ color: "var(--color-text-body)" }}>Attribution window</p>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                60-day cookie. You&rsquo;re credited if someone clicks your link and buys within 60 days &mdash;
+                even if they don&rsquo;t buy on the first visit.
+              </p>
+            </div>
+            <div className="rounded-2xl border p-5" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-elevated)" }}>
+              <p className="font-bold text-sm mb-3" style={{ color: "var(--color-text-body)" }}>Payouts &amp; tax</p>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                Commissions paid monthly. Reversed on refunds or chargebacks.
+                US partners earning $600 or more per year receive a 1099-NEC.
+              </p>
+            </div>
+            <div className="rounded-2xl border p-5 md:col-span-2" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-elevated)" }}>
+              <p className="font-bold text-sm mb-3" style={{ color: "var(--color-text-body)" }}>Program rules</p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                {[
+                  "Approval required before a link is issued — we review every application.",
+                  "No self-referrals. You can't refer yourself or businesses you own or control.",
+                  "No brand bidding in paid search. Don't bid on \"GetMeFound\" keywords.",
+                  "No spam or incentivised signups (\"get paid to click\", unsolicited mass email).",
+                  "Commissions reversed on refunds, chargebacks, or disputed purchases.",
+                  "We reserve the right to withhold commissions or end participation for program violations or fraud.",
+                ].map((rule) => (
+                  <li key={rule} className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+                    {rule}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Application form */}
       <section
         id="apply"
@@ -521,11 +569,11 @@ export default function PartnersPage() {
           <p className="mt-5 text-center text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
             Questions? Email{" "}
             <a
-              href="mailto:mike@getmefound.ai"
+              href="mailto:support@getmefound.ai"
               className="hover:underline"
               style={{ color: "var(--color-accent)" }}
             >
-              mike@getmefound.ai
+              support@getmefound.ai
             </a>
           </p>
         </div>
