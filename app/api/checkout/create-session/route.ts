@@ -49,7 +49,8 @@ export async function POST(req: NextRequest) {
     success_url: successUrl,
     cancel_url: `${origin}/pricing`,
     metadata,
-    billing_address_collection: "required",
+    billing_address_collection: "auto",   // collects name + postal code for AVS; no forced full-address form
+    phone_number_collection: { enabled: false },
     allow_promotion_codes: false,
     customer_creation: product.stripeMode === "payment" ? "always" : undefined,
     payment_method_types: ["card", "link", "us_bank_account"],
