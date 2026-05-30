@@ -14,7 +14,7 @@ The launch work is now backed in the agent-owned places we can safely control: G
 |---|---|---|
 | GitHub main | Backed | `origin/main` is pushed and includes the launch backup work plus this current backup-status report. Verify exact restore HEAD with `git rev-parse HEAD` after cloning/restoring. |
 | GitHub backup branch | Backed | `origin/backup/gmf-launch-20260530-080040` at commit `d4b1f1200cb85b07831c8eaba19e56306dd7bcac` |
-| AOH archive backup branch | Backed | `aoh-archive/backup/gmf-launch-20260530-final` at commit `08d4480f8d0ef310369b4a0af1e0eba0388f23ff`; pushed with the stored `AiOutsourceHub` GitHub auth path |
+| AOH archive backup branch | Backed | `aoh-archive/backup/gmf-launch-20260530-final` exists and was pushed with the stored `AiOutsourceHub` GitHub auth path. Verify exact restore HEAD with `git ls-remote aoh-archive refs/heads/backup/gmf-launch-20260530-final`. |
 | Local portable backup | Backed | `C:\Users\micha\Documents\GMF Backups\2026-05-30-0800-aoh-website` |
 | Obsidian portable backup | Backed | `C:\Users\micha\Obsidian\Oracle\04 AI Outsource Hub\Operations\GMF Backups\2026-05-30-0800-aoh-website-portable` |
 | Google Drive portable backup | Backed | `G:\My Drive\GMF Backups\2026-05-30-0800-aoh-website` and `H:\My Drive\GMF Backups\2026-05-30-0800-aoh-website` |
@@ -51,7 +51,7 @@ The launch work is now backed in the agent-owned places we can safely control: G
 9. Deployed a Vercel preview from the current working tree.
 10. Confirmed Vercel preview status is Ready.
 11. Repaired the archive remote backup path using the stored `AiOutsourceHub` GitHub auth token without exposing the token value.
-12. Pushed `aoh-archive/backup/gmf-launch-20260530-final` at commit `08d4480f8d0ef310369b4a0af1e0eba0388f23ff`.
+12. Pushed `aoh-archive/backup/gmf-launch-20260530-final` and fast-forwarded it after the proof report update.
 13. Repaired VPS SSH proof path; alias `atlantis` works from this runtime.
 14. Confirmed `/root/gmf-docs` and `/docker/openclaw-dntw` exist.
 15. Uploaded the portable backup bundle, source zip, manifest, and backup report to `/root/gmf-docs/backups/2026-05-30-0819-aoh-website`.
